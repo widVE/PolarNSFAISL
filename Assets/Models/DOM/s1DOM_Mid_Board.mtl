@@ -1,0 +1,140 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 29.07.2013 15:46:10
+
+newmtl microchip_black
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0471 0.0471 0.0471
+	Kd 0.0471 0.0471 0.0471
+	Ks 0.0400 0.0400 0.0400
+	Ke 0.0000 0.0000 0.0000
+
+newmtl Material__226
+	Ns 24.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.6588 0.6588 0.6588
+	Kd 0.6588 0.6588 0.6588
+	Ks 0.1620 0.1620 0.1620
+	Ke 0.0000 0.0000 0.0000
+
+newmtl silver
+	Ns 37.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.9412 0.9412 0.9412
+	Kd 0.9412 0.9412 0.9412
+	Ks 2.3130 2.3130 2.3130
+	Ke 0.0000 0.0000 0.0000
+
+newmtl gold
+	Ns 26.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.9529 0.6235 0.1961
+	Kd 0.9529 0.6235 0.1961
+	Ks 2.2320 2.2320 2.2320
+	Ke 0.0000 0.0000 0.0000
+
+newmtl orange
+	Ns 5.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.8824 0.4157 0.0118
+	Kd 0.8824 0.4157 0.0118
+	Ks 0.5700 0.5700 0.5700
+	Ke 0.0000 0.0000 0.0000
+
+newmtl SideBoard_texture
+	Ns 42.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.3780 0.3780 0.3780
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Textures/SideBoard_FULLTexture.jpg
+	map_Kd Textures/SideBoard_FULLTexture.jpg
+	map_d Textures/SideBoard_FULLTexture.jpg
+
+newmtl circuit_part_2_and_3_color
+	Ns 37.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0667 0.3686 0.9176
+	Kd 0.0667 0.3686 0.9176
+	Ks 1.2960 1.2960 1.2960
+	Ke 0.0000 0.0000 0.0000
+
+newmtl yeller
+	Ns 27.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.6235 0.4275 0.0118
+	Kd 0.6235 0.4275 0.0118
+	Ks 0.5700 0.5700 0.5700
+	Ke 0.0000 0.0000 0.0000
+
+newmtl LED_Bulbs
+	Ns 30.0000
+	Ni 1.5000
+	d 0.1400
+	Tr 0.8600
+	Tf 0.1400 0.1400 0.1400 
+	illum 2
+	Ka 0.9020 0.9020 0.9020
+	Kd 0.9020 0.9020 0.9020
+	Ks 1.0350 1.0350 1.0350
+	Ke 0.0000 0.0000 0.0000
+
+newmtl copper
+	Ns 26.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.9529 0.4000 0.0314
+	Kd 0.9529 0.4000 0.0314
+	Ks 2.2320 2.2320 2.2320
+	Ke 0.0000 0.0000 0.0000
+
+newmtl MiddleBoard_Texture
+	Ns 42.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.3780 0.3780 0.3780
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Textures/MiddleBoard_FULLTexture.jpg
+	map_Kd Textures/MiddleBoard_FULLTexture.jpg
+	map_d Textures/MiddleBoard_FULLTexture.jpg

@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: fb71c88b2627c7d479ee17ecf71879c4
+timeCreated: 1480701635
+licenseType: Free
+SketchUpImporter:
+  generateBackFace: 0
+  mergeCoplanarFaces: 0
+  selectedNodes: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
+  assetHash:
+    serializedVersion: 2
+    Hash: 5991b047d664a55fb44530fd64ad7e3c
+  longitude: -105.283
+  latitude: 40.017
+  northCorrection: -0
+  fileUnit: 0
+  sketchUpImportData:
+    defaultCamera:
+      position: {x: 4.4253006, y: 2.258524, z: -9.817357}
+      lookAt: {x: 1.6480021, y: 0.34804487, z: 14.489381}
+      up: {x: -0.008838083, y: 0.9969648, z: 0.07735033}
+      fov: 35
+      aspectRatio: 0
+      orthoSize: 1
+      isPerspective: 1
+    scenes: []
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Component#1
+    100002: crewman02
+    100004: crewman03
+    100006: crewman04
+    100008: crewman06
+    100010: dog team
+    100012: //RootNode
+    400000: Component#1
+    400002: crewman02
+    400004: crewman03
+    400006: crewman04
+    400008: crewman06
+    400010: dog team
+    400012: //RootNode
+    2300000: Component#1
+    2300002: crewman02
+    2300004: crewman03
+    2300006: crewman04
+    2300008: crewman06
+    2300010: dog team
+    3300000: Component#1
+    3300002: crewman02
+    3300004: crewman03
+    3300006: crewman04
+    3300008: crewman06
+    3300010: dog team
+    4300000: Mesh dog team
+    4300002: Mesh crewman06
+    4300004: Mesh Component#1
+    4300006: Mesh crewman04
+    4300008: Mesh crewman02
+    4300010: Mesh crewman03
+  materials:
+    importMaterials: 1
+    materialName: 2
+    materialSearch: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.0254
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

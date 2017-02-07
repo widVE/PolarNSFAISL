@@ -1,0 +1,566 @@
+fileFormatVersion: 2
+guid: 73134a962429d414884e07be83c08200
+timeCreated: 1476723380
+licenseType: Free
+SketchUpImporter:
+  generateBackFace: 0
+  mergeCoplanarFaces: 0
+  selectedNodes: 00000000010000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f000000700000007100000072000000730000007400000075000000760000007700000078000000790000007a0000007b0000007c0000007d0000007e0000007f000000800000008100000082000000830000008400000085000000860000008700000088000000890000008a0000008b0000008c0000008d0000008e0000008f000000900000009100000092000000930000009400000095000000960000009700000098000000990000009a0000009b0000009c0000009d0000009e0000009f000000a0000000a1000000a2000000a3000000a4000000a5000000a6000000a7000000a8000000a9000000aa000000ab000000ac000000ad000000ae000000af000000b0000000b1000000b2000000b3000000b4000000b5000000b6000000b7000000b8000000b9000000ba000000bb000000bc000000bd000000be000000bf000000c0000000c1000000c2000000c3000000c4000000c5000000c6000000c7000000c8000000c9000000ca000000cb000000cc000000cd000000ce000000cf000000d0000000
+  assetHash:
+    serializedVersion: 2
+    Hash: 8d4e0a39355d3ab3a16bbb2dd6cf0ead
+  longitude: -80.76987727696957
+  latitude: -89.99994142703143
+  northCorrection: -0
+  fileUnit: 0
+  sketchUpImportData:
+    defaultCamera:
+      position: {x: 26.355417, y: 20.16625, z: -33.6587}
+      lookAt: {x: -95.46355, y: 4.277371, z: 144.75076}
+      up: {x: -0.041361928, y: 0.9973062, z: 0.06057644}
+      fov: 33.767513
+      aspectRatio: 0
+      orthoSize: 1
+      isPerspective: 1
+    scenes:
+    - camera:
+        position: {x: 26.355417, y: 20.16625, z: -33.6587}
+        lookAt: {x: -95.46355, y: 4.277371, z: 144.75076}
+        up: {x: -0.041361928, y: 0.9973062, z: 0.06057644}
+        fov: 33.767513
+        aspectRatio: 0
+        orthoSize: 1
+        isPerspective: 1
+      name: Scene 6
+    - camera:
+        position: {x: 38.011765, y: 5.952228, z: 10.859191}
+        lookAt: {x: -174.54546, y: -23.392187, z: -18.815487}
+        up: {x: -0.13416663, y: 0.9907818, z: -0.018730728}
+        fov: 33.767513
+        aspectRatio: 0
+        orthoSize: 1
+        isPerspective: 1
+      name: Scene 7
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Component#1
+    100004: Component#3
+    100006: flag argentina
+    100008: flag aus
+    100010: flag Belgique
+    100012: flag chi
+    100014: flag France
+    100016: flag Japan
+    100018: flag norway
+    100020: flag nzd
+    100022: flag rsa
+    100024: flag Untitled
+    100026: Flag_Quarter
+    100028: Flag_Quarter 1
+    100030: Flag_Quarter 10
+    100032: Flag_Quarter 11
+    100034: Flag_Quarter 12
+    100036: Flag_Quarter 13
+    100038: Flag_Quarter 14
+    100040: Flag_Quarter 15
+    100042: Flag_Quarter 16
+    100044: Flag_Quarter 17
+    100046: Flag_Quarter 18
+    100048: Flag_Quarter 19
+    100050: Flag_Quarter 2
+    100052: Flag_Quarter 20
+    100054: Flag_Quarter 21
+    100056: Flag_Quarter 22
+    100058: Flag_Quarter 23
+    100060: Flag_Quarter 24
+    100062: Flag_Quarter 25
+    100064: Flag_Quarter 26
+    100066: Flag_Quarter 27
+    100068: Flag_Quarter 28
+    100070: Flag_Quarter 29
+    100072: Flag_Quarter 3
+    100074: Flag_Quarter 30
+    100076: Flag_Quarter 31
+    100078: Flag_Quarter 32
+    100080: Flag_Quarter 33
+    100082: Flag_Quarter 34
+    100084: Flag_Quarter 35
+    100086: Flag_Quarter 36
+    100088: Flag_Quarter 37
+    100090: Flag_Quarter 38
+    100092: Flag_Quarter 39
+    100094: Flag_Quarter 4
+    100096: Flag_Quarter 40
+    100098: Flag_Quarter 41
+    100100: Flag_Quarter 42
+    100102: Flag_Quarter 43
+    100104: Flag_Quarter 44
+    100106: Flag_Quarter 45
+    100108: Flag_Quarter 46
+    100110: Flag_Quarter 47
+    100112: Flag_Quarter 5
+    100114: Flag_Quarter 6
+    100116: Flag_Quarter 7
+    100118: Flag_Quarter 8
+    100120: Flag_Quarter 9
+    100122: Flag_Russia
+    100124: Flag_USA_High-Polygon
+    100126: Group 7
+    100128: Group#1
+    100130: Group#23
+    100132: Group#30
+    100134: Group#31
+    100136: Group#32
+    100138: Group#33
+    100140: Group#34
+    100142: Group#35
+    100144: Group#36
+    100146: Group#37
+    100148: Group#38
+    100150: Group#39
+    100152: Group#40
+    100154: Group#41
+    100156: Group#42
+    100158: Group#43
+    100160: Group#44
+    100162: Group#45
+    100164: Group#46
+    100166: Group#47
+    100168: Group#48
+    100170: Group#49
+    100172: Group#50
+    100174: Group#51
+    100176: Group#52
+    100178: Group#53
+    100180: Group#54
+    100182: Group#55
+    100184: Group#56
+    100186: Group#57
+    100188: Group#58
+    100190: L1.125x1.125x.125
+    100192: pole
+    100194: pole 1
+    100196: pole 10
+    100198: pole 11
+    100200: pole 2
+    100202: pole 3
+    100204: pole 4
+    100206: pole 5
+    100208: pole 6
+    100210: pole 7
+    100212: pole 8
+    100214: pole 9
+    100216: Untitleusd
+    400000: //RootNode
+    400002: Component#1
+    400004: Component#3
+    400006: flag argentina
+    400008: flag aus
+    400010: flag Belgique
+    400012: flag chi
+    400014: flag France
+    400016: flag Japan
+    400018: flag norway
+    400020: flag nzd
+    400022: flag rsa
+    400024: flag Untitled
+    400026: Flag_Quarter
+    400028: Flag_Quarter 1
+    400030: Flag_Quarter 10
+    400032: Flag_Quarter 11
+    400034: Flag_Quarter 12
+    400036: Flag_Quarter 13
+    400038: Flag_Quarter 14
+    400040: Flag_Quarter 15
+    400042: Flag_Quarter 16
+    400044: Flag_Quarter 17
+    400046: Flag_Quarter 18
+    400048: Flag_Quarter 19
+    400050: Flag_Quarter 2
+    400052: Flag_Quarter 20
+    400054: Flag_Quarter 21
+    400056: Flag_Quarter 22
+    400058: Flag_Quarter 23
+    400060: Flag_Quarter 24
+    400062: Flag_Quarter 25
+    400064: Flag_Quarter 26
+    400066: Flag_Quarter 27
+    400068: Flag_Quarter 28
+    400070: Flag_Quarter 29
+    400072: Flag_Quarter 3
+    400074: Flag_Quarter 30
+    400076: Flag_Quarter 31
+    400078: Flag_Quarter 32
+    400080: Flag_Quarter 33
+    400082: Flag_Quarter 34
+    400084: Flag_Quarter 35
+    400086: Flag_Quarter 36
+    400088: Flag_Quarter 37
+    400090: Flag_Quarter 38
+    400092: Flag_Quarter 39
+    400094: Flag_Quarter 4
+    400096: Flag_Quarter 40
+    400098: Flag_Quarter 41
+    400100: Flag_Quarter 42
+    400102: Flag_Quarter 43
+    400104: Flag_Quarter 44
+    400106: Flag_Quarter 45
+    400108: Flag_Quarter 46
+    400110: Flag_Quarter 47
+    400112: Flag_Quarter 5
+    400114: Flag_Quarter 6
+    400116: Flag_Quarter 7
+    400118: Flag_Quarter 8
+    400120: Flag_Quarter 9
+    400122: Flag_Russia
+    400124: Flag_USA_High-Polygon
+    400126: Group 7
+    400128: Group#1
+    400130: Group#23
+    400132: Group#30
+    400134: Group#31
+    400136: Group#32
+    400138: Group#33
+    400140: Group#34
+    400142: Group#35
+    400144: Group#36
+    400146: Group#37
+    400148: Group#38
+    400150: Group#39
+    400152: Group#40
+    400154: Group#41
+    400156: Group#42
+    400158: Group#43
+    400160: Group#44
+    400162: Group#45
+    400164: Group#46
+    400166: Group#47
+    400168: Group#48
+    400170: Group#49
+    400172: Group#50
+    400174: Group#51
+    400176: Group#52
+    400178: Group#53
+    400180: Group#54
+    400182: Group#55
+    400184: Group#56
+    400186: Group#57
+    400188: Group#58
+    400190: L1.125x1.125x.125
+    400192: pole
+    400194: pole 1
+    400196: pole 10
+    400198: pole 11
+    400200: pole 2
+    400202: pole 3
+    400204: pole 4
+    400206: pole 5
+    400208: pole 6
+    400210: pole 7
+    400212: pole 8
+    400214: pole 9
+    400216: Untitleusd
+    2300000: //RootNode
+    2300002: Component#3
+    2300004: flag argentina
+    2300006: flag aus
+    2300008: flag Belgique
+    2300010: flag chi
+    2300012: flag France
+    2300014: flag Japan
+    2300016: flag norway
+    2300018: flag nzd
+    2300020: flag rsa
+    2300022: flag Untitled
+    2300024: Flag_Quarter
+    2300026: Flag_Quarter 1
+    2300028: Flag_Quarter 10
+    2300030: Flag_Quarter 11
+    2300032: Flag_Quarter 12
+    2300034: Flag_Quarter 13
+    2300036: Flag_Quarter 14
+    2300038: Flag_Quarter 15
+    2300040: Flag_Quarter 16
+    2300042: Flag_Quarter 17
+    2300044: Flag_Quarter 18
+    2300046: Flag_Quarter 19
+    2300048: Flag_Quarter 2
+    2300050: Flag_Quarter 20
+    2300052: Flag_Quarter 21
+    2300054: Flag_Quarter 22
+    2300056: Flag_Quarter 23
+    2300058: Flag_Quarter 24
+    2300060: Flag_Quarter 25
+    2300062: Flag_Quarter 26
+    2300064: Flag_Quarter 27
+    2300066: Flag_Quarter 28
+    2300068: Flag_Quarter 29
+    2300070: Flag_Quarter 3
+    2300072: Flag_Quarter 30
+    2300074: Flag_Quarter 31
+    2300076: Flag_Quarter 32
+    2300078: Flag_Quarter 33
+    2300080: Flag_Quarter 34
+    2300082: Flag_Quarter 35
+    2300084: Flag_Quarter 36
+    2300086: Flag_Quarter 37
+    2300088: Flag_Quarter 38
+    2300090: Flag_Quarter 39
+    2300092: Flag_Quarter 4
+    2300094: Flag_Quarter 40
+    2300096: Flag_Quarter 41
+    2300098: Flag_Quarter 42
+    2300100: Flag_Quarter 43
+    2300102: Flag_Quarter 44
+    2300104: Flag_Quarter 45
+    2300106: Flag_Quarter 46
+    2300108: Flag_Quarter 47
+    2300110: Flag_Quarter 5
+    2300112: Flag_Quarter 6
+    2300114: Flag_Quarter 7
+    2300116: Flag_Quarter 8
+    2300118: Flag_Quarter 9
+    2300120: Flag_Russia
+    2300122: Flag_USA_High-Polygon
+    2300124: Group 7
+    2300126: Group#1
+    2300128: Group#23
+    2300130: Group#30
+    2300132: Group#31
+    2300134: Group#32
+    2300136: Group#33
+    2300138: Group#34
+    2300140: Group#35
+    2300142: Group#36
+    2300144: Group#37
+    2300146: Group#38
+    2300148: Group#39
+    2300150: Group#40
+    2300152: Group#41
+    2300154: Group#42
+    2300156: Group#43
+    2300158: Group#44
+    2300160: Group#45
+    2300162: Group#46
+    2300164: Group#47
+    2300166: Group#48
+    2300168: Group#49
+    2300170: Group#50
+    2300172: Group#51
+    2300174: Group#52
+    2300176: Group#53
+    2300178: Group#54
+    2300180: Group#55
+    2300182: Group#56
+    2300184: Group#57
+    2300186: Group#58
+    2300188: L1.125x1.125x.125
+    3300000: //RootNode
+    3300002: Component#3
+    3300004: flag argentina
+    3300006: flag aus
+    3300008: flag Belgique
+    3300010: flag chi
+    3300012: flag France
+    3300014: flag Japan
+    3300016: flag norway
+    3300018: flag nzd
+    3300020: flag rsa
+    3300022: flag Untitled
+    3300024: Flag_Quarter
+    3300026: Flag_Quarter 1
+    3300028: Flag_Quarter 10
+    3300030: Flag_Quarter 11
+    3300032: Flag_Quarter 12
+    3300034: Flag_Quarter 13
+    3300036: Flag_Quarter 14
+    3300038: Flag_Quarter 15
+    3300040: Flag_Quarter 16
+    3300042: Flag_Quarter 17
+    3300044: Flag_Quarter 18
+    3300046: Flag_Quarter 19
+    3300048: Flag_Quarter 2
+    3300050: Flag_Quarter 20
+    3300052: Flag_Quarter 21
+    3300054: Flag_Quarter 22
+    3300056: Flag_Quarter 23
+    3300058: Flag_Quarter 24
+    3300060: Flag_Quarter 25
+    3300062: Flag_Quarter 26
+    3300064: Flag_Quarter 27
+    3300066: Flag_Quarter 28
+    3300068: Flag_Quarter 29
+    3300070: Flag_Quarter 3
+    3300072: Flag_Quarter 30
+    3300074: Flag_Quarter 31
+    3300076: Flag_Quarter 32
+    3300078: Flag_Quarter 33
+    3300080: Flag_Quarter 34
+    3300082: Flag_Quarter 35
+    3300084: Flag_Quarter 36
+    3300086: Flag_Quarter 37
+    3300088: Flag_Quarter 38
+    3300090: Flag_Quarter 39
+    3300092: Flag_Quarter 4
+    3300094: Flag_Quarter 40
+    3300096: Flag_Quarter 41
+    3300098: Flag_Quarter 42
+    3300100: Flag_Quarter 43
+    3300102: Flag_Quarter 44
+    3300104: Flag_Quarter 45
+    3300106: Flag_Quarter 46
+    3300108: Flag_Quarter 47
+    3300110: Flag_Quarter 5
+    3300112: Flag_Quarter 6
+    3300114: Flag_Quarter 7
+    3300116: Flag_Quarter 8
+    3300118: Flag_Quarter 9
+    3300120: Flag_Russia
+    3300122: Flag_USA_High-Polygon
+    3300124: Group 7
+    3300126: Group#1
+    3300128: Group#23
+    3300130: Group#30
+    3300132: Group#31
+    3300134: Group#32
+    3300136: Group#33
+    3300138: Group#34
+    3300140: Group#35
+    3300142: Group#36
+    3300144: Group#37
+    3300146: Group#38
+    3300148: Group#39
+    3300150: Group#40
+    3300152: Group#41
+    3300154: Group#42
+    3300156: Group#43
+    3300158: Group#44
+    3300160: Group#45
+    3300162: Group#46
+    3300164: Group#47
+    3300166: Group#48
+    3300168: Group#49
+    3300170: Group#50
+    3300172: Group#51
+    3300174: Group#52
+    3300176: Group#53
+    3300178: Group#54
+    3300180: Group#55
+    3300182: Group#56
+    3300184: Group#57
+    3300186: Group#58
+    3300188: L1.125x1.125x.125
+    4300000: Mesh amundsen-dome
+    4300002: Mesh Group 7
+    4300004: Mesh Group#1
+    4300006: Mesh Group#31
+    4300008: Mesh Group#33
+    4300010: Mesh Group#37
+    4300012: Mesh Group#35
+    4300014: Mesh Group#39
+    4300016: Mesh Group#40
+    4300018: Mesh Group#41
+    4300020: Mesh Group#38
+    4300022: Mesh Group#43
+    4300024: Mesh Group#42
+    4300026: Mesh Group#45
+    4300028: Mesh Group#44
+    4300030: Mesh Group#46
+    4300032: Mesh Group#47
+    4300034: Mesh Group#48
+    4300036: Mesh Group#49
+    4300038: Mesh Group#50
+    4300040: Mesh Group#51
+    4300042: Mesh Group#52
+    4300044: Mesh Group#53
+    4300046: Mesh Group#54
+    4300048: Mesh Group#23
+    4300050: Mesh Group#57
+    4300052: Mesh Group#58
+    4300054: Mesh Group#55
+    4300056: Mesh Group#56
+    4300058: Mesh Group#32
+    4300060: Mesh Group#34
+    4300062: Mesh Group#36
+    4300064: Mesh Group#30
+    4300066: Mesh Flag_Quarter
+    4300068: Mesh Flag_Quarter
+    4300070: Mesh flag rsa
+    4300072: Mesh flag Belgique
+    4300074: Mesh flag Japan
+    4300076: Mesh flag France
+    4300078: Mesh flag Untitled
+    4300080: Mesh L1.125x1.125x.125
+    4300082: Mesh Flag_USA_High-Polygon
+    4300084: Mesh flag norway
+    4300086: Mesh flag nzd
+    4300088: Mesh Flag_Russia
+    4300090: Mesh flag chi
+    4300092: Mesh flag aus
+    4300094: Mesh flag argentina
+    4300096: Mesh Component#3
+  materials:
+    importMaterials: 1
+    materialName: 2
+    materialSearch: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.0254
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

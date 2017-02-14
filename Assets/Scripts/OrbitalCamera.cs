@@ -10,7 +10,7 @@ public class OrbitalCamera : MonoBehaviour {
 	[SerializeField]
 	private float sensitivity = 0.5f;
 	void Start() {
-		str = GameObject.Find("DOMArray").GetComponent<StretchArrayManager> ();
+		str = GameObject.Find("Stretch_Array").GetComponent<StretchArrayManager> ();
 		if (str == null) {
 			Debug.Log ("Couldn't find the StretchArrayProto Gameobject");
 		}

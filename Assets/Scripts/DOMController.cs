@@ -6,9 +6,9 @@ public class DOMController : MonoBehaviour {
 
     public bool on = false;
     public float lastCharge = 0.0f;
-    private VisualizeEvent currentEvent = null;
     private MeshRenderer domGlobe = null;
     private MeshRenderer domGlobe2 = null;
+    private float oldScale = 1.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -30,47 +30,19 @@ public class DOMController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if(currentEvent == null)
+        //resize line widths...
+        /*LineRenderer r = GetComponent<LineRenderer>();
+        if(r != null)
         {
-            GameObject e = GameObject.Find("EventData");
-            if(e != null)
-            {
-                currentEvent = e.GetComponent<VisualizeEvent>();
-            }
-        }
-
-	    if(UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Tab))
-        {
-            if (on)
-            {
-                TurnOff();
-            }
-			else
-            {
-                TurnOn();
-            }
-        }
-
-        if (currentEvent != null && currentEvent.eventPlaying)
-        {
-            //check if this DOM is near any of the visualize event spheres...
-            if (!on)
-            {
-                for (int i = 0; i < currentEvent.eventData.Count; ++i)
-                {
-                    if (Vector3.Distance(transform.position, currentEvent.eventData[i].pos) < 0.5f)
-                    {
-                        TurnOn();
-                        break;
-                    }
-                }
-            }
-        }
+            float w = Vector3.Distance(UnityEngine.Camera.main.transform.position, transform.position) / 2000.0f;
+            r.startWidth = w;
+            r.endWidth = w;
+        }*/
 	}
 
-    void TurnOn()
+    public void TurnOn(float fTimeFrac, float fRadius)
     {
-        Debug.Log("Turning on");
+        //Debug.Log("Turning on");
         //change a material on the globe so that it glows...
         if(domGlobe != null)
         {
@@ -82,10 +54,48 @@ public class DOMController : MonoBehaviour {
             domGlobe2.materials[2].shader = Shader.Find("Particles/Additive");
         }
 
+        GameObject eventSphere = transform.FindChild("Sphere").gameObject;
+        if (eventSphere != null)
+        {
+            oldScale = eventSphere.transform.localScale.x;
+            eventSphere.transform.localScale = new Vector3(fRadius, fRadius, fRadius);
+
+            float fColorFrac = 1.0f / 7.0f;
+
+            if (fTimeFrac < fColorFrac)
+            {
+                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.red;
+            }
+            else if (fTimeFrac < 2.0f * fColorFrac)
+            {
+                eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(1.0f, 0.5f, 0.0f, 1.0f);
+            }
+            else if (fTimeFrac < 3.0f * fColorFrac)
+            {
+                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.yellow;
+            }
+            else if (fTimeFrac < 4.0f * fColorFrac)
+            {
+                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.green;
+            }
+            else if (fTimeFrac < 5.0f * fColorFrac)
+            {
+                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.blue;
+            }
+            else if (fTimeFrac < 6.0f * fColorFrac)
+            {
+                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.magenta;
+            }
+            else
+            {
+                eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(0.5f, 0.0f, 1.0f, 1.0f);
+            }
+        }
+
         on = true;
     }
 
-    void TurnOff()
+    public void TurnOff()
     {
         if (domGlobe != null)
         {
@@ -95,6 +105,13 @@ public class DOMController : MonoBehaviour {
         if (domGlobe2 != null)
         {
             domGlobe2.materials[2].shader = Shader.Find("Standard");
+        }
+
+        GameObject eventSphere = transform.FindChild("Sphere").gameObject;
+        if(eventSphere != null)
+        {
+            eventSphere.transform.localScale = new Vector3(oldScale, oldScale, oldScale);
+            eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(0.5f, 0.5f, 0.5f, 0.25f);
         }
 
         on = false;

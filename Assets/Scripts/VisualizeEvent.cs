@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 public class VisualizeEvent : MonoBehaviour {
 
-    public string EventFile;
-    //public GameObject DOMTest;
+    public string eventFile;
+    public string eventDirectory;
+    //public GameObject particle;
     public bool eventPlaying = false;
     private int currIndex = 0;
     private const float BELOW_ICE = -1950.0f;
@@ -18,6 +19,9 @@ public class VisualizeEvent : MonoBehaviour {
     private float playStartTime = 0.0f;
     private float playEndTime = 0.0f;
     private bool advancedIndex = false;
+    private int currEvent = 0;
+    private float newPlayTime = 0.0f;
+    private DomData domData;
 
     public struct EventData
     {
@@ -28,7 +32,15 @@ public class VisualizeEvent : MonoBehaviour {
         public float time;
     };
 
-    public List<EventData> eventData;
+    public struct EventVis
+    {
+        public List<EventData> eventData;
+        public string fileName;
+        public Vector3 startPos;
+        public Vector3 endPos;
+    };
+
+    public List<EventVis> events = new List<EventVis>();
 
     public static int IntParseFast(string value)
     {
@@ -44,39 +56,66 @@ public class VisualizeEvent : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        eventData = new List<EventData>();
-
-        StreamReader sr = new StreamReader(EventFile, Encoding.Default);
-        string s = sr.ReadLine();
-        int lineCount = 0;
-        while(s != null)
+        if(eventDirectory.Length > 0)
         {
-            if(lineCount < 2)
+            string[] files = System.IO.Directory.GetFiles(eventDirectory);
+            //events = new List<EventVis>();
+            
+            foreach (string file in files)
             {
-                string[] data = s.Split(' ');
-                float x = (float)double.Parse(data[0]);
-                float y = (float)double.Parse(data[1]);
-                float z = (float)double.Parse(data[2]);
-            }
-            else 
-            {
-                string[] data = s.Split('\t');
-                EventData d;
-                d.str = IntParseFast(data[0]);
-                d.dom = IntParseFast(data[1]);
-                d.pos.x = (float)double.Parse(data[2]);
-                d.pos.y = BELOW_ICE + (float)double.Parse(data[4]);
-                d.pos.z = (float)double.Parse(data[3]);
-                d.charge = (float)double.Parse(data[5]);
-                d.time = (float)double.Parse(data[6]);
-                eventData.Add(d);
-            }
+                if (file.EndsWith(".txt"))
+                {
+                    EventVis e = new EventVis();
+                    e.eventData = new List<EventData>();
+                    e.fileName = file;
+                    Debug.Log(file);
+                    StreamReader sr = new StreamReader(e.fileName, Encoding.Default);
+                    string s = sr.ReadLine();
+                    int lineCount = 0;
+                    while (s != null)
+                    {
+                        if (lineCount < 2)
+                        {
+                            string[] data = s.Split(' ');
+                            float x = (float)double.Parse(data[0]);
+                            float y = (float)double.Parse(data[1]);
+                            float z = (float)double.Parse(data[2]);
+                            if(lineCount < 1)
+                            {
+                                e.startPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
+                            }
+                            else 
+                            {
+                                e.endPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
+                            }
+                        }
+                        else
+                        {
+                            string[] data = s.Split('\t');
+                            if(data.Length != 7)
+                            {
+                                data = s.Split(' ');
+                            }
+                            EventData d;
+                            d.str = IntParseFast(data[0])-1;
+                            d.dom = IntParseFast(data[1])-1;
+                            d.pos.x = (float)double.Parse(data[2]);
+                            d.pos.y = BELOW_ICE + (float)double.Parse(data[4]);
+                            d.pos.z = (float)double.Parse(data[3]);
+                            d.charge = (float)double.Parse(data[5]);
+                            d.time = (float)double.Parse(data[6]);
+                            e.eventData.Add(d);
+                        }
 
-            lineCount++;
-            s = sr.ReadLine();
+                        lineCount++;
+                        s = sr.ReadLine();
+                    }
+
+                    e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
+                    events.Add(e);
+                }
+            }
         }
-
-        eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
 	}
 	
 	// Update is called once per frame
@@ -84,80 +123,47 @@ public class VisualizeEvent : MonoBehaviour {
         
         float t = UnityEngine.Time.time;
 
-        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R))
+        //r or every 60 seconds
+        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - newPlayTime > 60.0f)
         {
+            newPlayTime = t;
             Debug.Log("Playing event!");
             eventPlaying = true;
             currIndex = 0;
-            eventStartTime = eventData[0].time;
+            
+            currEvent = UnityEngine.Random.Range(0, events.Count);
+            eventStartTime = events[currEvent].eventData[0].time;
             playStartTime = t;
-            eventEndTime = eventData[eventData.Count - 1].time;
+            eventEndTime = events[currEvent].eventData[events[currEvent].eventData.Count - 1].time;
+            eventFile = events[currEvent].fileName;
             advancedIndex = true;
-
-            if (transform.childCount > 0)
-            {
-                Transform rc = transform.GetChild(0);
-                while (transform.childCount > 0)
-                {
-                    rc.parent = null;
-                    Destroy(rc.gameObject);
-                    if (transform.childCount > 0)
-                    {
-                        rc = transform.GetChild(0);
-                    }
-                }
-            }
         }
 
-        
 	    if(eventPlaying)
         {
-            if (currIndex < eventData.Count && advancedIndex)
+            if (currIndex < events[currEvent].eventData.Count && advancedIndex)
             {
-                eventSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                //eventSphere = (GameObject)Instantiate(DOMTest);
-                eventSphere.transform.position = eventData[currIndex].pos;
-                eventSphere.transform.SetParent(transform);
-                float sphereRadius = Mathf.Log(1000.0f * eventData[currIndex].charge * eventData[currIndex].charge);
-                //float sphereRadius = (eventData[currIndex].charge * eventData[currIndex].charge);
-                eventSphere.transform.localScale = new Vector3(sphereRadius, sphereRadius, sphereRadius);
-                float fTimeFrac = (eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
-                float fColorFrac = 1.0f / 7.0f;
+                if (domData == null)
+                {
+                    domData = gameObject.GetComponent<DomData>();
+                }
 
-                if (fTimeFrac < fColorFrac)
+                GameObject d = domData.DOMArray[events[currEvent].eventData[currIndex].dom, events[currEvent].eventData[currIndex].str];
+                if (d != null)
                 {
-                    eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.red;
+                    float fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
+                    d.GetComponent<DOMController>().TurnOn(fTimeFrac, Mathf.Log(10000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
                 }
-                else if (fTimeFrac < 2.0f * fColorFrac)
-                {
-                    eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(1.0f, 0.5f, 0.0f, 1.0f);
-                }
-                else if (fTimeFrac < 3.0f * fColorFrac)
-                {
-                    eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.yellow;
-                }
-                else if (fTimeFrac < 4.0f * fColorFrac)
-                {
-                    eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.green;
-                }
-                else if (fTimeFrac < 5.0f * fColorFrac)
-                {
-                    eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.blue;
-                }
-                else if (fTimeFrac < 6.0f * fColorFrac)
-                {
-                    eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.magenta;
-                }
-                else
-                {
-                    eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(0.5f, 0.0f, 1.0f, 1.0f);
-                }
+                
+                //Vector3 dir = (events[currEvent].endPos - events[currEvent].startPos);
+                //float mag = (events[currEvent].endPos - events[currEvent].startPos).magnitude;
+                //particle.transform.position = events[currEvent].startPos + dir * fTimeFrac;
             }
             
             //advance index depending on timing...
-            if (currIndex < eventData.Count - 1)
+            if (currIndex < events[currEvent].eventData.Count - 1)
             {
-                if ((eventData[currIndex + 1].time - eventStartTime) > (t - playStartTime) * playSpeed)
+                if ((events[currEvent].eventData[currIndex + 1].time - eventStartTime) > (t - playStartTime) * playSpeed)
                 {
                     currIndex++;
                 }
@@ -168,8 +174,8 @@ public class VisualizeEvent : MonoBehaviour {
                     advancedIndex = false;
                 }
             }
-            
-            if(currIndex >= eventData.Count-1)
+
+            if (currIndex >= events[currEvent].eventData.Count - 1)
             {
                 Debug.Log("Stopped playing");
                 currIndex = 0;
@@ -179,6 +185,16 @@ public class VisualizeEvent : MonoBehaviour {
                 playEndTime = 0.0f;
                 eventStartTime = 0.0f;
                 eventEndTime = 0.0f;
+
+                //turn off all event visualization?
+                for(int i = 0; i < events[currEvent].eventData.Count; ++i)
+                {
+                    GameObject d = domData.DOMArray[events[currEvent].eventData[i].dom, events[currEvent].eventData[i].str];
+                    if(d != null)
+                    {
+                        d.GetComponent<DOMController>().TurnOff();
+                    }
+                }
             }
         }
 	}

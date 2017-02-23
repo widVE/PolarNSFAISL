@@ -69,6 +69,7 @@ public class ColorParticleCollision : MonoBehaviour {
 
 	// Scale the DOM based on the closest distance the particle has been to this DOM
 	void OnTriggerStay(Collider other) {
+        //Debug.Log("In trigger stay!");
 		if (other.gameObject.tag != ("Particle")) {
 			return;
 		}
@@ -80,8 +81,10 @@ public class ColorParticleCollision : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
+        //Debug.Log("In trigger enter!");
         if (colorMan)
         {
+            
             if (!other.gameObject.tag.Equals("Particle"))
             {
                 //Debug.LogError ("DOM collided with something not a particle!");
@@ -92,25 +95,34 @@ public class ColorParticleCollision : MonoBehaviour {
 
             //Debug.Log ("Collided with particle!");
             // Collided with the particle, get the time interval from initial impact
-			float interval = other.transform.parent.GetComponent<SpawnParticle>().getTravelInterval();
-			
-            // Turn that interval into a meaningful color....somehow....
-            // I'll estimate that it takes ~2 seconds for a particle to traverse the dom array
-            // so each 1/3 second will be associated with a different color
+            int index = 0;
 
-			int index = ClampToIndex (interval);
-            if (index > 6)
+            SpawnParticle p = other.transform.parent.GetComponent<SpawnParticle>();
+            if (p != null)
             {
-                index = 6;
-            }
-			if (index < minIndex) {
-				minIndex = index;
-			} else {
-				return;
-			}
+                float interval = p.getTravelInterval();
 
-            // Apply the color
-            sphere.GetComponent<MeshRenderer>().material.color = colors[index];
+                // Turn that interval into a meaningful color....somehow....
+                // I'll estimate that it takes ~2 seconds for a particle to traverse the dom array
+                // so each 1/3 second will be associated with a different color
+
+                index = ClampToIndex(interval);
+                if (index > 6)
+                {
+                    index = 6;
+                }
+                if (index < minIndex)
+                {
+                    minIndex = index;
+                }
+                else
+                {
+                    return;
+                }
+
+                // Apply the color
+                sphere.GetComponent<MeshRenderer>().material.color = colors[index];
+            }
 
             if (domGlobe != null)
             {

@@ -9,6 +9,12 @@ public class DomData : MonoBehaviour {
     string icecubeFile = "Assets\\IceCubeData\\geometry\\Icecube_Geometry_Data.txt";
     private const float BELOW_ICE = -1950.0f;
 	private bool first = true;
+    
+    //should keep track of all created objects here in a sort of "dom" matrix..
+    //this could allow for very efficient DOM lookups later...
+    private const int NUM_STRINGS = 86;
+    private const int NUM_DOMS_PER_STRING = 64;
+    public GameObject[,] DOMArray = new GameObject[NUM_STRINGS,NUM_DOMS_PER_STRING];
 
 	void Start () {
 
@@ -26,16 +32,15 @@ public class DomData : MonoBehaviour {
 			string[] data = line.Split (new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
 			//grab each column of data
-			string firstVal = data [0];
-			string secondVal = data [1];
+			string stringIndex = data [0];
+			string domIndex = data [1];
 			string xVal = data [2];
 			string yVal = data [3];
 			string zVal = data [4];
 
-
 			//parsing each piece of data
-			int domUnitNum = Convert.ToInt32 (firstVal);
-			int domNum = Convert.ToInt32 (secondVal);
+            int domUnitNum = Convert.ToInt32(stringIndex)-1;
+            int domNum = Convert.ToInt32(domIndex)-1;
 			float xFloat = float.Parse (xVal);
 			float yFloat = float.Parse (yVal);
 			float zFloat = float.Parse (zVal);
@@ -99,6 +104,8 @@ public class DomData : MonoBehaviour {
             {
                 first = true;
             }
+
+            DOMArray[domUnitNum, domNum] = dom;
 		}//end while()
 
         //Debug.Log("Average X: " + avgX / count);

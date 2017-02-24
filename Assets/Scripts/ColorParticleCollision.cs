@@ -51,19 +51,13 @@ public class ColorParticleCollision : MonoBehaviour {
 
 		//sphere = this.transform.Find ("Sphere");
 		defaultColor = sphere.GetComponent<MeshRenderer> ().material.color;
-		GameObject colorManObj = GameObject.Find ("ColorEventScript");
-        if (colorManObj == null)
+
+		colorMan = this.transform.parent.GetComponent<ColorEventManager>();
+        if (colorMan == null)
         {
-            Debug.LogError("Couldn't find the ColorEventScript object in scene");
+            Debug.LogError("Couldn't get the ColorEventManager script from the object");
         }
-        else
-        {
-            colorMan = colorManObj.GetComponent<ColorEventManager>();
-            if (colorMan == null)
-            {
-                Debug.LogError("Couldn't get the ColorEventManager script from the object");
-            }
-        }
+        
 
 	}
 

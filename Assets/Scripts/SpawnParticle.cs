@@ -15,7 +15,6 @@ public class SpawnParticle : MonoBehaviour {
 	private Vector3 target;
 	private bool targetSet = false;
 	private bool throwingParticle = true;
-	private GameObject colorManObj;
 	private ColorEventManager colorMan;
 	private float travelInterval = 0f;
 	private bool counting = false;
@@ -23,11 +22,7 @@ public class SpawnParticle : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		UpdateDomList ();
-		colorManObj = GameObject.Find ("ColorEventScript");
-		if (colorManObj == null) {
-			Debug.LogError ("Couldn't find ColorEventScript object in ParticleMovement");
-		}
-		colorMan = colorManObj.GetComponent<ColorEventManager> ();
+		colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
 		if (colorMan == null) {
 			Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
 		}

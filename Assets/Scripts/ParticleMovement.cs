@@ -9,19 +9,15 @@ public class ParticleMovement : MonoBehaviour {
 	private float startingDistance;
 	private bool setUp = false;
 	[SerializeField]
-	private float speed = 0.25f;
+	private float speed = 0.2f;
 
-	private GameObject colorManObj;
 	private ColorEventManager colorMan;
 
 	private IEnumerator coroutine;
 
 	void Start() {
-		colorManObj = GameObject.Find ("ColorEventScript");
-		if (colorManObj == null) {
-			Debug.LogError ("Couldn't find ColorEventScript object in ParticleMovement");
-		}
-		colorMan = colorManObj.GetComponent<ColorEventManager> ();
+		
+		colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
 		if (colorMan == null) {
 			Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
 		}

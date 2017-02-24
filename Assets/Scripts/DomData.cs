@@ -24,9 +24,9 @@ public class DomData : MonoBehaviour {
 		Vector3[] pos = new Vector3[2];
 
 		string line;
-        float avgX = 0.0f;
+        /*float avgX = 0.0f;
         float avgZ = 0.0f;
-        float count = 0.0f;
+        float count = 0.0f;*/
 		while ((line = reader.ReadLine ()) != null) {
 
 			string[] data = line.Split (new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
@@ -50,17 +50,24 @@ public class DomData : MonoBehaviour {
 			Vector3 domPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat);
 			dom.transform.position = domPos;
 			dom.transform.SetParent (transform);
+            dom.GetComponent<DOMController>().stringNum = domUnitNum;
+            dom.GetComponent<DOMController>().domNum = domNum;
 
             if (domNum <= 60)
             {
-                count+=1.0f;
+
 				Vector3 startPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat); 
-				pos [0] = startPos;
-                avgX += xFloat;
-                avgZ += yFloat;
+				
+                //avgX += xFloat;
+                //avgZ += yFloat;
+                if(domNum == 0)
+                {
+                    pos[0] = startPos;
+                }
+
 				if (first == false) {
 
-					lineRen = dom.AddComponent<LineRenderer> ();
+					/*lineRen = dom.AddComponent<LineRenderer> ();
 					lineRen.SetWidth (.023f, .023f);
 					lineRen.SetColors (Color.black, Color.black);
 					lineRen.material = new Material (Shader.Find ("Standard"));//Particles/Additive"));
@@ -74,12 +81,12 @@ public class DomData : MonoBehaviour {
 
 					pos2 [0].y += 0.64f;
 					pos2 [1].y -= 0.62f;
-					lineRen.SetPositions (pos2);
+					lineRen.SetPositions (pos2);*/
 			
 				}
                 else 
                 {
-                    lineRen = dom.AddComponent<LineRenderer>();
+                   /* lineRen = dom.AddComponent<LineRenderer>();
                     lineRen.SetWidth(.023f, .023f);
                     lineRen.SetColors(Color.black, Color.black);
                     lineRen.material = new Material(Shader.Find("Standard"));//Particles/Additive"));
@@ -93,23 +100,42 @@ public class DomData : MonoBehaviour {
 
                     pos2[1].y += 0.64f;
                     //pos2[1].y -= 0.62f;
-                    lineRen.SetPositions(pos2);
+                    lineRen.SetPositions(pos2);*/
 			
                 }
 
+                if (domNum == 59)
+                {
+                    //how to make line widths different for oculus vs. regular user?
+                    pos[1] = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat);
+                    lineRen = dom.AddComponent<LineRenderer>();
+                    lineRen.SetWidth(.023f, .023f);
+                    lineRen.SetColors(Color.black, Color.black);
+                    lineRen.material = new Material(Shader.Find("Standard"));//Particles/Additive"));
+                    lineRen.material.color = Color.black;
+                    lineRen.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                    lineRen.receiveShadows = false;
+
+                    //Vector3[] pos2 = new Vector3[2];
+                    //pos2[0] = new Vector3(xFloat, 0.0f, yFloat);
+                    //pos2[1] = pos[0];
+
+                    //pos2[1].y += 0.64f;
+                    //pos2[1].y -= 0.62f;
+                    lineRen.SetPositions(pos);
+                }
 				pos [1] = pos [0];
 				first = false;
 			}
             else 
             {
+
                 first = true;
             }
 
             DOMArray[domUnitNum, domNum] = dom;
 		}//end while()
 
-        //Debug.Log("Average X: " + avgX / count);
-        //Debug.Log("Average Z: " + avgZ / count);
 		reader.Close ();
 	}//end Start()
 

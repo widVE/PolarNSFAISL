@@ -6,6 +6,8 @@ public class DOMController : MonoBehaviour {
 
     public bool on = false;
     public float lastCharge = 0.0f;
+    public int stringNum = 0;
+    public int domNum = 0;
     private MeshRenderer domGlobe = null;
     private MeshRenderer domGlobe2 = null;
     private float oldScale = 1.0f;
@@ -30,14 +32,18 @@ public class DOMController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        //resize line widths...
-        /*LineRenderer r = GetComponent<LineRenderer>();
-        if(r != null)
+        //only if camera has moved...
+        if (UnityEngine.Camera.main.velocity.magnitude > 0.0f)
         {
-            float w = Vector3.Distance(UnityEngine.Camera.main.transform.position, transform.position) / 2000.0f;
-            r.startWidth = w;
-            r.endWidth = w;
-        }*/
+            //resize line widths...
+            LineRenderer r = GetComponent<LineRenderer>();
+            if (r != null)
+            {
+                float w = Vector3.Distance(UnityEngine.Camera.main.transform.position, transform.position) / 1000.0f;
+                r.startWidth = w;
+                r.endWidth = w;
+            }
+        }
 	}
 
     public void TurnOn(float fTimeFrac, float fRadius)

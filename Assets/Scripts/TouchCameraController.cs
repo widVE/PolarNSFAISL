@@ -43,10 +43,10 @@ public class TouchCameraController : MonoBehaviour
         //	-ManipulationGesture.DeltaPosition.x/Screen.width*RotationSpeed,
         //	ManipulationGesture.DeltaRotation);
         //pivot.localRotation *= rotation;
-        //Quaternion rotation = Quaternion.Euler(0.0f,
-        //	-ManipulationGesture.DeltaPosition.x/Screen.width*RotationSpeed,
-        //	0.0f);
-        //pivot.localRotation *= rotation;
+        Quaternion rotation = Quaternion.Euler(0.0f,
+        	-ManipulationGesture.DeltaPosition.x/Screen.width*RotationSpeed,
+        	0.0f);
+        pivot.localRotation *= rotation;
         cam.transform.localPosition += Vector3.forward*(ManipulationGesture.DeltaScale - 1f)*ZoomSpeed;
 	}
 

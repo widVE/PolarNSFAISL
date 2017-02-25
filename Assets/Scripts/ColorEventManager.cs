@@ -40,9 +40,9 @@ public class ColorEventManager : MonoBehaviour {
 
 			// TODO: Make spawners throw particles at random times,
 			// not all at once as done here
-			foreach (SpawnParticle curr in spawners) {
-				curr.startThrowing ();
-			}
+			//foreach (SpawnParticle curr in spawners) {
+			//	curr.startThrowing ();
+			//}
 		}
 	}
 }

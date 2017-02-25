@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ParticleMovement : MonoBehaviour {
 	
@@ -14,15 +15,23 @@ public class ParticleMovement : MonoBehaviour {
 	private ColorEventManager colorMan;
 
 	private IEnumerator coroutine;
+	private Vector3[] linePositions = new Vector3[100];
+	private LineRenderer linRen;
+	int index = 1;
+	float interval = 0f;
 
 	void Start() {
-		
+		linRen = this.GetComponent<LineRenderer> ();
+		linRen.material = new Material(Shader.Find ("Particles/Additive"));
 		colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
 		if (colorMan == null) {
 			Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
 		}
 
 		coroutine = WaitForReset (0.1f);
+
+		//linePositions [0] = this.transform.position;
+		linRen.SetPosition(0, this.transform.position);
 	}
 	// Update is called once per frame
 	void Update () {
@@ -34,9 +43,22 @@ public class ParticleMovement : MonoBehaviour {
 			}
 			this.transform.Translate (direction * speed * Time.deltaTime);
 			if (Vector3.Distance(this.transform.position, target) >= startingDistance) {
-				move = false;
+				//move = false;
 				StartCoroutine (coroutine);
 			}
+
+			if (interval > 0.10) {
+				//linePositions [index] = this.transform.position;
+				linRen.SetPosition(index, this.transform.position);
+				index++;
+				Debug.Log (index);
+				interval = 0;
+			} else {
+				interval += Time.deltaTime;
+			}
+
+
+
 		}
 	}
 
@@ -48,8 +70,9 @@ public class ParticleMovement : MonoBehaviour {
 	private IEnumerator WaitForReset(float waitTime) {
 		yield return new WaitForSeconds (waitTime);
 
-		Destroy (this.gameObject);
+
 		colorMan.numActiveParticles--;
 		colorMan.resetGame ();
+		Destroy (this.gameObject);
 	}
 }

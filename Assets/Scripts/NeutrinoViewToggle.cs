@@ -11,21 +11,25 @@ public class NeutrinoViewToggle : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+
+	public void ToggleNeutrinoView() {
+		neutrinoViewOn = !neutrinoViewOn;
+		//currSkybox = UnityEngine.Scene
+		if(neutrinoViewOn)
+		{
+			UnityEngine.Camera.main.GetComponent<Skybox>().material = neutrinoSkybox;
+		}
+		else
+		{
+			UnityEngine.Camera.main.GetComponent<Skybox>().material = defaultSkybox;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
         if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.N))
         {
-            neutrinoViewOn = !neutrinoViewOn;
-            //currSkybox = UnityEngine.Scene
-            if(neutrinoViewOn)
-            {
-                UnityEngine.Camera.main.GetComponent<Skybox>().material = neutrinoSkybox;
-            }
-            else
-            {
-                UnityEngine.Camera.main.GetComponent<Skybox>().material = defaultSkybox;
-            }
+			ToggleNeutrinoView ();
         }		
 	}
 }

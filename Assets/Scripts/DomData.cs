@@ -16,6 +16,9 @@ public class DomData : MonoBehaviour {
     private const int NUM_DOMS_PER_STRING = 64;
     public GameObject[,] DOMArray = new GameObject[NUM_STRINGS,NUM_DOMS_PER_STRING];
 
+    //line updating variables...
+    private bool firstDraw = true;
+
 	void Start () {
 
 		StreamReader reader = new StreamReader (icecubeFile);
@@ -140,6 +143,20 @@ public class DomData : MonoBehaviour {
 	}//end Start()
 
 	void Update () {
-		//TODO ?
+		
+        if (firstDraw || UnityEngine.Camera.main.velocity.magnitude > 0.0f)
+        {
+            firstDraw = false;
+            for (int i = 0; i < transform.childCount; ++i)
+            {
+                DOMController d = transform.GetChild(i).gameObject.GetComponent<DOMController>();
+                if(d.lineRen != null)
+                {
+                    float w = Vector3.Distance(UnityEngine.Camera.main.transform.position, d.transform.position) * 0.001f;
+                    d.lineRen.startWidth = w;
+                    d.lineRen.endWidth = w;
+                }
+            }
+        }
 	}//end Update()
 }//end Class

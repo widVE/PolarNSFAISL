@@ -10,10 +10,16 @@ public class DOMController : MonoBehaviour {
     public int domNum = 0;
     private MeshRenderer domGlobe = null;
     private MeshRenderer domGlobe2 = null;
+    private Shader standard = null;
+    private Shader partAdd = null;
     private float oldScale = 1.0f;
+    private bool hasLine = false;
+    public LineRenderer lineRen = null;
 
 	// Use this for initialization
 	void Start () {
+        standard = Shader.Find("Standard");
+        partAdd = Shader.Find("Particles/Additive");
         GameObject externalParts = transform.FindChild("s1DOM_ExternalParts").gameObject;
         if (externalParts != null)
         {
@@ -26,23 +32,13 @@ public class DOMController : MonoBehaviour {
                 domGlobe2 = shell.GetComponent<MeshRenderer>();
                 //r2.materials[2].shader = Shader.Find("Particles/Additive");
             }
-        } 
-	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-        //only if camera has moved...
-        if (UnityEngine.Camera.main.velocity.magnitude > 0.0f)
+        }
+
+        LineRenderer r = GetComponent<LineRenderer>();
+        if(r != null)
         {
-            //resize line widths...
-            LineRenderer r = GetComponent<LineRenderer>();
-            if (r != null)
-            {
-                float w = Vector3.Distance(UnityEngine.Camera.main.transform.position, transform.position) / 1000.0f;
-                r.startWidth = w;
-                r.endWidth = w;
-            }
+            hasLine = true;
+            lineRen = r;
         }
 	}
 
@@ -52,15 +48,15 @@ public class DOMController : MonoBehaviour {
         //change a material on the globe so that it glows...
         if(domGlobe != null)
         {
-            domGlobe.materials[0].shader = Shader.Find("Particles/Additive");
+            domGlobe.materials[0].shader = partAdd;
         }
 
         if (domGlobe2 != null)
         {
-            domGlobe2.materials[2].shader = Shader.Find("Particles/Additive");
+            domGlobe2.materials[2].shader = partAdd;
         }
 
-        GameObject eventSphere = transform.FindChild("Sphere").gameObject;
+        GameObject eventSphere = transform.FindChild("low_poly_sphere").gameObject;
         if (eventSphere != null)
         {
             oldScale = eventSphere.transform.localScale.x;
@@ -105,15 +101,15 @@ public class DOMController : MonoBehaviour {
     {
         if (domGlobe != null)
         {
-            domGlobe.materials[0].shader = Shader.Find("Standard");
+            domGlobe.materials[0].shader = standard;
         }
 
         if (domGlobe2 != null)
         {
-            domGlobe2.materials[2].shader = Shader.Find("Standard");
+            domGlobe2.materials[2].shader = standard;
         }
 
-        GameObject eventSphere = transform.FindChild("Sphere").gameObject;
+        GameObject eventSphere = transform.FindChild("low_poly_sphere").gameObject;
         if(eventSphere != null)
         {
             eventSphere.transform.localScale = new Vector3(oldScale, oldScale, oldScale);

@@ -152,7 +152,7 @@ public class VisualizeEvent : MonoBehaviour {
                 if (d != null)
                 {
                     float fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
-                    d.GetComponent<DOMController>().TurnOn(fTimeFrac, Mathf.Log(10000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
+                    d.GetComponent<DOMController>().TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
                 }
                 
                 //Vector3 dir = (events[currEvent].endPos - events[currEvent].startPos);

@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.59607846, g: 0.69803923, b: 0.827451, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.001
@@ -22,7 +22,7 @@ RenderSettings:
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.45882353, g: 0.56078434, b: 0.72156864, a: 1}
   m_AmbientEquatorColor: {r: 0.7254902, g: 0.83137256, b: 0.9254902, a: 1}
-  m_AmbientGroundColor: {r: 0.42745098, g: 0.3882353, b: 0.36078432, a: 1}
+  m_AmbientGroundColor: {r: 0.4156863, g: 0.38823533, b: 0.36862746, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -403,7 +403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &76085824
 Transform:
   m_ObjectHideFlags: 0
@@ -2897,6 +2897,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012985526170, guid: dccd97dbed995654cbe873a1ae64d968, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dccd97dbed995654cbe873a1ae64d968, type: 2}
   m_IsPrefabParent: 0
@@ -4135,9 +4139,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 598479284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad2332021a75d3c4e821385c3a326413, type: 3}
+  m_Script: {fileID: 11500000, guid: 1214ecd70fd4ae2468687d4d82e7d805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TwoFingerMoveGesture: {fileID: 598479287}
+  ManipulationGesture: {fileID: 598479288}
+  PanSpeed: 1
+  RotationSpeed: 50
+  ZoomSpeed: 5
 --- !u!1 &604160931
 GameObject:
   m_ObjectHideFlags: 0
@@ -5888,7 +5897,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.87
+      value: 103
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5896,7 +5905,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.51
+      value: 2111
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6392,7 +6401,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 1500
+  near clip plane: 15
   far clip plane: 30000
   field of view: 50
   orthographic: 0
@@ -6416,8 +6425,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 905924060}
-  m_LocalRotation: {x: -0.011849143, y: 0.95202094, z: -0.3035372, w: -0.037161052}
-  m_LocalPosition: {x: 275.63, y: 506.01, z: 1789.39}
+  m_LocalRotation: {x: -0.0048854393, y: 0.98742086, z: -0.15494287, w: -0.03112825}
+  m_LocalPosition: {x: 169.13348, y: 11.061371, z: 3168.7263}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1076352045}
@@ -8091,7 +8100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1120712021
 Transform:
   m_ObjectHideFlags: 0
@@ -8194,7 +8203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1147243632
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9001,7 +9010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6de06d51c400a543986dc0b038887f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  domObject: {fileID: 1634685725572770, guid: 4aea4d6058366d04ca016f8905869866, type: 2}
+  domObject: {fileID: 1664734503594226, guid: 23b10de1d15dd6c40ba6a3a7714eba6b, type: 2}
 --- !u!1 &1217280137 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100152, guid: 5be4b1667ccbfb244a18f6b237f3f38e, type: 3}
@@ -9906,7 +9915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!182 &1375223877
 WindZone:
   m_ObjectHideFlags: 0

@@ -30,5 +30,6 @@ public class SwipeRecognizer : MonoBehaviour {
     private void swipeRecognize(object sender, System.EventArgs e)
     {
         //compare the swipe in screen space to the active event trajectory in screen space..
+        Debug.Log("I detected a swipe!!");
     }
 }

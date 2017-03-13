@@ -59,7 +59,6 @@ public class VisualizeEvent : MonoBehaviour {
         if(eventDirectory.Length > 0)
         {
             string[] files = System.IO.Directory.GetFiles(eventDirectory);
-            //events = new List<EventVis>();
             
             foreach (string file in files)
             {
@@ -166,6 +165,7 @@ public class VisualizeEvent : MonoBehaviour {
                 if ((events[currEvent].eventData[currIndex + 1].time - eventStartTime) > (t - playStartTime) * playSpeed)
                 {
                     currIndex++;
+                    advancedIndex = true;
                 }
                 else
                 {

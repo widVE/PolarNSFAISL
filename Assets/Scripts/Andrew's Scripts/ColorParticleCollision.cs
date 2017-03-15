@@ -21,6 +21,7 @@ public class ColorParticleCollision : MonoBehaviour {
     private MeshRenderer domGlobe = null;
     private MeshRenderer domGlobe2 = null;
 	private GameObject externalParts;
+	//private ParticleTrail trail;
 
 	void Start() {
 
@@ -53,6 +54,7 @@ public class ColorParticleCollision : MonoBehaviour {
 		defaultColor = sphere.GetComponent<MeshRenderer> ().material.color;
 
 		colorMan = this.transform.parent.GetComponent<ColorEventManager>();
+		//trail = this.transform.parent.GetComponent<ParticleTrail> ();
         if (colorMan == null)
         {
             Debug.LogError("Couldn't get the ColorEventManager script from the object");
@@ -79,10 +81,11 @@ public class ColorParticleCollision : MonoBehaviour {
         if (colorMan)
         {
             
-            if (!other.gameObject.tag.Equals("Particle"))
+            if (other.gameObject.tag.Equals("Particle"))
             {
-                //Debug.LogError ("DOM collided with something not a particle!");
-                return;
+                // Add the point to the trail list
+				//trail.addPoint(this.transform.position);
+               
 			}
 
             colorMan.addChangedDom(this);

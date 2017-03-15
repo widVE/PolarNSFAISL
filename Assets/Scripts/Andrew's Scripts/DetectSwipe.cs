@@ -8,12 +8,14 @@ public class DetectSwipe : MonoBehaviour {
 	public FlickGesture swipeGesture;
 	public bool showLine = true;
 	public LineRenderer ren;
+	private ParticleTrail trail;
 
 	void Start () {
 		if (swipeGesture == null) {
 			Debug.LogError ("No Flick Gesture assigned for DetectSwipe component on " + this.gameObject.name);
 		}
 		ren.material = new Material (Shader.Find ("Particles/Additive"));
+		trail = GameObject.Find ("ParticleSpawner 1").GetComponent<ParticleTrail> ();
 	}
 
 	private void OnEnable() {
@@ -38,6 +40,8 @@ public class DetectSwipe : MonoBehaviour {
 
 			ren.SetPositions (array);
 		}
+
+
 
 
 	}

@@ -11,6 +11,7 @@ public class ParticleMovement : MonoBehaviour {
 	private bool setUp = false;
 	[SerializeField]
 	private float speed = 0.2f;
+	private ParticleTrail trail;
 
 	private ColorEventManager colorMan;
 
@@ -24,6 +25,7 @@ public class ParticleMovement : MonoBehaviour {
 		//linRen = this.GetComponent<LineRenderer> ();
 		//linRen.material = new Material(Shader.Find ("Particles/Additive"));
 		colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
+		trail = this.transform.parent.GetComponent<ParticleTrail> ();
 		if (colorMan == null) {
 			Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
 		}
@@ -74,6 +76,8 @@ public class ParticleMovement : MonoBehaviour {
 
 		colorMan.numActiveParticles--;
 		colorMan.resetGame ();
+		trail.setEnd (this.transform.position);
+		trail.enterTraceMode ();
 		Destroy (this.gameObject);
 	}
 }

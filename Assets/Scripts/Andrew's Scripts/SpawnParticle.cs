@@ -18,11 +18,14 @@ public class SpawnParticle : MonoBehaviour {
 	private ColorEventManager colorMan;
 	private float travelInterval = 0f;
 	private bool counting = false;
+	private ParticleTrail trail;
+
 	//private bool particleSpawned = false;
 	// Use this for initialization
 	void Start () {
 		UpdateDomList ();
 		colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
+		trail = GetComponent<ParticleTrail> ();
 		if (colorMan == null) {
 			Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
 		}
@@ -59,6 +62,7 @@ public class SpawnParticle : MonoBehaviour {
 					int index = Random.Range(0,domList.Length);
 					target = domList [index].transform.position;
 					Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
+					trail.setStart (currParticle.transform.position);
 					targetSet = true;
 				}
 				// Move it

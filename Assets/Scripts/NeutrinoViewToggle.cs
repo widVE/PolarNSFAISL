@@ -13,6 +13,7 @@ public class NeutrinoViewToggle : MonoBehaviour {
 	}
 
 	public void ToggleNeutrinoView() {
+        Debug.Log("Toggling neutrino view");
 		neutrinoViewOn = !neutrinoViewOn;
 		//currSkybox = UnityEngine.Scene
 		if(neutrinoViewOn)

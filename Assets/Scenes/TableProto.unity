@@ -622,7 +622,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.5
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -821,9 +821,9 @@ MonoBehaviour:
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
   friendlyGestures: []
-  flickTime: 0.5
-  minDistance: 0.1
-  movementThreshold: 0.5
+  flickTime: 2
+  minDistance: 5
+  movementThreshold: 0
   direction: 0
 --- !u!4 &2127599262
 Transform:
@@ -888,7 +888,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.5
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:

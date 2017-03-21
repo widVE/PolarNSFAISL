@@ -69,7 +69,6 @@ public class DomData : MonoBehaviour {
                 }
 
 				if (first == false) {
-
 					/*lineRen = dom.AddComponent<LineRenderer> ();
 					lineRen.SetWidth (.023f, .023f);
 					lineRen.SetColors (Color.black, Color.black);
@@ -85,7 +84,6 @@ public class DomData : MonoBehaviour {
 					pos2 [0].y += 0.64f;
 					pos2 [1].y -= 0.62f;
 					lineRen.SetPositions (pos2);*/
-			
 				}
                 else 
                 {
@@ -104,10 +102,9 @@ public class DomData : MonoBehaviour {
                     pos2[1].y += 0.64f;
                     //pos2[1].y -= 0.62f;
                     lineRen.SetPositions(pos2);*/
-			
                 }
 
-                if (domNum == 59)
+               /* if (domNum == 59)
                 {
                     //how to make line widths different for oculus vs. regular user?
                     pos[1] = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat);
@@ -126,25 +123,25 @@ public class DomData : MonoBehaviour {
                     //pos2[1].y += 0.64f;
                     //pos2[1].y -= 0.62f;
                     lineRen.SetPositions(pos);
-                }
+                }*/
 				pos [1] = pos [0];
 				first = false;
 			}
             else 
             {
-
                 first = true;
             }
 
             DOMArray[domUnitNum, domNum] = dom;
-		}//end while()
+
+		}   //end while()
 
 		reader.Close ();
 	}//end Start()
 
 	void Update () {
 		
-        if (firstDraw || UnityEngine.Camera.main.velocity.magnitude > 0.0f)
+        /*if (firstDraw || UnityEngine.Camera.main.velocity.magnitude > 0.0f)
         {
             firstDraw = false;
             for (int i = 0; i < transform.childCount; ++i)
@@ -157,6 +154,6 @@ public class DomData : MonoBehaviour {
                     d.lineRen.endWidth = w;
                 }
             }
-        }
+        }*/
 	}//end Update()
 }//end Class

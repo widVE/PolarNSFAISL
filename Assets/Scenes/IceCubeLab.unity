@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1012436991}
-  m_IndirectSpecularColor: {r: 0.43677405, g: 0.484397, b: 0.5646508, a: 1}
+  m_IndirectSpecularColor: {r: 0.43677464, g: 0.4843973, b: 0.56465185, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1788,8 +1788,8 @@ MonoBehaviour:
   sendMessageTarget: {fileID: 0}
   useUnityEvents: 0
   layers:
+  - {fileID: 598479291}
   - {fileID: 905924066}
-  - {fileID: 0}
 --- !u!4 &251592384
 Transform:
   m_ObjectHideFlags: 0
@@ -3516,6 +3516,81 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 548332821}
   m_Mesh: {fileID: 4300066, guid: 73134a962429d414884e07be83c08200, type: 3}
+--- !u!1 &548832563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 548832565}
+  - component: {fileID: 548832564}
+  m_Layer: 0
+  m_Name: TouchControllers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &548832564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 548832563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0375f89a1d21e7a428bcaba62a30ede5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myController: 1
+  ForwardButton: 65536
+  BackwardButton: 131072
+  TeleportButton: 0
+  BlinkButton: 0
+  RotateButton: 67108864
+  canMove: 1
+  MovementMode: 0
+  RotationMode: 2
+  AlterativeMove: 3
+  BlinkMode: 0
+  moveSpeed: 20
+  rotateTime: 0.3
+  AltMoveTime: 0.4
+  blinkDistance: 10
+  rotateSpeed: 0.7
+  PlayerGravity: 0
+  TeleportMode: 0
+  TeleMinDstance: 4
+  TeleMaxDistance: 500
+  teleportLine: {fileID: 0}
+  theTag: 
+  fadeRotate: 0
+  fadeTeleport: 0
+  fadeTime: 0.3
+  myFade: {fileID: 0}
+  accelSpeed: 1
+  decay: 0.9
+  acclAmount: 0.5
+  yourRig: {fileID: 719663138}
+  headRig: {fileID: 1746114853}
+  selectedController: {fileID: 628432762}
+  TeleportPoint: {fileID: 0}
+  DragPoint: {fileID: 0}
+  RubberBandLine: {fileID: 0}
+--- !u!4 &548832565
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 548832563}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550892312
 GameObject:
   m_ObjectHideFlags: 0
@@ -4291,8 +4366,8 @@ MonoBehaviour:
   generalProps: 0
   limitsProps: 0
   advancedProps: 0
-  minPointers: 2
-  maxPointers: 10
+  minPointers: 0
+  maxPointers: 0
   combinePointers: 0
   combinePointersInterval: 0.3
   useSendMessage: 0
@@ -4317,8 +4392,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  type: 2
-  screenTransformThreshold: 0.2
+  type: 7
+  screenTransformThreshold: 0.1
   minScreenPointsDistance: 0.5
 --- !u!114 &598479288
 MonoBehaviour:
@@ -4339,8 +4414,8 @@ MonoBehaviour:
   generalProps: 0
   limitsProps: 0
   advancedProps: 0
-  minPointers: 1
-  maxPointers: 1
+  minPointers: 0
+  maxPointers: 0
   combinePointers: 0
   combinePointersInterval: 0.3
   useSendMessage: 0
@@ -4365,8 +4440,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  type: 1
-  screenTransformThreshold: 0.05
+  type: 7
+  screenTransformThreshold: 0.1
   minScreenPointsDistance: 0.5
 --- !u!114 &598479289
 MonoBehaviour:
@@ -4379,11 +4454,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1214ecd70fd4ae2468687d4d82e7d805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TwoFingerMoveGesture: {fileID: 598479287}
-  ManipulationGesture: {fileID: 598479288}
-  PanSpeed: 1
-  RotationSpeed: 50
-  ZoomSpeed: 5
+  TwoFingerMoveGesture: {fileID: 0}
+  ManipulationGesture: {fileID: 0}
+  PanSpeed: 200
+  RotationSpeed: 200
+  ZoomSpeed: 10
 --- !u!114 &598479290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4604,7 +4679,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  numberOfTapsRequired: 2
+  numberOfTapsRequired: 1
   timeLimit: Infinity
   distanceLimit: Infinity
 --- !u!114 &622742998
@@ -4694,6 +4769,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 624220738}
   m_Mesh: {fileID: 4300066, guid: 73134a962429d414884e07be83c08200, type: 3}
+--- !u!4 &628432762 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 477154, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+  m_PrefabInternal: {fileID: 735934451}
 --- !u!1 &631838049
 GameObject:
   m_ObjectHideFlags: 0
@@ -5391,6 +5470,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!143 &719663138 stripped
+CharacterController:
+  m_PrefabParentObject: {fileID: 14300000, guid: ce816f2e6abb0504092c23ed9b970dfd,
+    type: 2}
+  m_PrefabInternal: {fileID: 735934451}
 --- !u!1 &723830981
 GameObject:
   m_ObjectHideFlags: 0
@@ -5643,7 +5727,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2015248, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_TargetDisplay
@@ -5663,6 +5747,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: HmdResetsY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+      propertyPath: Acceleration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5756,8 +5848,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neutrinoViewOn: 0
-  neutrinoSkybox: {fileID: 2100000, guid: 8f59164262fa5d944ac20a3e0f7f2b31, type: 2}
-  defaultSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  neutrinoSkybox: {fileID: 0}
+  defaultSkybox: {fileID: 0}
 --- !u!114 &735934457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5770,8 +5862,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neutrinoViewOn: 0
-  neutrinoSkybox: {fileID: 2100000, guid: 8f59164262fa5d944ac20a3e0f7f2b31, type: 2}
-  defaultSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  neutrinoSkybox: {fileID: 0}
+  defaultSkybox: {fileID: 0}
 --- !u!45 &735934460
 Skybox:
   m_ObjectHideFlags: 0
@@ -6064,11 +6156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815c60a3e88fdb84ba51afa285e3bbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1746114847}
+  camera: {fileID: 0}
   myText: {fileID: 0}
   myString: 
-  fadeTime: 0
-  interactiveDistance: 10
+  fadeTime: 10
+  interactiveDistance: 12
   displayInfo: 0
 --- !u!1 &813152711 stripped
 GameObject:
@@ -6905,8 +6997,8 @@ MonoBehaviour:
   advancedProps: 0
   hitProps: 0
   hit3DObjects: 1
-  hit2DObjects: 0
-  hitWorldSpaceUI: 0
+  hit2DObjects: 1
+  hitWorldSpaceUI: 1
   hitScreenSpaceUI: 1
   layerMask:
     serializedVersion: 2
@@ -6932,8 +7024,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neutrinoViewOn: 0
-  neutrinoSkybox: {fileID: 2100000, guid: 8f59164262fa5d944ac20a3e0f7f2b31, type: 2}
-  defaultSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  neutrinoSkybox: {fileID: 0}
+  defaultSkybox: {fileID: 0}
 --- !u!1 &916211319
 GameObject:
   m_ObjectHideFlags: 0
@@ -9015,11 +9107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815c60a3e88fdb84ba51afa285e3bbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1148087323}
+  camera: {fileID: 0}
   myText: {fileID: 0}
   myString: 
-  fadeTime: 0
-  interactiveDistance: 10
+  fadeTime: 10
+  interactiveDistance: 12
   displayInfo: 0
 --- !u!1 &1148087323 stripped
 GameObject:
@@ -9772,7 +9864,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  type: 3
+  type: 7
   screenTransformThreshold: 0.1
   minScreenPointsDistance: 0.5
   projectionProps: 0
@@ -11901,11 +11993,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815c60a3e88fdb84ba51afa285e3bbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1148087323}
-  myText: {fileID: 367851397}
+  camera: {fileID: 0}
+  myText: {fileID: 0}
   myString: 
   fadeTime: 10
-  interactiveDistance: 10
+  interactiveDistance: 12
   displayInfo: 0
 --- !u!1 &1542543055
 GameObject:
@@ -12017,12 +12109,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1552906539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f0261f7402910448ad157e73bdebdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 28eee2f3ded6b704abea293ed86076a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stringObject: {fileID: 1807424108777242, guid: 9d10d48435cc08a44a5eee212925f1b7,
+  stringObject: {fileID: 1379859881196324, guid: 55768021f9a7bc14abcdd99e4255e1e9,
     type: 2}
-  cam: {fileID: 905924064}
+  cam: {fileID: 905924065}
+  scaleMultiplier: 0.001
 --- !u!1 &1558499356
 GameObject:
   m_ObjectHideFlags: 0
@@ -13225,8 +13318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neutrinoViewOn: 0
-  neutrinoSkybox: {fileID: 2100000, guid: 8f59164262fa5d944ac20a3e0f7f2b31, type: 2}
-  defaultSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  neutrinoSkybox: {fileID: 0}
+  defaultSkybox: {fileID: 0}
 --- !u!45 &1746114849
 Skybox:
   m_ObjectHideFlags: 0
@@ -13234,11 +13327,10 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746114847}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 8f59164262fa5d944ac20a3e0f7f2b31, type: 2}
---- !u!20 &1746114851 stripped
-Camera:
-  m_PrefabParentObject: {fileID: 2015248, guid: ce816f2e6abb0504092c23ed9b970dfd,
-    type: 2}
+  m_CustomSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!4 &1746114853 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400012, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
   m_PrefabInternal: {fileID: 735934451}
 --- !u!1 &1797846647
 GameObject:
@@ -14981,11 +15073,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815c60a3e88fdb84ba51afa285e3bbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1148087323}
+  camera: {fileID: 0}
   myText: {fileID: 0}
   myString: 
   fadeTime: 10
-  interactiveDistance: 10
+  interactiveDistance: 12
   displayInfo: 0
 --- !u!65 &1961706469
 BoxCollider:
@@ -16009,12 +16101,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2112006134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02f0261f7402910448ad157e73bdebdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 28eee2f3ded6b704abea293ed86076a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stringObject: {fileID: 1807424108777242, guid: 9d10d48435cc08a44a5eee212925f1b7,
+  stringObject: {fileID: 1379859881196324, guid: 55768021f9a7bc14abcdd99e4255e1e9,
     type: 2}
-  cam: {fileID: 1746114851}
+  cam: {fileID: 719663133}
+  scaleMultiplier: 0.001
 --- !u!1 &2112108603
 GameObject:
   m_ObjectHideFlags: 0

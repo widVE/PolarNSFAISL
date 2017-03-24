@@ -9,6 +9,7 @@ TagManager:
   - Point
   - Particle
   - Spawner
+  - NeutrinoSource
   layers:
   - Default
   - TransparentFX

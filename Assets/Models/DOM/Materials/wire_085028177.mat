@@ -77,6 +77,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _Ramp
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _ToonShade
       second:
         m_Texture: {fileID: 0}
@@ -84,20 +90,35 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
+        name: _Brightness
+      second: 2
+    - first:
         name: _BumpAmt
       second: 10
     - first:
         name: _BumpScale
       second: 1
     - first:
+        name: _CLAMPOUT
+      second: 0
+    - first:
         name: _Cutoff
       second: 0.5
+    - first:
+        name: _Darkmatter
+      second: 25
     - first:
         name: _DetailNormalMapScale
       second: 1
     - first:
+        name: _Distfading
+      second: 68
+    - first:
         name: _DstBlend
       second: 10
+    - first:
+        name: _Formuparam
+      second: 530
     - first:
         name: _GlossMapScale
       second: 1
@@ -114,6 +135,9 @@ Material:
         name: _InvFade
       second: 1
     - first:
+        name: _Iterations
+      second: 17
+    - first:
         name: _Metallic
       second: 0
     - first:
@@ -123,8 +147,14 @@ Material:
         name: _OcclusionStrength
       second: 1
     - first:
+        name: _Outline
+      second: 0.005
+    - first:
         name: _Parallax
       second: 0.02
+    - first:
+        name: _Saturation
+      second: 85
     - first:
         name: _Shininess
       second: 0.078125
@@ -138,12 +168,27 @@ Material:
         name: _SrcBlend
       second: 5
     - first:
+        name: _StepSize
+      second: 130
+    - first:
+        name: _Tile
+      second: 700
+    - first:
         name: _UVSec
       second: 0
     - first:
+        name: _Volsteps
+      second: 20
+    - first:
         name: _ZWrite
       second: 0
+    - first:
+        name: _Zoom
+      second: 800
     m_Colors:
+    - first:
+        name: _Center
+      second: {r: 1, g: 0.3, b: 0.5, a: 0}
     - first:
         name: _Color
       second: {r: 0.5, g: 0.5, b: 0.5, a: 0.2509804}
@@ -151,8 +196,17 @@ Material:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
+        name: _OutlineColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
         name: _ReflectColor
       second: {r: 1, g: 1, b: 1, a: 0.5}
+    - first:
+        name: _Rotation
+      second: {r: 35, g: 25, b: 75, a: 0.1}
+    - first:
+        name: _Scroll
+      second: {r: 3, g: 1, b: 0.6, a: 0.01}
     - first:
         name: _SpecColor
       second: {r: 0.5, g: 0.5, b: 0.5, a: 0}

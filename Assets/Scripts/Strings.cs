@@ -29,9 +29,7 @@ public class Strings : MonoBehaviour
         Vector3[] pos = new Vector3[2];
 
         string line;
-        /*float avgX = 0.0f;
-        float avgZ = 0.0f;
-        float count = 0.0f;*/
+
         while ((line = reader.ReadLine()) != null)
         {
 
@@ -51,14 +49,7 @@ public class Strings : MonoBehaviour
             float yFloat = float.Parse(yVal);
             float zFloat = float.Parse(zVal);
 
-            //create DOMS
-            /*GameObject dom = (GameObject)Instantiate(domObject); //GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            Vector3 domPos = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat);
-            dom.transform.position = domPos;
-            dom.transform.SetParent(transform);
-            dom.GetComponent<DOMController>().stringNum = domUnitNum;
-            dom.GetComponent<DOMController>().domNum = domNum;
-            */
+
             if (domNum <= 60)
             {
 
@@ -68,6 +59,7 @@ public class Strings : MonoBehaviour
                 //avgZ += yFloat;
                 if (domNum == 0)
                 {
+					startPos.y = -50.0f;
                     pos[0] = startPos;
                 }
 

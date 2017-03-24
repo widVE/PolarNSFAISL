@@ -6,20 +6,20 @@ using System.Collections.Generic;
 
 public class VisualizeEvent : MonoBehaviour {
 
-    public string eventFile;
+   
     public string eventDirectory;
     //public GameObject particle;
     public bool eventPlaying = false;
+    public int currEvent = 0;
+    public float playSpeed = 0.01f;
+
+    private string eventFile;
     private int currIndex = 0;
     private const float BELOW_ICE = -1950.0f;
-    private GameObject eventSphere;
-    public float playSpeed = 0.01f;
     private float eventStartTime = 0.0f;
     private float eventEndTime = 0.0f;
     private float playStartTime = 0.0f;
-    private float playEndTime = 0.0f;
     private bool advancedIndex = false;
-    private int currEvent = 0;
     private float newPlayTime = 0.0f;
     private DomData domData;
 
@@ -38,6 +38,7 @@ public class VisualizeEvent : MonoBehaviour {
         public string fileName;
         public Vector3 startPos;
         public Vector3 endPos;
+        public GameObject eventSource;
     };
 
     public List<EventVis> events = new List<EventVis>();
@@ -59,7 +60,9 @@ public class VisualizeEvent : MonoBehaviour {
         if(eventDirectory.Length > 0)
         {
             string[] files = System.IO.Directory.GetFiles(eventDirectory);
-            
+            GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
+            int numSources = sources.Length;
+
             foreach (string file in files)
             {
                 if (file.EndsWith(".txt"))
@@ -111,6 +114,10 @@ public class VisualizeEvent : MonoBehaviour {
                     }
 
                     e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
+                    if (sources.Length > 0)
+                    {
+                        e.eventSource = sources[UnityEngine.Random.Range(0, numSources - 1)];
+                    }
                     events.Add(e);
                 }
             }
@@ -136,6 +143,7 @@ public class VisualizeEvent : MonoBehaviour {
             eventEndTime = events[currEvent].eventData[events[currEvent].eventData.Count - 1].time;
             eventFile = events[currEvent].fileName;
             advancedIndex = true;
+            Debug.Log("Source: " + events[currEvent].eventSource.name);
         }
 
 	    if(eventPlaying)
@@ -148,6 +156,7 @@ public class VisualizeEvent : MonoBehaviour {
                 }
 
                 GameObject d = domData.DOMArray[events[currEvent].eventData[currIndex].dom, events[currEvent].eventData[currIndex].str];
+                
                 if (d != null)
                 {
                     float fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
@@ -162,6 +171,7 @@ public class VisualizeEvent : MonoBehaviour {
             //advance index depending on timing...
             if (currIndex < events[currEvent].eventData.Count - 1)
             {
+                //time scale here is probably off...
                 if ((events[currEvent].eventData[currIndex + 1].time - eventStartTime) > (t - playStartTime) * playSpeed)
                 {
                     currIndex++;
@@ -182,7 +192,7 @@ public class VisualizeEvent : MonoBehaviour {
                 eventPlaying = false;
                 advancedIndex = false;
                 playStartTime = 0.0f;
-                playEndTime = 0.0f;
+
                 eventStartTime = 0.0f;
                 eventEndTime = 0.0f;
 

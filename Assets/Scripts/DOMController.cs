@@ -13,8 +13,10 @@ public class DOMController : MonoBehaviour {
     private Shader standard = null;
     private Shader partAdd = null;
     private float oldScale = 1.0f;
-    private bool hasLine = false;
-    public LineRenderer lineRen = null;
+
+    private Color orange = new UnityEngine.Color(1.0f, 0.5f, 0.0f, 1.0f);
+    private Color purple = new UnityEngine.Color(0.5f, 0.0f, 1.0f, 1.0f);
+    private Color defaultColor = new UnityEngine.Color(0.5f, 0.5f, 0.5f, 1.0f);
 
 	// Use this for initialization
 	void Start () {
@@ -32,13 +34,6 @@ public class DOMController : MonoBehaviour {
                 domGlobe2 = shell.GetComponent<MeshRenderer>();
                 //r2.materials[2].shader = Shader.Find("Particles/Additive");
             }
-        }
-
-        LineRenderer r = GetComponent<LineRenderer>();
-        if(r != null)
-        {
-            hasLine = true;
-            lineRen = r;
         }
 	}
 
@@ -62,35 +57,43 @@ public class DOMController : MonoBehaviour {
             oldScale = eventSphere.transform.localScale.x;
             eventSphere.transform.localScale = new Vector3(fRadius, fRadius, fRadius);
 
+            //todo - improve the timing calculation...
             float fColorFrac = 1.0f / 7.0f;
 
             if (fTimeFrac < fColorFrac)
             {
-                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.red;
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.red);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.red);
             }
             else if (fTimeFrac < 2.0f * fColorFrac)
             {
-                eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(1.0f, 0.5f, 0.0f, 1.0f);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", orange);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", orange);
             }
             else if (fTimeFrac < 3.0f * fColorFrac)
             {
-                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.yellow;
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.yellow);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.yellow);
             }
             else if (fTimeFrac < 4.0f * fColorFrac)
             {
-                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.green;
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.green);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.green);
             }
             else if (fTimeFrac < 5.0f * fColorFrac)
             {
-                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.blue;
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.blue);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.blue);
             }
             else if (fTimeFrac < 6.0f * fColorFrac)
             {
-                eventSphere.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.magenta;
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.magenta);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.magenta);
             }
             else
             {
-                eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(0.5f, 0.0f, 1.0f, 1.0f);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", purple);
+                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", purple);
             }
         }
 
@@ -113,7 +116,8 @@ public class DOMController : MonoBehaviour {
         if(eventSphere != null)
         {
             eventSphere.transform.localScale = new Vector3(oldScale, oldScale, oldScale);
-            eventSphere.GetComponent<MeshRenderer>().material.color = new UnityEngine.Color(0.5f, 0.5f, 0.5f, 0.25f);
+            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", defaultColor);
+            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", defaultColor);
         }
 
         on = false;

@@ -535,13 +535,13 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1311219412038874}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: dd378bbc748e8f140b0cbd347acc7691, type: 2}
+  - {fileID: 2100000, guid: d35e09d1ab6da1b43a6a706d97601704, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -966,7 +966,6 @@ MonoBehaviour:
   lastCharge: 0
   stringNum: 0
   domNum: 0
-  lineRen: {fileID: 0}
 --- !u!205 &205102778887192058
 LODGroup:
   m_ObjectHideFlags: 1
@@ -1000,7 +999,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 23650500982573894}
-  - screenRelativeHeight: 0.00014614404
+  - screenRelativeHeight: 0.00025186816
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 23423739125818410}

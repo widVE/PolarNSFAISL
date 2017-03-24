@@ -42,10 +42,10 @@ Material:
       second: 0
     - first:
         name: _MKGlowPower
-      second: 1
+      second: 0.723
     - first:
         name: _MKGlowTexStrength
-      second: 10
+      second: 3.05
     - first:
         name: _MKGlowTiling
       second: 4
@@ -70,7 +70,7 @@ Material:
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _MKGlowColor
-      second: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+      second: {r: 0.24264705, g: 0.24264705, b: 0.24264705, a: 1}
     - first:
         name: _MKGlowTexColor
-      second: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+      second: {r: 0.19117647, g: 0.19117647, b: 0.19117647, a: 1}

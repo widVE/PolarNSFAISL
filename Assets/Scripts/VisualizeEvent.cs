@@ -12,6 +12,7 @@ public class VisualizeEvent : MonoBehaviour {
     public bool eventPlaying = false;
     public int currEvent = 0;
     public float playSpeed = 0.01f;
+    public float eventFrequency = 15.0f;
 
     private string eventFile;
     private int currIndex = 0;
@@ -130,7 +131,7 @@ public class VisualizeEvent : MonoBehaviour {
         float t = UnityEngine.Time.time;
 
         //r or every 60 seconds
-        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - newPlayTime > 60.0f)
+        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - newPlayTime > eventFrequency)
         {
             newPlayTime = t;
             Debug.Log("Playing event!");

@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1012436991}
-  m_IndirectSpecularColor: {r: 0.43677405, g: 0.484397, b: 0.5646508, a: 1}
+  m_IndirectSpecularColor: {r: 0.43677464, g: 0.4843973, b: 0.56465185, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2048,8 +2048,8 @@ MonoBehaviour:
   sendMessageTarget: {fileID: 0}
   useUnityEvents: 0
   layers:
-  - {fileID: 598479291}
   - {fileID: 905924066}
+  - {fileID: 598479291}
 --- !u!4 &251592384
 Transform:
   m_ObjectHideFlags: 0
@@ -4185,7 +4185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &548832564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5233,7 +5233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Fullscreen @ Main Camera
-  type: 0
+  type: 1
   _camera: {fileID: 905924064}
 --- !u!120 &598479293
 LineRenderer:
@@ -6773,7 +6773,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100008, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2015248, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
       propertyPath: m_TargetDisplay
@@ -6917,7 +6917,7 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 735934452}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 8f59164262fa5d944ac20a3e0f7f2b31, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: d5095726ec74ffd449d1891dd1298bc3, type: 2}
 --- !u!45 &735934461
 Skybox:
   m_ObjectHideFlags: 0
@@ -6925,7 +6925,7 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 735934453}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 8f59164262fa5d944ac20a3e0f7f2b31, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: d5095726ec74ffd449d1891dd1298bc3, type: 2}
 --- !u!1 &736607742
 GameObject:
   m_ObjectHideFlags: 0
@@ -11420,6 +11420,7 @@ MonoBehaviour:
   eventPlaying: 0
   currEvent: 0
   playSpeed: 1
+  eventFrequency: 15
 --- !u!4 &1214818566
 Transform:
   m_ObjectHideFlags: 0
@@ -11444,7 +11445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6de06d51c400a543986dc0b038887f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  domObject: {fileID: 1664734503594226, guid: 23b10de1d15dd6c40ba6a3a7714eba6b, type: 2}
+  domObject: {fileID: 1401277341345980, guid: 23b10de1d15dd6c40ba6a3a7714eba6b, type: 2}
 --- !u!1 &1217280137 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100152, guid: 5be4b1667ccbfb244a18f6b237f3f38e, type: 3}
@@ -15814,7 +15815,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746114847}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eb542f528e1378459552c75573ae556, type: 3}
   m_Name: 
@@ -15829,7 +15830,38 @@ Skybox:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746114847}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_CustomSkybox: {fileID: 2100000, guid: d5095726ec74ffd449d1891dd1298bc3, type: 2}
+--- !u!114 &1746114850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746114847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
+  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
+  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
+  glowLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  renderCamera: {fileID: 1746114851}
+  showCutoutGlow: 0
+  showTransparentGlow: 1
+  glowType: 0
+  fullScreenGlowTint: {r: 1, g: 1, b: 1, a: 0}
+  blurSpread: 0.25
+  blurIterations: 7
+  glowIntensity: 0.6
+  samples: 3
+--- !u!20 &1746114851 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 2015248, guid: ce816f2e6abb0504092c23ed9b970dfd,
+    type: 2}
+  m_PrefabInternal: {fileID: 735934451}
 --- !u!4 &1746114853 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400012, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 2}
@@ -18953,7 +18985,7 @@ MonoBehaviour:
   stringObject: {fileID: 1379859881196324, guid: 55768021f9a7bc14abcdd99e4255e1e9,
     type: 2}
   cam: {fileID: 719663133}
-  scaleMultiplier: 0.001
+  scaleMultiplier: 0.002
 --- !u!1 &2112108603
 GameObject:
   m_ObjectHideFlags: 0

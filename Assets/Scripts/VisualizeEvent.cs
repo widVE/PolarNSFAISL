@@ -8,12 +8,14 @@ public class VisualizeEvent : MonoBehaviour {
 
    
     public string eventDirectory;
-    //public GameObject particle;
+    public GameObject particle;
     public bool eventPlaying = false;
     public int currEvent = 0;
     public float playSpeed = 0.01f;
     public float eventFrequency = 15.0f;
+    public AudioSource eventSound;
 
+    private float totalEnergy = 0.0f;
     private string eventFile;
     private int currIndex = 0;
     private const float BELOW_ICE = -1950.0f;
@@ -157,16 +159,18 @@ public class VisualizeEvent : MonoBehaviour {
                 }
 
                 GameObject d = domData.DOMArray[events[currEvent].eventData[currIndex].dom, events[currEvent].eventData[currIndex].str];
-                
+
+                float fTimeFrac = 0.0f;
                 if (d != null)
                 {
-                    float fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
+                    totalEnergy = events[currEvent].eventData[currIndex].charge;
+                    fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
                     d.GetComponent<DOMController>().TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
                 }
                 
-                //Vector3 dir = (events[currEvent].endPos - events[currEvent].startPos);
-                //float mag = (events[currEvent].endPos - events[currEvent].startPos).magnitude;
-                //particle.transform.position = events[currEvent].startPos + dir * fTimeFrac;
+                Vector3 dir = (events[currEvent].endPos - events[currEvent].startPos);
+                float mag = (events[currEvent].endPos - events[currEvent].startPos).magnitude;
+                particle.transform.position = events[currEvent].startPos + dir * fTimeFrac;
             }
             
             //advance index depending on timing...
@@ -177,6 +181,7 @@ public class VisualizeEvent : MonoBehaviour {
                 {
                     currIndex++;
                     advancedIndex = true;
+                    eventSound.Play();
                 }
                 else
                 {

@@ -13,7 +13,6 @@ public class VisualizeEvent : MonoBehaviour {
     public int currEvent = 0;
     public float playSpeed = 0.01f;
     public float eventFrequency = 15.0f;
-    public AudioSource eventSound;
 
     private float totalEnergy = 0.0f;
     private string eventFile;
@@ -165,7 +164,16 @@ public class VisualizeEvent : MonoBehaviour {
                 {
                     totalEnergy = events[currEvent].eventData[currIndex].charge;
                     fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
-                    d.GetComponent<DOMController>().TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
+                    DOMController dc = d.GetComponent<DOMController>();
+                    if(dc != null)
+                    {
+                        dc.TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
+                        AudioSource asource = dc.GetComponent<AudioSource>();
+                        if (asource != null)
+                        {
+                            asource.Play();
+                        }
+                    }
                 }
                 
                 Vector3 dir = (events[currEvent].endPos - events[currEvent].startPos);
@@ -181,7 +189,6 @@ public class VisualizeEvent : MonoBehaviour {
                 {
                     currIndex++;
                     advancedIndex = true;
-                    eventSound.Play();
                 }
                 else
                 {

@@ -34,8 +34,8 @@ public class DetectSwipe : MonoBehaviour {
 		Debug.Log ("Start: " + start);
 		if (showLine) {
 			Vector3[] array = new Vector3[2];
-			array [0] = Camera.main.ScreenToWorldPoint(new Vector3(start.x, start.y, 10));
-			array [1] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, 10));
+			array [0] = Camera.main.ScreenToWorldPoint(new Vector3(start.x, start.y, Camera.main.nearClipPlane + 1));
+			array [1] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
 			Debug.Log ("Line Drawn: " + array [0] + " to " + array [1]);
 
 			ren.SetPositions (array);

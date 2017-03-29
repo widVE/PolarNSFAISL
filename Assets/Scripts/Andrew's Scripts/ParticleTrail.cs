@@ -17,10 +17,15 @@ public class ParticleTrail : MonoBehaviour {
 	
 	public void setStart(Vector3 worldPosition) {
 
+		worldPosition.z = Camera.main.nearClipPlane + 1;
+
 		points[0] = worldPosition;
 	}
 
 	public void setEnd(Vector3 worldPosition) {
+
+		worldPosition.z = Camera.main.nearClipPlane + 1;
+
 		points [1] = worldPosition;
 	}
 
@@ -32,8 +37,9 @@ public class ParticleTrail : MonoBehaviour {
 			
 		ren.numPositions = 2;
 		ren.SetPositions (points);
+		Debug.Log ("I DREW THE LINE");
 
-		calculateRect ();
+		//calculateRect ();
 
 	}
 

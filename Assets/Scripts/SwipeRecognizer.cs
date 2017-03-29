@@ -9,6 +9,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	public bool showLine = true;
 	public LineRenderer ren;
     public VisualizeEvent currentEvents;
+    public GameObject collectionText = null;
 	//private ParticleTrail trail;
     private Vector3[] startEnd = new Vector3[2];
 
@@ -63,6 +64,11 @@ public class SwipeRecognizer : MonoBehaviour {
                     //add source phenomena to our list...
                     //trigger next steps...
                     Debug.Log("Flicked well!");
+                    //add the item to a collection list...
+                    if(collectionText != null)
+                    {
+                        collectionText.GetComponent<UnityEngine.UI.Text>().text = "Cosmic Phenomena Collection:\n" + currentEvents.events[currentEvents.currEvent].eventSource.name;
+                    }
                 }
                 else
                 {

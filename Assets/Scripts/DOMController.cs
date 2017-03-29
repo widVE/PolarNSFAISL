@@ -8,6 +8,7 @@ public class DOMController : MonoBehaviour {
     public float lastCharge = 0.0f;
     public int stringNum = 0;
     public int domNum = 0;
+    private GameObject eventSphere = null;
     private MeshRenderer domGlobe = null;
     private MeshRenderer domGlobe2 = null;
     private Shader standard = null;
@@ -20,7 +21,7 @@ public class DOMController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        standard = Shader.Find("Standard");
+        /*standard = Shader.Find("Standard");
         partAdd = Shader.Find("Particles/Additive");
         GameObject externalParts = transform.FindChild("s1DOM_ExternalParts").gameObject;
         if (externalParts != null)
@@ -34,14 +35,16 @@ public class DOMController : MonoBehaviour {
                 domGlobe2 = shell.GetComponent<MeshRenderer>();
                 //r2.materials[2].shader = Shader.Find("Particles/Additive");
             }
-        }
+        }*/
+
+        eventSphere = transform.FindChild("low_poly_sphere").gameObject;
 	}
 
     public void TurnOn(float fTimeFrac, float fRadius)
     {
         //Debug.Log("Turning on");
         //change a material on the globe so that it glows...
-        if(domGlobe != null)
+       /* if(domGlobe != null)
         {
             domGlobe.materials[0].shader = partAdd;
         }
@@ -49,9 +52,8 @@ public class DOMController : MonoBehaviour {
         if (domGlobe2 != null)
         {
             domGlobe2.materials[2].shader = partAdd;
-        }
+        }*/
 
-        GameObject eventSphere = transform.FindChild("low_poly_sphere").gameObject;
         if (eventSphere != null)
         {
             oldScale = eventSphere.transform.localScale.x;
@@ -102,7 +104,7 @@ public class DOMController : MonoBehaviour {
 
     public void TurnOff()
     {
-        if (domGlobe != null)
+        /*if (domGlobe != null)
         {
             domGlobe.materials[0].shader = standard;
         }
@@ -110,9 +112,8 @@ public class DOMController : MonoBehaviour {
         if (domGlobe2 != null)
         {
             domGlobe2.materials[2].shader = standard;
-        }
+        }*/
 
-        GameObject eventSphere = transform.FindChild("low_poly_sphere").gameObject;
         if(eventSphere != null)
         {
             eventSphere.transform.localScale = new Vector3(oldScale, oldScale, oldScale);

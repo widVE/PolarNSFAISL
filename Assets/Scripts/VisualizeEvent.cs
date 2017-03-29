@@ -13,9 +13,10 @@ public class VisualizeEvent : MonoBehaviour {
     public int currEvent = 0;
     public float playSpeed = 0.01f;
     public float eventFrequency = 15.0f;
+    public GameObject totalEnergyText = null;
 
     private float totalEnergy = 0.0f;
-    private string eventFile;
+    //private string eventFile;
     private int currIndex = 0;
     private const float BELOW_ICE = -1950.0f;
     private float eventStartTime = 0.0f;
@@ -143,7 +144,7 @@ public class VisualizeEvent : MonoBehaviour {
             eventStartTime = events[currEvent].eventData[0].time;
             playStartTime = t;
             eventEndTime = events[currEvent].eventData[events[currEvent].eventData.Count - 1].time;
-            eventFile = events[currEvent].fileName;
+            //eventFile = events[currEvent].fileName;
             advancedIndex = true;
             Debug.Log("Source: " + events[currEvent].eventSource.name);
         }
@@ -163,13 +164,14 @@ public class VisualizeEvent : MonoBehaviour {
                 if (d != null)
                 {
                     totalEnergy = events[currEvent].eventData[currIndex].charge;
+                    totalEnergyText.GetComponent<UnityEngine.UI.Text>().text = "Total Energy: " + totalEnergy;
                     fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
                     DOMController dc = d.GetComponent<DOMController>();
                     if(dc != null)
                     {
                         dc.TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
                         AudioSource asource = dc.GetComponent<AudioSource>();
-                        if (asource != null)
+                        if (asource != null && asource.isActiveAndEnabled)
                         {
                             asource.Play();
                         }

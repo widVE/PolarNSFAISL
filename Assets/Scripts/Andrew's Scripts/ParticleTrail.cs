@@ -17,60 +17,46 @@ public class ParticleTrail : MonoBehaviour {
 	
 	public void setStart(Vector3 worldPosition) {
 
-		worldPosition.z = Camera.main.nearClipPlane + 1;
-
+		
 		points[0] = worldPosition;
 	}
 
 	public void setEnd(Vector3 worldPosition) {
-
-		worldPosition.z = Camera.main.nearClipPlane + 1;
-
-		points [1] = worldPosition;
+		
+		Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
+		Vector3 endPos = Camera.main.ScreenToWorldPoint (new Vector3 (screenPos.x, screenPos.y, Camera.main.nearClipPlane + 1));
+		Debug.Log ("Trail End Position: " + endPos);
+		points[1] = worldPosition;
 	}
 
 	public void enterTraceMode() {
-
-		foreach (Vector3 pos in points) {
-			Debug.Log ("Point: " + pos);
-		}
 			
 		ren.numPositions = 2;
 		ren.SetPositions (points);
-		Debug.Log ("I DREW THE LINE");
+		//Debug.Log ("Start Position: " + points [0]);
+		//Debug.Log ("End Position: " + points [1]);
 
 		//calculateRect ();
 
 	}
 
-	private void calculateRect() {
-
-		rect [0] = Camera.main.WorldToScreenPoint (points [0]) + new Vector3 (0, 1, 0);
-		rect [1] = Camera.main.WorldToScreenPoint (points [0]) - new Vector3 (0, 1, 0);
-
-		rect [2] = Camera.main.WorldToScreenPoint (points [1]) + new Vector3 (0, 1, 0);
-		rect [3] = Camera.main.WorldToScreenPoint (points [1]) - new Vector3 (0, 1, 0);
-
+	public Vector3 getTrailMid() {
+		
+		Vector3 changeVector = (points [1] - points [0]);
+		Vector3 mid = (points [0] + (0.5f) * (changeVector));
+		return mid;
 	}
 
-	public bool withinRect(Vector3 startPos, Vector3 endPos) {
-		if (startPos.x < rect[0].x  || startPos.x > rect[2].x) {
-			return false;
-		}
+	public float getTrailAngle() {
+		Vector3 changeVector = (points [1] - points [0]);
 
-		if (startPos.y < rect[1].y  || startPos.x > rect[0].y) {
-			return false;
-		}
+		float angle = Mathf.Atan2 (changeVector.y, changeVector.x);
 
-		if (endPos.x < rect[0].x  || endPos.x > rect[2].x) {
-			return false;
-		}
+		return angle;
+	}
 
-		if (endPos.y < rect[1].y  || endPos.x > rect[0].y) {
-			return false;
-		}
-
-		return true;
-			
+	public float getTrailLength() {
+		Vector3 changeVector = (points [1] - points [0]);
+		return Vector3.Magnitude (changeVector);
 	}
 }

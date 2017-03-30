@@ -29,7 +29,7 @@ public class EventCanvasManager : MonoBehaviour {
 		newPanel.name = "EventBox " + numEvents; 
 
 		Vector2 pos = new Vector2 (0f, -150 * (numEvents - 1) + 1025f);
-		Debug.Log ("Position " + numEvents + ": " + pos);
+		//Debug.Log ("Position " + numEvents + ": " + pos);
 		newPanel.GetComponent<Image> ().color = Random.ColorHSV();
 		newPanel.GetComponent<RectTransform> ().anchoredPosition = pos;
 

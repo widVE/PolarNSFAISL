@@ -78,7 +78,6 @@ public class ParticleMovement : MonoBehaviour {
 		colorMan.resetGame ();
 		trail.setEnd (this.transform.position);
 		trail.enterTraceMode ();
-		GameObject.Find ("EventPanel").GetComponent<EventCanvasManager> ().addEvent ("Event");
 		Destroy (this.gameObject);
 	}
 }

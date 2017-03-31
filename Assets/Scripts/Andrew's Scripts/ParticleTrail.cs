@@ -15,17 +15,11 @@ public class ParticleTrail : MonoBehaviour {
 		ren.material = new Material (Shader.Find ("Particles/Additive"));
 	}
 	
-	public void setStart(Vector3 worldPosition) {
-
-		
+	public void setStart(Vector3 worldPosition) {		
 		points[0] = worldPosition;
 	}
 
 	public void setEnd(Vector3 worldPosition) {
-		
-		Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPosition);
-		Vector3 endPos = Camera.main.ScreenToWorldPoint (new Vector3 (screenPos.x, screenPos.y, Camera.main.nearClipPlane + 1));
-		Debug.Log ("Trail End Position: " + endPos);
 		points[1] = worldPosition;
 	}
 
@@ -41,15 +35,23 @@ public class ParticleTrail : MonoBehaviour {
 	}
 
 	public Vector3 getTrailMid() {
-		
-		Vector3 changeVector = (points [1] - points [0]);
-		Vector3 mid = (points [0] + (0.5f) * (changeVector));
+
+		Vector3 start = Camera.main.WorldToScreenPoint (points [0]);
+		Vector3 end = Camera.main.WorldToScreenPoint (points [1]);
+		start.z = 0;
+		end.z = 0;
+		Vector3 changeVector = (end - start);
+		Vector3 mid = (start + (0.5f) * (changeVector));
+		Debug.Log ("Start was + " + start + ", and end was " + end + ", making the mid " + mid);
 		return mid;
 	}
 
 	public float getTrailAngle() {
-		Vector3 changeVector = (points [1] - points [0]);
 
+		Vector3 start = Camera.main.WorldToScreenPoint (points [0]);
+		Vector3 end = Camera.main.WorldToScreenPoint (points [1]);
+	
+		Vector3 changeVector = (end - start);
 		float angle = Mathf.Atan2 (changeVector.y, changeVector.x);
 
 		return angle;

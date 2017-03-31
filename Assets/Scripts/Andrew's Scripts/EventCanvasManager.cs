@@ -20,18 +20,20 @@ public class EventCanvasManager : MonoBehaviour {
 	}
 
 	public void addEvent(string info) {
-
-		if (numEvents > 10) {
+		if (numEvents > 20) {
 			return;
 		}
 		numEvents++;
-		GameObject newPanel = Instantiate (panel, this.transform);
+		GameObject newPanel = Instantiate (panel);
+		newPanel.transform.SetParent (this.transform, false);
+		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "EventBox " + numEvents; 
 
-		Vector2 pos = new Vector2 (0f, -150 * (numEvents - 1) + 1025f);
+		Vector2 pos = new Vector2 (0f, (-100) * (numEvents - 1) - 50);
 		//Debug.Log ("Position " + numEvents + ": " + pos);
+		newPanel.GetComponent<RectTransform>().anchoredPosition = pos;
 		newPanel.GetComponent<Image> ().color = Random.ColorHSV();
-		newPanel.GetComponent<RectTransform> ().anchoredPosition = pos;
+
 
 		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Event " + numEvents;
 

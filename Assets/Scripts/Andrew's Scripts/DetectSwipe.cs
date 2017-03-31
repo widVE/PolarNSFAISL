@@ -44,51 +44,65 @@ public class DetectSwipe : MonoBehaviour {
 
 
 		// Now we can try to detect a swipe!
+		if (swipedEvent()) {
+			Debug.Log ("Event captured!");
+			GameObject.Find ("EventPanel").GetComponent<EventCanvasManager> ().addEvent ("Event");
+		} else {
+			Debug.Log ("Event Missed, try again!");
+		}
 
-		// Position Check - done by checking midpoints of the two vectors
+
+	}
+
+	private bool swipedEvent() {
+
+
+		//-----Position Check - done by checking midpoints of the two vectors-----
 		Vector3 trailMid = trail.getTrailMid();
 		Vector3 swipeMid = swipePoints[0] + (0.5f) * (swipePoints [1] - swipePoints [0]);
 		swipeMid.z = Camera.main.nearClipPlane;
 
+		// Calculate the difference between the mid points
 		float positionDiff = Vector3.Distance (trailMid, swipeMid);
-		Debug.Log ("Trail mid located at: " + trailMid);
-		Debug.Log ("Swipe mid located at: " + swipeMid);
-		if (positionDiff <= 10) {
+
+		// TODO: If they are within a certain distance, it passes (this may change based on the display, may need adjusting for tabletop)
+		if (positionDiff <= 1.1f) {
 			Debug.Log ("Distance Check Passed, distance was: " + positionDiff);
 		} else {
 			Debug.Log ("Distance Check failed, distance apart was: " + positionDiff);
-			return;
+			return false;
 		}
 
-		// Direction Check - check to see if the directions of the two vectors are similar
+		//-----Direction Check - check to see if the directions of the two vectors are similar-----
 
 		// NOTE: Angles are in Degrees
 		float swipeAngle = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg;
+		Debug.Log ("Swipe angle: " + swipeAngle);
 		float trailAngle = trail.getTrailAngle() * Mathf.Rad2Deg;
+		Debug.Log ("Trail Angle: " + trailAngle);
 
-		float angleDiff = Mathf.DeltaAngle (swipeAngle, trailAngle);
+		float angleDiff = Mathf.Abs(Mathf.DeltaAngle (swipeAngle, trailAngle));
 
 		// Give 20-degree lenience
 		if (angleDiff < 20) {
 			Debug.Log ("Angle Check Passed, angle difference was: " + angleDiff);
 		} else {
 			Debug.Log ("Angle Checked Failed, angle difference was: " + angleDiff);
-			return;
+			return false;
 		}
 
-		// Length Check - just see if the swipe is similar (for the most part, as long as the flick vector isn't too short)
+		// Length Check - just see if the swipe is long enough
 		float swipeLength = Vector3.Magnitude(swipeVector);
-		float trailLength = trail.getTrailLength ();
 
-		float lengthDiff = Mathf.Abs(trailLength - swipeLength);
-
-		// As long as the swipeVector swipes 1/3 of the trail vector, it passes
-		if (lengthDiff < (2f*trailLength/3f)) {
-			Debug.Log ("Length Check Passed, length difference was: " + lengthDiff);
+		// As long as the swipeVector swipes 1/2 the screen, it passes
+		// TODO: This may need to be adjusted based on the display used
+		if (swipeLength > Screen.width / 2f) {
+			Debug.Log ("Length Check Passed, length was: " + swipeLength);
 		} else {
-			Debug.Log ("Length Checked Failed, length difference was: " + lengthDiff);
-			return;
+			Debug.Log ("Length Checked Failed, length was: " + swipeLength);
+			return false;
 		}
 
+		return true;
 	}
 }

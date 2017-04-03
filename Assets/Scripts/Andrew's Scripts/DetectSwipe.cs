@@ -38,7 +38,6 @@ public class DetectSwipe : MonoBehaviour {
 			Vector3[] array = new Vector3[2];
 			swipePoints [0] = Camera.main.ScreenToWorldPoint(new Vector3(start.x, start.y, Camera.main.nearClipPlane + 1));
 			swipePoints [1] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
-
 			ren.SetPositions (swipePoints);
 		}
 
@@ -60,13 +59,23 @@ public class DetectSwipe : MonoBehaviour {
 		//-----Position Check - done by checking midpoints of the two vectors-----
 		Vector3 trailMid = trail.getTrailMid();
 		Vector3 swipeMid = swipePoints[0] + (0.5f) * (swipePoints [1] - swipePoints [0]);
-		swipeMid.z = Camera.main.nearClipPlane;
+		GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+		cube.transform.position = swipeMid;
+		cube.name = "SwipeMid";
+		cube.transform.localScale = 0.1f * Vector3.one;
+
+
+		// Both midpoints are in world coordinates, convert them to screen coordinates to compare them
+		Vector3 swipeMidScreen = Camera.main.WorldToScreenPoint(swipeMid);
+		Vector3 trailMidScreen = Camera.main.WorldToScreenPoint (trailMid);
+		swipeMidScreen.z = 0;
+		trailMidScreen.z = 0;
 
 		// Calculate the difference between the mid points
-		float positionDiff = Vector3.Distance (trailMid, swipeMid);
+		float positionDiff = Vector3.Distance(swipeMidScreen, trailMidScreen);
 
 		// TODO: If they are within a certain distance, it passes (this may change based on the display, may need adjusting for tabletop)
-		if (positionDiff <= 1.1f) {
+		if (positionDiff <= Mathf.Min((Screen.height / 2f), (Screen.width) / 2f)) {
 			Debug.Log ("Distance Check Passed, distance was: " + positionDiff);
 		} else {
 			Debug.Log ("Distance Check failed, distance apart was: " + positionDiff);

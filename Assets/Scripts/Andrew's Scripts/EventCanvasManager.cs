@@ -32,7 +32,9 @@ public class EventCanvasManager : MonoBehaviour {
 		Vector2 pos = new Vector2 (0f, (-100) * (numEvents - 1) - 50);
 		//Debug.Log ("Position " + numEvents + ": " + pos);
 		newPanel.GetComponent<RectTransform>().anchoredPosition = pos;
-		newPanel.GetComponent<Image> ().color = Random.ColorHSV();
+		newPanel.GetComponent<Image> ().color = new Color (Random.Range (0.3f, 1f), Random.Range (0.3f, 1f), Random.Range (0.3f, 1f));
+
+
 
 
 		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Event " + numEvents;

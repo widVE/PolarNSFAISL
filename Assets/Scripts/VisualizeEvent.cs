@@ -135,6 +135,11 @@ public class VisualizeEvent : MonoBehaviour {
         //r or every 60 seconds
         if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - newPlayTime > eventFrequency)
         {
+            if(eventPlaying)
+            {
+                StopPlaying();
+            }
+
             newPlayTime = t;
             Debug.Log("Playing event!");
             eventPlaying = true;
@@ -187,6 +192,7 @@ public class VisualizeEvent : MonoBehaviour {
             if (currIndex < events[currEvent].eventData.Count - 1)
             {
                 //time scale here is probably off...
+                //these time values are in nanoseconds, so really huge, so this will probably be true every frame...
                 if ((events[currEvent].eventData[currIndex + 1].time - eventStartTime) > (t - playStartTime) * playSpeed)
                 {
                     currIndex++;
@@ -202,25 +208,30 @@ public class VisualizeEvent : MonoBehaviour {
 
             if (currIndex >= events[currEvent].eventData.Count - 1)
             {
-                Debug.Log("Stopped playing");
-                currIndex = 0;
-                eventPlaying = false;
-                advancedIndex = false;
-                playStartTime = 0.0f;
-
-                eventStartTime = 0.0f;
-                eventEndTime = 0.0f;
-
-                //turn off all event visualization?
-                for(int i = 0; i < events[currEvent].eventData.Count; ++i)
-                {
-                    GameObject d = domData.DOMArray[events[currEvent].eventData[i].dom, events[currEvent].eventData[i].str];
-                    if(d != null)
-                    {
-                        d.GetComponent<DOMController>().TurnOff();
-                    }
-                }
+                StopPlaying();
             }
         }
 	}
+
+    void StopPlaying()
+    {
+        Debug.Log("Stopped playing");
+        currIndex = 0;
+        eventPlaying = false;
+        advancedIndex = false;
+        playStartTime = 0.0f;
+
+        eventStartTime = 0.0f;
+        eventEndTime = 0.0f;
+
+        //turn off all event visualization?
+        for(int i = 0; i < events[currEvent].eventData.Count; ++i)
+        {
+            GameObject d = domData.DOMArray[events[currEvent].eventData[i].dom, events[currEvent].eventData[i].str];
+            if(d != null)
+            {
+                d.GetComponent<DOMController>().TurnOff();
+            }
+        }
+    }
 }

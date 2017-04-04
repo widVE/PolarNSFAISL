@@ -6,24 +6,16 @@ using System.Collections.Generic;
 
 public class VisualizeEvent : MonoBehaviour {
 
-   
     public string eventDirectory;
-    public GameObject particle;
-    public bool eventPlaying = false;
-    public int currEvent = 0;
+    //public GameObject particle;
     public float playSpeed = 0.01f;
     public float eventFrequency = 15.0f;
     public GameObject totalEnergyText = null;
 
     private float totalEnergy = 0.0f;
-    //private string eventFile;
-    private int currIndex = 0;
+    
     private const float BELOW_ICE = -1950.0f;
-    private float eventStartTime = 0.0f;
-    private float eventEndTime = 0.0f;
-    private float playStartTime = 0.0f;
-    private bool advancedIndex = false;
-    private float newPlayTime = 0.0f;
+    private float lastPlayTime = 0.0f;
     private DomData domData;
 
     public struct EventData
@@ -43,6 +35,19 @@ public class VisualizeEvent : MonoBehaviour {
         public Vector3 endPos;
         public GameObject eventSource;
     };
+
+    public struct EventPlayback
+    {
+        public bool isPlaying;
+        public bool advancedIndex;
+        public int eventIndex;
+        public float eventStartTime;
+        public float eventEndTime;
+        public float playStartTime;
+        public float newPlayTime;
+    };
+
+    public EventPlayback[] eventsPlaying;
 
     public List<EventVis> events = new List<EventVis>();
 
@@ -124,110 +129,142 @@ public class VisualizeEvent : MonoBehaviour {
                     events.Add(e);
                 }
             }
+
+            if(events.Count > 0)
+            {
+                eventsPlaying = new EventPlayback[events.Count];
+                for(int e = 0; e < events.Count; ++e)
+                {
+                    eventsPlaying[e].isPlaying = false;
+                    eventsPlaying[e].eventIndex = -1;
+                    eventsPlaying[e].eventStartTime = 0.0f;
+                    eventsPlaying[e].eventEndTime = 0.0f;
+                    eventsPlaying[e].playStartTime = 0.0f;
+                    eventsPlaying[e].advancedIndex = false;
+                    eventsPlaying[e].newPlayTime = 0.0f;
+                }
+            }
         }
 	}
 	
+    public bool IsEventPlaying()
+    {
+        for (int i = 0; i < eventsPlaying.Length; ++i)
+        {
+            if(eventsPlaying[i].isPlaying)
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
 	// Update is called once per frame
 	void Update () {
         
         float t = UnityEngine.Time.time;
 
         //r or every 60 seconds
-        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - newPlayTime > eventFrequency)
+        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - lastPlayTime > eventFrequency)
         {
-            if(eventPlaying)
-            {
-                StopPlaying();
-            }
-
-            newPlayTime = t;
             Debug.Log("Playing event!");
-            eventPlaying = true;
-            currIndex = 0;
+			lastPlayTime = t;
+			
+            int currEvent = UnityEngine.Random.Range(0, events.Count);
+
+            //todo - don't allow same event to replay before its done...
             
-            currEvent = UnityEngine.Random.Range(0, events.Count);
-            eventStartTime = events[currEvent].eventData[0].time;
-            playStartTime = t;
-            eventEndTime = events[currEvent].eventData[events[currEvent].eventData.Count - 1].time;
-            //eventFile = events[currEvent].fileName;
-            advancedIndex = true;
+            eventsPlaying[currEvent].newPlayTime = t;
+            eventsPlaying[currEvent].eventStartTime = events[currEvent].eventData[0].time;
+            eventsPlaying[currEvent].playStartTime = t;
+            eventsPlaying[currEvent].eventEndTime = events[currEvent].eventData[events[currEvent].eventData.Count - 1].time;
+            eventsPlaying[currEvent].advancedIndex = true;
+            eventsPlaying[currEvent].eventIndex = 0;
+            eventsPlaying[currEvent].isPlaying = true;
+
             Debug.Log("Source: " + events[currEvent].eventSource.name);
         }
 
-	    if(eventPlaying)
+	    if(IsEventPlaying())
         {
-            if (currIndex < events[currEvent].eventData.Count && advancedIndex)
+            for (int e = 0; e < eventsPlaying.Length; ++e)
             {
-                if (domData == null)
+                if (eventsPlaying[e].isPlaying)
                 {
-                    domData = gameObject.GetComponent<DomData>();
-                }
-
-                GameObject d = domData.DOMArray[events[currEvent].eventData[currIndex].dom, events[currEvent].eventData[currIndex].str];
-
-                float fTimeFrac = 0.0f;
-                if (d != null)
-                {
-                    totalEnergy = events[currEvent].eventData[currIndex].charge;
-                    totalEnergyText.GetComponent<UnityEngine.UI.Text>().text = "Total Energy: " + totalEnergy;
-                    fTimeFrac = (events[currEvent].eventData[currIndex].time - eventStartTime) / (eventEndTime - eventStartTime);
-                    DOMController dc = d.GetComponent<DOMController>();
-                    if(dc != null)
+                    if (eventsPlaying[e].eventIndex < events[e].eventData.Count && eventsPlaying[e].advancedIndex)
                     {
-                        dc.TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[currEvent].eventData[currIndex].charge * events[currEvent].eventData[currIndex].charge));
-                        AudioSource asource = dc.GetComponent<AudioSource>();
-                        if (asource != null && asource.isActiveAndEnabled)
+                        if (domData == null)
                         {
-                            asource.Play();
+                            domData = gameObject.GetComponent<DomData>();
+                        }
+
+                        GameObject d = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str];
+
+                        float fTimeFrac = 0.0f;
+                        if (d != null)
+                        {
+                            totalEnergy = events[e].eventData[eventsPlaying[e].eventIndex].charge;
+                            totalEnergyText.GetComponent<UnityEngine.UI.Text>().text = "Total Energy: " + totalEnergy;
+                            fTimeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
+                            DOMController dc = d.GetComponent<DOMController>();
+                            if (dc != null)
+                            {
+                                dc.TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[e].eventData[eventsPlaying[e].eventIndex].charge * events[e].eventData[eventsPlaying[e].eventIndex].charge));
+                                AudioSource asource = dc.GetComponent<AudioSource>();
+                                if (asource != null && asource.isActiveAndEnabled)
+                                {
+                                    asource.Play();
+                                }
+                            }
+                        }
+
+                        //Vector3 dir = (events[e].endPos - events[e].startPos);
+                        //float mag = (events[e].endPos - events[e].startPos).magnitude;
+                        //particle.transform.position = events[e].startPos + dir * fTimeFrac;
+                    }
+
+                    //advance index depending on timing...
+                    if (eventsPlaying[e].eventIndex < events[e].eventData.Count - 1)
+                    {
+                        //time scale here is probably off...
+                        //these time values are in nanoseconds, so really huge, so this will probably be true every frame...
+                        if ((events[e].eventData[eventsPlaying[e].eventIndex + 1].time - eventsPlaying[e].eventStartTime) > (t - eventsPlaying[e].playStartTime) * playSpeed)
+                        {
+                            eventsPlaying[e].eventIndex++;
+                            eventsPlaying[e].advancedIndex = true;
+                        }
+                        else
+                        {
+                            //spin the existing spheres?
+                            //fade out option?
+                            eventsPlaying[e].advancedIndex = false;
                         }
                     }
-                }
-                
-                Vector3 dir = (events[currEvent].endPos - events[currEvent].startPos);
-                float mag = (events[currEvent].endPos - events[currEvent].startPos).magnitude;
-                particle.transform.position = events[currEvent].startPos + dir * fTimeFrac;
-            }
-            
-            //advance index depending on timing...
-            if (currIndex < events[currEvent].eventData.Count - 1)
-            {
-                //time scale here is probably off...
-                //these time values are in nanoseconds, so really huge, so this will probably be true every frame...
-                if ((events[currEvent].eventData[currIndex + 1].time - eventStartTime) > (t - playStartTime) * playSpeed)
-                {
-                    currIndex++;
-                    advancedIndex = true;
-                }
-                else
-                {
-                    //spin the existing spheres?
-                    //fade out option?
-                    advancedIndex = false;
-                }
-            }
 
-            if (currIndex >= events[currEvent].eventData.Count - 1)
-            {
-                StopPlaying();
+                    if (eventsPlaying[e].eventIndex >= events[e].eventData.Count - 1)
+                    {
+                        StopPlaying(e);
+                    }
+                }
             }
         }
 	}
 
-    void StopPlaying()
+    void StopPlaying(int e)
     {
         Debug.Log("Stopped playing");
-        currIndex = 0;
-        eventPlaying = false;
-        advancedIndex = false;
-        playStartTime = 0.0f;
-
-        eventStartTime = 0.0f;
-        eventEndTime = 0.0f;
+        eventsPlaying[e].eventIndex = 0;
+        eventsPlaying[e].isPlaying = false;
+        eventsPlaying[e].advancedIndex = false;
+        eventsPlaying[e].playStartTime = 0.0f;
+        eventsPlaying[e].eventStartTime = 0.0f;
+        eventsPlaying[e].eventEndTime = 0.0f;
 
         //turn off all event visualization?
-        for(int i = 0; i < events[currEvent].eventData.Count; ++i)
+        for(int i = 0; i < events[e].eventData.Count; ++i)
         {
-            GameObject d = domData.DOMArray[events[currEvent].eventData[i].dom, events[currEvent].eventData[i].str];
+            GameObject d = domData.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str];
             if(d != null)
             {
                 d.GetComponent<DOMController>().TurnOff();

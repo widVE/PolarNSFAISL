@@ -44,35 +44,41 @@ public class SwipeRecognizer : MonoBehaviour {
         //let's instead convert any active events to screen space and test there...
         if(currentEvents != null)
         {
-            if(currentEvents.eventPlaying)
+            if(currentEvents.IsEventPlaying())
             {
-                Vector3 vStart = currentEvents.events[currentEvents.currEvent].startPos;
-                Vector3 vEnd = currentEvents.events[currentEvents.currEvent].endPos;
-                Vector3 screenStart = Camera.main.WorldToScreenPoint(vStart);
-                Vector3 screenEnd = Camera.main.WorldToScreenPoint(vEnd);
-                Vector2 screenDir = new Vector2(screenEnd.x-screenStart.x, screenEnd.y-screenStart.y);
-                float mag = screenDir.magnitude;
-                //check if flickVector is close to screenDir..
-                //probably a better way to do this than compare distances...
-                Debug.Log("Event screen space direction: " + screenDir);
-                float dist = Vector2.Distance(screenDir, flickVector);
-                float dist2 = Vector2.Distance(-screenDir, flickVector);
-                Debug.Log(dist);
-                Debug.Log(dist2);
-                if(dist < 250.0f || dist2 < 250.0f)
+                for (int ev = 0; ev < currentEvents.eventsPlaying.Length; ++ev)
                 {
-                    //add source phenomena to our list...
-                    //trigger next steps...
-                    Debug.Log("Flicked well!");
-                    //add the item to a collection list...
-                    if(collectionText != null)
+                    if (currentEvents.eventsPlaying[ev].isPlaying)
                     {
-                        collectionText.GetComponent<UnityEngine.UI.Text>().text = "Cosmic Phenomena Collection:\n" + currentEvents.events[currentEvents.currEvent].eventSource.name;
+                        Vector3 vStart = currentEvents.events[ev].startPos;
+                        Vector3 vEnd = currentEvents.events[ev].endPos;
+                        Vector3 screenStart = Camera.main.WorldToScreenPoint(vStart);
+                        Vector3 screenEnd = Camera.main.WorldToScreenPoint(vEnd);
+                        Vector2 screenDir = new Vector2(screenEnd.x - screenStart.x, screenEnd.y - screenStart.y);
+                        float mag = screenDir.magnitude;
+                        //check if flickVector is close to screenDir..
+                        //probably a better way to do this than compare distances...
+                        Debug.Log("Event screen space direction: " + screenDir);
+                        float dist = Vector2.Distance(screenDir, flickVector);
+                        float dist2 = Vector2.Distance(-screenDir, flickVector);
+                        Debug.Log(dist);
+                        Debug.Log(dist2);
+                        if (dist < 250.0f || dist2 < 250.0f)
+                        {
+                            //add source phenomena to our list...
+                            //trigger next steps...
+                            Debug.Log("Flicked well!");
+                            //add the item to a collection list...
+                            if (collectionText != null)
+                            {
+                                collectionText.GetComponent<UnityEngine.UI.Text>().text = "Cosmic Phenomena Collection:\n" + currentEvents.events[ev].eventSource.name;
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("You were off");
+                        }
                     }
-                }
-                else
-                {
-                    Debug.Log("You were off");
                 }
             }
         }

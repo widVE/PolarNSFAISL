@@ -46,10 +46,10 @@ public class ParticleTrail : MonoBehaviour {
 		Vector3 changeVector = (end - start);
 		Vector3 mid = (start + (0.5f) * (changeVector));
 		Debug.Log ("TRAIL: Start was + " + start + ", and end was " + end + ", making the mid " + mid);
-		GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
-		cube.transform.position = mid;
-		cube.name = "TrailMid";
-		cube.transform.localScale = 0.1f * Vector3.one;
+//		GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+//		cube.transform.position = mid;
+//		cube.name = "TrailMid";
+//		cube.transform.localScale = 0.1f * Vector3.one;
 		return mid;
 	}
 

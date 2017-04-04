@@ -59,10 +59,12 @@ public class DetectSwipe : MonoBehaviour {
 		//-----Position Check - done by checking midpoints of the two vectors-----
 		Vector3 trailMid = trail.getTrailMid();
 		Vector3 swipeMid = swipePoints[0] + (0.5f) * (swipePoints [1] - swipePoints [0]);
-		GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
-		cube.transform.position = swipeMid;
-		cube.name = "SwipeMid";
-		cube.transform.localScale = 0.1f * Vector3.one;
+
+
+//		GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+//		cube.transform.position = swipeMid;
+//		cube.name = "SwipeMid";
+//		cube.transform.localScale = 0.1f * Vector3.one;
 
 
 		// Both midpoints are in world coordinates, convert them to screen coordinates to compare them
@@ -93,7 +95,7 @@ public class DetectSwipe : MonoBehaviour {
 		float angleDiff = Mathf.Abs(Mathf.DeltaAngle (swipeAngle, trailAngle));
 
 		// Give 20-degree lenience
-		if (angleDiff < 20) {
+		if (angleDiff < 45) {
 			Debug.Log ("Angle Check Passed, angle difference was: " + angleDiff);
 		} else {
 			Debug.Log ("Angle Checked Failed, angle difference was: " + angleDiff);

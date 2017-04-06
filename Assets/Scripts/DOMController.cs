@@ -38,6 +38,7 @@ public class DOMController : MonoBehaviour {
         }*/
 
         eventSphere = transform.FindChild("low_poly_sphere").gameObject;
+        oldScale = eventSphere.transform.localScale.x;
 	}
 
     public void TurnOn(float fTimeFrac, float fRadius)
@@ -56,7 +57,7 @@ public class DOMController : MonoBehaviour {
 
         if (eventSphere != null)
         {
-            oldScale = eventSphere.transform.localScale.x;
+           
             eventSphere.transform.localScale = new Vector3(fRadius, fRadius, fRadius);
 
             //todo - improve the timing calculation...

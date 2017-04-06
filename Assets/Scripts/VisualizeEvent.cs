@@ -41,6 +41,8 @@ public class VisualizeEvent : MonoBehaviour {
         public bool isPlaying;
         public bool advancedIndex;
         public int eventIndex;
+        public int eventStartFrame;
+        public int eventEndFrame;
         public float eventStartTime;
         public float eventEndTime;
         public float playStartTime;
@@ -165,18 +167,25 @@ public class VisualizeEvent : MonoBehaviour {
         
         float t = UnityEngine.Time.time;
 
+        totalEnergy = 0.0f;
+
         //r or every 60 seconds
         if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - lastPlayTime > eventFrequency)
         {
             Debug.Log("Playing event!");
 			lastPlayTime = t;
-			
+            
+			//todo - don't allow same event to replay until it's done...
             int currEvent = UnityEngine.Random.Range(0, events.Count);
 
-            //todo - don't allow same event to replay before its done...
-            
             eventsPlaying[currEvent].newPlayTime = t;
             eventsPlaying[currEvent].eventStartTime = events[currEvent].eventData[0].time;
+            eventsPlaying[currEvent].eventStartFrame = UnityEngine.Time.frameCount;
+            Debug.Log("Start Frame:" + eventsPlaying[currEvent].eventStartFrame);
+            
+            eventsPlaying[currEvent].eventEndFrame = UnityEngine.Time.frameCount + (int)((float)events[currEvent].eventData.Count / playSpeed);
+            Debug.Log("End Frame:" + eventsPlaying[currEvent].eventEndFrame);
+
             eventsPlaying[currEvent].playStartTime = t;
             eventsPlaying[currEvent].eventEndTime = events[currEvent].eventData[events[currEvent].eventData.Count - 1].time;
             eventsPlaying[currEvent].advancedIndex = true;
@@ -192,6 +201,7 @@ public class VisualizeEvent : MonoBehaviour {
             {
                 if (eventsPlaying[e].isPlaying)
                 {
+                    //todo - to handle sped up play back, need to potentially loop ahead here, until we calculate a frame count beyond the current...
                     if (eventsPlaying[e].eventIndex < events[e].eventData.Count && eventsPlaying[e].advancedIndex)
                     {
                         if (domData == null)
@@ -204,7 +214,7 @@ public class VisualizeEvent : MonoBehaviour {
                         float fTimeFrac = 0.0f;
                         if (d != null)
                         {
-                            totalEnergy = events[e].eventData[eventsPlaying[e].eventIndex].charge;
+                            totalEnergy += events[e].eventData[eventsPlaying[e].eventIndex].charge;
                             totalEnergyText.GetComponent<UnityEngine.UI.Text>().text = "Total Energy: " + totalEnergy;
                             fTimeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
                             DOMController dc = d.GetComponent<DOMController>();
@@ -229,10 +239,25 @@ public class VisualizeEvent : MonoBehaviour {
                     {
                         //time scale here is probably off...
                         //these time values are in nanoseconds, so really huge, so this will probably be true every frame...
-                        if ((events[e].eventData[eventsPlaying[e].eventIndex + 1].time - eventsPlaying[e].eventStartTime) > (t - eventsPlaying[e].playStartTime) * playSpeed)
+                        //instead let's do this based on frame count..
+                        //given the event's time and our frame range, we can figure map the single event's time to which frame it should play...
+                        float timeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
+                        int frameRange = eventsPlaying[e].eventEndFrame - eventsPlaying[e].eventStartFrame;
+                        //Debug.Log("Range: " + frameRange);
+                        float frameFrac = (float)eventsPlaying[e].eventStartFrame + (timeFrac * (float)frameRange);
+                        //Debug.Log("Fraction: " + frameFrac);
+                        //Debug.Log("Frame Count: " + UnityEngine.Time.frameCount);
+                        //Debug.Log("Event Index: " + eventsPlaying[e].eventIndex);
+                        //need to double check this...
+                        if (frameFrac < (float)UnityEngine.Time.frameCount)
                         {
                             eventsPlaying[e].eventIndex++;
                             eventsPlaying[e].advancedIndex = true;
+                        }
+                        else if(UnityEngine.Time.frameCount > eventsPlaying[e].eventEndFrame)
+                        {
+                            StopPlaying(e);
+                            //eventsPlaying[e].eventIndex++;
                         }
                         else
                         {
@@ -260,6 +285,8 @@ public class VisualizeEvent : MonoBehaviour {
         eventsPlaying[e].playStartTime = 0.0f;
         eventsPlaying[e].eventStartTime = 0.0f;
         eventsPlaying[e].eventEndTime = 0.0f;
+        eventsPlaying[e].eventStartFrame = 0;
+        eventsPlaying[e].eventEndFrame = 0;
 
         //turn off all event visualization?
         for(int i = 0; i < events[e].eventData.Count; ++i)

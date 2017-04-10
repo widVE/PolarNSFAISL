@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EventCanvasManager : MonoBehaviour {
+public class EventPanelManager : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject panel;
 	private Text mytext;
 	private int numEvents = 0;
+	private List<EventInfo> events = new List<EventInfo>();
 	// Use this for initialization
 	void Start () {
 		
@@ -19,11 +20,12 @@ public class EventCanvasManager : MonoBehaviour {
 		
 	}
 
-	public void addEvent(string info) {
+	public void addEvent(string name, float cumulative_energy, Vector2 coordinates) {
 		if (numEvents > 20) {
 			return;
 		}
 		numEvents++;
+		EventInfo newEvent = new EventInfo (name, cumulative_energy, coordinates);
 		GameObject newPanel = Instantiate (panel);
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);

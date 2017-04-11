@@ -1,0 +1,90 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 780 Ti (ID=0x100a)
+    Vendor:   NVIDIA
+    VRAM:     3013 MB
+    Driver:   21.21.13.7619
+Begin MonoManager ReloadAssembly
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.VR.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween43.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween43.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween46.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween46.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween50.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\DOTween50.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\OSCsharp.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\OSCsharp.dll into Unity Child Domain
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\TUIOsharp.dll (this message is harmless)
+Loading A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\TUIOsharp.dll into Unity Child Domain
+- Completed reload, in  0.025 seconds
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: A:\IceCube\PolarNSFAISL\Builds\TableProto2_Data\Managed\System.dll (this message is harmless)
+OnLevelWasLoaded was found on VRFadeScript
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 382)
+
+OnLevelWasLoaded was found on OVRScreenFade
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 382)
+
+desktop: 1920x1080 144Hz; virtual: 5760x1080 at -1920,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Compositor failed to initialize.Compositor failed to initialize.UnloadTime: 1.277641 ms
+Spawner ParticleSpawner 1 is targeting (11.5, 0.2, -0.4)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 21dc -> priority: 1 
+  Thread -> id: 21e0 -> priority: 1 
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/WindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/.\WindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/WindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/libWindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/.\libWindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/libWindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/WindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/.\WindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/WindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/libWindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/.\libWindowsTouch
+Fallback handler could not load library A:/IceCube/PolarNSFAISL/Builds/TableProto2_Data/Mono/libWindowsTouch
+DllNotFoundException: WindowsTouch
+  at (wrapper managed-to-native) TouchScript.InputSources.InputHandlers.WindowsPointerHandler:SetScreenParams (int,int,single,single,single,single)
+  at TouchScript.InputSources.InputHandlers.WindowsPointerHandler.initScaling () [0x00000] in <filename unknown>:0 
+  at TouchScript.InputSources.InputHandlers.WindowsPointerHandler..ctor (TouchScript.InputSources.PointerDelegate addPointer, TouchScript.InputSources.PointerDelegate updatePointer, TouchScript.InputSources.PointerDelegate pressPointer, TouchScript.InputSources.PointerDelegate releasePointer, TouchScript.InputSources.PointerDelegate removePointer, TouchScript.InputSources.PointerDelegate cancelPointer) [0x00000] in <filename unknown>:0 
+  at TouchScript.InputSources.InputHandlers.Windows7PointerHandler..ctor (TouchScript.InputSources.PointerDelegate addPointer, TouchScript.InputSources.PointerDelegate updatePointer, TouchScript.InputSources.PointerDelegate pressPointer, TouchScript.InputSources.PointerDelegate releasePointer, TouchScript.InputSources.PointerDelegate removePointer, TouchScript.InputSources.PointerDelegate cancelPointer) [0x00000] in <filename unknown>:0 
+  at TouchScript.InputSources.StandardInput.enableWindows7Touch () [0x00000] in <filename unknown>:0 
+  at TouchScript.InputSources.StandardInput.OnEnable () [0x00000] in <filename unknown>:0 
+UnityEngine.GameObject:Internal_AddComponentWithType(Type)
+UnityEngine.GameObject:AddComponent(Type)
+UnityEngine.GameObject:AddComponent()
+TouchScript.TouchManagerInstance:createInput()
+TouchScript.<lateAwake>c__Iterator0:MoveNext()
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+ 
+(Filename:  Line: -1)
+

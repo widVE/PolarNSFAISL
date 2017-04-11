@@ -36,9 +36,14 @@ public class DetectSwipe : MonoBehaviour {
 		Debug.Log ("Start: " + start);
 		if (showLine) {
 			Vector3[] array = new Vector3[2];
-			swipePoints [0] = Camera.main.ScreenToWorldPoint(new Vector3(start.x, start.y, Camera.main.nearClipPlane + 1));
-			swipePoints [1] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
-			ren.SetPositions (swipePoints);
+
+			swipePoints [0] = new Vector3(start.x, start.y, Camera.main.nearClipPlane + 1);
+			swipePoints [1] = new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1);
+
+			Vector3[] lineRenPoints = new Vector3[2];
+			lineRenPoints [0] = Camera.main.ScreenToWorldPoint(new Vector3(start.x, start.y, Camera.main.nearClipPlane + 1));
+			lineRenPoints [1] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
+			ren.SetPositions (lineRenPoints);
 		}
 
 
@@ -58,7 +63,7 @@ public class DetectSwipe : MonoBehaviour {
 
 		//-----Position Check - done by checking midpoints of the two vectors-----
 		Vector3 trailMid = trail.getTrailMid();
-		Vector3 swipeMid = swipePoints[0] + (0.5f) * (swipePoints [1] - swipePoints [0]);
+		//Vector3 swipeMid = swipePoints[0] + (0.5f) * (swipePoints [1] - swipePoints [0]);
 
 
 //		GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
@@ -68,7 +73,7 @@ public class DetectSwipe : MonoBehaviour {
 
 
 		// Both midpoints are in world coordinates, convert them to screen coordinates to compare them
-		Vector3 swipeMidScreen = Camera.main.WorldToScreenPoint(swipeMid);
+		Vector3 swipeMidScreen = swipePoints[0] + (0.5f) * (swipePoints [1] - swipePoints [0]);
 		Vector3 trailMidScreen = Camera.main.WorldToScreenPoint (trailMid);
 		swipeMidScreen.z = 0;
 		trailMidScreen.z = 0;
@@ -95,7 +100,7 @@ public class DetectSwipe : MonoBehaviour {
 		float angleDiff = Mathf.Abs(Mathf.DeltaAngle (swipeAngle, trailAngle));
 
 		// Give 20-degree lenience
-		if (angleDiff < 45) {
+		if (angleDiff < 20) {
 			Debug.Log ("Angle Check Passed, angle difference was: " + angleDiff);
 		} else {
 			Debug.Log ("Angle Checked Failed, angle difference was: " + angleDiff);

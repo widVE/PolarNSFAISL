@@ -67,8 +67,10 @@ public class ParticleTrail : MonoBehaviour {
 		float angle = Mathf.Atan2 (screenVector.y, screenVector.x);
 		*/
 
-		Vector3 start = Camera.main.WorldToScreenPoint (((0.1f) * points [0]));
-		Vector3 end =  Camera.main.WorldToScreenPoint (((0.1f) * points [1]));
+		Vector3 start = Camera.main.WorldToScreenPoint(this.getTrailMid() - (0.1f * (points[1] - points [0])));
+		Vector3 end = Camera.main.WorldToScreenPoint(this.getTrailMid() + (0.1f * (points[1] - points [0])));
+		//Vector3 start = Camera.main.WorldToScreenPoint (((0.1f) * points [0]));
+		//Vector3 end =  Camera.main.WorldToScreenPoint (((0.1f) * points [1]));
 
 		Vector3 change = end - start;
 		float angle = Mathf.Atan2 (change.y, change.x);

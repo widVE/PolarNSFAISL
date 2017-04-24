@@ -12,7 +12,7 @@ public class VisualizeEvent : MonoBehaviour {
     public float eventFrequency = 15.0f;
     public GameObject totalEnergyText = null;
 
-    private float totalEnergy = 0.0f;
+    public float totalEnergy = 0.0f;
     
     private const float BELOW_ICE = -1950.0f;
     private float lastPlayTime = 0.0f;

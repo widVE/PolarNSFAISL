@@ -298,4 +298,8 @@ public class VisualizeEvent : MonoBehaviour {
             }
         }
     }
+
+	public float getEnergy() {
+		return totalEnergy;
+	}
 }

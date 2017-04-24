@@ -6,11 +6,16 @@ public class EnergyGrapher : MonoBehaviour {
 	public int resolution = 10;
 	private ParticleSystem.Particle[] points;
 	float timer = 0f;
+	private VisualizeEvent visEvent;
+
+	[SerializeField]
+	private bool randomizeData = true;
 
 	// Use this for initialization
 	void Start () {
 		points = new ParticleSystem.Particle[resolution];
 		InitializePoints ();
+		visEvent = GameObject.Find ("Event").GetComponent<VisualizeEvent>();
 	}
 
 	// Update is called once per frame
@@ -30,6 +35,7 @@ public class EnergyGrapher : MonoBehaviour {
 	/// Used in case resolution changes at runtime
 	/// </summary>
 	private void UpdateGraph() {
+		
 		// Setting up graph points
 		for (int i = 0; i < points.Length - 1; i++) {
 			Vector3 currPos = points [i].position;
@@ -42,7 +48,14 @@ public class EnergyGrapher : MonoBehaviour {
 		}
 
 		Vector3 temp = points [points.Length - 1].position;
-		temp.y = Random.value;
+
+		// Either randomize or use VisualizeEvent totalEnergy
+		if (randomizeData) {
+			temp.y = Random.value;
+		} else {
+			
+		}
+
 
 		points [points.Length - 1].position = temp;
 

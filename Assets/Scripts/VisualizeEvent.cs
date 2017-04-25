@@ -35,6 +35,8 @@ public class VisualizeEvent : MonoBehaviour {
         public string fileName;
         public Vector3 startPos;
         public Vector3 endPos;
+        public float theta;
+        public float phi;
         public GameObject eventSource;
     };
 
@@ -146,6 +148,8 @@ public class VisualizeEvent : MonoBehaviour {
             GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
             int numSources = sources.Length;
             List<EventData> ed = new List<EventData>();
+            float lastTheta = 0.0f;
+            float lastPhi = 0.0f;
             while (s != null)
             {
                 if(s[0] != '#')
@@ -154,6 +158,9 @@ public class VisualizeEvent : MonoBehaviour {
                     if(data.Length == 2)
                     {
                         //theta, phi
+                        lastTheta = (float)double.Parse(data[0]);
+                        lastPhi = (float)double.Parse(data[1]);
+                        //todo - derive a start and end point from theta and phi
                     }
                     else if(data.Length == 7)
                     { 
@@ -179,7 +186,9 @@ public class VisualizeEvent : MonoBehaviour {
                         {
                             EventVis e = new EventVis();
                             e.eventData = new List<EventData>(ed);
-
+                            e.theta = lastTheta;
+                            e.phi = lastPhi;
+                            //todo - derive a start and end point from ed, theta, phi
                             e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
                             if (sources.Length > 0)
                             {

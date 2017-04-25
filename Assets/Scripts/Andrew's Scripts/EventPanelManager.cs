@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class EventPanelManager : MonoBehaviour {
 
 	[SerializeField]
-	private GameObject panel;
+	private GameObject template;
 	private Text mytext;
 	private int numEvents = 0;
-	private List<EventInfo> events = new List<EventInfo>();
+	private List<GameObject> panels = new List<GameObject> ();
 	// Use this for initialization
 	void Start () {
 		
@@ -24,12 +24,20 @@ public class EventPanelManager : MonoBehaviour {
 		if (numEvents > 20) {
 			return;
 		}
-		numEvents++;
-		EventInfo newEvent = new EventInfo (name, cumulative_energy, coordinates);
-		GameObject newPanel = Instantiate (panel);
+
+		GameObject newPanel = Instantiate (template);
+		newPanel.GetComponent<EventInfo> ().setName (name);
+		newPanel.GetComponent<EventInfo> ().setDate (System.DateTime.Now);
+		newPanel.GetComponent<EventInfo> ().setEnergy (cumulative_energy);
+		newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
-		newPanel.name = "EventBox " + numEvents; 
+		newPanel.name = "Event: " + name; 
+		newPanel.GetComponentInChildren<Button> ().onClick.AddListener (newPanel.GetComponent<EventInfo>().SendEventToOculus);
+
+		panels.Add (newPanel);
+		numEvents++;
+
 
 		Vector2 pos = new Vector2 (0f, (-100) * (numEvents - 1) - 50);
 		//Debug.Log ("Position " + numEvents + ": " + pos);
@@ -39,7 +47,25 @@ public class EventPanelManager : MonoBehaviour {
 
 
 
-		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Event " + numEvents;
+		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Event: " + name;
 
 	}
+
+	public void removeEvent(GameObject eventToRemove) {
+		
+		if (panels.Remove (eventToRemove)) {
+			numEvents--;
+			foreach (GameObject curr in panels) {
+				if (curr.GetComponent<RectTransform>().anchoredPosition.y < eventToRemove.GetComponent<RectTransform>().anchoredPosition.y) {
+					curr.GetComponent<RectTransform> ().anchoredPosition += new Vector2 (0f, 100f);
+				}
+			}
+		}
+
+		// Send the EventInfo to the Oculus Player
+		// this.sendInfo(eventToRemove.getComponent<EventInfo>());
+		Destroy(eventToRemove);
+		Debug.Log ("Event \"sent\" to Oculus");
+	}
+		
 }

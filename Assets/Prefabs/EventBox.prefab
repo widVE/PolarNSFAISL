@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 224049846505442878}
   - component: {fileID: 222021542680346928}
   - component: {fileID: 114011823209389282}
+  - component: {fileID: 114206407167659924}
   m_Layer: 0
   m_Name: EventBox
   m_TagString: Untagged
@@ -107,6 +108,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114206407167659924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324655533693814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9093f627c537e544286e6eccffa113eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  man: {fileID: 0}
 --- !u!114 &114282814714754540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,7 +224,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114824933513120324}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: removeEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114824933513120324

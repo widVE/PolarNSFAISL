@@ -56,6 +56,7 @@ public class Grapher1 : MonoBehaviour {
 			points[i].size = 0.1f;
 		}
 	}
+		
 
 	private float sine(float x) {
 

@@ -15,7 +15,7 @@ public class EnergyGrapher : MonoBehaviour {
 	void Start () {
 		points = new ParticleSystem.Particle[resolution];
 		InitializePoints ();
-		visEvent = GameObject.Find ("Event").GetComponent<VisualizeEvent>();
+		visEvent = GameObject.Find ("DOMArrayProcedural").GetComponent<VisualizeEvent>();
 	}
 
 	// Update is called once per frame
@@ -53,14 +53,10 @@ public class EnergyGrapher : MonoBehaviour {
 		if (randomizeData) {
 			temp.y = Random.value;
 		} else {
-			
+            temp.y = visEvent.totalEnergy;
 		}
 
-
 		points [points.Length - 1].position = temp;
-
-
-			
 	}
 		
 	private void InitializePoints() {

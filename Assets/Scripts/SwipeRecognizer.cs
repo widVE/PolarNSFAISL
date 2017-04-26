@@ -52,6 +52,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     {
                         Vector3 vStart = currentEvents.events[ev].startPos;
                         Vector3 vEnd = currentEvents.events[ev].endPos;
+						Debug.Log ("Start: " + vStart + " End: " + vEnd);
 
                         Vector3 screenStart = Camera.main.WorldToScreenPoint(vStart);
                         Vector3 screenEnd = Camera.main.WorldToScreenPoint(vEnd);
@@ -60,7 +61,11 @@ public class SwipeRecognizer : MonoBehaviour {
                         screenMid.x = screenStart.x + 0.5f * (screenEnd.x - screenStart.x);
                         screenMid.y = screenStart.y + 0.5f * (screenEnd.y - screenStart.y);
 
+
+
                         Vector2 swipeMid = next + 0.5f * (prev - next);
+
+
 
                         float positionDiff = Vector2.Distance(swipeMid, screenMid);
 

@@ -108,10 +108,12 @@ public class VisualizeEvent : MonoBehaviour {
                             float z = (float)double.Parse(data[2]);
                             if(lineCount < 1)
                             {
+								Debug.LogWarning ("START SET");
                                 e.startPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
                             }
                             else 
                             {
+								Debug.LogWarning ("END SET");
                                 e.endPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
                             }
                         }

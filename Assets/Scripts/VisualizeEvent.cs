@@ -9,7 +9,7 @@ public class VisualizeEvent : MonoBehaviour {
     public string eventDirectory;
     public string newEventFile;
 
-    //public GameObject particle;
+    //public GameObject particle;   //used for debugging trajectory for now
     public float playSpeed = 0.01f;
     public float eventFrequency = 15.0f;
     public GameObject totalEnergyText = null;
@@ -66,6 +66,16 @@ public class VisualizeEvent : MonoBehaviour {
             result = 10 * result + (letter - 48);
         }
         return result;
+    }
+
+    private Vector3 SphericalToCartesian(float radius, float polar, float elevation)
+    {
+        Vector3 outCart = Vector3.zero;
+        float a = radius * Mathf.Cos(elevation);
+        outCart.x = a * Mathf.Cos(polar);
+        outCart.y = radius * Mathf.Sin(elevation);
+        outCart.z = a * Mathf.Sin(polar);
+        return outCart;
     }
 
 	// Use this for initialization
@@ -189,6 +199,27 @@ public class VisualizeEvent : MonoBehaviour {
                             e.theta = lastTheta;
                             e.phi = lastPhi;
                             //todo - derive a start and end point from ed, theta, phi
+                            float thetaDeg = Mathf.Rad2Deg * e.theta;
+                            float phiDeg = Mathf.Rad2Deg * e.phi;
+                            Vector3 dir = SphericalToCartesian(1.0f, phiDeg, thetaDeg);
+
+                            
+                            Vector3 avgPos = UnityEngine.Vector3.zero;
+                            for (int i = 0; i < ed.Count; ++i)
+                            {
+                                avgPos += ed[i].pos;
+                                
+                            }
+                            avgPos /= (float)ed.Count;
+                            UnityEngine.Bounds b = new UnityEngine.Bounds(avgPos, new Vector3(1.0f, 1.0f, 1.0f));
+                            for (int i = 0; i < ed.Count; ++i)
+                            {
+                                b.Encapsulate(ed[i].pos);
+                            }
+
+                            e.startPos = avgPos + dir * b.extents.magnitude;
+                            e.endPos = avgPos - dir * b.extents.magnitude;
+
                             e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
                             if (sources.Length > 0)
                             {

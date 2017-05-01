@@ -81,7 +81,7 @@ public class GlobalScript : MonoBehaviour
     grid_alpha_id = Shader.PropertyToID("grid_alpha");
 
     //objects
-    camera_house = GameObject.Find("OVRCameraRig");
+    camera_house = GameObject.Find("OVRPlayerController");
     camera       = GameObject.Find("CenterEyeAnchor");
     old_cam_position = camera_house.transform.position;
     dome   = GameObject.Find("DomeGrid");
@@ -138,7 +138,7 @@ public class GlobalScript : MonoBehaviour
     zoom_grid_resolution[2] = 1f;
     zoom_grid_resolution[3] = 0.5f;
 
-    GameObject star;
+    /*GameObject star;
     Vector3 starpos;
 
     int n_stars = 1000;
@@ -165,7 +165,7 @@ public class GlobalScript : MonoBehaviour
     star.transform.localScale = new Vector3(1,1,1);
     star.transform.SetParent(zoom_cluster[2].transform,false);
     star.transform.GetComponent<MeshFilter>().mesh = new Mesh();
-    star.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+    star.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);*/
 
 
 /*
@@ -210,7 +210,7 @@ public class GlobalScript : MonoBehaviour
   {
     float dome_s = 5;
 
-    if(zoom_t == 0 && Input.GetMouseButtonDown(0))
+    /*if(zoom_t == 0 && Input.GetMouseButtonDown(0))
     {
       zoom_t = 0.01f;
       zoom_next = (zoom_next+1)%n_zooms;
@@ -242,7 +242,7 @@ public class GlobalScript : MonoBehaviour
       }
       //float s = 2*(zoom_target.magnitude+dome_s);
       //dome.transform.localScale = new Vector3(s,s,s);
-    }
+    }*/
 
     if(zoom_t > 0)
     {
@@ -275,15 +275,16 @@ public class GlobalScript : MonoBehaviour
       grid_alpha = ((zoom_t-0.5f)*2f);
       grid_alpha = grid_alpha*grid_alpha*grid_alpha*grid_alpha;
       grid_alpha *= grid_alpha;
+      //Debug.Log(grid_alpha + " " + zoom_t);
     }
 
-    camera_house.transform.rotation = Quaternion.Euler((Input.mousePosition.y-Screen.height/2)/-2, (Input.mousePosition.x-Screen.width/2)/2, 0);
+    //camera_house.transform.rotation = Quaternion.Euler((Input.mousePosition.y-Screen.height/2)/-2, (Input.mousePosition.x-Screen.width/2)/2, 0);
 
-    Vector3 cast_vision = camera.transform.position + (camera.transform.rotation * look_ahead * (dome_s+1));
+    Vector3 cast_vision = camera_house.transform.position + (camera.transform.rotation * look_ahead * (dome_s+1));
     if(zoom_cur == 0 && zoom_t < 0.5)
     {
-      origin_pt = cast_vision;
-      origin_ray = Vector3.Normalize(origin_pt);
+        origin_pt = cast_vision;
+        origin_ray = Vector3.Normalize(camera.transform.rotation * look_ahead);// Vector3.Normalize(origin_pt);
     }
     else
     {
@@ -296,7 +297,7 @@ public class GlobalScript : MonoBehaviour
       }
     }
 
-    lazy_origin_ray = Vector3.Normalize(Vector3.Lerp(lazy_origin_ray, origin_ray, 0.01f));
+    lazy_origin_ray = Vector3.Normalize(Vector3.Lerp(lazy_origin_ray, origin_ray, 0.2f));
 
     Vector3 lazy_origin_ray_sqr = lazy_origin_ray;
     lazy_origin_ray_sqr.x *= lazy_origin_ray_sqr.x;
@@ -318,8 +319,8 @@ public class GlobalScript : MonoBehaviour
 
     if(zoom_cur == 0 && zoom_t < 0.5)
     {
-              lazy_gaze_position =         lazy_origin_ray*dome_s;
-      snapped_lazy_gaze_position = snapped_lazy_origin_ray*dome_s;
+              lazy_gaze_position =        camera.transform.position + lazy_origin_ray*dome_s;
+      snapped_lazy_gaze_position = camera.transform.position + snapped_lazy_origin_ray*dome_s;
     }
     else
     {

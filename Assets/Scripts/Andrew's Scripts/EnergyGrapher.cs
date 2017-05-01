@@ -53,7 +53,7 @@ public class EnergyGrapher : MonoBehaviour {
 		if (randomizeData) {
 			temp.y = Random.value;
 		} else {
-            temp.y = visEvent.totalEnergy;
+            temp.y = visEvent.totalEnergy*0.001f;
 		}
 
 		points [points.Length - 1].position = temp;

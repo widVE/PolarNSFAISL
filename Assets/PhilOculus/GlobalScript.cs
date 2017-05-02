@@ -371,7 +371,7 @@ public class GlobalScript : MonoBehaviour
     primaryLabelText.text = string.Format("{0}°,{1}°", lazy_origin_inflated_euler.y.ToString("F2"), lazy_origin_inflated_euler.x.ToString("F2"));
 
     //shader inputs
-    grid_material.SetVector(camera_position_id,camera.transform.position);
+    grid_material.SetVector(camera_position_id,camera_house.transform.position);
     grid_material.SetVector(lazy_origin_ray_id,lazy_origin_ray);
     grid_material.SetFloat(snapped_lazy_origin_pitch_id,snapped_lazy_origin_euler.x);
     grid_material.SetFloat(snapped_lazy_origin_yaw_id,snapped_lazy_origin_euler.y);

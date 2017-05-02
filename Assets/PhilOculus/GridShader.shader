@@ -55,7 +55,7 @@
           float y2;
           float z2;
 
-          float3 frag_pt = i.worldPosition;
+          float3 frag_pt = i.worldPosition - cam_position;
           float3 frag_origin_ray = normalize(frag_pt);
 
           x2 = frag_origin_ray.x;
@@ -117,9 +117,9 @@
 
           band = clamp(frag_origin_pitch_band+frag_origin_yaw_band,0,1);
           //10,5,5,10,grid_resolution //from_min,from_max,to_min,to_max,val
-          v = ((grid_resolution-10)/(5-10))*(10-5)+5;
+		  v = ((grid_resolution - 10) / (5 - 10))*(10 - 5) + 5;
           band *= (window_r-frag_lazy_dist*v)/window_r;
-
+		  
           color.rgba = float4(shade,1,1,band*grid_alpha);
           //color.rgba = float4(shade,0,band,1);
 

@@ -26,10 +26,10 @@ public class GlobalScript : MonoBehaviour
   public GameObject star_prefab;
 
   //objects
-  GameObject camera_house;
-  new GameObject camera;
+  public GameObject camera_house;
+  public GameObject cam;
   Vector3 old_cam_position;
-  GameObject dome;
+  public GameObject dome;
   GameObject plane;
   GameObject ground;
 
@@ -61,6 +61,9 @@ public class GlobalScript : MonoBehaviour
   TextMesh earthLabelText;
   GameObject earthDistLabel;
   TextMesh earthDistLabelText;
+  public GameObject targetLabel;
+  public bool displayingTarget = false;
+  TextMesh targetLabelText;
 
   void Start()
   {
@@ -81,10 +84,7 @@ public class GlobalScript : MonoBehaviour
     grid_alpha_id = Shader.PropertyToID("grid_alpha");
 
     //objects
-    camera_house = GameObject.Find("OVRPlayerController");
-    camera       = GameObject.Find("CenterEyeAnchor");
     old_cam_position = camera_house.transform.position;
-    dome   = GameObject.Find("DomeGrid");
     plane  = GameObject.Find("PlaneGrid");
     //ground = GameObject.Find("Ground");
     //ground.GetComponent<Renderer>().material.SetColor("_Color",Color.white);
@@ -200,183 +200,199 @@ public class GlobalScript : MonoBehaviour
     snapPointLabelText.text = "o";
     primaryLabel = (GameObject)Instantiate(label_prefab);
     primaryLabelText = primaryLabel.GetComponent<TextMesh>();
-    earthLabel = (GameObject)Instantiate(label_prefab);
+    targetLabel = (GameObject)Instantiate(label_prefab);
+    targetLabelText = targetLabel.GetComponent<TextMesh>();
+    targetLabelText.text = "x";
+    targetLabelText.color = Color.red;
+    /*earthLabel = (GameObject)Instantiate(label_prefab);
     earthLabelText = earthLabel.GetComponent<TextMesh>();
     earthDistLabel = (GameObject)Instantiate(label_prefab);
-    earthDistLabelText = earthDistLabel.GetComponent<TextMesh>();
+    earthDistLabelText = earthDistLabel.GetComponent<TextMesh>();*/
   }
 
-  void Update()
-  {
-    float dome_s = 5;
-
-    /*if(zoom_t == 0 && Input.GetMouseButtonDown(0))
+    void Update()
     {
-      zoom_t = 0.01f;
-      zoom_next = (zoom_next+1)%n_zooms;
-      if(zoom_next == 0)
-      {
-        //zoom_target_euler[zoom_cur] = new Vector2(0,0); //don't change
-        zoom_target = new Vector3(0,0,0);
-      }
-      else
-      {
-        zoom_target_euler[zoom_cur] = snapped_lazy_origin_euler;
-        zoom_target = Quaternion.Euler(-Mathf.Rad2Deg*zoom_target_euler[zoom_cur].x, -Mathf.Rad2Deg*zoom_target_euler[zoom_cur].y+90, 0) * look_ahead * Mathf.Pow(10,zoom_next);
+        float dome_s = dome.transform.localScale.x / 2f;
 
-        if(zoom_cur == 0)
+        /*if(zoom_t == 0 && Input.GetMouseButtonDown(0))
         {
-          zoom_target_inflated_euler[zoom_cur] = zoom_target_euler[zoom_cur];
+          zoom_t = 0.01f;
+          zoom_next = (zoom_next+1)%n_zooms;
+          if(zoom_next == 0)
+          {
+            //zoom_target_euler[zoom_cur] = new Vector2(0,0); //don't change
+            zoom_target = new Vector3(0,0,0);
+          }
+          else
+          {
+            zoom_target_euler[zoom_cur] = snapped_lazy_origin_euler;
+            zoom_target = Quaternion.Euler(-Mathf.Rad2Deg*zoom_target_euler[zoom_cur].x, -Mathf.Rad2Deg*zoom_target_euler[zoom_cur].y+90, 0) * look_ahead * Mathf.Pow(10,zoom_next);
+
+            if(zoom_cur == 0)
+            {
+              zoom_target_inflated_euler[zoom_cur] = zoom_target_euler[zoom_cur];
+            }
+            else
+            {
+              zoom_target_inflated_euler[zoom_cur] = zoom_target_inflated_euler[zoom_cur-1]+((zoom_target_euler[zoom_cur]-zoom_target_euler[zoom_cur-1])/zoom_target_euler_inflation[zoom_cur]);
+            }
+          }
+          //if(zoom_next == 1) ground.SetActive(false);
+
+          if(zoom_next != 0)
+          {
+            plane.transform.position = zoom_target + Vector3.Normalize(zoom_target)*(dome_s*zoom_next);
+            plane.transform.rotation = Quaternion.Euler(-zoom_target_euler[zoom_cur].x*Mathf.Rad2Deg+90,-zoom_target_euler[zoom_cur].y*Mathf.Rad2Deg+90,0);//+90+180,0);
+          }
+          //float s = 2*(zoom_target.magnitude+dome_s);
+          //dome.transform.localScale = new Vector3(s,s,s);
+        }*/
+
+        if (zoom_t > 0)
+        {
+            zoom_t += 0.05f;
+
+            if (zoom_t > 1)
+            {
+                zoom_t = 0;
+                camera_house.transform.position = zoom_target + new Vector3(0, 1, 0);
+                old_cam_position = camera_house.transform.position;
+                zoom_cur = zoom_next;
+                if (zoom_next == 0)
+                {
+                    //ground.SetActive(true);
+                    plane.transform.position = new Vector3(0, 0, 0);
+                }
+            }
+
+            for (int i = 0; i < n_zooms; i++)
+            {
+                float s = Mathf.Lerp(zoom_cluster_zoom[i, zoom_cur], zoom_cluster_zoom[i, zoom_next], zoom_t);
+                zoom_cluster[i].transform.localScale = new Vector3(s, s, s);
+                //zoom_cluster[zoom_cur].transform.position = Vector3.Lerp(zoom_target,zoom_target*0.01f,zoom_t);
+            }
+
+            zoom_grid_resolution_cur = Mathf.Lerp(zoom_grid_resolution[zoom_cur], zoom_grid_resolution[zoom_next], zoom_t);
+
+            camera_house.transform.position = Vector3.Lerp(old_cam_position, zoom_target + new Vector3(0, 1, 0), zoom_t);
+
+            grid_alpha = ((zoom_t - 0.5f) * 2f);
+            grid_alpha = grid_alpha * grid_alpha * grid_alpha * grid_alpha;
+            grid_alpha *= grid_alpha;
+            //Debug.Log(grid_alpha + " " + zoom_t);
+        }
+
+        //camera_house.transform.rotation = Quaternion.Euler((Input.mousePosition.y-Screen.height/2)/-2, (Input.mousePosition.x-Screen.width/2)/2, 0);
+
+        Vector3 cast_vision = camera_house.transform.position + (cam.transform.rotation * look_ahead * (dome_s + 1));
+        if (zoom_cur == 0 && zoom_t < 0.5)
+        {
+            origin_pt = cast_vision;
+            origin_ray = Vector3.Normalize(cam.transform.rotation * look_ahead);// Vector3.Normalize(origin_pt);
         }
         else
         {
-          zoom_target_inflated_euler[zoom_cur] = zoom_target_inflated_euler[zoom_cur-1]+((zoom_target_euler[zoom_cur]-zoom_target_euler[zoom_cur-1])/zoom_target_euler_inflation[zoom_cur]);
+            Ray ray = new Ray(Vector3.zero, Vector3.Normalize(cast_vision));
+            RaycastHit hit;
+            if (plane_collider.Raycast(ray, out hit, 10000.0F))
+            {
+                origin_pt = hit.point;
+                origin_ray = Vector3.Normalize(origin_pt);
+            }
         }
-      }
-      //if(zoom_next == 1) ground.SetActive(false);
 
-      if(zoom_next != 0)
-      {
-        plane.transform.position = zoom_target + Vector3.Normalize(zoom_target)*(dome_s*zoom_next);
-        plane.transform.rotation = Quaternion.Euler(-zoom_target_euler[zoom_cur].x*Mathf.Rad2Deg+90,-zoom_target_euler[zoom_cur].y*Mathf.Rad2Deg+90,0);//+90+180,0);
-      }
-      //float s = 2*(zoom_target.magnitude+dome_s);
-      //dome.transform.localScale = new Vector3(s,s,s);
-    }*/
+        lazy_origin_ray = Vector3.Normalize(Vector3.Lerp(lazy_origin_ray, origin_ray, 0.2f));
 
-    if(zoom_t > 0)
-    {
-      zoom_t += 0.05f;
+        Vector3 lazy_origin_ray_sqr = lazy_origin_ray;
+        lazy_origin_ray_sqr.x *= lazy_origin_ray_sqr.x;
+        lazy_origin_ray_sqr.y *= lazy_origin_ray_sqr.y;
+        lazy_origin_ray_sqr.z *= lazy_origin_ray_sqr.z;
+        float lazy_plane_origin_dist = Mathf.Sqrt(lazy_origin_ray_sqr.x + lazy_origin_ray_sqr.z);
 
-      if(zoom_t > 1)
-      {
-        zoom_t = 0;
-        camera_house.transform.position = zoom_target + new Vector3(0,1,0);
-        old_cam_position = camera_house.transform.position;
-        zoom_cur = zoom_next;
-        if(zoom_next == 0)
+        float grid_resolution = zoom_grid_resolution_cur;
+        lazy_origin_euler.x = Mathf.Atan2(lazy_origin_ray.y, lazy_plane_origin_dist);
+        lazy_origin_euler.y = Mathf.Atan2(lazy_origin_ray.z, lazy_origin_ray.x);
+        snapped_lazy_origin_euler.x = ((Mathf.Floor((lazy_origin_euler.x * Mathf.Rad2Deg) / grid_resolution) * grid_resolution) + grid_resolution / 2) * Mathf.Deg2Rad;
+        snapped_lazy_origin_euler.y = ((Mathf.Floor((lazy_origin_euler.y * Mathf.Rad2Deg) / grid_resolution) * grid_resolution) + grid_resolution / 2) * Mathf.Deg2Rad;
+
+        snapped_lazy_origin_ray = Quaternion.Euler(-Mathf.Rad2Deg * snapped_lazy_origin_euler.x, -Mathf.Rad2Deg * snapped_lazy_origin_euler.y + 90, 0) * look_ahead;
+
+        //labels
+        Vector3 lazy_gaze_position;
+        Vector3 snapped_lazy_gaze_position;
+
+        if (zoom_cur == 0 && zoom_t < 0.5)
         {
-          //ground.SetActive(true);
-          plane.transform.position = new Vector3(0,0,0);
+            lazy_gaze_position = cam.transform.position + lazy_origin_ray * dome_s;
+            snapped_lazy_gaze_position = cam.transform.position + snapped_lazy_origin_ray * dome_s;
         }
-      }
+        else
+        {
+            Ray ray = new Ray(Vector3.zero, lazy_origin_ray);
+            RaycastHit hit;
+            if (plane_collider.Raycast(ray, out hit, 10000.0F))
+            {
+                lazy_gaze_position = hit.point;
+            }
+            else
+            {
+                lazy_gaze_position = lazy_origin_ray * plane.transform.position.magnitude;
+            }
 
-      for(int i = 0; i < n_zooms; i++)
-      {
-        float s = Mathf.Lerp(zoom_cluster_zoom[i,zoom_cur],zoom_cluster_zoom[i,zoom_next],zoom_t);
-        zoom_cluster[i].transform.localScale = new Vector3(s,s,s);
-        //zoom_cluster[zoom_cur].transform.position = Vector3.Lerp(zoom_target,zoom_target*0.01f,zoom_t);
-      }
+            ray = new Ray(Vector3.zero, snapped_lazy_origin_ray);
+            if (plane_collider.Raycast(ray, out hit, 10000.0F))
+            {
+                snapped_lazy_gaze_position = hit.point * plane.transform.position.magnitude;
+            }
+            else
+            {
+                snapped_lazy_gaze_position = snapped_lazy_origin_ray * plane.transform.position.magnitude;
+            }
+        }
 
-      zoom_grid_resolution_cur = Mathf.Lerp(zoom_grid_resolution[zoom_cur],zoom_grid_resolution[zoom_next],zoom_t);
+        pointLabel.transform.position = lazy_gaze_position;
+        snapPointLabel.transform.position = snapped_lazy_gaze_position;
+        pointLabel.transform.rotation = Quaternion.Euler(-lazy_origin_euler.x * Mathf.Rad2Deg, 90f - lazy_origin_euler.y * Mathf.Rad2Deg, 0);
+        snapPointLabel.transform.rotation = Quaternion.Euler(-snapped_lazy_origin_euler.x * Mathf.Rad2Deg, 90f - snapped_lazy_origin_euler.y * Mathf.Rad2Deg, 0);
 
-      camera_house.transform.position = Vector3.Lerp(old_cam_position, zoom_target + new Vector3(0,1,0), zoom_t);
+        primaryLabel.transform.position = pointLabel.transform.position + new Vector3(0f, 0.5f, 0f);
+        primaryLabel.transform.rotation = pointLabel.transform.rotation;
 
-      grid_alpha = ((zoom_t-0.5f)*2f);
-      grid_alpha = grid_alpha*grid_alpha*grid_alpha*grid_alpha;
-      grid_alpha *= grid_alpha;
-      //Debug.Log(grid_alpha + " " + zoom_t);
-    }
+        /*if(zoom_cur != 0)
+        {
+          earthLabel.transform.position = camera_house.transform.position.normalized * (camera_house.transform.position.magnitude-dome_s);
+          earthLabel.transform.rotation = Quaternion.Euler(lazy_origin_euler.x*Mathf.Rad2Deg,270f-lazy_origin_euler.y*Mathf.Rad2Deg,0);
+          earthLabelText.text = "Earth";
+          earthDistLabel.transform.position = earthLabel.transform.position;
+          earthDistLabel.transform.rotation = earthLabel.transform.rotation;
+          earthDistLabelText.text = string.Format("{0} mi",camera_house.transform.position.magnitude*camera_house.transform.position.magnitude);
+        }*/
 
-    //camera_house.transform.rotation = Quaternion.Euler((Input.mousePosition.y-Screen.height/2)/-2, (Input.mousePosition.x-Screen.width/2)/2, 0);
+        Vector2 lazy_origin_inflated_euler = lazy_origin_euler;
+        if (zoom_cur != 0) lazy_origin_inflated_euler = zoom_target_inflated_euler[zoom_cur - 1] + ((lazy_origin_euler - zoom_target_euler[zoom_cur - 1]) / zoom_target_euler_inflation[zoom_cur]);
+        lazy_origin_inflated_euler *= Mathf.Rad2Deg;
 
-    Vector3 cast_vision = camera_house.transform.position + (camera.transform.rotation * look_ahead * (dome_s+1));
-    if(zoom_cur == 0 && zoom_t < 0.5)
-    {
-        origin_pt = cast_vision;
-        origin_ray = Vector3.Normalize(camera.transform.rotation * look_ahead);// Vector3.Normalize(origin_pt);
-    }
-    else
-    {
-      Ray ray = new Ray(Vector3.zero, Vector3.Normalize(cast_vision));
-      RaycastHit hit;
-      if(plane_collider.Raycast(ray, out hit, 10000.0F))
-      {
-        origin_pt = hit.point;
-        origin_ray = Vector3.Normalize(origin_pt);
-      }
-    }
+        primaryLabelText.text = string.Format("{0}°,{1}°", lazy_origin_inflated_euler.y.ToString("F2"), lazy_origin_inflated_euler.x.ToString("F2"));
 
-    lazy_origin_ray = Vector3.Normalize(Vector3.Lerp(lazy_origin_ray, origin_ray, 0.2f));
+        //shader inputs
+        grid_material.SetVector(camera_position_id, camera_house.transform.position);
+        grid_material.SetVector(lazy_origin_ray_id, lazy_origin_ray);
+        grid_material.SetFloat(snapped_lazy_origin_pitch_id, snapped_lazy_origin_euler.x);
+        grid_material.SetFloat(snapped_lazy_origin_yaw_id, snapped_lazy_origin_euler.y);
+        grid_material.SetFloat(grid_resolution_id, grid_resolution);
+        grid_material.SetFloat(grid_alpha_id, grid_alpha);
 
-    Vector3 lazy_origin_ray_sqr = lazy_origin_ray;
-    lazy_origin_ray_sqr.x *= lazy_origin_ray_sqr.x;
-    lazy_origin_ray_sqr.y *= lazy_origin_ray_sqr.y;
-    lazy_origin_ray_sqr.z *= lazy_origin_ray_sqr.z;
-    float lazy_plane_origin_dist = Mathf.Sqrt(lazy_origin_ray_sqr.x+lazy_origin_ray_sqr.z);
-
-    float grid_resolution = zoom_grid_resolution_cur;
-    lazy_origin_euler.x = Mathf.Atan2(lazy_origin_ray.y,lazy_plane_origin_dist);
-    lazy_origin_euler.y = Mathf.Atan2(lazy_origin_ray.z,lazy_origin_ray.x);
-    snapped_lazy_origin_euler.x = ((Mathf.Floor((lazy_origin_euler.x*Mathf.Rad2Deg)/grid_resolution)*grid_resolution)+grid_resolution/2)*Mathf.Deg2Rad;
-    snapped_lazy_origin_euler.y = ((Mathf.Floor((lazy_origin_euler.y*Mathf.Rad2Deg)/grid_resolution)*grid_resolution)+grid_resolution/2)*Mathf.Deg2Rad;
-
-    snapped_lazy_origin_ray = Quaternion.Euler(-Mathf.Rad2Deg*snapped_lazy_origin_euler.x, -Mathf.Rad2Deg*snapped_lazy_origin_euler.y+90, 0) * look_ahead;
-
-    //labels
-    Vector3         lazy_gaze_position;
-    Vector3 snapped_lazy_gaze_position;
-
-    if(zoom_cur == 0 && zoom_t < 0.5)
-    {
-              lazy_gaze_position =        camera.transform.position + lazy_origin_ray*dome_s;
-      snapped_lazy_gaze_position = camera.transform.position + snapped_lazy_origin_ray*dome_s;
-    }
-    else
-    {
-      Ray ray = new Ray(Vector3.zero, lazy_origin_ray);
-      RaycastHit hit;
-      if(plane_collider.Raycast(ray, out hit, 10000.0F))
-      {
-        lazy_gaze_position = hit.point;
-      }
-      else
-      {
-        lazy_gaze_position = lazy_origin_ray*plane.transform.position.magnitude;
-      }
-
-      ray = new Ray(Vector3.zero, snapped_lazy_origin_ray);
-      if(plane_collider.Raycast(ray, out hit, 10000.0F))
-      {
-        snapped_lazy_gaze_position = hit.point*plane.transform.position.magnitude;
-      }
-      else
-      {
-        snapped_lazy_gaze_position = snapped_lazy_origin_ray*plane.transform.position.magnitude;
-      }
-    }
-
-        pointLabel.transform.position =         lazy_gaze_position;
-    snapPointLabel.transform.position = snapped_lazy_gaze_position;
-        pointLabel.transform.rotation = Quaternion.Euler(-        lazy_origin_euler.x*Mathf.Rad2Deg,90f-        lazy_origin_euler.y*Mathf.Rad2Deg,0);
-    snapPointLabel.transform.rotation = Quaternion.Euler(-snapped_lazy_origin_euler.x*Mathf.Rad2Deg,90f-snapped_lazy_origin_euler.y*Mathf.Rad2Deg,0);
-
-    primaryLabel.transform.position = pointLabel.transform.position+new Vector3(0f,0.5f,0f);
-    primaryLabel.transform.rotation = pointLabel.transform.rotation;
-
-    if(zoom_cur != 0)
-    {
-      earthLabel.transform.position = camera_house.transform.position.normalized * (camera_house.transform.position.magnitude-dome_s);
-      earthLabel.transform.rotation = Quaternion.Euler(lazy_origin_euler.x*Mathf.Rad2Deg,270f-lazy_origin_euler.y*Mathf.Rad2Deg,0);
-      earthLabelText.text = "Earth";
-      earthDistLabel.transform.position = earthLabel.transform.position;
-      earthDistLabel.transform.rotation = earthLabel.transform.rotation;
-      earthDistLabelText.text = string.Format("{0} mi",camera_house.transform.position.magnitude*camera_house.transform.position.magnitude);
-    }
-
-    Vector2 lazy_origin_inflated_euler = lazy_origin_euler;
-    if(zoom_cur != 0) lazy_origin_inflated_euler = zoom_target_inflated_euler[zoom_cur-1]+((lazy_origin_euler-zoom_target_euler[zoom_cur-1])/zoom_target_euler_inflation[zoom_cur]);
-    lazy_origin_inflated_euler *= Mathf.Rad2Deg;
-
-    primaryLabelText.text = string.Format("{0}°,{1}°", lazy_origin_inflated_euler.y.ToString("F2"), lazy_origin_inflated_euler.x.ToString("F2"));
-
-    //shader inputs
-    grid_material.SetVector(camera_position_id,camera_house.transform.position);
-    grid_material.SetVector(lazy_origin_ray_id,lazy_origin_ray);
-    grid_material.SetFloat(snapped_lazy_origin_pitch_id,snapped_lazy_origin_euler.x);
-    grid_material.SetFloat(snapped_lazy_origin_yaw_id,snapped_lazy_origin_euler.y);
-    grid_material.SetFloat(grid_resolution_id,grid_resolution);
-    grid_material.SetFloat(grid_alpha_id,grid_alpha);
+        if (displayingTarget)
+        {
+            if(UnityEngine.Time.frameCount % 2 == 0)
+            {
+                targetLabelText.color = Color.white;
+            }
+            else
+            {
+                targetLabelText.color = Color.red;
+            }
+        }
   }
 
 }

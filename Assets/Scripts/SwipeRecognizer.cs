@@ -31,7 +31,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		Vector2 prev = swipeGesture.PreviousScreenPosition;
 		Vector2 swipeVector = swipeGesture.ScreenFlickVector;
         Vector2 next = prev - swipeVector;
-        Debug.Log("Swipe Detected - Direction: " + swipeVector);
+        //Debug.Log("Swipe Detected - Direction: " + swipeVector);
 		//Debug.Log ("Start: " + start);
         
 		if (showLine) {
@@ -52,7 +52,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     {
                         Vector3 vStart = currentEvents.events[ev].startPos;
                         Vector3 vEnd = currentEvents.events[ev].endPos;
-						Debug.Log ("Start: " + vStart + " End: " + vEnd);
+						//Debug.Log ("Start: " + vStart + " End: " + vEnd);
 
                         Vector3 screenStart = Camera.main.WorldToScreenPoint(vStart);
                         Vector3 screenEnd = Camera.main.WorldToScreenPoint(vEnd);
@@ -61,10 +61,18 @@ public class SwipeRecognizer : MonoBehaviour {
                         screenMid.x = screenStart.x + 0.5f * (screenEnd.x - screenStart.x);
                         screenMid.y = screenStart.y + 0.5f * (screenEnd.y - screenStart.y);
 
+                        GlobalScript g = GetComponent<GlobalScript>();
+                        if (g != null)
+                        {
+                            g.displayingTarget = true;
+                            Vector3 dir = (Vector3.right * Mathf.Cos(currentEvents.events[ev].theta) + Vector3.up * Mathf.Sin(currentEvents.events[ev].phi));
+                            dir.Normalize();
+                            g.targetLabel.transform.position = g.camera_house.transform.position + dir * g.dome.transform.localScale.x * 0.5f;
+                            g.targetLabel.transform.rotation = Quaternion.LookRotation(-dir);
+                        }
 
 
                         Vector2 swipeMid = next + 0.5f * (prev - next);
-
 
 
                         float positionDiff = Vector2.Distance(swipeMid, screenMid);
@@ -72,16 +80,16 @@ public class SwipeRecognizer : MonoBehaviour {
                         // TODO: If they are within a certain distance, it passes (this may change based on the display, may need adjusting for tabletop)
                         if (positionDiff <= Mathf.Min((Screen.height / 4f), (Screen.width) / 4f))
                         {
-                            Debug.Log("Distance Check Passed, distance was: " + positionDiff);
+                            //Debug.Log("Distance Check Passed, distance was: " + positionDiff);
                         }
                         else
                         {
-                            Debug.Log("Distance Check failed, distance apart was: " + positionDiff);
+                            //Debug.Log("Distance Check failed, distance apart was: " + positionDiff);
                             return;
                         }
 
                         float swipeAngle = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg;
-                        Debug.Log("Swipe angle: " + swipeAngle);
+                        //Debug.Log("Swipe angle: " + swipeAngle);
 
                         //Vector3 start = Camera.main.WorldToScreenPoint(((0.1f) * points[0]));
                         //Vector3 end = Camera.main.WorldToScreenPoint(((0.1f) * points[1]));
@@ -99,23 +107,23 @@ public class SwipeRecognizer : MonoBehaviour {
                             trailAngle = 180.0f + trailAngle;
                         }
 
-                        Debug.Log("Trail Angle: " + trailAngle);
+                        //Debug.Log("Trail Angle: " + trailAngle);
 
                         float angleDiff = Mathf.Abs(Mathf.DeltaAngle(swipeAngle, trailAngle));
 
-                        // Give 20-degree lenience
+                        // Give 30-degree lenience
                         if (angleDiff < 30.0f)
                         {
-                            Debug.Log("Angle Check Passed, angle difference was: " + angleDiff);
+                            //Debug.Log("Angle Check Passed, angle difference was: " + angleDiff);
                         }
                         else
                         {
-                            Debug.Log("Angle Checked Failed, angle difference was: " + angleDiff);
+                           // Debug.Log("Angle Checked Failed, angle difference was: " + angleDiff);
                             return;
                         }
 
                         // Length Check - just see if the swipe is long enough
-                        float swipeLength = Vector3.Magnitude(swipeVector);
+                        //float swipeLength = Vector3.Magnitude(swipeVector);
 
                         // As long as the swipeVector swipes 1/2 the screen, it passes
                         // TODO: This may need to be adjusted based on the display used
@@ -130,7 +138,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             return;
                         }*/
 
-                        GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent("TestName", 5.0f, new Vector2(0f, 0f));
+                        GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, 5.0f, new Vector2(0f, 0f));
                         //if (collectionText != null)
                         //{
                         //    collectionText.GetComponent<UnityEngine.UI.Text>().text = "Cosmic Phenomena Collection:\n" + currentEvents.events[ev].eventSource.name;

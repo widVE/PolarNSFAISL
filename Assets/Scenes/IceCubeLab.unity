@@ -6879,6 +6879,7 @@ GameObject:
   - component: {fileID: 598479286}
   - component: {fileID: 598479291}
   - component: {fileID: 598479293}
+  - component: {fileID: 598479292}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -7098,6 +7099,27 @@ MonoBehaviour:
   Name: Fullscreen @ Main Camera
   type: 1
   _camera: {fileID: 905924064}
+--- !u!114 &598479292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 598479284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af3db520dd20a642a291b2c584a6aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid_material: {fileID: 2100000, guid: 4cacffda83ddef544a6541a42fa4f7e0, type: 2}
+  label_prefab: {fileID: 1568541558979782, guid: 59c931b905cbe17498d9667d86cddd10,
+    type: 2}
+  star_prefab: {fileID: 1806041150253560, guid: 37e4bdb39d3081946a5c360efb658035,
+    type: 2}
+  camera_house: {fileID: 719663132}
+  cam: {fileID: 1746114847}
+  dome: {fileID: 1093142571}
+  targetLabel: {fileID: 0}
+  displayingTarget: 0
 --- !u!120 &598479293
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -7150,10 +7172,10 @@ LineRenderer:
     colorGradient:
       key0:
         serializedVersion: 2
-        rgba: 4278190335
+        rgba: 4278255615
       key1:
         serializedVersion: 2
-        rgba: 4278255591
+        rgba: 4278190335
       key2:
         serializedVersion: 2
         rgba: 0
@@ -9415,22 +9437,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &719663135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 719663132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af3db520dd20a642a291b2c584a6aea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid_material: {fileID: 2100000, guid: 4cacffda83ddef544a6541a42fa4f7e0, type: 2}
-  label_prefab: {fileID: 1568541558979782, guid: 59c931b905cbe17498d9667d86cddd10,
-    type: 2}
-  star_prefab: {fileID: 1806041150253560, guid: 37e4bdb39d3081946a5c360efb658035,
-    type: 2}
 --- !u!143 &719663138 stripped
 CharacterController:
   m_PrefabParentObject: {fileID: 14300000, guid: ce816f2e6abb0504092c23ed9b970dfd,
@@ -18241,7 +18247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventDirectory: Assets\IceCubeData\eventData\
-  newEventFile: Assets\IceCubeData\eventData\new\allEvents.txt
+  newEventFile: Assets\IceCubeData\eventData\new\numu.txt
   playSpeed: 1
   eventFrequency: 30
   totalEnergyText: {fileID: 1215060080}

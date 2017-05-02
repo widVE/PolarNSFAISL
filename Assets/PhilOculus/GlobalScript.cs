@@ -101,7 +101,8 @@ public class GlobalScript : MonoBehaviour
     zoom_target_euler_inflation = new float[n_zooms];
     zoom_grid_resolution = new float[n_zooms];
     zoom_cluster[0] = GameObject.Find("Zoom0Cluster");
-    for(int i = 1; i < n_zooms; i++)
+    zoom_cluster[1] = GameObject.Find("Zoom1Cluster");
+    for(int i = 2; i < n_zooms; i++)
       zoom_cluster[i] = new GameObject();
     //
     zoom_cluster_zoom[0,0] = 1f;
@@ -204,29 +205,30 @@ public class GlobalScript : MonoBehaviour
     targetLabelText = targetLabel.GetComponent<TextMesh>();
     targetLabelText.text = "x";
     targetLabelText.color = Color.red;
-    /*earthLabel = (GameObject)Instantiate(label_prefab);
+    earthLabel = (GameObject)Instantiate(label_prefab);
     earthLabelText = earthLabel.GetComponent<TextMesh>();
     earthDistLabel = (GameObject)Instantiate(label_prefab);
-    earthDistLabelText = earthDistLabel.GetComponent<TextMesh>();*/
+    earthDistLabelText = earthDistLabel.GetComponent<TextMesh>();
   }
 
     void Update()
     {
         float dome_s = dome.transform.localScale.x / 2f;
 
-        /*if(zoom_t == 0 && Input.GetMouseButtonDown(0))
+        if(zoom_t == 0 && Input.GetMouseButtonDown(0))
         {
           zoom_t = 0.01f;
           zoom_next = (zoom_next+1)%n_zooms;
           if(zoom_next == 0)
           {
-            //zoom_target_euler[zoom_cur] = new Vector2(0,0); //don't change
-            zoom_target = new Vector3(0,0,0);
+                //zoom_target_euler[zoom_cur] = new Vector2(0,0); //don't change
+                //zoom_target = new Vector3(0,0,0);
+                zoom_target = zoom_cluster[zoom_next].transform.position;
           }
           else
           {
             zoom_target_euler[zoom_cur] = snapped_lazy_origin_euler;
-            zoom_target = Quaternion.Euler(-Mathf.Rad2Deg*zoom_target_euler[zoom_cur].x, -Mathf.Rad2Deg*zoom_target_euler[zoom_cur].y+90, 0) * look_ahead * Mathf.Pow(10,zoom_next);
+            zoom_target = zoom_cluster[zoom_next].transform.position; //Quaternion.Euler(-Mathf.Rad2Deg*zoom_target_euler[zoom_cur].x, -Mathf.Rad2Deg*zoom_target_euler[zoom_cur].y+90, 0) * look_ahead * Mathf.Pow(10,zoom_next);
 
             if(zoom_cur == 0)
             {
@@ -246,7 +248,7 @@ public class GlobalScript : MonoBehaviour
           }
           //float s = 2*(zoom_target.magnitude+dome_s);
           //dome.transform.localScale = new Vector3(s,s,s);
-        }*/
+        }
 
         if (zoom_t > 0)
         {
@@ -265,31 +267,32 @@ public class GlobalScript : MonoBehaviour
                 }
             }
 
-            for (int i = 0; i < n_zooms; i++)
+            //this seems to be scaling the prior location something based on current zoom location? (to make it look smaller)
+            /*for (int i = 0; i < n_zooms; i++)
             {
                 float s = Mathf.Lerp(zoom_cluster_zoom[i, zoom_cur], zoom_cluster_zoom[i, zoom_next], zoom_t);
                 zoom_cluster[i].transform.localScale = new Vector3(s, s, s);
                 //zoom_cluster[zoom_cur].transform.position = Vector3.Lerp(zoom_target,zoom_target*0.01f,zoom_t);
-            }
+            }*/
 
             zoom_grid_resolution_cur = Mathf.Lerp(zoom_grid_resolution[zoom_cur], zoom_grid_resolution[zoom_next], zoom_t);
 
             camera_house.transform.position = Vector3.Lerp(old_cam_position, zoom_target + new Vector3(0, 1, 0), zoom_t);
 
-            grid_alpha = ((zoom_t - 0.5f) * 2f);
-            grid_alpha = grid_alpha * grid_alpha * grid_alpha * grid_alpha;
-            grid_alpha *= grid_alpha;
+            //grid_alpha = ((zoom_t - 0.5f) * 2f);
+            //grid_alpha = grid_alpha * grid_alpha * grid_alpha * grid_alpha;
+            //grid_alpha *= grid_alpha;
             //Debug.Log(grid_alpha + " " + zoom_t);
         }
 
         //camera_house.transform.rotation = Quaternion.Euler((Input.mousePosition.y-Screen.height/2)/-2, (Input.mousePosition.x-Screen.width/2)/2, 0);
 
         Vector3 cast_vision = camera_house.transform.position + (cam.transform.rotation * look_ahead * (dome_s + 1));
-        if (zoom_cur == 0 && zoom_t < 0.5)
-        {
+        //if (zoom_cur == 0 && zoom_t < 0.5)
+       // {
             origin_pt = cast_vision;
             origin_ray = Vector3.Normalize(cam.transform.rotation * look_ahead);// Vector3.Normalize(origin_pt);
-        }
+        /*}
         else
         {
             Ray ray = new Ray(Vector3.zero, Vector3.Normalize(cast_vision));
@@ -299,7 +302,7 @@ public class GlobalScript : MonoBehaviour
                 origin_pt = hit.point;
                 origin_ray = Vector3.Normalize(origin_pt);
             }
-        }
+        }*/
 
         lazy_origin_ray = Vector3.Normalize(Vector3.Lerp(lazy_origin_ray, origin_ray, 0.2f));
 
@@ -321,11 +324,11 @@ public class GlobalScript : MonoBehaviour
         Vector3 lazy_gaze_position;
         Vector3 snapped_lazy_gaze_position;
 
-        if (zoom_cur == 0 && zoom_t < 0.5)
-        {
+       // if (zoom_cur == 0 && zoom_t < 0.5)
+       // {
             lazy_gaze_position = cam.transform.position + lazy_origin_ray * dome_s;
             snapped_lazy_gaze_position = cam.transform.position + snapped_lazy_origin_ray * dome_s;
-        }
+       /* }
         else
         {
             Ray ray = new Ray(Vector3.zero, lazy_origin_ray);
@@ -348,7 +351,7 @@ public class GlobalScript : MonoBehaviour
             {
                 snapped_lazy_gaze_position = snapped_lazy_origin_ray * plane.transform.position.magnitude;
             }
-        }
+        }*/
 
         pointLabel.transform.position = lazy_gaze_position;
         snapPointLabel.transform.position = snapped_lazy_gaze_position;
@@ -358,7 +361,7 @@ public class GlobalScript : MonoBehaviour
         primaryLabel.transform.position = pointLabel.transform.position + new Vector3(0f, 0.5f, 0f);
         primaryLabel.transform.rotation = pointLabel.transform.rotation;
 
-        /*if(zoom_cur != 0)
+        if(zoom_cur != 0)
         {
           earthLabel.transform.position = camera_house.transform.position.normalized * (camera_house.transform.position.magnitude-dome_s);
           earthLabel.transform.rotation = Quaternion.Euler(lazy_origin_euler.x*Mathf.Rad2Deg,270f-lazy_origin_euler.y*Mathf.Rad2Deg,0);
@@ -366,7 +369,7 @@ public class GlobalScript : MonoBehaviour
           earthDistLabel.transform.position = earthLabel.transform.position;
           earthDistLabel.transform.rotation = earthLabel.transform.rotation;
           earthDistLabelText.text = string.Format("{0} mi",camera_house.transform.position.magnitude*camera_house.transform.position.magnitude);
-        }*/
+        }
 
         Vector2 lazy_origin_inflated_euler = lazy_origin_euler;
         if (zoom_cur != 0) lazy_origin_inflated_euler = zoom_target_inflated_euler[zoom_cur - 1] + ((lazy_origin_euler - zoom_target_euler[zoom_cur - 1]) / zoom_target_euler_inflation[zoom_cur]);

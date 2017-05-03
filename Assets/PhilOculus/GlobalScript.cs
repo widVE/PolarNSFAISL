@@ -30,8 +30,8 @@ public class GlobalScript : MonoBehaviour
   public GameObject cam;
   Vector3 old_cam_position;
   public GameObject dome;
-  GameObject plane;
-  GameObject ground;
+  //GameObject plane;
+  //GameObject ground;
 
   //zoom
   int n_zooms;
@@ -48,7 +48,7 @@ public class GlobalScript : MonoBehaviour
   float zoom_grid_resolution_cur;
   float grid_alpha;
 
-  Collider plane_collider;
+  //Collider plane_collider;
 
   //labels
   GameObject pointLabel;
@@ -64,6 +64,8 @@ public class GlobalScript : MonoBehaviour
   public GameObject targetLabel;
   public bool displayingTarget = false;
   TextMesh targetLabelText;
+
+  bool notSet = true;
 
   void Start()
   {
@@ -85,12 +87,12 @@ public class GlobalScript : MonoBehaviour
 
     //objects
     old_cam_position = camera_house.transform.position;
-    plane  = GameObject.Find("PlaneGrid");
+    //plane  = GameObject.Find("PlaneGrid");
     //ground = GameObject.Find("Ground");
     //ground.GetComponent<Renderer>().material.SetColor("_Color",Color.white);
 
     //zoom
-    n_zooms = 4;
+    n_zooms = 2;
     zoom_cur = 0;
     zoom_next = 0;
     zoom_t = 0;
@@ -102,28 +104,28 @@ public class GlobalScript : MonoBehaviour
     zoom_grid_resolution = new float[n_zooms];
     zoom_cluster[0] = GameObject.Find("Zoom0Cluster");
     zoom_cluster[1] = GameObject.Find("Zoom1Cluster");
-    for(int i = 2; i < n_zooms; i++)
-      zoom_cluster[i] = new GameObject();
+    //for(int i = 2; i < n_zooms; i++)
+    //  zoom_cluster[i] = new GameObject();
     //
     zoom_cluster_zoom[0,0] = 1f;
     zoom_cluster_zoom[0,1] = 0.00001f;
-    zoom_cluster_zoom[0,2] = 0.0000001f;
-    zoom_cluster_zoom[0,3] = 0.0000001f;
+   // zoom_cluster_zoom[0,2] = 0.0000001f;
+    //zoom_cluster_zoom[0,3] = 0.0000001f;
     //
     zoom_cluster_zoom[1,0] = 1f;
     zoom_cluster_zoom[1,1] = 1f;
-    zoom_cluster_zoom[1,2] = 1f;
-    zoom_cluster_zoom[1,3] = 1f;
+    //zoom_cluster_zoom[1,2] = 1f;
+    //zoom_cluster_zoom[1,3] = 1f;
     //
-    zoom_cluster_zoom[2,0] = 1f;
-    zoom_cluster_zoom[2,1] = 1f;
-    zoom_cluster_zoom[2,2] = 0.01f;
-    zoom_cluster_zoom[2,3] = 0.01f;
+    //zoom_cluster_zoom[2,0] = 1f;
+    //zoom_cluster_zoom[2,1] = 1f;
+    //zoom_cluster_zoom[2,2] = 0.01f;
+    //zoom_cluster_zoom[2,3] = 0.01f;
     //
-    zoom_cluster_zoom[3,0] = 1f;
-    zoom_cluster_zoom[3,1] = 1f;
-    zoom_cluster_zoom[3,2] = 0.01f;
-    zoom_cluster_zoom[3,3] = 0.01f;
+    //zoom_cluster_zoom[3,0] = 1f;
+    //zoom_cluster_zoom[3,1] = 1f;
+    //zoom_cluster_zoom[3,2] = 0.01f;
+    //zoom_cluster_zoom[3,3] = 0.01f;
 
     for(int i = 0; i < n_zooms; i++)
     {
@@ -132,12 +134,12 @@ public class GlobalScript : MonoBehaviour
     }
     zoom_target_euler_inflation[0] = 1f;
     zoom_target_euler_inflation[1] = 5f;
-    zoom_target_euler_inflation[2] = 10f;
-    zoom_target_euler_inflation[3] = 15f;
+    //zoom_target_euler_inflation[2] = 10f;
+    //zoom_target_euler_inflation[3] = 15f;
     zoom_grid_resolution[0] = 10f;
     zoom_grid_resolution[1] = 5f;
-    zoom_grid_resolution[2] = 1f;
-    zoom_grid_resolution[3] = 0.5f;
+    //zoom_grid_resolution[2] = 1f;
+    //zoom_grid_resolution[3] = 0.5f;
 
     /*GameObject star;
     Vector3 starpos;
@@ -191,21 +193,26 @@ public class GlobalScript : MonoBehaviour
     zoom_grid_resolution_cur = zoom_grid_resolution[zoom_cur];
     grid_alpha = 1f;
 
-    plane_collider = plane.GetComponent<Collider>();
+    //plane_collider = plane.GetComponent<Collider>();
 
     pointLabel = (GameObject)Instantiate(label_prefab);
+    pointLabel.name = "OculusReticuleLabel";
     pointLabelText = pointLabel.GetComponent<TextMesh>();
     pointLabelText.text = "x";
     snapPointLabel = (GameObject)Instantiate(label_prefab);
+    snapPointLabel.name = "OculusSnapLabel";
     snapPointLabelText = snapPointLabel.GetComponent<TextMesh>();
     snapPointLabelText.text = "o";
     primaryLabel = (GameObject)Instantiate(label_prefab);
+    primaryLabel.name = "OculusDegreeLabel";
     primaryLabelText = primaryLabel.GetComponent<TextMesh>();
     targetLabel = (GameObject)Instantiate(label_prefab);
     targetLabelText = targetLabel.GetComponent<TextMesh>();
     targetLabelText.text = "x";
     targetLabelText.color = Color.red;
+    targetLabel.name = "OculusSourceTargetLabel";
     earthLabel = (GameObject)Instantiate(label_prefab);
+    earthLabel.name = "OculusEarthLabel";
     earthLabelText = earthLabel.GetComponent<TextMesh>();
     earthDistLabel = (GameObject)Instantiate(label_prefab);
     earthDistLabelText = earthDistLabel.GetComponent<TextMesh>();
@@ -219,11 +226,22 @@ public class GlobalScript : MonoBehaviour
         {
           zoom_t = 0.01f;
           zoom_next = (zoom_next+1)%n_zooms;
+          
+          if(zoom_cur == 0 && notSet)
+          {
+              //issue is that zoomcluster0 stays with the oculus player...
+              zoom_cluster[zoom_cur].transform.position = camera_house.transform.position;
+              notSet = false;
+              //Debug.Log(zoom_cluster[zoom_cur].transform.position);
+          }
+
           if(zoom_next == 0)
           {
                 //zoom_target_euler[zoom_cur] = new Vector2(0,0); //don't change
                 //zoom_target = new Vector3(0,0,0);
                 zoom_target = zoom_cluster[zoom_next].transform.position;
+                //Debug.Log(zoom_cluster[0].transform.position);
+                //Debug.Log(zoom_cluster[1].transform.position);
           }
           else
           {
@@ -241,11 +259,11 @@ public class GlobalScript : MonoBehaviour
           }
           //if(zoom_next == 1) ground.SetActive(false);
 
-          if(zoom_next != 0)
+          /*if(zoom_next != 0)
           {
             plane.transform.position = zoom_target + Vector3.Normalize(zoom_target)*(dome_s*zoom_next);
             plane.transform.rotation = Quaternion.Euler(-zoom_target_euler[zoom_cur].x*Mathf.Rad2Deg+90,-zoom_target_euler[zoom_cur].y*Mathf.Rad2Deg+90,0);//+90+180,0);
-          }
+          }*/
           //float s = 2*(zoom_target.magnitude+dome_s);
           //dome.transform.localScale = new Vector3(s,s,s);
         }
@@ -263,7 +281,7 @@ public class GlobalScript : MonoBehaviour
                 if (zoom_next == 0)
                 {
                     //ground.SetActive(true);
-                    plane.transform.position = new Vector3(0, 0, 0);
+                    //plane.transform.position = new Vector3(0, 0, 0);
                 }
             }
 
@@ -361,7 +379,7 @@ public class GlobalScript : MonoBehaviour
         primaryLabel.transform.position = pointLabel.transform.position + new Vector3(0f, 0.5f, 0f);
         primaryLabel.transform.rotation = pointLabel.transform.rotation;
 
-        if(zoom_cur != 0)
+        /*if(zoom_cur != 0)
         {
           earthLabel.transform.position = camera_house.transform.position.normalized * (camera_house.transform.position.magnitude-dome_s);
           earthLabel.transform.rotation = Quaternion.Euler(lazy_origin_euler.x*Mathf.Rad2Deg,270f-lazy_origin_euler.y*Mathf.Rad2Deg,0);
@@ -369,7 +387,7 @@ public class GlobalScript : MonoBehaviour
           earthDistLabel.transform.position = earthLabel.transform.position;
           earthDistLabel.transform.rotation = earthLabel.transform.rotation;
           earthDistLabelText.text = string.Format("{0} mi",camera_house.transform.position.magnitude*camera_house.transform.position.magnitude);
-        }
+        }*/
 
         Vector2 lazy_origin_inflated_euler = lazy_origin_euler;
         if (zoom_cur != 0) lazy_origin_inflated_euler = zoom_target_inflated_euler[zoom_cur - 1] + ((lazy_origin_euler - zoom_target_euler[zoom_cur - 1]) / zoom_target_euler_inflation[zoom_cur]);

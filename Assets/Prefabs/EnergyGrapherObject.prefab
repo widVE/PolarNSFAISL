@@ -36,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1053101423318238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0.5, z: 3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.82, y: 2.93, z: 31.89}
+  m_LocalScale: {x: 3, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -50,10 +50,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1053101423318238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87e06336ef68d4f4398c6db3704bcbde, type: 3}
+  m_Script: {fileID: 11500000, guid: 74c879d7499468f418a58e92cf6a4666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 500
+  randomizeData: 1
 --- !u!198 &198723204718712418
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -109,7 +110,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1722537770
+  randomSeed: 1468541516
   InitialModule:
     serializedVersion: 3
     enabled: 1

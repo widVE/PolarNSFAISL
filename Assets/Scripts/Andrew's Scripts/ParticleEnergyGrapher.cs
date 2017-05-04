@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnergyGrapher : MonoBehaviour {
+public class ParticleEnergyGrapher : MonoBehaviour {
 
 	[Range(10, 500)]
 	public int resolution = 10;

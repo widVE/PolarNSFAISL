@@ -7,6 +7,8 @@ public class LineEnergyGrapher : MonoBehaviour {
 	private LineRenderer linRen;
 	private float zDistance;
 	private Vector3[] points;
+	private float xOffset;
+	private float yOffset;
 
 	[SerializeField]
 	private bool randomizeData = false;
@@ -14,17 +16,16 @@ public class LineEnergyGrapher : MonoBehaviour {
 	private VisualizeEvent visEvent;
 	// Use this for initialization
 	void Start () {
-		
-
-		zDistance = Camera.main.nearClipPlane + 1;
+		xOffset = 3;
+		yOffset = 8;
+		zDistance = Camera.main.nearClipPlane + 10;
 		InitializePoints ();
 
 		GameObject array = GameObject.Find ("DOMArrayProcedural");
 		if (array != null) {
 			visEvent = array.GetComponent<VisualizeEvent>();
 		}
-
-
+			
 		linRen = GetComponent<LineRenderer> ();
 		linRen.material = new Material (Shader.Find ("Particles/Additive"));
 	}
@@ -43,7 +44,7 @@ public class LineEnergyGrapher : MonoBehaviour {
 		points = new Vector3[100];
 		for (int i = 0; i < 100; i++) {
 			float x = (i / 100f);
-			points [i] = this.transform.TransformPoint (new Vector3 (x, 0, zDistance));
+			points [i] = this.transform.TransformPoint (new Vector3 (x + xOffset, yOffset, zDistance));
 		}
 			
 	}
@@ -56,9 +57,9 @@ public class LineEnergyGrapher : MonoBehaviour {
 		Debug.Log ("Update loop finished");
 		// Either randomize or use VisualizeEvent totalEnergy
 		if (randomizeData) {
-			points[points.Length - 1].y = Random.value;
+			points[points.Length - 1].y = Random.value + yOffset;
 		} else {
-			points[points.Length - 1].y = visEvent.totalEnergy*0.01f;
+			points[points.Length - 1].y = visEvent.totalEnergy*0.001f + yOffset;
 		}
 		Debug.Log ("Update Points finished");
 	}

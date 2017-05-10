@@ -322,7 +322,9 @@ public class VisualizeEvent : MonoBehaviour {
                         {
                             totalEnergy += events[e].eventData[eventsPlaying[e].eventIndex].charge;
                             totalEnergyText.GetComponent<UnityEngine.UI.Text>().text = "Total Energy: " + totalEnergy;
-                            fTimeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
+                            //fTimeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
+                            //Ross - changed coloring to just be always rainbow, not dependent on time stamps..
+                            fTimeFrac = (float)eventsPlaying[e].eventIndex / (float)events[e].eventData.Count;
                             DOMController dc = d.GetComponent<DOMController>();
                             if (dc != null)
                             {

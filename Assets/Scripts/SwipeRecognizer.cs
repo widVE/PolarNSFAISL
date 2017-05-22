@@ -41,6 +41,12 @@ public class SwipeRecognizer : MonoBehaviour {
             ren.SetPositions(startEnd);
 		}
 
+        AudioSource a = GetComponent<AudioSource>();
+        if(a != null)
+        {
+            a.Play();
+        }
+
         //let's instead convert any active events to screen space and test there...
         if(currentEvents != null)
         {

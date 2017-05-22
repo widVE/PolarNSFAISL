@@ -50,17 +50,17 @@ public class LineEnergyGrapher : MonoBehaviour {
 	}
 
 	private void UpdatePoints() {
-		Debug.Log ("Update Points started");
+		//Debug.Log ("Update Points started");
 		for (int i = 0; i < points.Length - 1; i++) {
 			points [i].y = points [i + 1].y;
 		}
-		Debug.Log ("Update loop finished");
+		//Debug.Log ("Update loop finished");
 		// Either randomize or use VisualizeEvent totalEnergy
 		if (randomizeData) {
 			points[points.Length - 1].y = Random.value + yOffset;
 		} else {
 			points[points.Length - 1].y = visEvent.totalEnergy*0.001f + yOffset;
 		}
-		Debug.Log ("Update Points finished");
+		//Debug.Log ("Update Points finished");
 	}
 }

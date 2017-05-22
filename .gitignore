@@ -18,4 +18,5 @@ Thumbs.db
 obj/
 Library/
 Temp/
+Builds/
 *.db.meta

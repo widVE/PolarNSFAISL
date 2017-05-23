@@ -16,8 +16,8 @@ public class LineEnergyGrapher : MonoBehaviour {
 	private VisualizeEvent visEvent;
 	// Use this for initialization
 	void Start () {
-		xOffset = 3;
-		yOffset = 8;
+		xOffset = 4f;
+		yOffset = -4.5f;
 		zDistance = Camera.main.nearClipPlane + 10;
 		InitializePoints ();
 
@@ -59,7 +59,13 @@ public class LineEnergyGrapher : MonoBehaviour {
 		if (randomizeData) {
 			points[points.Length - 1].y = Random.value + yOffset;
 		} else {
-			points[points.Length - 1].y = visEvent.totalEnergy*0.001f + yOffset;
+
+			float newValue = visEvent.totalEnergy*0.001f + yOffset;
+			if (newValue > 1) {
+				newValue = 1;
+			}
+			points [points.Length - 1].y = newValue;
+
 		}
 		//Debug.Log ("Update Points finished");
 	}

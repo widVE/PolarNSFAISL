@@ -11,11 +11,10 @@ public class VisualizeEvent : MonoBehaviour {
 
     //public GameObject particle;   //used for debugging trajectory for now
     public float playSpeed = 0.01f;
-    public float eventFrequency = 15.0f;
+    private float eventFrequency = 10.0f;
     public GameObject totalEnergyText = null;
-
     public float totalEnergy = 0.0f;
-    
+	private AudioSource alarm;
     private const float BELOW_ICE = -1950.0f;
     private float lastPlayTime = 0.0f;
     private DomData domData;
@@ -80,6 +79,8 @@ public class VisualizeEvent : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		alarm = GameObject.Find("Scene").GetComponents<AudioSource> () [3];
 
         if(eventDirectory.Length > 0)
         {
@@ -273,11 +274,9 @@ public class VisualizeEvent : MonoBehaviour {
         float t = UnityEngine.Time.time;
 
         totalEnergy = 0.0f;
-
         //r or every 60 seconds
-        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || t - lastPlayTime > eventFrequency)
+		if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || (t - lastPlayTime) > eventFrequency)
         {
-            
 			lastPlayTime = t;
             
 			//todo - don't allow same event to replay until it's done...
@@ -297,6 +296,7 @@ public class VisualizeEvent : MonoBehaviour {
             eventsPlaying[currEvent].advancedIndex = true;
             eventsPlaying[currEvent].eventIndex = 0;
             eventsPlaying[currEvent].isPlaying = true;
+			alarm.Play ();
 
             Debug.Log("Source: " + events[currEvent].eventSource.name);
         }
@@ -376,7 +376,8 @@ public class VisualizeEvent : MonoBehaviour {
 
                     if (eventsPlaying[e].eventIndex >= events[e].eventData.Count - 1)
                     {
-                        StopPlaying(e);
+                        //StopPlaying(e);
+						StartCoroutine(DelayedReset(1.0f, e));
                     }
                 }
             }
@@ -405,6 +406,11 @@ public class VisualizeEvent : MonoBehaviour {
             }
         }
     }
+
+	private IEnumerator DelayedReset(float waittime, int e) {
+		yield return new WaitForSeconds (waittime);
+		StopPlaying (e);
+	}
 
 	public float getEnergy() {
 		return totalEnergy;

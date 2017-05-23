@@ -10,9 +10,10 @@ public class EventPanelManager : MonoBehaviour {
 	private Text mytext;
 	private int numEvents = 0;
 	private List<GameObject> panels = new List<GameObject> ();
+	private AudioSource removeSound;
 	// Use this for initialization
 	void Start () {
-		
+		removeSound = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -52,7 +53,9 @@ public class EventPanelManager : MonoBehaviour {
 	}
 
 	public void removeEvent(GameObject eventToRemove) {
-		
+
+		removeSound.Play ();
+
 		if (panels.Remove (eventToRemove)) {
 			numEvents--;
 			foreach (GameObject curr in panels) {

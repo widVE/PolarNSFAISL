@@ -89,6 +89,7 @@ public class EventDataSystem : NetworkBehaviour {
 	}
 
 	public void SetupServer() {
+		NetworkServer.Listen (port);
 		NetworkServer.RegisterHandler (EventDataSystem.MyMessageTypes.EventRequestID, ServerHandleRequest);
 		NetworkServer.RegisterHandler (EventDataSystem.MyMessageTypes.EventDataID, ServerHandleData);
 		NetworkServer.RegisterHandler (EventDataSystem.MyMessageTypes.EventResultID, ServerHandleRequest);
@@ -96,6 +97,7 @@ public class EventDataSystem : NetworkBehaviour {
 
 	public void OnConnected(NetworkMessage netMsg) {
 		Debug.Log("Connected to server");
+		myClient.connection.isReady = true;
 	}
 
 	/// <summary>
@@ -107,9 +109,10 @@ public class EventDataSystem : NetworkBehaviour {
 
 		if (!isServer) {
 			Debug.LogError ("Request received by non-host client");
+			return;
 		}
 		EventRequestMessage msg = netMsg.ReadMessage<EventRequestMessage> ();
-		Debug.Log("Client received request");
+		Debug.Log("Client received a request");
 
 		// Temporary - send blank message back to client
 		EventDataMessage response = new EventDataMessage();
@@ -155,9 +158,6 @@ public class EventDataSystem : NetworkBehaviour {
 
 	}
 
-
-
-
 	//------------------------SERVER SIDE-----------------------------------
 
 
@@ -169,8 +169,8 @@ public class EventDataSystem : NetworkBehaviour {
 		msg.sourceClientID = netMsg.conn.connectionId;
 
 		// Send this to host
-		NetworkServer.SendToClient(NetworkServer.serverHostId, MyMessageTypes.EventRequestID, msg);
-		Debug.Log ("Server sent request to client id: " + NetworkServer.serverHostId);
+		NetworkServer.SendToClient(0, MyMessageTypes.EventRequestID, msg);
+		Debug.Log ("Server sent request to client id: 0");
 		Debug.Log ("Number of server connections: " + NetworkServer.connections.Count);
 	}
 
@@ -191,5 +191,11 @@ public class EventDataSystem : NetworkBehaviour {
 		msg.sourceClientID = netMsg.conn.connectionId;
 
 		NetworkServer.SendToAll (MyMessageTypes.EventResultID, msg);
+	}
+
+	public void PrintConnections() {
+		for (int i = 0; i < NetworkServer.connections.Count; i++) {
+			Debug.Log(NetworkServer.connections[i].ToString());
+		}
 	}
 }

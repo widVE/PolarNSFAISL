@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 /// <summary>
 /// FOR TESTING MESSAGE SYSTEM ONLY - NOT FOR USE IN FINAL PROJECT
+/// In reality the clients will be making messages using a button press or something,
+/// they won't be autocreated like they are here in this script
 /// </summary>
 public class MessageCreator : NetworkBehaviour {
 
@@ -13,32 +15,37 @@ public class MessageCreator : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		system = new EventDataSystem ();
-		system.SetupClient ();
+		system = GetComponent<EventDataSystem> ();
+		/*system.SetupClient ();
 
 		if (isServer) {
 			system.SetupServer ();
-			Debug.Log ("Server set up");
-			Debug.Log ("Number of server connections: " + NetworkServer.connections.Count);
-		}
+			Debug.Log ("Server set up \nNumber of server connections: " + NetworkServer.connections.Count);
+		}*/
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		timer -= Time.deltaTime;
+
 		// Don't send requests from the table top
-		if (isServer) {
+		if (isServer && timer <= 0f) {
+			//PrintConnections ();
+			timer = 5f;
 			return;
 		}
 
-		timer -= Time.deltaTime;
 
+		/*
 		if (timer <= 0f) {
 			timer = 5f;
 
 			system.SendRequest ();
 			Debug.Log ("Client sent request message to server");
 
-		}
+		} */
 	}
+
+
 }

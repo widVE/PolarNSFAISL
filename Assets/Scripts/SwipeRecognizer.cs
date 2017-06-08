@@ -171,6 +171,15 @@ public class SwipeRecognizer : MonoBehaviour {
 		toPlay.Play ();
 	}
 
+	private bool InSwipeBounds(Vector2 start, Vector2 end) {
+
+		// Check start
+		if ((start.x > Screen.width/2) || (end.x > Screen.width/2)) {
+			return false;
+		}
+		return true;
+	}
+
 	private void swipeHandler(object sender, System.EventArgs e) {
 		Vector2 prev = swipeGesture.PreviousScreenPosition;
 		Vector2 swipeVector = swipeGesture.ScreenFlickVector;
@@ -178,6 +187,12 @@ public class SwipeRecognizer : MonoBehaviour {
         //Debug.Log("Swipe Detected - Direction: " + swipeVector);
 		//Debug.Log ("Start: " + start);
         
+		if (!InSwipeBounds(next, prev)) {
+			Debug.Log ("Swipe was out of bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
+			return;
+		}
+
+
 		if (showLine) {
             startEnd[0] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane));
             startEnd[1] = Camera.main.ScreenToWorldPoint(new Vector3(next.x, next.y, Camera.main.nearClipPlane));

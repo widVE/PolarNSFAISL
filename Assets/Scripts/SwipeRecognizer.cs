@@ -168,6 +168,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		lineFading = false;
 		// Draw the line
 		ren.SetPositions(startEnd);
+		Debug.Log ("Swipe was drawn");
 		toPlay.Play ();
 	}
 
@@ -190,14 +191,18 @@ public class SwipeRecognizer : MonoBehaviour {
 		if (!InSwipeBounds(next, prev)) {
 			Debug.Log ("Swipe was out of bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
 			return;
+		} else {
+			Debug.Log ("Swipe in bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
 		}
 
 
 		if (showLine) {
-            startEnd[0] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane));
-            startEnd[1] = Camera.main.ScreenToWorldPoint(new Vector3(next.x, next.y, Camera.main.nearClipPlane));
+            startEnd[0] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
+            startEnd[1] = Camera.main.ScreenToWorldPoint(new Vector3(next.x, next.y, Camera.main.nearClipPlane + 1));
             //Debug.Log("Line Drawn: " + startEnd[0] + " to " + startEnd[1]);
             //ren.SetPositions(startEnd);
+		} else {
+			Debug.Log ("showLine was false");
 		}
 
 

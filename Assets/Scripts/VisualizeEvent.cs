@@ -386,7 +386,7 @@ public class VisualizeEvent : MonoBehaviour {
 
     void StopPlaying(int e)
     {
-        Debug.Log("Stopped playing");
+        //Debug.Log("Stopped playing");
         eventsPlaying[e].eventIndex = 0;
         eventsPlaying[e].isPlaying = false;
         eventsPlaying[e].advancedIndex = false;

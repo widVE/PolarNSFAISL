@@ -50,7 +50,7 @@ public class DetectSwipe : MonoBehaviour {
 		// Now we can try to detect a swipe!
 		if (swipedEvent()) {
 			Debug.Log ("Event captured!");
-			GameObject.Find ("EventPanel").GetComponent<EventPanelManager> ().addEvent ("TestName", 5.0f, new Vector2(0f, 0f));
+			//GameObject.Find ("EventPanel").GetComponent<EventPanelManager> ().addEvent ("TestName", 5.0f, new Vector2(0f, 0f));
 		} else {
 			Debug.Log ("Event Missed, try again!");
 		}

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EventPanelManager : MonoBehaviour {
 
+
 	[SerializeField]
 	private GameObject template;
 	private Text mytext;
@@ -14,6 +15,7 @@ public class EventPanelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		removeSound = GetComponent<AudioSource> ();
+
 	}
 	
 	// Update is called once per frame
@@ -21,7 +23,7 @@ public class EventPanelManager : MonoBehaviour {
 		
 	}
 
-	public void addEvent(string name, float cumulative_energy, Vector2 coordinates) {
+	public void addEvent(string name, float cumulative_energy, Vector2 coordinates, Vector3 puzzleCameraLocation) {
 		if (numEvents > 20) {
 			return;
 		}
@@ -31,10 +33,11 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.GetComponent<EventInfo> ().setDate (System.DateTime.Now);
 		newPanel.GetComponent<EventInfo> ().setEnergy (cumulative_energy);
 		newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
+		newPanel.GetComponent<EventInfo> ().setPuzzleCameraLocation (puzzleCameraLocation);
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "Event: " + name; 
-		newPanel.GetComponentInChildren<Button> ().onClick.AddListener (newPanel.GetComponent<EventInfo>().SendEventToOculus);
+		newPanel.GetComponentInChildren<Button> ().onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);
 
 		panels.Add (newPanel);
 		numEvents++;

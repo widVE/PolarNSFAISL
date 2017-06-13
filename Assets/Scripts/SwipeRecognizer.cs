@@ -5,6 +5,7 @@ using TouchScript.Gestures;
 
 public class SwipeRecognizer : MonoBehaviour {
 
+	public GameObject PuzzleCamera;
 	public FlickGesture swipeGesture;
 	public bool showLine = true;
 	public LineRenderer ren;
@@ -23,6 +24,9 @@ public class SwipeRecognizer : MonoBehaviour {
 	void Start () {
 		if (swipeGesture == null) {
 			Debug.LogError ("No Flick Gesture assigned for DetectSwipe component on " + this.gameObject.name);
+		}
+		if (PuzzleCamera == null) {
+			Debug.LogError ("Puzzle camera reference not set in inspector");
 		}
 
 		BuildGradients ();
@@ -213,7 +217,7 @@ public class SwipeRecognizer : MonoBehaviour {
             {
                 for (int ev = 0; ev < currentEvents.eventsPlaying.Length; ++ev)
                 {
-                    if (currentEvents.eventsPlaying[ev].isPlaying)
+					if (currentEvents.eventsPlaying[ev].isPlaying)
                     {
                         Vector3 vStart = currentEvents.events[ev].startPos;
                         Vector3 vEnd = currentEvents.events[ev].endPos;
@@ -310,8 +314,20 @@ public class SwipeRecognizer : MonoBehaviour {
 						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know
 						DrawSwipeLine(SwipeType.found);
 
+						// EDIT for puzzle game - calculate and store the puzzle camera transform so that we can use it later
+
 						//TODO: Need to get the actual event values and place them in the list instead of dummy values
-                        GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, 5.0f, new Vector2(0f, 0f));
+						// EDIT - now this panel must also store the puzzle camera transform
+						Vector3 puzzleCameraLocation = FindPuzzleCameraLocation(currentEvents.events[ev]);
+
+						GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, 5.0f, new Vector2(0f, 0f), puzzleCameraLocation);
+
+						// For testing, automatically move the camera after swiping
+						PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(puzzleCameraLocation);
+
+
+
+
                         //if (collectionText != null)
                         //{
                         //    collectionText.GetComponent<UnityEngine.UI.Text>().text = "Cosmic Phenomena Collection:\n" + currentEvents.events[ev].eventSource.name;
@@ -323,5 +339,17 @@ public class SwipeRecognizer : MonoBehaviour {
 				DrawSwipeLine (SwipeType.idle);
 			}
         }
+	}
+
+	private Vector3 FindPuzzleCameraLocation(VisualizeEvent.EventVis swipedEvent) {
+
+		Vector3 vStart = swipedEvent.startPos;
+		Vector3 vEnd = swipedEvent.endPos;
+
+		Vector3 lookPosition = (vStart + vEnd) / 2f;
+
+		Vector3 cameraPosition = lookPosition - new Vector3 (0, 0, 1000f);
+
+		return cameraPosition;
 	}
 }

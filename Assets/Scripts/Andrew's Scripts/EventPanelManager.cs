@@ -23,7 +23,7 @@ public class EventPanelManager : MonoBehaviour {
 		
 	}
 
-	public void addEvent(string name, float cumulative_energy, Vector2 coordinates, Vector3 puzzleCameraLocation) {
+	public void addEvent(string name, float cumulative_energy, Vector2 coordinates, Vector3 eventCenterPosition) {
 		if (numEvents > 20) {
 			return;
 		}
@@ -33,7 +33,7 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.GetComponent<EventInfo> ().setDate (System.DateTime.Now);
 		newPanel.GetComponent<EventInfo> ().setEnergy (cumulative_energy);
 		newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
-		newPanel.GetComponent<EventInfo> ().setPuzzleCameraLocation (puzzleCameraLocation);
+		newPanel.GetComponent<EventInfo> ().setEventCenterPosition (eventCenterPosition);
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "Event: " + name; 

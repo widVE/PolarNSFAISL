@@ -21296,7 +21296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1147243632
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22966,6 +22966,10 @@ Prefab:
     - target: {fileID: 100258, guid: 5be4b1667ccbfb244a18f6b237f3f38e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100152, guid: 5be4b1667ccbfb244a18f6b237f3f38e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5be4b1667ccbfb244a18f6b237f3f38e, type: 3}
@@ -31590,7 +31594,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -40.5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31774,15 +31778,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100066, guid: 600027a3ac58c73469fed013567c20aa, type: 3}
       propertyPath: m_Name
@@ -33409,6 +33413,10 @@ Prefab:
     - target: {fileID: 100132, guid: 943a8b1e3a8c8244bb67f111fd13fafa, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 943a8b1e3a8c8244bb67f111fd13fafa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 943a8b1e3a8c8244bb67f111fd13fafa, type: 3}

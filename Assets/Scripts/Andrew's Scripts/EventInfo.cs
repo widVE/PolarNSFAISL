@@ -15,7 +15,7 @@ public class EventInfo : MonoBehaviour {
 	private Vector2 coordinates;
 	private DateTime date_captured;
 
-	private Vector3 puzzleCameraPosition;
+	private Vector3 eventCenterPosition;
 
 	void Start() {
 		man = this.transform.parent.GetComponent<EventPanelManager> ();
@@ -27,12 +27,12 @@ public class EventInfo : MonoBehaviour {
 		puzzleCameraController = puzzleCamera.GetComponent<PuzzleCameraController> ();
 	}
 
-	public EventInfo(string nameP, float energy, Vector2 coords, Vector3 puzzleCameraLocation) {
+	public EventInfo(string nameP, float energy, Vector2 coords, Vector3 eventCenterPosition) {
 		this.name = nameP;
 		this.peak_energy = energy;
 		this.coordinates = coords;
 		this.date_captured = DateTime.Now;
-		this.puzzleCameraPosition = puzzleCameraLocation;
+		this.eventCenterPosition = eventCenterPosition;
 	}
 
 	public EventInfo(EventInfo other) {
@@ -41,7 +41,7 @@ public class EventInfo : MonoBehaviour {
 			this.peak_energy = other.peak_energy;
 			this.coordinates = other.coordinates;
 			this.date_captured = other.date_captured;
-			this.puzzleCameraPosition = other.puzzleCameraPosition;
+			this.eventCenterPosition = other.eventCenterPosition;
 		}
 	}
 
@@ -62,15 +62,16 @@ public class EventInfo : MonoBehaviour {
 	}
 
 
-	public void setPuzzleCameraLocation(Vector3 puzzleCameraLocation) {
-		this.puzzleCameraPosition = puzzleCameraLocation;
+	public void setEventCenterPosition(Vector3 eventCenterPosition) {
+		this.eventCenterPosition = eventCenterPosition;
 	}
 
-	public Vector3 getPuzzleCameraLocation() {
-		return this.puzzleCameraPosition;
+	public Vector3 getEventCenterPosition() {
+		return this.eventCenterPosition;
 	}
 		
+	// Used for buttons on panels
 	public void GoToPuzzleView() {
-		puzzleCameraController.MoveCamera (this.puzzleCameraPosition);
+		puzzleCameraController.MoveCamera (this.eventCenterPosition);
 	}
 }

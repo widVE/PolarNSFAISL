@@ -318,12 +318,12 @@ public class SwipeRecognizer : MonoBehaviour {
 
 						//TODO: Need to get the actual event values and place them in the list instead of dummy values
 						// EDIT - now this panel must also store the puzzle camera transform
-						Vector3 puzzleCameraLocation = FindPuzzleCameraLocation(currentEvents.events[ev]);
-
-						GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, 5.0f, new Vector2(0f, 0f), puzzleCameraLocation);
+						//Vector3 puzzleCameraLocation = FindPuzzleCameraLocation(currentEvents.events[ev]);
+						Vector3 eventMid = FindTargetLocation(currentEvents.events[ev]);
+						GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, 5.0f, new Vector2(0f, 0f), eventMid);
 
 						// For testing, automatically move the camera after swiping
-						PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(puzzleCameraLocation);
+						PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(eventMid);
 
 
 
@@ -341,6 +341,7 @@ public class SwipeRecognizer : MonoBehaviour {
         }
 	}
 
+	/*
 	private Vector3 FindPuzzleCameraLocation(VisualizeEvent.EventVis swipedEvent) {
 
 		Vector3 vStart = swipedEvent.startPos;
@@ -351,5 +352,13 @@ public class SwipeRecognizer : MonoBehaviour {
 		Vector3 cameraPosition = lookPosition - new Vector3 (0, 0, 1000f);
 
 		return cameraPosition;
+	}*/
+
+	private Vector3 FindTargetLocation(VisualizeEvent.EventVis swipedEvent) {
+		Vector3 vStart = swipedEvent.startPos;
+		Vector3 vEnd = swipedEvent.endPos;
+
+		Vector3 lookPosition = (vStart + vEnd) / 2f;
+		return lookPosition;
 	}
 }

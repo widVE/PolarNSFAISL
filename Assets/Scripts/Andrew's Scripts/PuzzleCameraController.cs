@@ -27,8 +27,12 @@ public class PuzzleCameraController : MonoBehaviour {
 		} 
 	}
 
-	public void MoveCamera(Vector3 targetPos) {
+	public void MoveCamera(Vector3 targetPos, List<VisualizeEvent.DomSnapShot> snapShots) {
 		destPos = (targetPos - new Vector3 (0, 0, 1000f));
 		isMoving = true;
+
+		foreach (VisualizeEvent.DomSnapShot curr in snapShots) {
+			curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
+		}
 	}
 }

@@ -16,6 +16,7 @@ public class EventInfo : MonoBehaviour {
 	private DateTime date_captured;
 
 	private Vector3 eventCenterPosition;
+	private List<VisualizeEvent.DomSnapShot> eventSnapshot;
 
 	void Start() {
 		man = this.transform.parent.GetComponent<EventPanelManager> ();
@@ -33,6 +34,7 @@ public class EventInfo : MonoBehaviour {
 		this.coordinates = coords;
 		this.date_captured = DateTime.Now;
 		this.eventCenterPosition = eventCenterPosition;
+		this.eventSnapshot = new List<VisualizeEvent.DomSnapShot> ();
 	}
 
 	public EventInfo(EventInfo other) {
@@ -42,6 +44,7 @@ public class EventInfo : MonoBehaviour {
 			this.coordinates = other.coordinates;
 			this.date_captured = other.date_captured;
 			this.eventCenterPosition = other.eventCenterPosition;
+			this.eventSnapshot = other.eventSnapshot;
 		}
 	}
 
@@ -69,9 +72,17 @@ public class EventInfo : MonoBehaviour {
 	public Vector3 getEventCenterPosition() {
 		return this.eventCenterPosition;
 	}
+
+	public void setSnapshot(List<VisualizeEvent.DomSnapShot> snapshot) {
+		this.eventSnapshot = snapshot;
+	}
+
+	public List<VisualizeEvent.DomSnapShot> getSnapshot() {
+		return this.eventSnapshot;
+	}
 		
 	// Used for buttons on panels
 	public void GoToPuzzleView() {
-		puzzleCameraController.MoveCamera (this.eventCenterPosition);
+		puzzleCameraController.MoveCamera (this.eventCenterPosition, this.eventSnapshot);
 	}
 }

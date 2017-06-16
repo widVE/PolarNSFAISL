@@ -39,6 +39,13 @@ public class VisualizeEvent : MonoBehaviour {
         public GameObject eventSource;
     };
 
+	public struct DomSnapShot
+	{
+		public GameObject Dom;
+		public float charge;
+		public float timeFrac;
+	};
+
     public struct EventPlayback
     {
         public bool isPlaying;
@@ -50,7 +57,10 @@ public class VisualizeEvent : MonoBehaviour {
         public float eventEndTime;
         public float playStartTime;
         public float newPlayTime;
+		public List<DomSnapShot> ActivatedDoms;
     };
+
+
 
     public EventPlayback[] eventsPlaying;
 
@@ -251,6 +261,7 @@ public class VisualizeEvent : MonoBehaviour {
                 eventsPlaying[e].playStartTime = 0.0f;
                 eventsPlaying[e].advancedIndex = false;
                 eventsPlaying[e].newPlayTime = 0.0f;
+				eventsPlaying [e].ActivatedDoms = new List<DomSnapShot> ();
             }
         }
 	}
@@ -328,7 +339,14 @@ public class VisualizeEvent : MonoBehaviour {
                             DOMController dc = d.GetComponent<DOMController>();
                             if (dc != null)
                             {
-                                dc.TurnOn(fTimeFrac, Mathf.Log(20000.0f * events[e].eventData[eventsPlaying[e].eventIndex].charge * events[e].eventData[eventsPlaying[e].eventIndex].charge));
+								float charge = Mathf.Log (20000.0f * events [e].eventData [eventsPlaying [e].eventIndex].charge * events [e].eventData [eventsPlaying [e].eventIndex].charge);
+                                dc.TurnOn(fTimeFrac, charge);
+								DomSnapShot toAdd = new DomSnapShot ();
+								toAdd.charge = charge;
+								toAdd.timeFrac = fTimeFrac;
+								toAdd.Dom = d;
+								eventsPlaying [e].ActivatedDoms.Add (toAdd);
+
                                 AudioSource asource = dc.GetComponent<AudioSource>();
                                 if (asource != null && asource.isActiveAndEnabled)
                                 {
@@ -395,6 +413,7 @@ public class VisualizeEvent : MonoBehaviour {
         eventsPlaying[e].eventEndTime = 0.0f;
         eventsPlaying[e].eventStartFrame = 0;
         eventsPlaying[e].eventEndFrame = 0;
+		eventsPlaying [e].ActivatedDoms = new List<DomSnapShot> ();
 
         //turn off all event visualization?
         for(int i = 0; i < events[e].eventData.Count; ++i)
@@ -415,4 +434,5 @@ public class VisualizeEvent : MonoBehaviour {
 	public float getEnergy() {
 		return totalEnergy;
 	}
+
 }

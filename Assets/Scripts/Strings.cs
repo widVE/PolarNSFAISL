@@ -14,7 +14,8 @@ public class Strings : MonoBehaviour
     //this could allow for very efficient DOM lookups later...
     private const int NUM_STRINGS = 86;
     private const int NUM_DOMS_PER_STRING = 64;
-    
+	private float yOffset = 0f;
+
     //line updating variables...
     private bool firstDraw = true;
     public GameObject stringObject;
@@ -23,6 +24,9 @@ public class Strings : MonoBehaviour
 
     void Start()
     {
+		if (this.transform.gameObject.name.Equals("PuzzleStrings")) {
+			yOffset = 1200f;
+		}
         StreamReader reader = new StreamReader(icecubeFile);
 
         LineRenderer lineRen = null;
@@ -53,7 +57,7 @@ public class Strings : MonoBehaviour
             if (domNum <= 60)
             {
 
-                Vector3 startPos = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat);
+				Vector3 startPos = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat + yOffset);
 
                 //avgX += xFloat;
                 //avgZ += yFloat;
@@ -103,13 +107,13 @@ public class Strings : MonoBehaviour
                  if (domNum == 59)
                  {
                      GameObject stringObj = (GameObject)Instantiate(stringObject); //GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                     Vector3 domPos = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat);
+					Vector3 domPos = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat + yOffset);
                      stringObj.transform.position = domPos;
                      stringObj.transform.SetParent(transform);
                      stringObj.layer = transform.gameObject.layer;
 
                      //how to make line widths different for oculus vs. regular user?
-                     pos[1] = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat);
+					pos[1] = new Vector3(xFloat, BELOW_ICE + zFloat, yFloat + yOffset);
                      lineRen = stringObj.AddComponent<LineRenderer>();
                      lineRen.SetWidth(.023f, .023f);
                      lineRen.SetColors(Color.black, Color.black);

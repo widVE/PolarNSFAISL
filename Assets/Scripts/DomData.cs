@@ -9,7 +9,8 @@ public class DomData : MonoBehaviour {
     string icecubeFile = "Assets\\IceCubeData\\geometry\\Icecube_Geometry_Data.txt";
     private const float BELOW_ICE = -1950.0f;
 	private bool first = true;
-    
+	private float arrayYOffset;
+
     //should keep track of all created objects here in a sort of "dom" matrix..
     //this could allow for very efficient DOM lookups later...
     private const int NUM_STRINGS = 86;
@@ -21,6 +22,11 @@ public class DomData : MonoBehaviour {
 
 	void Start () {
 
+		if (this.gameObject.name.Equals("PuzzleArray")) {
+			arrayYOffset = 1200;
+		} else {
+			arrayYOffset = 0f;
+		}
 		StreamReader reader = new StreamReader (icecubeFile);
 
 		LineRenderer lineRen = null;
@@ -50,7 +56,7 @@ public class DomData : MonoBehaviour {
 
 			//create DOMS
             GameObject dom = (GameObject)Instantiate(domObject); //GameObject.CreatePrimitive(PrimitiveType.Sphere);
-			Vector3 domPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat);
+			Vector3 domPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat + arrayYOffset);
 			dom.transform.position = domPos;
 			dom.transform.SetParent (transform);
             dom.GetComponent<DOMController>().stringNum = domUnitNum;
@@ -59,7 +65,7 @@ public class DomData : MonoBehaviour {
             if (domNum <= 60)
             {
 
-				Vector3 startPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat); 
+				Vector3 startPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat + arrayYOffset); 
 				
                 //avgX += xFloat;
                 //avgZ += yFloat;

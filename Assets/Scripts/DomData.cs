@@ -9,24 +9,25 @@ public class DomData : MonoBehaviour {
     string icecubeFile = "Assets\\IceCubeData\\geometry\\Icecube_Geometry_Data.txt";
     private const float BELOW_ICE = -1950.0f;
 	private bool first = true;
-	private float arrayYOffset;
 
     //should keep track of all created objects here in a sort of "dom" matrix..
     //this could allow for very efficient DOM lookups later...
     private const int NUM_STRINGS = 86;
     private const int NUM_DOMS_PER_STRING = 64;
-    public GameObject[,] DOMArray = new GameObject[NUM_STRINGS,NUM_DOMS_PER_STRING];
+
+	public struct DomStruct
+	{
+		public GameObject puzzleDom;
+		public GameObject tableDom;
+	};
+
+	public DomStruct[,] DOMArray = new DomStruct[NUM_STRINGS,NUM_DOMS_PER_STRING];
 
     //line updating variables...
     private bool firstDraw = true;
 
 	void Start () {
 
-		if (this.gameObject.name.Equals("PuzzleArray")) {
-			arrayYOffset = 1200;
-		} else {
-			arrayYOffset = 0f;
-		}
 		StreamReader reader = new StreamReader (icecubeFile);
 
 		LineRenderer lineRen = null;
@@ -55,17 +56,31 @@ public class DomData : MonoBehaviour {
 			float zFloat = float.Parse (zVal);
 
 			//create DOMS
-            GameObject dom = (GameObject)Instantiate(domObject); //GameObject.CreatePrimitive(PrimitiveType.Sphere);
-			Vector3 domPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat + arrayYOffset);
-			dom.transform.position = domPos;
-			dom.transform.SetParent (transform);
-            dom.GetComponent<DOMController>().stringNum = domUnitNum;
-            dom.GetComponent<DOMController>().domNum = domNum;
+            GameObject tableDom = (GameObject)Instantiate(domObject); //GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			SetLayersRecursively(tableDom, LayerMask.NameToLayer("TableTop"));
+			GameObject puzzleDom = (GameObject)Instantiate(domObject);
+			SetLayersRecursively(puzzleDom, LayerMask.NameToLayer("Puzzle"));
+
+			Vector3 domPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat);
+
+			//table
+			tableDom.transform.position = domPos;
+			tableDom.transform.SetParent (transform);
+			tableDom.GetComponent<DOMController>().stringNum = domUnitNum;
+			tableDom.GetComponent<DOMController>().domNum = domNum;
+
+			//puzzle
+			puzzleDom.transform.position = domPos + new Vector3(3000, 0, 0);
+			puzzleDom.transform.SetParent (transform);
+			puzzleDom.GetComponent<DOMController>().stringNum = domUnitNum;
+			puzzleDom.GetComponent<DOMController>().domNum = domNum;
+
+
 
             if (domNum <= 60)
             {
 
-				Vector3 startPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat + arrayYOffset); 
+				Vector3 startPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat); 
 				
                 //avgX += xFloat;
                 //avgZ += yFloat;
@@ -138,7 +153,10 @@ public class DomData : MonoBehaviour {
                 first = true;
             }
 
-            DOMArray[domUnitNum, domNum] = dom;
+			DomStruct pair = new DomStruct();
+			pair.tableDom = tableDom;
+			pair.puzzleDom = puzzleDom;
+            DOMArray[domUnitNum, domNum] = pair;
 
 		}   //end while()
 
@@ -162,4 +180,18 @@ public class DomData : MonoBehaviour {
             }
         }*/
 	}//end Update()
+
+	private void SetLayersRecursively(GameObject obj, int layer) {
+		if (obj == null) {
+			return;
+		}
+
+		obj.layer = layer;
+		foreach (Transform child in obj.transform) {
+			if (child == null) {
+				continue;
+			}
+			SetLayersRecursively (child.gameObject, layer);
+		}
+	}
 }//end Class

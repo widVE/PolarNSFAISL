@@ -8,6 +8,8 @@ public class PuzzleCameraController : MonoBehaviour {
 	private Vector3 destPos;
 	private Quaternion facingDir;
 
+	private List<VisualizeEvent.DomSnapShot> prevSnapShots;
+
 	void Start() {
 		facingDir = Quaternion.LookRotation(new Vector3(0,0,1f));
 	}
@@ -20,6 +22,10 @@ public class PuzzleCameraController : MonoBehaviour {
 				Vector3 translationVector = destPos - this.transform.position;
 				this.transform.Translate (translationVector * Time.deltaTime, Space.World);
 				this.transform.rotation = Quaternion.Slerp (this.transform.rotation, facingDir, Time.deltaTime);
+				foreach (VisualizeEvent.DomSnapShot curr in prevSnapShots) {
+					curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
+					
+				}
 			} else {
 				isMoving = false;
 			}
@@ -28,11 +34,20 @@ public class PuzzleCameraController : MonoBehaviour {
 	}
 
 	public void MoveCamera(Vector3 targetPos, List<VisualizeEvent.DomSnapShot> snapShots) {
+
+		if (prevSnapShots != null) {
+			foreach (VisualizeEvent.DomSnapShot curr in prevSnapShots) {
+				curr.Dom.GetComponent<DOMController> ().TurnOff ();
+			}
+		}
+
 		destPos = (targetPos - new Vector3 (0, 0, 1000f));
 		isMoving = true;
 
 		foreach (VisualizeEvent.DomSnapShot curr in snapShots) {
 			curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
 		}
+
+		prevSnapShots = snapShots;
 	}
 }

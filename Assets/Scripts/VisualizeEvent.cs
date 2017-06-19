@@ -11,7 +11,7 @@ public class VisualizeEvent : MonoBehaviour {
 
     //public GameObject particle;   //used for debugging trajectory for now
     public float playSpeed = 0.01f;
-    private float eventFrequency = 10.0f;
+    private float eventFrequency = 20.0f;
     public GameObject totalEnergyText = null;
     public float totalEnergy = 0.0f;
 	private AudioSource alarm;
@@ -326,7 +326,7 @@ public class VisualizeEvent : MonoBehaviour {
                             domData = gameObject.GetComponent<DomData>();
                         }
 
-                        GameObject d = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str];
+						GameObject d = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str].tableDom;
 
                         float fTimeFrac = 0.0f;
                         if (d != null)
@@ -344,7 +344,7 @@ public class VisualizeEvent : MonoBehaviour {
 								DomSnapShot toAdd = new DomSnapShot ();
 								toAdd.charge = charge;
 								toAdd.timeFrac = fTimeFrac;
-								toAdd.Dom = d;
+								toAdd.Dom = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str].puzzleDom;
 								eventsPlaying [e].ActivatedDoms.Add (toAdd);
 
                                 AudioSource asource = dc.GetComponent<AudioSource>();
@@ -404,7 +404,7 @@ public class VisualizeEvent : MonoBehaviour {
 
     void StopPlaying(int e)
     {
-        //Debug.Log("Stopped playing");
+        Debug.Log("Stopped playing");
         eventsPlaying[e].eventIndex = 0;
         eventsPlaying[e].isPlaying = false;
         eventsPlaying[e].advancedIndex = false;
@@ -418,7 +418,7 @@ public class VisualizeEvent : MonoBehaviour {
         //turn off all event visualization?
         for(int i = 0; i < events[e].eventData.Count; ++i)
         {
-            GameObject d = domData.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str];
+			GameObject d = domData.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str].tableDom;
             if(d != null)
             {
                 d.GetComponent<DOMController>().TurnOff();

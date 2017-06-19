@@ -63,41 +63,42 @@ public class DOMController : MonoBehaviour {
             //todo - improve the timing calculation...
             float fColorFrac = 1.0f / 7.0f;
 
-            if (fTimeFrac < fColorFrac)
-            {
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.red);
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.red);
-            }
-            else if (fTimeFrac < 2.0f * fColorFrac)
-            {
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", orange);
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", orange);
-            }
-            else if (fTimeFrac < 3.0f * fColorFrac)
-            {
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.yellow);
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.yellow);
-            }
-            else if (fTimeFrac < 4.0f * fColorFrac)
-            {
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.green);
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.green);
-            }
-            else if (fTimeFrac < 5.0f * fColorFrac)
-            {
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.blue);
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.blue);
-            }
-            else if (fTimeFrac < 6.0f * fColorFrac)
-            {
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.magenta);
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.magenta);
-            }
-            else
-            {
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", purple);
-                eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", purple);
-            }
+
+			if (fTimeFrac < fColorFrac)
+			{
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.red);
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.red);
+			}
+			else if (fTimeFrac < 2.0f * fColorFrac)
+			{
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", orange);
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", orange);
+			}
+			else if (fTimeFrac < 3.0f * fColorFrac)
+			{
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.yellow);
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.yellow);
+			}
+			else if (fTimeFrac < 4.0f * fColorFrac)
+			{
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.green);
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.green);
+			}
+			else if (fTimeFrac < 5.0f * fColorFrac)
+			{
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.blue);
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.blue);
+			}
+			else if (fTimeFrac < 6.0f * fColorFrac)
+			{
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.magenta);
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.magenta);
+			}
+			else
+			{
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", purple);
+				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", purple);
+			} 
         }
 
         on = true;

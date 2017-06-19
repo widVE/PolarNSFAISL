@@ -359,7 +359,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		Vector3 vEnd = swipedEvent.endPos;
 
 		Vector3 lookPosition = (vStart + vEnd) / 2f;
-		return lookPosition;
+		return lookPosition + new Vector3 (3000, 0, 0);
 
 	}
 }

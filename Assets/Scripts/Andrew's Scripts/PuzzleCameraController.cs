@@ -22,15 +22,19 @@ public class PuzzleCameraController : MonoBehaviour {
 				Vector3 translationVector = destPos - this.transform.position;
 				this.transform.Translate (translationVector * Time.deltaTime, Space.World);
 				this.transform.rotation = Quaternion.Slerp (this.transform.rotation, facingDir, Time.deltaTime);
-				foreach (VisualizeEvent.DomSnapShot curr in prevSnapShots) {
-					curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
-					
-				}
 			} else {
 				isMoving = false;
 			}
-
 		} 
+
+		if (prevSnapShots != null) {
+			foreach (VisualizeEvent.DomSnapShot curr in prevSnapShots) {
+				if (!curr.Dom.GetComponent<DOMController>().on) {
+					curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
+				}
+			}
+		}
+
 	}
 
 	public void MoveCamera(Vector3 targetPos, List<VisualizeEvent.DomSnapShot> snapShots) {
@@ -44,10 +48,26 @@ public class PuzzleCameraController : MonoBehaviour {
 		destPos = (targetPos - new Vector3 (0, 0, 1000f));
 		isMoving = true;
 
-		foreach (VisualizeEvent.DomSnapShot curr in snapShots) {
-			curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
+		if (snapShots != null) {
+			foreach (VisualizeEvent.DomSnapShot curr in snapShots) {
+				curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
+			}
+
+			prevSnapShots = snapShots;
 		}
 
-		prevSnapShots = snapShots;
+	}
+
+	public void CleanUp() {
+		if (prevSnapShots != null) {
+			foreach (VisualizeEvent.DomSnapShot curr in prevSnapShots) {
+				curr.Dom.GetComponent<DOMController> ().TurnOff ();
+			}
+		}
+
+		prevSnapShots = null;
+
+		MoveCamera (new Vector3 (3000, -1000, -2000), null);
+
 	}
 }

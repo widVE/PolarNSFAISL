@@ -85,4 +85,9 @@ public class EventInfo : MonoBehaviour {
 	public void GoToPuzzleView() {
 		puzzleCameraController.MoveCamera (this.eventCenterPosition, this.eventSnapshot);
 	}
+
+	public void delete() {
+		puzzleCameraController.CleanUp ();
+		man.removeEvent (this.gameObject);
+	}
 }

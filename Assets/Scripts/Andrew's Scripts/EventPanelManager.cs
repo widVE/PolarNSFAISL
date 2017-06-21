@@ -38,8 +38,8 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "Event: " + name; 
-		newPanel.GetComponentInChildren<Button> ().onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);
-
+		newPanel.GetComponentsInChildren<Button> ()[0].onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);
+		newPanel.GetComponentsInChildren<Button> ()[1].onClick.AddListener (newPanel.GetComponent<EventInfo>().delete);
 		panels.Add (newPanel);
 		numEvents++;
 

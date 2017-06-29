@@ -23,10 +23,7 @@ public class EventPanelManager : MonoBehaviour {
 		
 	}
 
-	public void addEvent(string name, float cumulative_energy, Vector2 coordinates, Vector3 eventCenterPosition, List<VisualizeEvent.DomSnapShot> snapshot) {
-		if (numEvents > 20) {
-			return;
-		}
+	public EventInfo addEvent(string name, float cumulative_energy, Vector2 coordinates, Vector3 eventCenterPosition, List<VisualizeEvent.DomSnapShot> snapshot, Vector3 vStart, Vector3 vEnd) {
 
 		GameObject newPanel = Instantiate (template);
 		newPanel.GetComponent<EventInfo> ().setName (name);
@@ -35,6 +32,8 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
 		newPanel.GetComponent<EventInfo> ().setEventCenterPosition (eventCenterPosition);
 		newPanel.GetComponent<EventInfo> ().setSnapshot (snapshot);
+		newPanel.GetComponent<EventInfo> ().setStart (vStart);
+		newPanel.GetComponent<EventInfo> ().setEnd (vEnd);
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "Event: " + name; 
@@ -53,7 +52,7 @@ public class EventPanelManager : MonoBehaviour {
 
 
 		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Event: " + name;
-
+		return newPanel.GetComponent<EventInfo> ();
 	}
 
 	public void removeEvent(GameObject eventToRemove) {

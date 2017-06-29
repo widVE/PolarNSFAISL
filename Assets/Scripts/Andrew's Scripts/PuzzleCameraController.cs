@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class PuzzleCameraController : MonoBehaviour {
 
+	private LineRenderer linRen;
 	private Vector3 currentTarget;
 	private bool isMoving = false;
 	private Vector3 destPos;
 	private Quaternion facingDir;
+	private EventInfo currentEventInfo;
+
 	[SerializeField]
 	private GameObject sliders;
+	[SerializeField]
+	private Toggle lineToggle;
 
 	private Slider sizeSlider;
 	private Slider rotateSlider;
@@ -32,6 +37,8 @@ public class PuzzleCameraController : MonoBehaviour {
 		zoomSlider = sliders.transform.Find ("ZoomSlider").GetComponent<Slider> ();
 
 		prevSliderValue = sizeSlider.value;
+
+		linRen = GetComponent<LineRenderer> ();
 	}
 
 
@@ -66,9 +73,29 @@ public class PuzzleCameraController : MonoBehaviour {
 			ChangeDomScale ();
 		}
 
+		// Draw the line through the data by default for debugging
+		if (currentEventInfo != null && lineToggle.isOn) {
+			Vector3[] pathPositions = new Vector3[2];
+			pathPositions [0] = currentEventInfo.getStart () + new Vector3(3000f, 0, 0);
+			pathPositions [1] = currentEventInfo.getEnd () + new Vector3(3000f, 0, 0);
+			linRen.SetPositions (pathPositions);
+		} else {
+			linRen.SetPositions (new Vector3[2]);
+		}
+
 	}
 
-	public void MoveCamera(Vector3 targetPos, List<VisualizeEvent.DomSnapShot> snapShots) {
+	public void MoveCamera(EventInfo currentEventInfo) {
+
+		Vector3 targetPos;
+		// If null, move to default position
+		if (currentEventInfo == null) {
+			targetPos = new Vector3 (3000, -1000, -2000);
+		} else {
+			targetPos = currentEventInfo.getEventCenterPosition ();
+		}
+
+
 		currentTarget = targetPos;
 		ResetSliders ();
 		if (prevSnapShots != null) {
@@ -80,6 +107,11 @@ public class PuzzleCameraController : MonoBehaviour {
 
 		destPos = (targetPos - new Vector3 (0, 0, 1000f));
 		isMoving = true;
+		List<VisualizeEvent.DomSnapShot> snapShots = null;
+
+		if (currentEventInfo != null) {
+			snapShots = currentEventInfo.getSnapshot ();
+		}
 
 		if (snapShots != null) {
 			foreach (VisualizeEvent.DomSnapShot curr in snapShots) {
@@ -87,8 +119,8 @@ public class PuzzleCameraController : MonoBehaviour {
 			}
 
 			prevSnapShots = snapShots;
+			this.currentEventInfo = currentEventInfo;
 		}
-
 	}
 
 	public void CleanUp() {
@@ -101,7 +133,8 @@ public class PuzzleCameraController : MonoBehaviour {
 		}
 
 		prevSnapShots = null;
-		MoveCamera (new Vector3 (3000, -1000, -2000), null);
+
+		MoveCamera (null);
 
 	}
 

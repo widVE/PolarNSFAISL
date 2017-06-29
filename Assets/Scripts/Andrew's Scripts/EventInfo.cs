@@ -14,6 +14,8 @@ public class EventInfo : MonoBehaviour {
 	private float peak_energy;
 	private Vector2 coordinates;
 	private DateTime date_captured;
+	private Vector3 pathStart;
+	private Vector3 pathEnd;
 
 	private Vector3 eventCenterPosition;
 	private List<VisualizeEvent.DomSnapShot> eventSnapshot;
@@ -28,13 +30,15 @@ public class EventInfo : MonoBehaviour {
 		puzzleCameraController = puzzleCamera.GetComponent<PuzzleCameraController> ();
 	}
 
-	public EventInfo(string nameP, float energy, Vector2 coords, Vector3 eventCenterPosition) {
+	public EventInfo(string nameP, float energy, Vector2 coords, Vector3 eventCenterPosition, Vector3 pathStart, Vector3 pathEnd) {
 		this.name = nameP;
 		this.peak_energy = energy;
 		this.coordinates = coords;
 		this.date_captured = DateTime.Now;
 		this.eventCenterPosition = eventCenterPosition;
 		this.eventSnapshot = new List<VisualizeEvent.DomSnapShot> ();
+		this.pathStart = pathStart;
+		this.pathEnd = pathEnd;
 	}
 
 	public EventInfo(EventInfo other) {
@@ -45,6 +49,8 @@ public class EventInfo : MonoBehaviour {
 			this.date_captured = other.date_captured;
 			this.eventCenterPosition = other.eventCenterPosition;
 			this.eventSnapshot = other.eventSnapshot;
+			this.pathStart = pathStart;
+			this.pathEnd = pathEnd;
 		}
 	}
 
@@ -80,10 +86,26 @@ public class EventInfo : MonoBehaviour {
 	public List<VisualizeEvent.DomSnapShot> getSnapshot() {
 		return this.eventSnapshot;
 	}
+
+	public void setStart(Vector3 vStart) {
+		this.pathStart = vStart;
+	}
+
+	public Vector3 getStart() {
+		return this.pathStart;
+	}
+
+	public void setEnd(Vector3 vEnd) {
+		this.pathEnd = vEnd;
+	}
+
+	public Vector3 getEnd() {
+		return this.pathEnd;
+	}
 		
 	// Used for buttons on panels
 	public void GoToPuzzleView() {
-		puzzleCameraController.MoveCamera (this.eventCenterPosition, this.eventSnapshot);
+		puzzleCameraController.MoveCamera (this);
 	}
 
 	public void delete() {

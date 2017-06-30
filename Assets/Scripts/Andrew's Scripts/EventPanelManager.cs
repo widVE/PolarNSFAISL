@@ -23,15 +23,15 @@ public class EventPanelManager : MonoBehaviour {
 		
 	}
 
-	public EventInfo addEvent(string name, float cumulative_energy, Vector2 coordinates, Vector3 eventCenterPosition, List<VisualizeEvent.DomSnapShot> snapshot, Vector3 vStart, Vector3 vEnd) {
+	public EventInfo addEvent(string name, float cumulative_energy, Vector3 vStart, Vector3 vEnd, List<VisualizeEvent.DomSnapShot> snapshots) {
 
 		GameObject newPanel = Instantiate (template);
 		newPanel.GetComponent<EventInfo> ().setName (name);
 		newPanel.GetComponent<EventInfo> ().setDate (System.DateTime.Now);
 		newPanel.GetComponent<EventInfo> ().setEnergy (cumulative_energy);
-		newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
-		newPanel.GetComponent<EventInfo> ().setEventCenterPosition (eventCenterPosition);
-		newPanel.GetComponent<EventInfo> ().setSnapshot (snapshot);
+		//newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
+		//newPanel.GetComponent<EventInfo> ().setEventCenterPosition (eventCenterPosition);
+		newPanel.GetComponent<EventInfo> ().setSnapshots (snapshots);
 		newPanel.GetComponent<EventInfo> ().setStart (vStart);
 		newPanel.GetComponent<EventInfo> ().setEnd (vEnd);
 		newPanel.transform.SetParent (this.transform, false);

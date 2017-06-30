@@ -194,10 +194,8 @@ public class EventDataSystem : MonoBehaviour {
 		// TODO: Do stuff with this request, create a new EventDataMessage, and send it back to
 		// whomever sent the request
 
-		// Access data from our list
-
+		// TODO: Access data from our list
 		// Make a response message
-
 		// For now, just send a dummy data back
 		myClient.Send (MyMessageTypes.EventDataID, response);
 		Debug.Log ("Table Client sent a data response to the server");

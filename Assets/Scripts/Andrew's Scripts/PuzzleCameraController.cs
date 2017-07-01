@@ -56,7 +56,7 @@ public class PuzzleCameraController : MonoBehaviour {
 
 
 	// The EventInfo object associated with the current event
-	// NOTE: The EventInfo object stores a snapshot list, which is essentially a list of doms (and their states) that are activated by this event
+	// NOTE: The EventInfo object stores a DomState list, which is essentially a list of doms (and their states) that are activated by this event
 	//       This structure is PASS BY REFERENCE, so if an event is swiped in the middle of playing, this list is also updated
 	//       as the event continues playing! So it is necessary to update the puzzle array doms constantly to ensure we view the final
 	//       event result, not just the state the array was in when we captured it
@@ -101,8 +101,8 @@ public class PuzzleCameraController : MonoBehaviour {
 
 		// If we are currently viewing an event, update which doms are turned on
 		if (currentEventInfo != null) {
-			foreach (VisualizeEvent.DomSnapShot curr in currentEventInfo.getSnapshots()) {
-				// If there is a dom that is in our snapshots list that is not on, turn it on
+			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
+				// If there is a dom that is in our DomStates list that is not on, turn it on
 				// See the above NOTE for an explaination on why this happens
 				if (!curr.Dom.GetComponent<DOMController>().on) {
 					curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
@@ -136,7 +136,7 @@ public class PuzzleCameraController : MonoBehaviour {
 
 		// Reset the array back to "blank" state by turning off all doms that are currently on (and only if we were currently viewing an event)
 		if (currentEventInfo != null) {
-			foreach (VisualizeEvent.DomSnapShot curr in currentEventInfo.getSnapshots()) {
+			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
 				curr.Dom.GetComponent<DOMController> ().TurnOff ();
 			}
 		}
@@ -154,8 +154,8 @@ public class PuzzleCameraController : MonoBehaviour {
 			// else calculate our current targetPosition...
 			currentTarget = CalculatePathCenterPos ();
 
-			//...and start turing on Doms in the currentEvent's snapshotlist
-			foreach (VisualizeEvent.DomSnapShot curr in currentEventInfo.getSnapshots()) {
+			//...and start turing on Doms in the currentEvent's DomState list
+			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
 				curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
 			}
 		}
@@ -186,7 +186,7 @@ public class PuzzleCameraController : MonoBehaviour {
 		currDistance = positionOffset;
 
 		// Lastly, update dom scales
-		foreach (VisualizeEvent.DomSnapShot curr in currentEventInfo.getSnapshots()) {
+		foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
 			curr.Dom.transform.localScale = (new Vector3 (1f, 1f, 1f) * sizeSlider.value); 
 		}
 	}
@@ -206,7 +206,7 @@ public class PuzzleCameraController : MonoBehaviour {
 	/// <returns>The event center position.</returns>
 	private Vector3 CalculatePathCenterPos() {
 		if (currentEventInfo == null) {
-			return;
+			return new Vector3(-1,-1,-1);
 		}
 
 		Vector3 vStart = currentEventInfo.getStart();

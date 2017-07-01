@@ -341,18 +341,5 @@ public class SwipeRecognizer : MonoBehaviour {
         }
 	}
 
-	/*
-	private Vector3 FindPuzzleCameraLocation(VisualizeEvent.EventVis swipedEvent) {
-
-		Vector3 vStart = swipedEvent.startPos;
-		Vector3 vEnd = swipedEvent.endPos;
-
-		Vector3 lookPosition = (vStart + vEnd) / 2f;
-
-		Vector3 cameraPosition = lookPosition - new Vector3 (0, 0, 1000f);
-
-		return cameraPosition;
-	}*/
-
 
 }

@@ -39,7 +39,7 @@ public class VisualizeEvent : MonoBehaviour {
         public GameObject eventSource;
     };
 
-	public struct DomSnapShot
+	public struct DomState
 	{
 		public GameObject Dom;
 		public float charge;
@@ -57,7 +57,7 @@ public class VisualizeEvent : MonoBehaviour {
         public float eventEndTime;
         public float playStartTime;
         public float newPlayTime;
-		public List<DomSnapShot> ActivatedDoms;
+		public List<DomState> ActivatedDoms;
     };
 
 
@@ -261,7 +261,7 @@ public class VisualizeEvent : MonoBehaviour {
                 eventsPlaying[e].playStartTime = 0.0f;
                 eventsPlaying[e].advancedIndex = false;
                 eventsPlaying[e].newPlayTime = 0.0f;
-				eventsPlaying [e].ActivatedDoms = new List<DomSnapShot> ();
+				eventsPlaying [e].ActivatedDoms = new List<DomState> ();
             }
         }
 	}
@@ -341,7 +341,7 @@ public class VisualizeEvent : MonoBehaviour {
                             {
 								float charge = Mathf.Log (20000.0f * events [e].eventData [eventsPlaying [e].eventIndex].charge * events [e].eventData [eventsPlaying [e].eventIndex].charge);
                                 dc.TurnOn(fTimeFrac, charge);
-								DomSnapShot toAdd = new DomSnapShot ();
+								DomState toAdd = new DomState ();
 								toAdd.charge = charge;
 								toAdd.timeFrac = fTimeFrac;
 								toAdd.Dom = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str].puzzleDom;
@@ -413,7 +413,7 @@ public class VisualizeEvent : MonoBehaviour {
         eventsPlaying[e].eventEndTime = 0.0f;
         eventsPlaying[e].eventStartFrame = 0;
         eventsPlaying[e].eventEndFrame = 0;
-		eventsPlaying [e].ActivatedDoms = new List<DomSnapShot> ();
+		eventsPlaying [e].ActivatedDoms = new List<DomState> ();
 
         //turn off all event visualization?
         for(int i = 0; i < events[e].eventData.Count; ++i)

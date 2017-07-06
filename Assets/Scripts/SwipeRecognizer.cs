@@ -34,7 +34,6 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	// Only used for line fading
 	void Update () {
-
 		// If the line is drawn on screen and is solid (not fading)
 		if (lineDrawn) {
 

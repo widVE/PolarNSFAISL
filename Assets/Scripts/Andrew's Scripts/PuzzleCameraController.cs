@@ -35,15 +35,19 @@ public class PuzzleCameraController : MonoBehaviour {
 	// Individual UI elements extracted from the UICollection object
 	// Slider to adjust dom scale
 	private Slider sizeSlider;
-	// Slider to rotate the camera around the currentTarget
-	private Slider rotateSlider;
+	// Slider to rotate the camera horizontally around the currentTarget
+	private Slider rotateHorizontalSlider;
+	// Slider to rotate the camera vertically around the currentTarget
+	private Slider rotateVerticalSlider;
 	// Slider to adjust camera's distance from currentTarget
 	private Slider zoomSlider;
 	// Toggle to turn on/off the line renderer for the currentPath
 	private Toggle showLineToggle;
 
-	// For use with the rotateSlider, to remember our last-used degree value
-	private float currDegree = 0f;
+	// For use with the rotateHorizontalSlider, to remember our last-used degree value
+	private float currHorizontalDegree = 0f;
+	// For use with the rotateVerticalSlider, to remember our last-used degree value
+	private float currVerticalDegree = 0f;
 
 	// Offset where the puzzle array sits relative to the main array - X AXIS
 	private Vector3 puzzleArrayOffset = new Vector3(3000f, 0, 0);
@@ -62,6 +66,9 @@ public class PuzzleCameraController : MonoBehaviour {
 	//       event result, not just the state the array was in when we captured it
 	private EventInfo currentEventInfo = null;
 
+	// Enumeration used for snap locations
+	public enum SnapPosition {Top, Side, Front, Custom};
+
 	// ----------END VARIABLES----------
 
 	/// <summary>
@@ -75,7 +82,8 @@ public class PuzzleCameraController : MonoBehaviour {
 			Debug.LogError ("No reference to the UI elements");
 		} else {
 			sizeSlider = UIObjects.transform.Find ("DomSizeSlider").GetComponent<Slider> ();
-			rotateSlider = UIObjects.transform.Find ("RotateSlider").GetComponent<Slider> ();
+			rotateHorizontalSlider = UIObjects.transform.Find ("RotateHorizontalSlider").GetComponent<Slider> ();
+			rotateVerticalSlider = UIObjects.transform.Find ("RotateVerticalSlider").GetComponent<Slider> ();
 			zoomSlider = UIObjects.transform.Find ("ZoomSlider").GetComponent<Slider> ();
 			showLineToggle = UIObjects.transform.Find ("ShowLineToggle").GetComponent<Toggle> ();
 		}
@@ -175,14 +183,21 @@ public class PuzzleCameraController : MonoBehaviour {
 		float positionOffset = currDistance - zoomSlider.value;
 		transform.Translate (this.transform.forward * positionOffset, Space.World);
 
-		// Update camera angle
-		float rotateValue = rotateSlider.value;
-		float rotateDiff = rotateValue - currDegree;
-		transform.RotateAround (currentTarget, Vector3.up, rotateDiff);
+		// Update camera angle horizontally
+		float rotateHorizontalValue = rotateHorizontalSlider.value;
+		float rotateHorizontalDiff = rotateHorizontalValue - currHorizontalDegree;
+		transform.RotateAround (currentTarget, Vector3.up, rotateHorizontalDiff);
+		transform.LookAt (currentTarget);
+
+		// Update camera angle vertically
+		float rotateVerticalValue = rotateVerticalSlider.value;
+		float rotateVerticalDiff = rotateVerticalValue - currVerticalDegree;
+		transform.RotateAround (currentTarget, this.transform.right, rotateVerticalDiff);
 		transform.LookAt (currentTarget);
 
 		// Update old values for the next iteration
-		currDegree = rotateValue;
+		currHorizontalDegree = rotateHorizontalValue;
+		currVerticalDegree = rotateVerticalValue;
 		currDistance = positionOffset;
 
 		// Lastly, update dom scales
@@ -196,7 +211,8 @@ public class PuzzleCameraController : MonoBehaviour {
 	/// </summary>
 	private void ResetSliders() {
 		sizeSlider.value = 1.0f;
-		rotateSlider.value = 0f;
+		rotateHorizontalSlider.value = 0f;
+		rotateVerticalSlider.value = 0f;
 		zoomSlider.value = 1000f;
 	}
 
@@ -217,5 +233,9 @@ public class PuzzleCameraController : MonoBehaviour {
 		// Be sure to apply the offset!
 		return lookPosition + puzzleArrayOffset;
 
+	}
+
+	public void SnapCamera(SnapPosition nextPosition) {
+		
 	}
 }

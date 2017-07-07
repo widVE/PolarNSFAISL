@@ -14,6 +14,8 @@ public class DragRecognizer : MonoBehaviour {
 
 	private List<PressTransformPair> currentDragGestures;
 
+	private Transform movingTransform = null;
+
 	public struct PressTransformPair
 	{
 		public Transform transformMoved;
@@ -27,16 +29,34 @@ public class DragRecognizer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log ("Size of Press pointers: " + pressGesture.ActivePointers.Count + "\nSize of Release pointers: " + releaseGesture.ActivePointers.Count); 
-		foreach (PressTransformPair curr in currentDragGestures) {
 
-			Vector2 screenPos = curr.touchObject.Position;
-			Vector3 nextPos = new Vector3 (screenPos.x, screenPos.y, 0);
-			nextPos = puzzleCamera.ScreenToWorldPoint (nextPos);
-			nextPos.z = Vector3.Distance (puzzleCamera.transform.position, curr.transformMoved.position);
-
-			curr.transformMoved.position = nextPos;
+		if (movingTransform != null) {
+			if (pressGesture.ActivePointers.Count > 0) {
+				TouchScript.Pointers.Pointer currPointer = pressGesture.ActivePointers [0];
+				Vector2 pos = currPointer.Position;
+				Vector3 temp = new Vector3 (pos.x, pos.y, puzzleCamera.WorldToScreenPoint (this.transform.position).z);
+				Vector3 nextPos = puzzleCamera.ScreenToWorldPoint(temp);
+				movingTransform.position = nextPos;
+			} else if (releaseGesture.ActivePointers.Count > 0) {
+				TouchScript.Pointers.Pointer currPointer = releaseGesture.ActivePointers [0];
+				Vector2 pos = currPointer.Position;
+				Vector3 temp = new Vector3 (pos.x, pos.y, puzzleCamera.WorldToScreenPoint (this.transform.position).z);
+				Vector3 nextPos = puzzleCamera.ScreenToWorldPoint(temp);
+				movingTransform.position = nextPos;
+			}
+		} else {
+			Debug.Log ("Transform went null");
 		}
+//		//Debug.Log ("Size of Press pointers: " + pressGesture.ActivePointers.Count + "\nSize of Release pointers: " + releaseGesture.ActivePointers.Count); 
+//		foreach (PressTransformPair curr in currentDragGestures) {
+//
+//			Vector2 screenPos = curr.touchObject.Position;
+//			Vector3 nextPos = new Vector3 (screenPos.x, screenPos.y, 0);
+//			nextPos = puzzleCamera.ScreenToWorldPoint (nextPos);
+//			nextPos.z = Vector3.Distance (puzzleCamera.transform.position, curr.transformMoved.position);
+//
+//			curr.transformMoved.position = nextPos;
+//		}
 	}
 
 	private void OnEnable() {
@@ -95,22 +115,18 @@ public class DragRecognizer : MonoBehaviour {
 			Debug.Log ("Raycast hit a node");
 		}
 
-		Transform nodeTransform = colliderHit.transform;
-		PressTransformPair newPair = new PressTransformPair ();
-		newPair.touchObject = releaseGesture.ActivePointers [0];
-		newPair.transformMoved = nodeTransform;
-		currentDragGestures.Add (new PressTransformPair ());
+		movingTransform = colliderHit.transform;
+//		PressTransformPair newPair = new PressTransformPair ();
+//		newPair.touchObject = pressGesture.ActivePointers [0];
+//		newPair.transformMoved = nodeTransform;
+//
+//		currentDragGestures.Add (new PressTransformPair ());
+
+
 
 	}
 
 	private void releaseHandler(object sender, System.EventArgs e) {
-		Debug.Log ("Release Handler hit");
-
-		// Find which touch input released, and stop moving that object
-		foreach (PressTransformPair curr in currentDragGestures) {
-			if (releaseGesture.ActivePointers.Contains(curr.touchObject)) {
-				currentDragGestures.Remove (curr);
-			}
-		}
+		
 	}
 }

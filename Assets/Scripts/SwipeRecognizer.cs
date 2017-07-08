@@ -322,7 +322,7 @@ public class SwipeRecognizer : MonoBehaviour {
 						EventInfo newEventInfo = GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, currentEvents.getEnergy(), vStart, vEnd, currentEvents.eventsPlaying[ev].ActivatedDoms);
 
 						// For testing, automatically move the camera after swiping
-						PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(newEventInfo);
+						//PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(newEventInfo);
 
 
 

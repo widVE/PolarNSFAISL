@@ -12,6 +12,9 @@ public class PuzzleCameraController : MonoBehaviour {
 
 	// ---------- VARIIABLES ----------
 
+	// speed factor the camera translates at
+	public float translationSpeed = 1.5f;
+
 	// Line renderer used to draw the path in the secondary array, used for debugging (feature later?)
 	private LineRenderer linRen;
 
@@ -28,21 +31,17 @@ public class PuzzleCameraController : MonoBehaviour {
 	// Note that the camera rotates to facingDir while translating to destPos
 	private Quaternion facingDir;
 
-	[SerializeField]
-	// A reference to the UI interfaces to get their values for camera adjustments
-	private GameObject UIObjects;
-
 	// Individual UI elements extracted from the UICollection object
 	// Slider to adjust dom scale
-	private Slider sizeSlider;
+	public Slider sizeSlider;
 	// Slider to rotate the camera horizontally around the currentTarget
-	private Slider rotateHorizontalSlider;
+	public Slider rotateHorizontalSlider;
 	// Slider to rotate the camera vertically around the currentTarget
-	private Slider rotateVerticalSlider;
+	public Slider rotateVerticalSlider;
 	// Slider to adjust camera's distance from currentTarget
-	private Slider zoomSlider;
+	public Slider zoomSlider;
 	// Toggle to turn on/off the line renderer for the currentPath
-	private Toggle showLineToggle;
+	public Toggle showLineToggle;
 
 	// For use with the rotateHorizontalSlider, to remember our last-used degree value
 	private float currHorizontalDegree = 0f;
@@ -67,7 +66,14 @@ public class PuzzleCameraController : MonoBehaviour {
 	private EventInfo currentEventInfo = null;
 
 	// Enumeration used for snap locations
-	public enum SnapPosition {Top, Side, Front, Custom};
+	public enum SnapPosition {Top, Side, Front};
+
+	// Current Snap setting of the camera
+	private SnapPosition currentSnapPosition;
+
+	// SnapToggleManager used to control the 4 toggles for camera snapping
+	[SerializeField]
+	SnapToggleManager snapToggleMan;
 
 	// ----------END VARIABLES----------
 
@@ -78,15 +84,8 @@ public class PuzzleCameraController : MonoBehaviour {
 		linRen = this.gameObject.GetComponent<LineRenderer> ();
 		facingDir = Quaternion.LookRotation(new Vector3(0,0,1f));
 
-		if (UIObjects == null) {
-			Debug.LogError ("No reference to the UI elements");
-		} else {
-			sizeSlider = UIObjects.transform.Find ("DomSizeSlider").GetComponent<Slider> ();
-			rotateHorizontalSlider = UIObjects.transform.Find ("RotateHorizontalSlider").GetComponent<Slider> ();
-			rotateVerticalSlider = UIObjects.transform.Find ("RotateVerticalSlider").GetComponent<Slider> ();
-			zoomSlider = UIObjects.transform.Find ("ZoomSlider").GetComponent<Slider> ();
-			showLineToggle = UIObjects.transform.Find ("ShowLineToggle").GetComponent<Toggle> ();
-		}
+		// Set the snap position to default front position (camera facing positive z direction)
+		currentSnapPosition = SnapPosition.Front;
 	}
 
 
@@ -95,12 +94,37 @@ public class PuzzleCameraController : MonoBehaviour {
 	/// </summary>
 	void Update () {
 
+		SnapPosition newSnapPosition = snapToggleMan.GetSnapToggleSetting ();
+		if (!newSnapPosition.Equals(currentSnapPosition)) {
+			isMoving = true;
+			currentSnapPosition = newSnapPosition;
+			ResetSliders ();
+		}
+
+		// Update destPos based on the currentSnapPosition
+		switch (currentSnapPosition) {
+		case SnapPosition.Top:
+			facingDir = Quaternion.LookRotation (new Vector3 (0f, -1f, 0f), new Vector3 (1, 0, 0));
+			destPos = currentTarget + (new Vector3 (0f, 1000f, 0f));
+			break;
+		case SnapPosition.Side:
+			facingDir = Quaternion.LookRotation (new Vector3 (1f, 0f, 0f), new Vector3 (0, 1f, 0));
+			destPos = currentTarget - (new Vector3 (1000f, 0f, 0f));
+			break;
+		case SnapPosition.Front:
+			facingDir = Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), new Vector3 (0, 1, 0));
+			destPos = currentTarget - (new Vector3 (0f, 0f, 1000f));
+			break;
+		default:
+			break;
+		}
+
 		// If the camera is currently moving, check to see if we should keep moving
 		if (isMoving) {
 			// If we're close enough to the target, stop
 			if (Vector3.Distance(this.transform.position, destPos) > 10f) {
 				Vector3 translationVector = destPos - this.transform.position;
-				this.transform.Translate (translationVector * Time.deltaTime, Space.World);
+				this.transform.Translate (translationVector * Time.deltaTime * translationSpeed, Space.World);
 				this.transform.rotation = Quaternion.Slerp (this.transform.rotation, facingDir, Time.deltaTime);
 			} else {
 				isMoving = false;
@@ -117,7 +141,7 @@ public class PuzzleCameraController : MonoBehaviour {
 				}
 			}
 
-			// If we are viewing an event AND the camera isn't moving, then apply the UI adjustments
+			// If we are viewing an event AND the camera isn't moving AND the SnapPosition is custom, then apply the UI adjustments
 			// This is to avoid relative movements/rotations from becoming mixed up and chaotic
 			if (!isMoving) {
 				ApplyUIValues ();

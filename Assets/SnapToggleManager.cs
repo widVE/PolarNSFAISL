@@ -11,7 +11,7 @@ public class SnapToggleManager : MonoBehaviour {
 	public Toggle customToggle;
 
 	private Toggle trueToggle;
-	private Toggle[] toggleArray = new Toggle[4];
+	private Toggle[] toggleArray = new Toggle[3];
 	public PuzzleCameraController puzzleCamController;
 
 	// Use this for initialization
@@ -20,16 +20,13 @@ public class SnapToggleManager : MonoBehaviour {
 		//topToggle.onValueChanged.AddListener ((value) => {UpdateTogglesTop(value);});
 		sideToggle.isOn = false;
 		//sideToggle.onValueChanged.AddListener ((value) => {UpdateTogglesSide(value);});
-		frontToggle.isOn = false;
+		frontToggle.isOn = true;
 		//frontToggle.onValueChanged.AddListener ((value) => {UpdateTogglesFront(value);});
-		customToggle.isOn = true;
-		trueToggle = customToggle;
-		//customToggle.onValueChanged.AddListener ((value) => {UpdateTogglesCustom(value);});
+		trueToggle = frontToggle;
 
 		toggleArray [0] = topToggle;
 		toggleArray [1] = sideToggle;
 		toggleArray [2] = frontToggle;
-		toggleArray [3] = customToggle;
 	}
 
 	void Update() {
@@ -56,6 +53,17 @@ public class SnapToggleManager : MonoBehaviour {
 
 
 		trueToggle = newTrueToggle;
+	}
+
+	public PuzzleCameraController.SnapPosition GetSnapToggleSetting() {
+
+		if (trueToggle.Equals(topToggle)) {
+			return PuzzleCameraController.SnapPosition.Top;
+		} else if (trueToggle.Equals(sideToggle)) {
+			return PuzzleCameraController.SnapPosition.Side;
+		} else {
+			return PuzzleCameraController.SnapPosition.Front;
+		} 
 	}
 
 //	public void UpdateTogglesTop(bool value) {

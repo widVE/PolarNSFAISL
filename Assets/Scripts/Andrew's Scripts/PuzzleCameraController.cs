@@ -75,6 +75,10 @@ public class PuzzleCameraController : MonoBehaviour {
 	[SerializeField]
 	SnapToggleManager snapToggleMan;
 
+	// The adjustable line manager so we can move our adjustable line
+	[SerializeField]
+	private PuzzleLineAdjuster puzzleLineAdjuster;
+
 	// ----------END VARIABLES----------
 
 	/// <summary>
@@ -96,9 +100,11 @@ public class PuzzleCameraController : MonoBehaviour {
 
 		SnapPosition newSnapPosition = snapToggleMan.GetSnapToggleSetting ();
 		if (!newSnapPosition.Equals(currentSnapPosition)) {
-			isMoving = true;
 			currentSnapPosition = newSnapPosition;
-			ResetSliders ();
+			if (currentEventInfo != null) {
+				isMoving = true;
+				ResetSliders ();
+			}
 		}
 
 		// Update destPos based on the currentSnapPosition
@@ -118,6 +124,7 @@ public class PuzzleCameraController : MonoBehaviour {
 		default:
 			break;
 		}
+
 
 		// If the camera is currently moving, check to see if we should keep moving
 		if (isMoving) {
@@ -150,8 +157,8 @@ public class PuzzleCameraController : MonoBehaviour {
 			// If we are viewing an event and the toggle to show the line is on, then draw the line
 			if (showLineToggle.isOn) {
 				Vector3[] pathPositions = new Vector3[2];
-				pathPositions [0] = currentEventInfo.getStart () + puzzleArrayOffset;
-				pathPositions [1] = currentEventInfo.getEnd () + puzzleArrayOffset;
+				pathPositions [0] = currentEventInfo.getNeutrinoPathStart () + puzzleArrayOffset;
+				pathPositions [1] = currentEventInfo.getNeutrinoPathEnd () + puzzleArrayOffset;
 				linRen.SetPositions (pathPositions);
 			} else {
 				// else clear the line renderer
@@ -182,9 +189,13 @@ public class PuzzleCameraController : MonoBehaviour {
 		// If the currentEventInfo is now null, move to default position
 		if (currentEventInfo == null) {
 			currentTarget = defaultCameraTarget;
+			puzzleLineAdjuster.DisableLine ();
 		} else {
 			// else calculate our current targetPosition...
 			currentTarget = CalculatePathCenterPos ();
+
+			// Set the adjustable line in the array based on the swipe's start/end (so you can "fine tune" your line)
+			puzzleLineAdjuster.SetupLine(currentEventInfo.getNeutrinoPathStart(), currentEventInfo.getNeutrinoPathEnd(), currentEventInfo.getSwipePathStart(), currentEventInfo.getSwipePathEnd());
 
 			//...and start turing on Doms in the currentEvent's DomState list
 			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
@@ -249,17 +260,13 @@ public class PuzzleCameraController : MonoBehaviour {
 			return new Vector3(-1,-1,-1);
 		}
 
-		Vector3 vStart = currentEventInfo.getStart();
-		Vector3 vEnd = currentEventInfo.getEnd ();
+		Vector3 vStart = currentEventInfo.getNeutrinoPathStart();
+		Vector3 vEnd = currentEventInfo.getNeutrinoPathEnd ();
 
 		Vector3 lookPosition = (vStart + vEnd) / 2f;
 
 		// Be sure to apply the offset!
 		return lookPosition + puzzleArrayOffset;
 
-	}
-
-	public void SnapCamera(SnapPosition nextPosition) {
-		
 	}
 }

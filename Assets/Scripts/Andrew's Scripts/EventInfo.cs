@@ -26,10 +26,16 @@ public class EventInfo : MonoBehaviour {
 	private DateTime date_captured;
 
 	// The start of the neutrino path of this event, in world coordinates
-	private Vector3 pathStart;
+	private Vector3 neutrinoPathStart;
 
 	// The end of the neutrino path of this event, in world coordinates
-	private Vector3 pathEnd;
+	private Vector3 neutrinoPathEnd;
+
+	// The start of the swipe that caught this event, in world coordinates (dummy z value)
+	private Vector3 swipePathStart;
+
+	// The end of the swipe that caught this event, in world coordinates (dummy z value)
+	private Vector3 swipePathEnd;
 
 	// The list of doms affected by this event and their final states
 	private List<VisualizeEvent.DomState> domStates;
@@ -57,13 +63,15 @@ public class EventInfo : MonoBehaviour {
 	/// <param name="energy">Cumulative energy for the event</param>
 	/// <param name="pathStart">The start of the neutrino path for this event</param>
 	/// <param name="pathEnd">The end of the neutrino path for this event</param>
-	public EventInfo(string nameP, float energy, Vector3 pathStart, Vector3 pathEnd) {
+	public EventInfo(string nameP, float energy, Vector3 neutrinoPathStart, Vector3 neutrinoPathEnd, Vector3 swipePathStart, Vector3 swipePathEnd) {
 		this.name = nameP;
 		this.peak_energy = energy;
 		this.date_captured = DateTime.Now;
 		this.domStates = new List<VisualizeEvent.DomState> ();
-		this.pathStart = pathStart;
-		this.pathEnd = pathEnd;
+		this.neutrinoPathStart = neutrinoPathStart;
+		this.neutrinoPathEnd = neutrinoPathEnd;
+		this.swipePathStart = swipePathStart;
+		this.swipePathEnd = swipePathEnd;
 	}
 
 	/// <summary>
@@ -76,8 +84,10 @@ public class EventInfo : MonoBehaviour {
 			this.peak_energy = other.peak_energy;
 			this.date_captured = other.date_captured;
 			this.domStates = other.domStates;
-			this.pathStart = pathStart;
-			this.pathEnd = pathEnd;
+			this.neutrinoPathStart = other.neutrinoPathStart;
+			this.neutrinoPathEnd = other.neutrinoPathEnd;
+			this.swipePathStart = other.swipePathStart;
+			this.swipePathEnd = other.swipePathEnd;
 		}
 	}
 
@@ -117,32 +127,64 @@ public class EventInfo : MonoBehaviour {
 	/// Sets the start position for the event path
 	/// </summary>
 	/// <param name="vStart">The start position in world coordinates</param>
-	public void setStart(Vector3 vStart) {
-		this.pathStart = vStart;
+	public void setNeutrinoPathStart(Vector3 vStart) {
+		this.neutrinoPathStart = vStart;
 	}
 
 	/// <summary>
 	/// Sets the end position for the event path
 	/// </summary>
 	/// <param name="vEnd">The end position in world coordinates</param>
-	public void setEnd(Vector3 vEnd) {
-		this.pathEnd = vEnd;
+	public void setNeutrinoPathEnd(Vector3 vEnd) {
+		this.neutrinoPathEnd = vEnd;
+	}
+
+	/// <summary>
+	/// Sets the start position for the swipe path
+	/// </summary>
+	/// <param name="vStart">The start position in screen coordinates</param>
+	public void setSwipePathStart(Vector3 vStart) {
+		this.swipePathStart = vStart;
+	}
+
+	/// <summary>
+	/// Sets the end position for the swipe path
+	/// </summary>
+	/// <param name="vEnd">The end position in screen coordinates</param>
+	public void setSwipePathEnd(Vector3 vEnd) {
+		this.swipePathEnd = vEnd;
 	}
 
 	/// <summary>
 	/// Gets the start position of the path
 	/// </summary>
 	/// <returns>The start position of the path</returns>
-	public Vector3 getStart() {
-		return this.pathStart;
+	public Vector3 getNeutrinoPathStart() {
+		return this.neutrinoPathStart;
 	}
 
 	/// <summary>
 	/// Gets the end position of the path
 	/// </summary>
 	/// <returns>The end position of the path</returns>
-	public Vector3 getEnd() {
-		return this.pathEnd;
+	public Vector3 getNeutrinoPathEnd() {
+		return this.neutrinoPathEnd;
+	}
+
+	/// <summary>
+	/// Gets the start position of the swipe path
+	/// </summary>
+	/// <returns>The start position of the path</returns>
+	public Vector3 getSwipePathStart() {
+		return this.swipePathStart;
+	}
+
+	/// <summary>
+	/// Gets the end position of the swipe path
+	/// </summary>
+	/// <returns>The end position of the path</returns>
+	public Vector3 getSwipePathEnd() {
+		return this.swipePathEnd;
 	}
 		
 	/// <summary>

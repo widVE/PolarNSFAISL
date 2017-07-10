@@ -319,7 +319,27 @@ public class SwipeRecognizer : MonoBehaviour {
 						// EDIT - now this panel must also store the puzzle camera transform
 						//Vector3 puzzleCameraLocation = FindPuzzleCameraLocation(currentEvents.events[ev]);
 						//Vector3 eventMid = FindTargetLocation(currentEvents.events[ev]);
-						EventInfo newEventInfo = GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, currentEvents.getEnergy(), vStart, vEnd, currentEvents.eventsPlaying[ev].ActivatedDoms);
+
+						// Need to do some mathematical magic to get the swipe endpoints into proper "estimated" world coordinates, not relative to the Main Camera
+						Vector3 pathCenterWorld = (vStart + vEnd) / 2f;
+
+						// Center position relative to the Main Camera
+						float centerpointCameraZValue = Camera.main.transform.InverseTransformPoint(pathCenterWorld).z;
+
+						Vector3 startDirection = (startEnd [0] - Camera.main.transform.position).normalized;
+						Vector3 endDirection = (startEnd [1] - Camera.main.transform.position).normalized;
+
+						float startCoeff = centerpointCameraZValue / startDirection.z;
+						startDirection *= startCoeff;
+
+						float endCoeff = centerpointCameraZValue / endDirection.z;
+						endDirection *= endCoeff;
+
+						// startDirection and endDirection are now the positions of the swipe relative to the camera, convert them to world coordinates
+						Vector3 swipeStartWorld = Camera.main.transform.TransformPoint (startDirection);
+						Vector3 swipeEndWorld = Camera.main.transform.TransformPoint (endDirection);
+
+						EventInfo newEventInfo = GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, currentEvents.getEnergy(), vStart, vEnd, swipeStartWorld, swipeEndWorld, currentEvents.eventsPlaying[ev].ActivatedDoms);
 
 						// For testing, automatically move the camera after swiping
 						//PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(newEventInfo);

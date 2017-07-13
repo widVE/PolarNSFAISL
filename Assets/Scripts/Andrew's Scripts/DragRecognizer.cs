@@ -32,15 +32,17 @@ public class DragRecognizer : MonoBehaviour {
 
 		if (movingTransform != null) {
 			if (pressGesture.ActivePointers.Count > 0) {
+				Debug.LogError ("pressGestures was nonempty");
 				TouchScript.Pointers.Pointer currPointer = pressGesture.ActivePointers [0];
 				Vector2 pos = currPointer.Position;
 				Vector3 temp = new Vector3 (pos.x, pos.y, puzzleCamera.WorldToScreenPoint (this.transform.position).z);
 				Vector3 nextPos = puzzleCamera.ScreenToWorldPoint(temp);
 				movingTransform.position = nextPos;
 			} else if (releaseGesture.ActivePointers.Count > 0) {
+				Vector3 movingTransformCameraPos = puzzleCamera.transform.InverseTransformPoint (movingTransform.transform.position);
 				TouchScript.Pointers.Pointer currPointer = releaseGesture.ActivePointers [0];
 				Vector2 pos = currPointer.Position;
-				Vector3 temp = new Vector3 (pos.x, pos.y, puzzleCamera.WorldToScreenPoint (this.transform.position).z);
+				Vector3 temp = new Vector3 (pos.x, pos.y, movingTransformCameraPos.z);
 				Vector3 nextPos = puzzleCamera.ScreenToWorldPoint(temp);
 				movingTransform.position = nextPos;
 			}

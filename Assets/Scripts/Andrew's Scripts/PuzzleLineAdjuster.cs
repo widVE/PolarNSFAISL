@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +33,10 @@ public class PuzzleLineAdjuster : MonoBehaviour {
 			lineRendPositions [0] = startNode.transform.position;
 			lineRendPositions [1] = endNode.transform.position;
 
+			// Do color calculation
+
+			lineRen.startColor = CalculateColor ();
+			lineRen.endColor = lineRen.startColor;
 			lineRen.SetPositions (lineRendPositions);
 		}
 
@@ -70,5 +75,47 @@ public class PuzzleLineAdjuster : MonoBehaviour {
 		endNode.SetActive (true);
 
 		// Don't worry about setting positions, the Update function above will update the lineRenderer every frame
+	}
+
+	private Color CalculateColor() {
+
+		Vector3 lineDirection = endNode.transform.position - startNode.transform.position;
+		lineDirection = lineDirection.normalized;
+		Vector3 actualDirection = currentPathEnd - currentPathStart;
+		actualDirection = actualDirection.normalized;
+
+		// Should be between 0 and 1
+		float angleCheck = Vector3.Dot (lineDirection, actualDirection);
+		angleCheck = Mathf.Abs (angleCheck);
+
+		if (angleCheck > 1f) {
+			Debug.LogError ("AngleCheck was over 1");
+		}
+		// distance check - check the distance between the centerpoint of the lineDirection and the closest point to it on the actualDirection line
+		Vector3 lineCenterpoint = (endNode.transform.position + startNode.transform.position) / 2f;
+		Vector3 offsetDirection = lineCenterpoint - currentPathStart;
+
+
+		float angle = Vector3.Angle (actualDirection, offsetDirection);
+		float magnitude = Mathf.Cos (angle) * Vector3.Magnitude (offsetDirection);
+
+		Vector3 closestPoint = currentPathStart + magnitude * actualDirection;
+
+		float distanceCheck = Vector3.Distance (closestPoint, lineCenterpoint) / 100f;
+		if (distanceCheck > 1f) {
+			distanceCheck = 1f;
+		}
+
+		distanceCheck = 1f - distanceCheck;
+
+		// We have values between 0 and 1 for both angle and distance, now find a weighted average to be used for interpolation
+		// I weight distance slightly above the angle, since we need to ensure the position is good
+		float interpolationValue = 0.5f * distanceCheck + 0.5f * angleCheck;
+
+		// Now get the color
+		Color newColor = Color.Lerp(Color.red, Color.green, interpolationValue);
+
+
+		return newColor;
 	}
 }

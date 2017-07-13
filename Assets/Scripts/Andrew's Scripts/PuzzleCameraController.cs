@@ -13,7 +13,7 @@ public class PuzzleCameraController : MonoBehaviour {
 	// ---------- VARIIABLES ----------
 
 	// speed factor the camera translates at
-	public float translationSpeed = 1.5f;
+	public float translationSpeed = 2.0f;
 
 	// Line renderer used to draw the path in the secondary array, used for debugging (feature later?)
 	private LineRenderer linRen;
@@ -55,7 +55,7 @@ public class PuzzleCameraController : MonoBehaviour {
 	private Vector3 defaultCameraTarget = new Vector3 (3000, -1000, -2000);
 
 	// The default distance the camera should be placed from the view target
-	private Vector3 defaultCameraViewDistance = new Vector3 (0, 0, 1000f);
+	private Vector3 defaultCameraViewDistance = new Vector3 (0, 0, 2000f);
 
 
 	// The EventInfo object associated with the current event

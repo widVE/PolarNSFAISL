@@ -46,6 +46,7 @@ public class EventPanelManager : MonoBehaviour {
 		GameObject newPanel = Instantiate (template);
 
 		// Setting EventInfo fields
+		// We could just use the constructor, but I never got around to doing so...
 		newPanel.GetComponent<EventInfo> ().setName (name);
 		newPanel.GetComponent<EventInfo> ().setDate (System.DateTime.Now);
 		newPanel.GetComponent<EventInfo> ().setEnergy (cumulative_energy);
@@ -111,7 +112,7 @@ public class EventPanelManager : MonoBehaviour {
 
 		// TODO: If you wanted to send a notification to players or have some other event happen when
 		//       an event source is "calculated" or "found" then here is where you would probably do it
-		Debug.Log ("Event \"sent\" to Oculus");
+		Debug.Log ("Event \"sent\" to Players");
 	}
 		
 }

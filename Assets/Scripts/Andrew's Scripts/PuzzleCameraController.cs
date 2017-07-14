@@ -98,30 +98,39 @@ public class PuzzleCameraController : MonoBehaviour {
 	/// </summary>
 	void Update () {
 
+		// This checks for the next snap position, as set by the toggle UI settings
 		SnapPosition newSnapPosition = snapToggleMan.GetSnapToggleSetting ();
+
+		// If the toggle was changed last frame, then update the currentSnapPosition here and move the camera to it
 		if (!newSnapPosition.Equals(currentSnapPosition)) {
 			currentSnapPosition = newSnapPosition;
 			if (currentEventInfo != null) {
 				isMoving = true;
+				// Reset the sliders too, since the camera is moving to a default position with default slider settings
 				ResetSliders ();
 			}
 		}
 
 		// Update destPos based on the currentSnapPosition
+		// i.e., based on the snap settings we need to move the camera to a different position
 		switch (currentSnapPosition) {
+		// If we snap to top, position camera above the target
 		case SnapPosition.Top:
 			facingDir = Quaternion.LookRotation (new Vector3 (0f, -1f, 0f), new Vector3 (1, 0, 0));
 			destPos = currentTarget + (new Vector3 (0f, 1000f, 0f));
 			break;
 		case SnapPosition.Side:
+			// If we snap to side, position camera to the left the target (x axis)
 			facingDir = Quaternion.LookRotation (new Vector3 (1f, 0f, 0f), new Vector3 (0, 1f, 0));
 			destPos = currentTarget - (new Vector3 (1000f, 0f, 0f));
 			break;
 		case SnapPosition.Front:
+			// If we snap to front, position camera behind the target (camera looking in positive z direction)
 			facingDir = Quaternion.LookRotation (new Vector3 (0f, 0f, 1f), new Vector3 (0, 1, 0));
 			destPos = currentTarget - (new Vector3 (0f, 0f, 1000f));
 			break;
 		default:
+			// We should never enter default case
 			break;
 		}
 
@@ -263,6 +272,7 @@ public class PuzzleCameraController : MonoBehaviour {
 		Vector3 vStart = currentEventInfo.getNeutrinoPathStart();
 		Vector3 vEnd = currentEventInfo.getNeutrinoPathEnd ();
 
+		// centerpoint is halfway between the endpoints
 		Vector3 lookPosition = (vStart + vEnd) / 2f;
 
 		// Be sure to apply the offset!

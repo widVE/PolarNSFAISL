@@ -158,7 +158,7 @@ public class PuzzleLineAdjuster : MonoBehaviour {
 		float angle = Vector3.Angle (actualDirection, offsetDirection);
 		float magnitude = Mathf.Cos (angle) * Vector3.Magnitude (offsetDirection);
 		Vector3 closestPoint = currentPathStart + magnitude * actualDirection;
-		float distanceCheck = Vector3.Distance (closestPoint, lineCenterpoint) / 100f;
+		float distanceCheck = Vector3.Distance (closestPoint, lineCenterpoint) / 50f;
 
 		// We divide by 100 to signify that if the distance is greater than 100, we just clamp the value to 1
 		// Other wise we get a value between 0 and 1

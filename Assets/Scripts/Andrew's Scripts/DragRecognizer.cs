@@ -5,130 +5,94 @@ using TouchScript.Gestures.TransformGestures;
 using TouchScript.Gestures;
 using TouchScript;
 
+/// <summary>
+/// The TouchScript event handler used for dragging the adjustable line endpoints
+/// It uses both a press and release gesture, however it only uses the press gesture to
+/// start the event, and the release gesture ActivePointers list to track the current press
+/// NOTE: At the moment only one press can be tracked at a time
+/// </summary>
 public class DragRecognizer : MonoBehaviour {
 
+	// References to the gesture components to use
 	public PressGesture pressGesture;
 	public ReleaseGesture releaseGesture;
 
+	// Reference to the puzzle camera
 	public Camera puzzleCamera;
 
-	private List<PressTransformPair> currentDragGestures;
-
+	// Reference to the node that is currently being dragged
 	private Transform movingTransform = null;
-
-	public struct PressTransformPair
-	{
-		public Transform transformMoved;
-		public TouchScript.Pointers.Pointer touchObject;
-	};
-
-	// Use this for initialization
-	void Start () {
-		currentDragGestures = new List<PressTransformPair> ();
-	}
 	
-	// Update is called once per frame
+	/// <summary>
+	/// Update - used for moving the transform based on the gesture list if there is one currently being dragged
+	/// </summary>
 	void Update () {
 
-		if (movingTransform != null) {
-			if (pressGesture.ActivePointers.Count > 0) {
-				Debug.LogError ("pressGestures was nonempty");
-				TouchScript.Pointers.Pointer currPointer = pressGesture.ActivePointers [0];
-				Vector2 pos = currPointer.Position;
-				Vector3 temp = new Vector3 (pos.x, pos.y, puzzleCamera.WorldToScreenPoint (this.transform.position).z);
-				Vector3 nextPos = puzzleCamera.ScreenToWorldPoint(temp);
-				movingTransform.position = nextPos;
-			} else if (releaseGesture.ActivePointers.Count > 0) {
-				Vector3 movingTransformCameraPos = puzzleCamera.transform.InverseTransformPoint (movingTransform.transform.position);
-				TouchScript.Pointers.Pointer currPointer = releaseGesture.ActivePointers [0];
-				Vector2 pos = currPointer.Position;
-				Vector3 temp = new Vector3 (pos.x, pos.y, movingTransformCameraPos.z);
-				Vector3 nextPos = puzzleCamera.ScreenToWorldPoint(temp);
-				movingTransform.position = nextPos;
-			}
-		} else {
-			Debug.Log ("Transform went null");
+		// If there is a transform being moved and there is an ActivePointer, assume the two are associated
+		if (movingTransform != null && releaseGesture.ActivePointers.Count > 0) {
+
+			// The the transform position in camera coordinates
+			Vector3 movingTransformCameraPos = puzzleCamera.transform.InverseTransformPoint (movingTransform.transform.position);
+			// Get the current active pointer
+			TouchScript.Pointers.Pointer currPointer = releaseGesture.ActivePointers [0];
+
+			// Find the position in camera coordinates represented by the pointer; we set the z value equal to the movingTransform's z
+			Vector2 pos = currPointer.Position;
+			Vector3 temp = new Vector3 (pos.x, pos.y, movingTransformCameraPos.z);
+
+			// Convert back to world coordinates 
+			Vector3 nextPos = puzzleCamera.ScreenToWorldPoint(temp);
+			movingTransform.position = nextPos;
 		}
-//		//Debug.Log ("Size of Press pointers: " + pressGesture.ActivePointers.Count + "\nSize of Release pointers: " + releaseGesture.ActivePointers.Count); 
-//		foreach (PressTransformPair curr in currentDragGestures) {
-//
-//			Vector2 screenPos = curr.touchObject.Position;
-//			Vector3 nextPos = new Vector3 (screenPos.x, screenPos.y, 0);
-//			nextPos = puzzleCamera.ScreenToWorldPoint (nextPos);
-//			nextPos.z = Vector3.Distance (puzzleCamera.transform.position, curr.transformMoved.position);
-//
-//			curr.transformMoved.position = nextPos;
-//		}
 	}
 
+	/// <summary>
+	/// OnEnable - when this script is enabled be sure to assign the handler for this event
+	/// </summary>
 	private void OnEnable() {
 		pressGesture.Pressed += pressHandler;
-		releaseGesture.Released += releaseHandler;
 	}
 
+	/// <summary>
+	/// OnDisable - when this script is disabled be sure to remove the handler for this event
+	/// </summary>
 	private void OnDisable() {
 		pressGesture.Pressed -= pressHandler;
-		releaseGesture.Released -= releaseHandler;
 	}
 
+	/// <summary>
+	/// Handler that is called when a press is detected by TouchScript.
+	/// It raycasts out from the input position and detects if the press was on an endpoint of the
+	/// adustable line. If so, it begins to drag it, otherwise this handler ignores it
+	/// Both parameters are unused
+	/// </summary>
+	/// <param name="sender">Sender of the event</param>
+	/// <param name="e">Unity Event argument object</param>
 	private void pressHandler(object sender, System.EventArgs e) {
-		Debug.Log ("Press Handler hit");
 
-
-		// Find the new press
-//		TouchScript.Pointers.Pointer newPointer = null;
-//		foreach (TouchScript.Pointers.Pointer currPointer in pressGesture.ActivePointers) {
-//			bool isFound = false;
-//			foreach (PressTransformPair currPair in currentDragGestures) {
-//				if (currPair.touchObject.Equals (currPointer)) {
-//					isFound = true;
-//					break;
-//				} 
-//			}
-//			if (isFound) {
-//				continue;
-//			} else {
-//				newPointer = currPointer;
-//				break;
-//			}
-//		}
-//
-//		if (newPointer == null) {
-//			Debug.LogError ("Pointer Error in DragRecognizer");
-//		}
-
-		// Get the hit distance using raycast
-		// Get Raycast, check if we clicked a point
+		// Get the pointer that was just detected
 		TouchScript.Pointers.Pointer newPointer = pressGesture.ActivePointers[0];
 
+		// If the press was on the left hand side of the screen, ignore it, as that's not the puzzle side
 		if (newPointer.Position.x < Screen.width/2f) { 
-			Debug.Log ("returned");
 			return; 
 		}
+
+		// Get the screen position of the pointer
 		Vector3 screenPos = new Vector3 (newPointer.Position.x, newPointer.Position.y, 0);
 
+		// Raycast out from that screenposition
 		Ray InputLocation = puzzleCamera.ScreenPointToRay (screenPos);
 		RaycastHit colliderHit;
 		if (Physics.Raycast (InputLocation, out colliderHit)) {
+			// If the raycast hit the collider of anything not an endnode, return
 			if (colliderHit.transform.gameObject.tag != "LineNode") {
-				Debug.Log ("Raycast out, didn't hit a node");
 				return;
 			}
-			Debug.Log ("Raycast hit a node");
 		}
 
+		// We hit an endnode, so set moving transform to begin moving it in update
 		movingTransform = colliderHit.transform;
-//		PressTransformPair newPair = new PressTransformPair ();
-//		newPair.touchObject = pressGesture.ActivePointers [0];
-//		newPair.transformMoved = nodeTransform;
-//
-//		currentDragGestures.Add (new PressTransformPair ());
-
-
-
 	}
 
-	private void releaseHandler(object sender, System.EventArgs e) {
-		
-	}
 }

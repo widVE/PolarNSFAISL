@@ -3,40 +3,72 @@ using System.Collections.Generic;
 using UnityEngine;
 using TouchScript.Gestures;
 
+/// <summary>
+/// TouchScript handler for when a flick gesture is detected on the screen, used for "capturing"
+/// the events as they occur in the main array
+/// If the swipe either starts or ends on the right hand (puzzle) side of the screen, the swipe
+/// ignored.
+/// </summary>
 public class SwipeRecognizer : MonoBehaviour {
 
-	public GameObject PuzzleCamera;
+	//----------VARIABLES----------
+
+	// TouchScript gesture that this script listens to
 	public FlickGesture swipeGesture;
+
+	// Boolean to toggle whether or not the swipe lines should be drawn when the user's swipe
+	// This is primarily a debug feature, but could be incorporated into a final build
 	public bool showLine = true;
+
+	// Reference to the line renderer for the swipe line drawing
 	public LineRenderer ren;
+
+	// Color gradients for the swipe line, depending on the state of the swipe
+	// Gradient for if there was an event, but the swipe missed it (red line)
 	private Gradient missedGradient;
+	// Gradient for if there was an event and it was swiped and caputured correctly (green line)
 	private Gradient foundGradient;
+	// Gradient for if the user swipes, but no event was playing (grey line)
 	private Gradient idleGradient;
+
+	// Enumeration used for switching between swipe types
 	private enum SwipeType {missed, found, idle};
+
+	// Timer used for swipe line fading
 	private float lineTimer = 3.0f;
+
+	// Boolean flag to signify if a swipe line is currently drawn on the screen and is not fading
 	private bool lineDrawn = false;
+
+	// Boolean flag to signify if a swipe line is currently drawn on the screen and is currently fading
 	private bool lineFading = false;
+
+	// Reference to the VisualizeEvent script, which handles all event playback
     public VisualizeEvent currentEvents;
-    public GameObject collectionText = null;
-	//private ParticleTrail trail;
+
+	// Array used to store the endpoints of the swipe line in world coordinates, for use with the line renderer
     private Vector3[] startEnd = new Vector3[2];
 
+	//----------END VARIABLES----------
+
+	/// <summary>
+	/// Start - For variable initialization and gradient generation
+	/// </summary>
 	void Start () {
 		if (swipeGesture == null) {
 			Debug.LogError ("No Flick Gesture assigned for DetectSwipe component on " + this.gameObject.name);
-		}
-		if (PuzzleCamera == null) {
-			Debug.LogError ("Puzzle camera reference not set in inspector");
 		}
 
 		BuildGradients ();
 	}
 
-	// Only used for line fading
+	/// <summary>
+	/// Update - Soley used for swipe line drawing, not swipe detection or calculation
+	/// </summary>
 	void Update () {
+		
 		// If the line is drawn on screen and is solid (not fading)
 		if (lineDrawn) {
-
 			// Decrement the timer and check if it has been on screen long enough
 			lineTimer -= Time.deltaTime;
 
@@ -129,10 +161,16 @@ public class SwipeRecognizer : MonoBehaviour {
 		idleGradient.SetKeys(gck, gak);
 	}
 
+	/// <summary>
+	/// Subscribes to the flicked event when enabled
+	/// </summary>
 	private void OnEnable() {
 		swipeGesture.Flicked += swipeHandler;
 	}
 
+	/// <summary>
+	/// Unsubscribes to the flicked event when disabled
+	/// </summary>
 	private void OnDisable() {
 		swipeGesture.Flicked -= swipeHandler;
 	}
@@ -175,98 +213,99 @@ public class SwipeRecognizer : MonoBehaviour {
 		toPlay.Play ();
 	}
 
+	/// <summary>
+	/// Checks if the swipe was on the left-hand side of the array
+	/// 
+	/// </summary>
+	/// <returns><c>true</c>true if the start and end of the line are on the left side of the screen,<c>false</c> otherwise.</returns>
+	/// <param name="start">Start of the swipe line in screen coordinates</param>
+	/// <param name="end">End of the swipe line in screen coordinates</param>
 	private bool InSwipeBounds(Vector2 start, Vector2 end) {
 
-		// Check start
+		// Check bounds relative to screen pixel width
 		if ((start.x > Screen.width/2) || (end.x > Screen.width/2)) {
 			return false;
 		}
 		return true;
 	}
 
+	/// <summary>
+	/// Handler for when a flicked gesture is detected by TouchScript
+	/// It checks the bounds of the swipe line, and if it is in bounds checks how it aligns
+	/// with the neutrino paths for all currently playing events. If the swipe line matches up to an event path,
+	/// the event is "captured" and added to the captured events panel
+	/// </summary>
+	/// <param name="sender">Sender of the event, unused</param>
+	/// <param name="e">Unity Event arguments object, unused</param>
 	private void swipeHandler(object sender, System.EventArgs e) {
+
+		// The start of the flick gesture
 		Vector2 prev = swipeGesture.PreviousScreenPosition;
+
+		// The screen vector representing the flick
 		Vector2 swipeVector = swipeGesture.ScreenFlickVector;
+
+		// The end of the flick gesture (really the beginning, I think these are backwards but it doesn't affect anything)
         Vector2 next = prev - swipeVector;
-        //Debug.Log("Swipe Detected - Direction: " + swipeVector);
-		//Debug.Log ("Start: " + start);
-        
-		if (!InSwipeBounds(next, prev)) {
-			Debug.Log ("Swipe was out of bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
-			return;
-		} else {
-			Debug.Log ("Swipe in bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
-		}
 
-
+		// If we should show the line, then calculate where the screen-coordinate end points lie in world coordinates
+		// We do this because line renderers only work with positions in 3D, not screen coordinates
 		if (showLine) {
             startEnd[0] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
             startEnd[1] = Camera.main.ScreenToWorldPoint(new Vector3(next.x, next.y, Camera.main.nearClipPlane + 1));
-            //Debug.Log("Line Drawn: " + startEnd[0] + " to " + startEnd[1]);
-            //ren.SetPositions(startEnd);
-		} else {
-			Debug.Log ("showLine was false");
 		}
 
-
-        //let's instead convert any active events to screen space and test there...
+       	// Begin event detection
+		// Here we iterate through every actively playing event, and see if our swipe path matches with the neutrino event path
+		// All calculations are done in screen coordinates
         if(currentEvents != null)
         {
             if(currentEvents.IsEventPlaying())
             {
+				// Iterate through actively playing events
                 for (int ev = 0; ev < currentEvents.eventsPlaying.Length; ++ev)
                 {
 					if (currentEvents.eventsPlaying[ev].isPlaying)
                     {
+
+						// Get the start and end positions of the neutrino path for this event, in world coordinates
                         Vector3 vStart = currentEvents.events[ev].startPos;
                         Vector3 vEnd = currentEvents.events[ev].endPos;
-						//Debug.Log ("Start: " + vStart + " End: " + vEnd);
 
+						// Convert them to screen coordinates
                         Vector3 screenStart = Camera.main.WorldToScreenPoint(vStart);
                         Vector3 screenEnd = Camera.main.WorldToScreenPoint(vEnd);
 
+						// First check - distance check
+						// See if the midpoints of both paths are relatively close
+
+						// path midpoint
                         Vector2 screenMid;
                         screenMid.x = screenStart.x + 0.5f * (screenEnd.x - screenStart.x);
                         screenMid.y = screenStart.y + 0.5f * (screenEnd.y - screenStart.y);
 
-						/*
-                        GlobalScript g = GetComponent<GlobalScript>();
-                        if (g != null)
-                        {
-                            g.displayingTarget = true;
-                            Vector3 dir = (Vector3.right * Mathf.Cos(currentEvents.events[ev].theta) + Vector3.up * Mathf.Sin(currentEvents.events[ev].phi));
-                            dir.Normalize();
-                            g.targetLabel.transform.position = g.camera_house.transform.position + dir * g.dome.transform.localScale.x * 0.5f;
-                            g.targetLabel.transform.rotation = Quaternion.LookRotation(-dir);
-                        }*/
-
-
+						// swipe midpoint
                         Vector2 swipeMid = next + 0.5f * (prev - next);
 
-
+						// Distance between them
                         float positionDiff = Vector2.Distance(swipeMid, screenMid);
 
-                        // TODO: If they are within a certain distance, it passes (this may change based on the display, may need adjusting for tabletop)
-                        if (positionDiff <= Mathf.Min((Screen.height / 4f), (Screen.width) / 4f))
+     					// If the difference is too large, draw the missed line and return immediately - ya missed it!
+						// Move on to next event
+                        if (positionDiff > Mathf.Min((Screen.height / 4f), (Screen.width) / 4f))
                         {
-                            //Debug.Log("Distance Check Passed, distance was: " + positionDiff);
-                        }
-                        else
-                        {
-                            //Debug.Log("Distance Check failed, distance apart was: " + positionDiff);
 							DrawSwipeLine(SwipeType.missed);
-							return;
+							continue;
                         }
+                       
 
+						// Angle check next - check to see if the angles of the swipe and path are relatively similar
                         float swipeAngle = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg;
-                        //Debug.Log("Swipe angle: " + swipeAngle);
-
-                        //Vector3 start = Camera.main.WorldToScreenPoint(((0.1f) * points[0]));
-                        //Vector3 end = Camera.main.WorldToScreenPoint(((0.1f) * points[1]));
 
                         Vector3 change = screenEnd - screenStart;
                         float trailAngle = Mathf.Atan2(change.y, change.x) * Mathf.Rad2Deg;
 
+						// Keeping the angles positive
                         if(swipeAngle < 0.0f)
                         {
                             swipeAngle = 180.0f + swipeAngle;
@@ -277,72 +316,34 @@ public class SwipeRecognizer : MonoBehaviour {
                             trailAngle = 180.0f + trailAngle;
                         }
 
-                        //Debug.Log("Trail Angle: " + trailAngle);
-
+						// Get the difference
                         float angleDiff = Mathf.Abs(Mathf.DeltaAngle(swipeAngle, trailAngle));
 
-                        // Give 30-degree lenience
-                        if (angleDiff < 30.0f)
+                        // Give 30-degree lenience, and if over that, then it doesn't match
+                        if (angleDiff >= 30.0f)
                         {
-                            //Debug.Log("Angle Check Passed, angle difference was: " + angleDiff);
-                        }
-                        else
-                        {
-                           // Debug.Log("Angle Checked Failed, angle difference was: " + angleDiff);
 							DrawSwipeLine(SwipeType.missed);
-                            return;
+                            continue;
                         }
 
-                        // Length Check - just see if the swipe is long enough
-                        //float swipeLength = Vector3.Magnitude(swipeVector);
-
-                        // As long as the swipeVector swipes 1/2 the screen, it passes
-                        // This may need to be adjusted based on the display used
-                        //correlate this to the length of the event projection...
-                        /*if (swipeLength > Screen.width / 4f)
-                        {
-                            Debug.Log("Length Check Passed, length was: " + swipeLength);
-                        }
-                        else
-                        {
-                            Debug.Log("Length Checked Failed, length was: " + swipeLength);
-                            return;
-                        }*/
-
-
-						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know
+						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know by drawing a green line
 						DrawSwipeLine(SwipeType.found);
 
-						// EDIT for puzzle game - calculate and store the puzzle camera transform so that we can use it later
-
-						//TODO: Need to get the actual event values and place them in the list instead of dummy values
-						// EDIT - now this panel must also store the puzzle camera transform
-						//Vector3 puzzleCameraLocation = FindPuzzleCameraLocation(currentEvents.events[ev]);
-						//Vector3 eventMid = FindTargetLocation(currentEvents.events[ev]);
+						// Now calculate a few more things and add the event to the panel
 
 						// Need to do some mathematical magic to get the swipe endpoints into proper "estimated" world coordinates, not relative to the Main Camera
 						Vector3 pathCenterWorld = (vStart + vEnd) / 2f;
 
-//						GameObject cube3 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-//						cube3.transform.position = startEnd[0];
-//						cube3.transform.localScale = new Vector3 (10, 10, 10);
-//						cube3.name = "startEnd[0]";
-//						GameObject cube4 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-//						cube4.transform.position = startEnd[1];
-//						cube4.transform.localScale = new Vector3 (10, 10, 10);
-//						cube4.name = "startEnd[1]";
-
 						// Center position relative to the Main Camera
 						float centerpointCameraZValue = Camera.main.transform.InverseTransformPoint(pathCenterWorld).z;
-						//Debug.Log ("Z value of centerpoint in Camera space: " + centerpointCameraZValue);
-						//Debug.Log ("Distance from camera to centerpoint: " + Vector3.Distance (pathCenterWorld, Camera.main.transform.position));
 
+						// Start and end of the swipe in world coordinates relative to the main camera
 						Vector3 startCamera = Camera.main.transform.InverseTransformPoint (startEnd [0]);
 						Vector3 endCamera = Camera.main.transform.InverseTransformPoint (startEnd [1]);
 
+						// "Pushing the line out" so that it has a z value equal to the event's midpoint z value relative to the camera
 						float startCoeff = centerpointCameraZValue / startCamera.z;
 						startCamera *= startCoeff;
-
 
 						float endCoeff = centerpointCameraZValue / endCamera.z;
 						endCamera *= endCoeff;
@@ -353,31 +354,12 @@ public class SwipeRecognizer : MonoBehaviour {
 						Vector3 swipeEndWorld = Camera.main.transform.TransformPoint (endCamera);
 
 
-						// Debug
-//						GameObject cube1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-//						cube1.transform.position = swipeStartWorld;
-//						cube1.transform.localScale = new Vector3 (100, 100, 100);
-//						cube1.name = "swipeStartWorld";
-//
-//						GameObject cube2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-//						cube2.transform.position = swipeEndWorld;
-//						cube1.transform.localScale = new Vector3 (100, 100, 100);
+						// Add the event to the event panel list, nice and cleanly
 						EventInfo newEventInfo = GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, currentEvents.getEnergy(), vStart, vEnd, swipeStartWorld, swipeEndWorld, currentEvents.eventsPlaying[ev].ActivatedDoms);
-//						cube2.name = "swipeEndWorld";
-						// For testing, automatically move the camera after swiping
-						//PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(newEventInfo);
-
-
-
-
-                        //if (collectionText != null)
-                        //{
-                        //    collectionText.GetComponent<UnityEngine.UI.Text>().text = "Cosmic Phenomena Collection:\n" + currentEvents.events[ev].eventSource.name;
-                        //}
                     }
                 }
 			} else {
-				// No events playing, so draw an idle swipe line
+				// Else then no events playing, so draw an idle swipe line
 				DrawSwipeLine (SwipeType.idle);
 			}
         }

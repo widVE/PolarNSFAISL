@@ -3,25 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the Toggle UI used for puzzle camera snapping
+/// It ensures that only one toggle can be true at a time (like a radio button)
+/// </summary>
 public class SnapToggleManager : MonoBehaviour {
 
+	// References to the toggles on the UI interface
+	// Toggle for the top snap position
 	public Toggle topToggle;
+	// Toggle for the side snap position
 	public Toggle sideToggle;
+	// Toggle for the front snap position
 	public Toggle frontToggle;
-	public Toggle customToggle;
 
+	// The toggle that is currently set to true, is set to one of the above three
 	private Toggle trueToggle;
+
+	// Just put the toggles in an array for ease of access
 	private Toggle[] toggleArray = new Toggle[3];
+
+	// Reference to the controller, so we can update its snap position
 	public PuzzleCameraController puzzleCamController;
 
-	// Use this for initialization
+	/// <summary>
+	/// Start - Set toggles to default values and set other variables
+	/// </summary>
 	void Start () {
 		topToggle.isOn = false;
-		//topToggle.onValueChanged.AddListener ((value) => {UpdateTogglesTop(value);});
 		sideToggle.isOn = false;
-		//sideToggle.onValueChanged.AddListener ((value) => {UpdateTogglesSide(value);});
 		frontToggle.isOn = true;
-		//frontToggle.onValueChanged.AddListener ((value) => {UpdateTogglesFront(value);});
 		trueToggle = frontToggle;
 
 		toggleArray [0] = topToggle;
@@ -29,12 +40,20 @@ public class SnapToggleManager : MonoBehaviour {
 		toggleArray [2] = frontToggle;
 	}
 
+	/// <summary>
+	/// Update - used to check if the toggles have been changed, and update other toggle values
+	/// I don't use toggle events here, since it creates infinite loops when we assign Toggle values
+	/// </summary>
 	void Update() {
 
+		// if the true toggle is 'unchecked' we immediately check it again
+		// One toggle has to be on at all times!
 		if (!trueToggle.isOn) {
 			trueToggle.isOn = true;
 		}
 
+		// Iterate through all toggles, and if we find a toggle that is on AND is not the trueToggle
+		// from the last frame, then a player must have checked it, so we treat it as our new trueToggle
 		foreach (Toggle curr in toggleArray) {
 			if (curr.isOn && !curr.Equals(trueToggle)) {
 				UpdateToggles (curr);
@@ -43,20 +62,30 @@ public class SnapToggleManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Update the toggles by setting all toggles that aren't newTrueToggle to false
+	/// </summary>
+	/// <param name="newTrueToggle">The toggle that was just set to true</param>
 	void UpdateToggles(Toggle newTrueToggle) {
-		
+
+		// Turn all toggles that aren't newTrueToggle to false
 		foreach (Toggle curr in toggleArray) {
 			if (!curr.Equals(newTrueToggle)) {
 				curr.isOn = false;
 			}
 		}
 
-
+		// update which toggle is the trueToggle
 		trueToggle = newTrueToggle;
 	}
 
+	/// <summary>
+	/// Returns which SnapPosition the puzzle camera should use based on 
+	/// </summary>
+	/// <returns>The snap toggle setting to use</returns>
 	public PuzzleCameraController.SnapPosition GetSnapToggleSetting() {
 
+		// Just return the enum corresponding to which toggle trueToggle is
 		if (trueToggle.Equals(topToggle)) {
 			return PuzzleCameraController.SnapPosition.Top;
 		} else if (trueToggle.Equals(sideToggle)) {
@@ -66,47 +95,5 @@ public class SnapToggleManager : MonoBehaviour {
 		} 
 	}
 
-//	public void UpdateTogglesTop(bool value) {
-//		if (value == false) {
-//			topToggle.isOn = true;
-//		} else {
-//			sideToggle.isOn = false;
-//			frontToggle.isOn = false;
-//			customToggle.isOn = false;
-//			puzzleCamController.SnapCamera (PuzzleCameraController.SnapPosition.Top);
-//		}
-//	}
-//
-//	public void UpdateTogglesSide(bool value) {
-//		if (value == false) {
-//			sideToggle.isOn = true;
-//		} else {
-//			topToggle.isOn = false;
-//			frontToggle.isOn = false;
-//			customToggle.isOn = false;
-//			puzzleCamController.SnapCamera (PuzzleCameraController.SnapPosition.Side);
-//		}
-//	}
-//
-//	public void UpdateTogglesFront(bool value) {
-//		if (value == false) {
-//			frontToggle.isOn = true;
-//		} else {
-//			sideToggle.isOn = false;
-//			topToggle.isOn = false;
-//			customToggle.isOn = false;
-//			puzzleCamController.SnapCamera (PuzzleCameraController.SnapPosition.Front);
-//		}
-//	}
-//
-//	public void UpdateTogglesCustom(bool value) {
-//		if (value == false) {
-//			customToggle.isOn = true;
-//		} else {
-//			sideToggle.isOn = false;
-//			topToggle.isOn = false;
-//			frontToggle.isOn = false;
-//			puzzleCamController.SnapCamera (PuzzleCameraController.SnapPosition.Custom);
-//		}
-//	}
 }
+

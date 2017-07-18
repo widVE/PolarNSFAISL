@@ -40,21 +40,23 @@ public class EventPanelManager : MonoBehaviour {
 	/// <param name="vStart">The starting point of the neutrino path of this event</param>
 	/// <param name="vEnd">The ending point of the neutrino path of this event</param>
 	/// <param name="domStates">List of dom states (doms activated by this event, and their state params)</param>
-	public EventInfo addEvent(string name, float cumulative_energy, Vector3 vStart, Vector3 vEnd, List<VisualizeEvent.DomState> domStates) {
+	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, Vector2 swipeStart, Vector2 swipeEnd, List<VisualizeEvent.DomState> domStates) {
 
 		// Instantiate a new UI panel for the event
 		GameObject newPanel = Instantiate (template);
 
 		// Setting EventInfo fields
+		// We could just use the constructor, but I never got around to doing so...
 		newPanel.GetComponent<EventInfo> ().setName (name);
 		newPanel.GetComponent<EventInfo> ().setDate (System.DateTime.Now);
 		newPanel.GetComponent<EventInfo> ().setEnergy (cumulative_energy);
 		//newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
 		//newPanel.GetComponent<EventInfo> ().setEventCenterPosition (eventCenterPosition);
 		newPanel.GetComponent<EventInfo> ().setDomStates (domStates);
-		newPanel.GetComponent<EventInfo> ().setStart (vStart);
-		newPanel.GetComponent<EventInfo> ().setEnd (vEnd);
-
+		newPanel.GetComponent<EventInfo> ().setNeutrinoPathStart (neutrinoStart);
+		newPanel.GetComponent<EventInfo> ().setNeutrinoPathEnd (neutrinoEnd);
+		newPanel.GetComponent<EventInfo> ().setSwipePathStart (swipeStart);
+		newPanel.GetComponent<EventInfo> ().setSwipePathEnd (swipeEnd);
 		// Setting the panel in the scene
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
@@ -110,7 +112,7 @@ public class EventPanelManager : MonoBehaviour {
 
 		// TODO: If you wanted to send a notification to players or have some other event happen when
 		//       an event source is "calculated" or "found" then here is where you would probably do it
-		Debug.Log ("Event \"sent\" to Oculus");
+		Debug.Log ("Event \"sent\" to Players");
 	}
 		
 }

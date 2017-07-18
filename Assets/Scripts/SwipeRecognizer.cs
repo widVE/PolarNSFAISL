@@ -6,16 +6,14 @@ using TouchScript.Gestures;
 public class SwipeRecognizer : MonoBehaviour {
 
 	public GameObject PuzzleCamera;
-	public FlickGesture swipeGesture;
-	public bool showLine = true;
-	public LineRenderer ren;
+	public MultiFlickGesture swipeGesture;
+    public GameObject lineObject;
+    private GameObject[] lines = new GameObject[10];
 	private Gradient missedGradient;
 	private Gradient foundGradient;
 	private Gradient idleGradient;
 	private enum SwipeType {missed, found, idle};
-	private float lineTimer = 3.0f;
-	private bool lineDrawn = false;
-	private bool lineFading = false;
+
     public VisualizeEvent currentEvents;
     public GameObject collectionText = null;
 	//private ParticleTrail trail;
@@ -29,49 +27,18 @@ public class SwipeRecognizer : MonoBehaviour {
 			Debug.LogError ("Puzzle camera reference not set in inspector");
 		}
 
+        if (lineObject != null)
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                lines[i] = GameObject.Instantiate(lineObject);
+            }
+        }
 		BuildGradients ();
 	}
 
 	// Only used for line fading
 	void Update () {
-		// If the line is drawn on screen and is solid (not fading)
-		if (lineDrawn) {
-
-			// Decrement the timer and check if it has been on screen long enough
-			lineTimer -= Time.deltaTime;
-
-			// Begin fading if the timer is done
-			if (lineTimer <= 0f) {
-				lineTimer = 1.5f;
-				lineDrawn = false;
-				lineFading = true;
-			}
-		// Else if the line is currently fading, continue fading until the line is invisible
-		} else if (lineFading) {
-
-			// Update the gradient by decrementing its alpha keys
-			Gradient currGradient = ren.colorGradient;
-			GradientAlphaKey[] currAlphas = currGradient.alphaKeys;
-			float newAlpha = currAlphas [0].alpha;
-			newAlpha -= 0.5f * Time.deltaTime;
-
-			// If alpha hits zero, then the line is invisible so we are done fading
-			if (newAlpha < 0) {
-				newAlpha = 0;
-				Debug.Log ("Done fading");
-				lineFading = false;
-			} 
-
-			// Update all alpha keys for the gradient
-			for (int i = 0; i < currAlphas.Length; i++) {
-				currAlphas [i].alpha = newAlpha;
-			}
-
-			// Update the line renderer and draw the new line
-			currGradient.SetKeys (currGradient.colorKeys, currAlphas);
-			ren.colorGradient = currGradient;
-			ren.SetPositions (startEnd);
-		}
 
 	}
 
@@ -142,7 +109,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// Function for drawing the player's swipe based on when/how the swipe was made
 	/// </summary>
 	/// <param name="type">The type of swipe</param>
-	private void DrawSwipeLine(SwipeType type) {
+	private void DrawSwipeLine(SwipeType type, int index=0) {
 		
 		AudioSource[] aSources = GetComponents<AudioSource>();
 		AudioSource toPlay = null;
@@ -150,28 +117,33 @@ public class SwipeRecognizer : MonoBehaviour {
 		// Set the gradient appropriately
 		switch (type) {
 		case SwipeType.missed:
-			ren.colorGradient = missedGradient;
+            lines[index].GetComponent<LineRenderer>().colorGradient = missedGradient;
+			//ren.colorGradient = missedGradient;
 			toPlay = aSources [0];
 			break;
 		case SwipeType.found:
-			ren.colorGradient = foundGradient;
+            lines[index].GetComponent<LineRenderer>().colorGradient = foundGradient;
+            //ren.colorGradient = foundGradient;
 			toPlay = aSources [2];
 			break;
 		case SwipeType.idle:
-			ren.colorGradient = idleGradient;
+            lines[index].GetComponent<LineRenderer>().colorGradient = idleGradient;
+			//ren.colorGradient = idleGradient;
 			toPlay = aSources [1];
 			break;
 		default:
 			break;
 		}
 
+        TouchTableLine t = lines[index].GetComponent<TouchTableLine>();
 		// Reset the timer so the line will begin fading after 2 seconds
-		lineTimer = 1.5f;
-		lineDrawn = true;
-		lineFading = false;
+		t.lineTimer = 1.5f;
+        t.lineDrawn = true;
+        t.lineFading = false;
 		// Draw the line
-		ren.SetPositions(startEnd);
-		Debug.Log ("Swipe was drawn");
+        lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
+		//ren.SetPositions(startEnd);
+		//Debug.Log ("Swipe was drawn");
 		toPlay.Play ();
 	}
 
@@ -185,28 +157,29 @@ public class SwipeRecognizer : MonoBehaviour {
 	}
 
 	private void swipeHandler(object sender, System.EventArgs e) {
-		Vector2 prev = swipeGesture.PreviousScreenPosition;
-		Vector2 swipeVector = swipeGesture.ScreenFlickVector;
+        
+		Vector2 prev = swipeGesture.PreviousPos[swipeGesture.recognizedId];
+        Vector2 swipeVector = swipeGesture.ScreenFlicks[swipeGesture.recognizedId];
         Vector2 next = prev - swipeVector;
-        //Debug.Log("Swipe Detected - Direction: " + swipeVector);
+        //Debug.LogError("Swipe Detected - Direction: " + swipeVector);
 		//Debug.Log ("Start: " + start);
         
 		if (!InSwipeBounds(next, prev)) {
-			Debug.Log ("Swipe was out of bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
+			//Debug.Log ("Swipe was out of bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
 			return;
 		} else {
-			Debug.Log ("Swipe in bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
+			//Debug.Log ("Swipe in bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
 		}
 
 
-		if (showLine) {
+		//if (showLine) {
             startEnd[0] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
             startEnd[1] = Camera.main.ScreenToWorldPoint(new Vector3(next.x, next.y, Camera.main.nearClipPlane + 1));
             //Debug.Log("Line Drawn: " + startEnd[0] + " to " + startEnd[1]);
             //ren.SetPositions(startEnd);
-		} else {
+		/*} else {
 			Debug.Log ("showLine was false");
-		}
+		}*/
 
 
         //let's instead convert any active events to screen space and test there...
@@ -254,7 +227,7 @@ public class SwipeRecognizer : MonoBehaviour {
                         else
                         {
                             //Debug.Log("Distance Check failed, distance apart was: " + positionDiff);
-							DrawSwipeLine(SwipeType.missed);
+                            DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
 							return;
                         }
 
@@ -289,7 +262,7 @@ public class SwipeRecognizer : MonoBehaviour {
                         else
                         {
                            // Debug.Log("Angle Checked Failed, angle difference was: " + angleDiff);
-							DrawSwipeLine(SwipeType.missed);
+                            DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
                             return;
                         }
 
@@ -311,16 +284,19 @@ public class SwipeRecognizer : MonoBehaviour {
 
 
 						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know
-						DrawSwipeLine(SwipeType.found);
+                        DrawSwipeLine(SwipeType.found, swipeGesture.recognizedId%10);
 
-						// EDIT for puzzle game - calculate and store the puzzle camera transform so that we can use it later
+                        if (!currentEvents.eventsPlaying[ev].isDetected)
+                        {
+                            currentEvents.eventsPlaying[ev].isDetected = true;
+                            // EDIT for puzzle game - calculate and store the puzzle camera transform so that we can use it later
 
-						//TODO: Need to get the actual event values and place them in the list instead of dummy values
-						// EDIT - now this panel must also store the puzzle camera transform
-						//Vector3 puzzleCameraLocation = FindPuzzleCameraLocation(currentEvents.events[ev]);
-						//Vector3 eventMid = FindTargetLocation(currentEvents.events[ev]);
-						EventInfo newEventInfo = GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, currentEvents.getEnergy(), vStart, vEnd, currentEvents.eventsPlaying[ev].ActivatedDoms);
-
+                            //TODO: Need to get the actual event values and place them in the list instead of dummy values
+                            // EDIT - now this panel must also store the puzzle camera transform
+                            //Vector3 puzzleCameraLocation = FindPuzzleCameraLocation(currentEvents.events[ev]);
+                            //Vector3 eventMid = FindTargetLocation(currentEvents.events[ev]);
+                            EventInfo newEventInfo = GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, currentEvents.getEnergy(), vStart, vEnd, currentEvents.eventsPlaying[ev].ActivatedDoms);
+                        }
 						// For testing, automatically move the camera after swiping
 						//PuzzleCamera.GetComponent<PuzzleCameraController>().MoveCamera(newEventInfo);
 
@@ -335,7 +311,7 @@ public class SwipeRecognizer : MonoBehaviour {
                 }
 			} else {
 				// No events playing, so draw an idle swipe line
-				DrawSwipeLine (SwipeType.idle);
+                DrawSwipeLine(SwipeType.idle, swipeGesture.recognizedId%10);
 			}
         }
 	}

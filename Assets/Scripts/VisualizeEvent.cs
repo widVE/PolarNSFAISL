@@ -49,6 +49,7 @@ public class VisualizeEvent : MonoBehaviour {
     public struct EventPlayback
     {
         public bool isPlaying;
+        public bool isDetected;
         public bool advancedIndex;
         public int eventIndex;
         public int eventStartFrame;
@@ -119,12 +120,12 @@ public class VisualizeEvent : MonoBehaviour {
                             float z = (float)double.Parse(data[2]);
                             if(lineCount < 1)
                             {
-								Debug.LogWarning ("START SET");
+								//Debug.LogWarning ("START SET");
                                 e.startPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
                             }
                             else 
                             {
-								Debug.LogWarning ("END SET");
+								//Debug.LogWarning ("END SET");
                                 e.endPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
                             }
                         }
@@ -255,6 +256,7 @@ public class VisualizeEvent : MonoBehaviour {
             for(int e = 0; e < events.Count; ++e)
             {
                 eventsPlaying[e].isPlaying = false;
+                eventsPlaying[e].isDetected = false;
                 eventsPlaying[e].eventIndex = -1;
                 eventsPlaying[e].eventStartTime = 0.0f;
                 eventsPlaying[e].eventEndTime = 0.0f;
@@ -307,7 +309,11 @@ public class VisualizeEvent : MonoBehaviour {
             eventsPlaying[currEvent].advancedIndex = true;
             eventsPlaying[currEvent].eventIndex = 0;
             eventsPlaying[currEvent].isPlaying = true;
-			alarm.Play ();
+            eventsPlaying[currEvent].isDetected = false;
+            if (alarm.isActiveAndEnabled)
+            {
+                alarm.Play();
+            }
 
             Debug.Log("Source: " + events[currEvent].eventSource.name);
         }
@@ -404,9 +410,10 @@ public class VisualizeEvent : MonoBehaviour {
 
     void StopPlaying(int e)
     {
-        Debug.Log("Stopped playing");
+        //Debug.Log("Stopped playing");
         eventsPlaying[e].eventIndex = 0;
         eventsPlaying[e].isPlaying = false;
+        eventsPlaying[e].isDetected = false;
         eventsPlaying[e].advancedIndex = false;
         eventsPlaying[e].playStartTime = 0.0f;
         eventsPlaying[e].eventStartTime = 0.0f;

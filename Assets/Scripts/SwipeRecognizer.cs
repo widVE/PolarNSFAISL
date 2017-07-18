@@ -23,7 +23,6 @@ public class SwipeRecognizer : MonoBehaviour {
 	// Enumeration used for switching between swipe types
 	private enum SwipeType {missed, found, idle};
 
-
 	// Reference to the VisualizeEvent script, which handles all event playback
     public VisualizeEvent currentEvents;
 
@@ -48,12 +47,6 @@ public class SwipeRecognizer : MonoBehaviour {
             }
         }
 		BuildGradients ();
-	}
-
-	/// <summary>
-	/// Update - 
-	/// </summary>
-	void Update () {
 	}
 
 	/// <summary>

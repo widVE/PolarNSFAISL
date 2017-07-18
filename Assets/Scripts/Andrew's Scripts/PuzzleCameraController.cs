@@ -65,6 +65,9 @@ public class PuzzleCameraController : MonoBehaviour {
 	//       event result, not just the state the array was in when we captured it
 	private EventInfo currentEventInfo = null;
 
+	// Bool used for the EarthView to tell if an event is being viewed
+	private bool viewingEvent;
+
 	// Enumeration used for snap locations
 	public enum SnapPosition {Top, Side, Front};
 
@@ -149,6 +152,7 @@ public class PuzzleCameraController : MonoBehaviour {
 
 		// If we are currently viewing an event, update which doms are turned on
 		if (currentEventInfo != null) {
+			viewingEvent = true;
 			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
 				// If there is a dom that is in our DomStates list that is not on, turn it on
 				// See the above NOTE for an explaination on why this happens
@@ -173,6 +177,8 @@ public class PuzzleCameraController : MonoBehaviour {
 				// else clear the line renderer
 				linRen.SetPositions (new Vector3[2]);
 			}
+		} else {
+			viewingEvent = false;
 		}
 	}
 
@@ -278,5 +284,13 @@ public class PuzzleCameraController : MonoBehaviour {
 		// Be sure to apply the offset!
 		return lookPosition + puzzleArrayOffset;
 
+	}
+
+	/// <summary>
+	/// Accessor for the viewingEvent bool, to tell if an event is being used without being able to change it
+	/// </summary>
+	/// <returns><c>true</c>, if viewing event was ised, <c>false</c> otherwise.</returns>
+	public bool isViewingEvent() {
+		return viewingEvent;
 	}
 }

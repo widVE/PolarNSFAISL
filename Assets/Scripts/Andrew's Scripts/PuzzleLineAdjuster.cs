@@ -178,4 +178,37 @@ public class PuzzleLineAdjuster : MonoBehaviour {
 
 		return newColor;
 	}
+
+
+	/// <summary>
+	/// Accessor for the adjustable line start position
+	/// </summary>
+	/// <returns>The adjust line start.</returns>
+	public Vector3 getAdjustLineStart() {
+		return startNode.transform.position;
+	}
+
+	/// <summary>
+	/// Accessor for the adjustable line end position
+	/// </summary>
+	/// <returns>The adjust line end.</returns>
+	public Vector3 getAdjustLineEnd() {
+		return endNode.transform.position;
+	}
+
+	/// <summary>
+	/// Gets the current path start.
+	/// </summary>
+	/// <returns>The current path start.</returns>
+	public Vector3 getCurrentPathStart() {
+		return currentPathStart;
+	}
+
+	/// <summary>
+	/// Gets the current path end.
+	/// </summary>
+	/// <returns>The current path end.</returns>
+	public Vector3 getCurrentPathEnd() {
+		return currentPathEnd;
+	}
 }

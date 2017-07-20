@@ -331,7 +331,7 @@ public class VisualizeEvent : MonoBehaviour {
                             domData = gameObject.GetComponent<DomData>();
                         }
 
-						GameObject d = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str].tableDom;
+						GameObject d = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str];
 
                         float fTimeFrac = 0.0f;
                         if (d != null)
@@ -345,11 +345,6 @@ public class VisualizeEvent : MonoBehaviour {
                             {
 								float charge = Mathf.Log (20000.0f * events [e].eventData [eventsPlaying [e].eventIndex].charge * events [e].eventData [eventsPlaying [e].eventIndex].charge);
                                 dc.TurnOn(fTimeFrac, charge);
-								DomState toAdd = new DomState ();
-								toAdd.charge = charge;
-								toAdd.timeFrac = fTimeFrac;
-								toAdd.Dom = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str].puzzleDom;
-								eventsPlaying [e].ActivatedDoms.Add (toAdd);
 
                                 AudioSource asource = dc.GetComponent<AudioSource>();
                                 if (asource != null && asource.isActiveAndEnabled)
@@ -423,7 +418,7 @@ public class VisualizeEvent : MonoBehaviour {
         //turn off all event visualization?
         for(int i = 0; i < events[e].eventData.Count; ++i)
         {
-			GameObject d = domData.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str].tableDom;
+			GameObject d = domData.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str];
             if(d != null)
             {
                 d.GetComponent<DOMController>().TurnOff();

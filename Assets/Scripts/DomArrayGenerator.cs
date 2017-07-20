@@ -91,10 +91,6 @@ public class DomArrayGenerator : MonoBehaviour {
 		reader.Close ();
 	}//end Start()
 
-	void Update () {
-
-	}
-
 	private void SetLayersRecursively(GameObject obj, int layer) {
 		if (obj == null) {
 			return;

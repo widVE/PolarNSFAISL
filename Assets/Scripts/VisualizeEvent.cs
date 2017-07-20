@@ -12,7 +12,6 @@ public class VisualizeEvent : MonoBehaviour {
     //public GameObject particle;   //used for debugging trajectory for now
     public float playSpeed = 0.01f;
     private float eventFrequency = 20.0f;
-    public GameObject totalEnergyText = null;
     public float totalEnergy = 0.0f;
 	private AudioSource alarm;
     private const float BELOW_ICE = -1950.0f;
@@ -91,7 +90,7 @@ public class VisualizeEvent : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		alarm = GameObject.Find("Scene").GetComponents<AudioSource> () [3];
+		alarm = GameObject.Find("Sound Effects").GetComponents<AudioSource> () [3];
 
         if(eventDirectory.Length > 0)
         {
@@ -338,7 +337,6 @@ public class VisualizeEvent : MonoBehaviour {
                         if (d != null)
                         {
                             totalEnergy += events[e].eventData[eventsPlaying[e].eventIndex].charge;
-                            totalEnergyText.GetComponent<UnityEngine.UI.Text>().text = "Total Energy: " + totalEnergy;
                             //fTimeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
                             //Ross - changed coloring to just be always rainbow, not dependent on time stamps..
                             fTimeFrac = (float)eventsPlaying[e].eventIndex / (float)events[e].eventData.Count;

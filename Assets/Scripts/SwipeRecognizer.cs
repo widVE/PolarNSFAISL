@@ -124,7 +124,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// <param name="type">The type of swipe</param>
 	private void DrawSwipeLine(SwipeType type, int index=0) {
 		
-		AudioSource[] aSources = GetComponents<AudioSource>();
+		AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
 		AudioSource toPlay = null;
 
 		// Set the gradient appropriately
@@ -193,13 +193,6 @@ public class SwipeRecognizer : MonoBehaviour {
         Vector2 next = prev - swipeVector;
         //Debug.LogError("Swipe Detected - Direction: " + swipeVector);
 		//Debug.Log ("Start: " + start);
-        
-		if (!InSwipeBounds(next, prev)) {
-			//Debug.Log ("Swipe was out of bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
-			return;
-		} else {
-			//Debug.Log ("Swipe in bounds\nScreen x: " + Screen.width + "\tprevX" + prev.x + "\tnextX: " + next.x);
-		}
 
 		// If we should show the line, then calculate where the screen-coordinate end points lie in world coordinates
 		// We do this because line renderers only work with positions in 3D, not screen coordinates
@@ -314,8 +307,6 @@ public class SwipeRecognizer : MonoBehaviour {
                         if (!currentEvents.eventsPlaying[ev].isDetected)
                         {
                             currentEvents.eventsPlaying[ev].isDetected = true;
-                            // Add the event to the event panel list, nice and cleanly
-                            EventInfo newEventInfo = GameObject.Find("EventPanel").GetComponent<EventPanelManager>().addEvent(currentEvents.events[ev].eventSource.name, currentEvents.getEnergy(), vStart, vEnd, swipeStartWorld, swipeEndWorld, currentEvents.eventsPlaying[ev].ActivatedDoms);
                         }
                     }
                 }

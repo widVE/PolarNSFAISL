@@ -6,7 +6,7 @@ public class ParticleEnergyGrapher : MonoBehaviour {
 	public int resolution = 10;
 	private ParticleSystem.Particle[] points;
 	float timer = 0f;
-	private VisualizeEvent visEvent;
+	private EventPlayer visEvent;
 
 	[SerializeField]
 	private bool randomizeData = true;
@@ -15,7 +15,7 @@ public class ParticleEnergyGrapher : MonoBehaviour {
 	void Start () {
 		points = new ParticleSystem.Particle[resolution];
 		InitializePoints ();
-		visEvent = GameObject.Find ("DOMArrayProcedural").GetComponent<VisualizeEvent>();
+		visEvent = GameObject.Find ("DOMArrayProcedural").GetComponent<EventPlayer>();
 	}
 
 	// Update is called once per frame

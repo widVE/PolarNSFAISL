@@ -24,7 +24,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	private enum SwipeType {missed, found, idle};
 
 	// Reference to the VisualizeEvent script, which handles all event playback
-    public VisualizeEvent currentEvents;
+    public EventPlayer currentEvents;
 
 	// Array used to store the endpoints of the swipe line in world coordinates, for use with the line renderer
     private Vector3[] startEnd = new Vector3[2];

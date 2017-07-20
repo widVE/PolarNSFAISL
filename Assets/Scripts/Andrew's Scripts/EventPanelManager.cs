@@ -40,7 +40,7 @@ public class EventPanelManager : MonoBehaviour {
 	/// <param name="vStart">The starting point of the neutrino path of this event</param>
 	/// <param name="vEnd">The ending point of the neutrino path of this event</param>
 	/// <param name="domStates">List of dom states (doms activated by this event, and their state params)</param>
-	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, Vector2 swipeStart, Vector2 swipeEnd, List<VisualizeEvent.DomState> domStates) {
+	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, Vector2 swipeStart, Vector2 swipeEnd, List<EventPlayer.DomState> domStates) {
 
 		// Instantiate a new UI panel for the event
 		GameObject newPanel = Instantiate (template);

@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 using System;
 
-public class DomData : MonoBehaviour {
+public class DomArrayGenerator : MonoBehaviour {
 
     public GameObject domObject;
     string icecubeFile = "Assets\\IceCubeData\\geometry\\Icecube_Geometry_Data.txt";

@@ -38,7 +38,7 @@ public class EventInfo : MonoBehaviour {
 	private Vector3 swipePathEnd;
 
 	// The list of doms affected by this event and their final states
-	private List<VisualizeEvent.DomState> domStates;
+	private List<EventPlayer.DomState> domStates;
 
 	// ----------END VARIABLES----------
 
@@ -67,7 +67,7 @@ public class EventInfo : MonoBehaviour {
 		this.name = nameP;
 		this.peak_energy = energy;
 		this.date_captured = DateTime.Now;
-		this.domStates = new List<VisualizeEvent.DomState> ();
+		this.domStates = new List<EventPlayer.DomState> ();
 		this.neutrinoPathStart = neutrinoPathStart;
 		this.neutrinoPathEnd = neutrinoPathEnd;
 		this.swipePathStart = swipePathStart;
@@ -119,7 +119,7 @@ public class EventInfo : MonoBehaviour {
 	/// Sets the list of DomStates for this event
 	/// </summary>
 	/// <param name="domStates">The List of DomStates to set</param>
-	public void setDomStates(List<VisualizeEvent.DomState> domStates) {
+	public void setDomStates(List<EventPlayer.DomState> domStates) {
 		this.domStates = domStates;
 	}
 
@@ -191,7 +191,7 @@ public class EventInfo : MonoBehaviour {
 	/// Returns the DomStates of this event
 	/// </summary>
 	/// <returns>The DOM states.</returns>
-	public List<VisualizeEvent.DomState> getDomStates() {
+	public List<EventPlayer.DomState> getDomStates() {
 		return this.domStates;
 	}
 		

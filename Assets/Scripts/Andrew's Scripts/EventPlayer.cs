@@ -512,5 +512,10 @@ public class EventPlayer : MonoBehaviour {
 		}
 
 	}
+
+	public Vector3 GetEventCenterpoint() {
+		EventVis curr = events [currEventNumber];
+		return ((curr.startPos + curr.endPos) / 2);
+	}
 		
 }

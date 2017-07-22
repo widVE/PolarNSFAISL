@@ -33,6 +33,12 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	private bool inResolveMode = false;
 
+	private enum ResolveBounds {top, side, front, none};
+
+	public Camera topCamera;
+	public Camera sideCamera;
+	public Camera frontCamera;
+
 	//----------END VARIABLES----------
 
 	/// <summary>
@@ -201,6 +207,95 @@ public class SwipeRecognizer : MonoBehaviour {
 	}
 
 	private void handleCaptureSwipe() {
+		SwipeCalculation (Camera.main);
+	}
+
+	private void handleResolveSwipe() {
+
+		ResolveBounds currentBound = findBounds ();
+
+		switch(currentBound) {
+		case ResolveBounds.top:
+			SwipeCalculation (topCamera);
+			break;
+		case ResolveBounds.side:
+			SwipeCalculation (sideCamera);
+			break;
+		case ResolveBounds.front:
+			SwipeCalculation (frontCamera);
+			break; 
+		case ResolveBounds.none:
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	private ResolveBounds findBounds() {
+		Vector2 end = swipeGesture.PreviousPos[swipeGesture.recognizedId];
+		Vector2 swipeVector = swipeGesture.ScreenFlicks[swipeGesture.recognizedId];
+
+		// The end of the flick gesture (really the beginning, I think these are backwards but it doesn't affect anything)
+		Vector2 start = end - swipeVector;
+
+		if (start.y < Screen.height * 0.3 || start.y > Screen.height * 0.6) {
+			Debug.LogWarning ("Bad y on start");
+			return ResolveBounds.none;
+		}
+
+		if (end.y < Screen.height * 0.3 || end.y > Screen.height * 0.6) {
+			Debug.LogWarning ("Bad y on end");
+			return ResolveBounds.none;
+		}
+
+		// Y values are in bounds, now check x values
+
+		ResolveBounds startBounds;
+
+		if (start.x < Screen.width * 0.3f) {
+			startBounds = ResolveBounds.top;
+		} else if (start.x > Screen.width * 0.35 && start.x < Screen.width * 0.65f) {
+			startBounds = ResolveBounds.side;
+		} else if (start.x > Screen.width * 0.7f) {
+			startBounds = ResolveBounds.front;
+		} else {
+			Debug.LogWarning ("Bad x on start");
+			return ResolveBounds.none;
+		}
+
+
+		ResolveBounds endBounds;
+
+		if (end.x < Screen.width * 0.3f) {
+			endBounds = ResolveBounds.top;
+		} else if (end.x > Screen.width * 0.35 && end.x < Screen.width * 0.65f) {
+			endBounds = ResolveBounds.side;
+		} else if (end.x > Screen.width * 0.7f) {
+			endBounds = ResolveBounds.front;
+		} else {
+			Debug.LogWarning ("Bad x on end");
+			return ResolveBounds.none;
+		}
+
+		if (startBounds == endBounds) {
+			return startBounds;
+		} else {
+			Debug.LogWarning ("StartEnd mismatch");
+			return ResolveBounds.none;
+		}
+
+	}
+
+	public void EnterResolveMode() {
+		inResolveMode = true;
+	}
+
+	public void ExitResolveMode() {
+		inResolveMode = false;
+	}
+
+	private void SwipeCalculation(Camera cameraToUse) {
 		Vector2 prev = swipeGesture.PreviousPos[swipeGesture.recognizedId];
 		Vector2 swipeVector = swipeGesture.ScreenFlicks[swipeGesture.recognizedId];
 
@@ -326,23 +421,12 @@ public class SwipeRecognizer : MonoBehaviour {
 						}
 					}
 				}
-			} else {
+			} else if (cameraToUse.Equals(Camera.main)) {
 				// Else then no events playing, so draw an idle swipe line
 				DrawSwipeLine(SwipeType.idle, swipeGesture.recognizedId%10);
 			}
 		}
-	}
 
-	private void handleResolveSwipe() {
-		
-	}
-
-	public void ActivateBounds() {
-		inResolveMode = true;
-	}
-
-	public void DeactivateBounds() {
-		inResolveMode = false;
 	}
 
 

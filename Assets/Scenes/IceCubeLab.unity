@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.7254902, g: 0.83137256, b: 0.9254902, a: 1}
   m_AmbientGroundColor: {r: 0.4156863, g: 0.38823533, b: 0.36862746, a: 1}
   m_AmbientIntensity: 0.77
-  m_AmbientMode: 3
+  m_AmbientMode: 1
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -8658,7 +8658,7 @@ MonoBehaviour:
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
   friendlyGestures:
-  - {fileID: 598479301}
+  - {fileID: 0}
   - {fileID: 598479300}
   OnPress:
     m_PersistentCalls:
@@ -8711,7 +8711,7 @@ MonoBehaviour:
   requireGestureToFail: {fileID: 0}
   friendlyGestures:
   - {fileID: 598479298}
-  - {fileID: 598479301}
+  - {fileID: 0}
   OnRelease:
     m_PersistentCalls:
       m_Calls: []
@@ -14987,6 +14987,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8f034f699b30b5148ab022c0186c328d, type: 2}
+    - target: {fileID: 1036677196578364, guid: c91cb53de47e42a45b2fe0942c02688d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c91cb53de47e42a45b2fe0942c02688d, type: 2}
   m_IsPrefabParent: 0
@@ -24914,6 +24918,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
+      propertyPath: pointerProxy
+      value: 
+      objectReference: {fileID: 114417358069438390, guid: c66c11aea8b5bb748a1d54516cdd94f0,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
   m_IsPrefabParent: 0
@@ -25449,8 +25458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1244c000f5fbf489a2e7caaf748aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventDirectory: Assets\IceCubeData\eventData\
-  newEventFile: Assets\IceCubeData\eventData\new\nue.txt
+  eventDirectory: 
+  newEventFile: Assets\IceCubeData\eventData\new\numu.txt
   playSpeed: 1
   totalEnergyText: {fileID: 1215060080}
   totalEnergy: 0
@@ -28285,7 +28294,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 132870, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27fe6d2a15a377f4587f716a2d37ca8a, type: 2}
@@ -29639,7 +29648,7 @@ MonoBehaviour:
   zoomSlider: {fileID: 276282487}
   showLineToggle: {fileID: 1948873725}
   snapToggleMan: {fileID: 1845582143}
-  puzzleLineAdjuster: {fileID: 1057064293}
+  puzzleLineAdjuster: {fileID: 0}
 --- !u!114 &1530285680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34284,6 +34293,43 @@ Prefab:
       propertyPath: puzzleCamController
       value: 
       objectReference: {fileID: 1530285679}
+    - target: {fileID: 1105120554910968, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827643699105536, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753159502292536, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762092074284372, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093776817842308, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884240772374032, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419816112835598, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1791477031927532, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 81838810144810656, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
   m_IsPrefabParent: 0

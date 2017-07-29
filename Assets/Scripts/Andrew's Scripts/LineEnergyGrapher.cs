@@ -13,7 +13,7 @@ public class LineEnergyGrapher : MonoBehaviour {
 	[SerializeField]
 	private bool randomizeData = false;
 
-	private VisualizeEvent visEvent;
+	private EventPlayer visEvent;
 	// Use this for initialization
 	void Start () {
 		xOffset = 4f;
@@ -23,7 +23,7 @@ public class LineEnergyGrapher : MonoBehaviour {
 
 		GameObject array = GameObject.Find ("DOMArrayProcedural");
 		if (array != null) {
-			visEvent = array.GetComponent<VisualizeEvent>();
+			visEvent = array.GetComponent<EventPlayer>();
 		}
 			
 		linRen = GetComponent<LineRenderer> ();

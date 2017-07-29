@@ -153,7 +153,7 @@ public class PuzzleCameraController : MonoBehaviour {
 		// If we are currently viewing an event, update which doms are turned on
 		if (currentEventInfo != null) {
 			viewingEvent = true;
-			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
+			foreach (EventPlayer.DomState curr in currentEventInfo.getDomStates()) {
 				// If there is a dom that is in our DomStates list that is not on, turn it on
 				// See the above NOTE for an explaination on why this happens
 				if (!curr.Dom.GetComponent<DOMController>().on) {
@@ -190,7 +190,7 @@ public class PuzzleCameraController : MonoBehaviour {
 
 		// Reset the array back to "blank" state by turning off all doms that are currently on (and only if we were currently viewing an event)
 		if (currentEventInfo != null) {
-			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
+			foreach (EventPlayer.DomState curr in currentEventInfo.getDomStates()) {
 				curr.Dom.GetComponent<DOMController> ().TurnOff ();
 			}
 		}
@@ -213,7 +213,7 @@ public class PuzzleCameraController : MonoBehaviour {
 			puzzleLineAdjuster.SetupLine(currentEventInfo.getNeutrinoPathStart(), currentEventInfo.getNeutrinoPathEnd(), currentEventInfo.getSwipePathStart(), currentEventInfo.getSwipePathEnd());
 
 			//...and start turing on Doms in the currentEvent's DomState list
-			foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
+			foreach (EventPlayer.DomState curr in currentEventInfo.getDomStates()) {
 				curr.Dom.GetComponent<DOMController> ().TurnOn (curr.timeFrac, curr.charge);
 			}
 		}
@@ -251,9 +251,9 @@ public class PuzzleCameraController : MonoBehaviour {
 		currDistance = positionOffset;
 
 		// Lastly, update dom scales
-		foreach (VisualizeEvent.DomState curr in currentEventInfo.getDomStates()) {
+		/*foreach (EventPlayer.DomState curr in currentEventInfo.getDomStates()) {
 			curr.Dom.transform.localScale = (new Vector3 (1f, 1f, 1f) * sizeSlider.value); 
-		}
+		}*/
 	}
 
 	/// <summary>

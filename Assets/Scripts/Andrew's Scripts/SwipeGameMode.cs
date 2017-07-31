@@ -39,19 +39,22 @@ public class SwipeGameMode : MonoBehaviour {
 	private void EnableCameras() {
 
 		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint ();
-
+        Bounds b = eventPlayer.GetEventBounds(eventCenterPos);
+        //Debug.Log(b.min);
+        //Debug.Log(b.max);
+        //Debug.Log(b.extents);
 		// Top Camera
-		topCamera.transform.position = eventCenterPos + new Vector3(0f, 1000f, 0f);
+		topCamera.transform.position = eventCenterPos + new Vector3(0f, b.extents.y, 0f);
 		topCamera.transform.LookAt (eventCenterPos);
 		topCamera.SetActive (true);
 
 		// Side Camera
-		sideCamera.transform.position = eventCenterPos - new Vector3 (1000f, 0f, 0f);
+		sideCamera.transform.position = eventCenterPos - new Vector3 (b.extents.x, 0f, 0f);
 		sideCamera.transform.LookAt (eventCenterPos, Vector3.up);
 		sideCamera.SetActive(true);
 
 		// Front Camera
-		frontCamera.transform.position = eventCenterPos - new Vector3 (0f, 0f, 1000f);
+		frontCamera.transform.position = eventCenterPos - new Vector3 (0f, 0f, b.extents.z);
 		frontCamera.transform.LookAt (eventCenterPos, Vector3.up);
 		frontCamera.SetActive (true);
 	}

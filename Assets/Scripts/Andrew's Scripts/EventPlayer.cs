@@ -24,6 +24,8 @@ public class EventPlayer : MonoBehaviour {
 	private bool isSwiped = false;
 	private float timer = 2.0f;
 
+    public LineRenderer truePath;
+
     public struct EventData
     {
         public int str;
@@ -334,6 +336,9 @@ public class EventPlayer : MonoBehaviour {
             {
                 alarm.Play();
             }
+
+            truePath.SetPosition(0, events[currEventNumber].startPos);
+            truePath.SetPosition(1, events[currEventNumber].endPos);
         }
 
 	    if(IsEventPlaying())
@@ -356,7 +361,7 @@ public class EventPlayer : MonoBehaviour {
 					DOMController dc = d.GetComponent<DOMController>();
 					if (dc != null)
 					{
-						float charge = Mathf.Log (20000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
+						float charge = Mathf.Log (60000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
 						dc.TurnOn(fTimeFrac, charge);
 						DomState toAdd = new DomState ();
 						toAdd.charge = charge;
@@ -473,7 +478,7 @@ public class EventPlayer : MonoBehaviour {
 					DOMController dc = d.GetComponent<DOMController>();
 					if (dc != null)
 					{
-						float charge = Mathf.Log (20000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
+						float charge = Mathf.Log (60000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
 						dc.TurnOn(fTimeFrac, charge);
 						DomState toAdd = new DomState ();
 						toAdd.charge = charge;
@@ -517,5 +522,16 @@ public class EventPlayer : MonoBehaviour {
 		EventVis curr = events [currEventNumber];
 		return ((curr.startPos + curr.endPos) / 2);
 	}
+
+    public Bounds GetEventBounds(Vector3 centerPos)
+    {
+        Bounds b = new Bounds(centerPos, Vector3.zero);
+        
+        for(int i = 0; i <  events[currEventNumber].eventData.Count; ++i)
+        {
+            b.Encapsulate(events[currEventNumber].eventData[i].pos);
+        }
+        return b;
+    }
 		
 }

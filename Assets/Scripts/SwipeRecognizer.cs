@@ -39,6 +39,8 @@ public class SwipeRecognizer : MonoBehaviour {
 	public Camera sideCamera;
 	public Camera frontCamera;
 
+    private Vector3 totalVector = Vector3.zero;
+
 	//----------END VARIABLES----------
 
 	/// <summary>
@@ -166,7 +168,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		// Draw the line
         lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
 		//ren.SetPositions(startEnd);
-		//Debug.Log ("Swipe was drawn");
+		Debug.Log ("Swipe was drawn " + type);
 		toPlay.Play ();
 	}
 
@@ -201,9 +203,6 @@ public class SwipeRecognizer : MonoBehaviour {
 		} else {
 			handleCaptureSwipe ();
 		}
-
-
-
 	}
 
 	private void handleCaptureSwipe() {
@@ -307,8 +306,8 @@ public class SwipeRecognizer : MonoBehaviour {
 		// If we should show the line, then calculate where the screen-coordinate end points lie in world coordinates
 		// We do this because line renderers only work with positions in 3D, not screen coordinates
 		//if (showLine) {
-		startEnd[0] = Camera.main.ScreenToWorldPoint(new Vector3(prev.x, prev.y, Camera.main.nearClipPlane + 1));
-		startEnd[1] = Camera.main.ScreenToWorldPoint(new Vector3(next.x, next.y, Camera.main.nearClipPlane + 1));
+		startEnd[0] = cameraToUse.ScreenToWorldPoint(new Vector3(prev.x, prev.y, cameraToUse.nearClipPlane + 1));
+		startEnd[1] = cameraToUse.ScreenToWorldPoint(new Vector3(next.x, next.y, cameraToUse.nearClipPlane + 1));
 		//Debug.Log("Line Drawn: " + startEnd[0] + " to " + startEnd[1]);
 		//ren.SetPositions(startEnd);
 		/*} else {
@@ -333,8 +332,8 @@ public class SwipeRecognizer : MonoBehaviour {
 						Vector3 vEnd = currentEvents.events[ev].endPos;
 
 						// Convert them to screen coordinates
-						Vector3 screenStart = Camera.main.WorldToScreenPoint(vStart);
-						Vector3 screenEnd = Camera.main.WorldToScreenPoint(vEnd);
+						Vector3 screenStart = cameraToUse.WorldToScreenPoint(vStart);
+						Vector3 screenEnd = cameraToUse.WorldToScreenPoint(vEnd);
 
 						// First check - distance check
 						// See if the midpoints of both paths are relatively close
@@ -358,11 +357,14 @@ public class SwipeRecognizer : MonoBehaviour {
 							continue;
 						}
 
+                        Vector3 worldEventVector = (vEnd - vStart).normalized;
+                        Vector3 worldSwipeVector = (startEnd[0] - startEnd[1]).normalized;
 
-						// Angle check next - check to see if the angles of the swipe and path are relatively similar
-						float swipeAngle = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg;
+                        Vector3 change = screenEnd - screenStart;
 
-						Vector3 change = screenEnd - screenStart;
+                        // Angle check next - check to see if the angles of the swipe and path are relatively similar
+                        /*float swipeAngle = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg;
+
 						float trailAngle = Mathf.Atan2(change.y, change.x) * Mathf.Rad2Deg;
 
 						// Keeping the angles positive
@@ -376,13 +378,29 @@ public class SwipeRecognizer : MonoBehaviour {
 							trailAngle = 180.0f + trailAngle;
 						}
 
+
 						// Get the difference
 						float angleDiff = Mathf.Abs(Mathf.DeltaAngle(swipeAngle, trailAngle));
+*/
+                        Vector2 v = new Vector2(change.x, change.y);
+                        float vTest = 0.0f;
 
-						// Give 30-degree lenience, and if over that, then it doesn't match
-						if (angleDiff >= 30.0f)
-						{
-							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
+                        if (cameraToUse == Camera.main)
+                        {
+                            //for main camera to comparison in world space...
+                            vTest = Mathf.Abs(Vector2.Dot(swipeVector.normalized, v.normalized));
+                        }
+                        else {
+                            vTest = Mathf.Abs(Vector3.Dot(worldEventVector, worldSwipeVector));
+                        }
+                        
+                        Debug.Log(vTest);
+
+                        // Give 30-degree lenience, and if over that, then it doesn't match
+                        //if (angleDiff >= 30.0f)
+                        if(vTest < 0.9f)
+                        {
+                            DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
 							continue;
 						}
 
@@ -392,14 +410,14 @@ public class SwipeRecognizer : MonoBehaviour {
 						// Now calculate a few more things and add the event to the panel
 
 						// Need to do some mathematical magic to get the swipe endpoints into proper "estimated" world coordinates, not relative to the Main Camera
-						Vector3 pathCenterWorld = (vStart + vEnd) / 2f;
+						/*Vector3 pathCenterWorld = (vStart + vEnd) / 2f;
 
 						// Center position relative to the Main Camera
-						float centerpointCameraZValue = Camera.main.transform.InverseTransformPoint(pathCenterWorld).z;
+						float centerpointCameraZValue = cameraToUse.transform.InverseTransformPoint(pathCenterWorld).z;
 
 						// Start and end of the swipe in world coordinates relative to the main camera
-						Vector3 startCamera = Camera.main.transform.InverseTransformPoint (startEnd [0]);
-						Vector3 endCamera = Camera.main.transform.InverseTransformPoint (startEnd [1]);
+						Vector3 startCamera = cameraToUse.transform.InverseTransformPoint (startEnd [0]);
+						Vector3 endCamera = cameraToUse.transform.InverseTransformPoint (startEnd [1]);
 
 						// EDIT for puzzle game - calculate and store the puzzle camera transform so that we can use it later
 
@@ -411,8 +429,8 @@ public class SwipeRecognizer : MonoBehaviour {
 						endCamera *= endCoeff;
 
 						// startDirection and endDirection are now the positions of the swipe relative to the camera, convert them to world coordinates
-						Vector3 swipeStartWorld = Camera.main.transform.TransformPoint (startCamera);
-						Vector3 swipeEndWorld = Camera.main.transform.TransformPoint (endCamera);
+						Vector3 swipeStartWorld = cameraToUse.transform.TransformPoint (startCamera);
+						Vector3 swipeEndWorld = cameraToUse.transform.TransformPoint (endCamera);*/
 
 						if (!currentEvents.eventsPlaying[ev].isDetected)
 						{

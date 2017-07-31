@@ -58,9 +58,10 @@ public class DomArrayGenerator : MonoBehaviour {
 			//table
 			tableDom.transform.position = domPos;
 			tableDom.transform.SetParent (transform);
+            //Debug.Log("Setting scale");
+            tableDom.transform.localScale.Set(10.0f, 10.0f, 10.0f);
 			tableDom.GetComponent<DOMController>().stringNum = domUnitNum;
 			tableDom.GetComponent<DOMController>().domNum = domNum;
-
 
 
             if (domNum <= 60)

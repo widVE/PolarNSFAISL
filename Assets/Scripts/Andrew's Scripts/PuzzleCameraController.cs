@@ -251,9 +251,9 @@ public class PuzzleCameraController : MonoBehaviour {
 		currDistance = positionOffset;
 
 		// Lastly, update dom scales
-		foreach (EventPlayer.DomState curr in currentEventInfo.getDomStates()) {
+		/*foreach (EventPlayer.DomState curr in currentEventInfo.getDomStates()) {
 			curr.Dom.transform.localScale = (new Vector3 (1f, 1f, 1f) * sizeSlider.value); 
-		}
+		}*/
 	}
 
 	/// <summary>

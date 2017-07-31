@@ -40,6 +40,9 @@ public class SwipeRecognizer : MonoBehaviour {
 	public Camera frontCamera;
 
     private Vector3 totalVector = Vector3.zero;
+    bool swipedTop = false;
+    bool swipedSide = false;
+    bool swipedFront = false;
 
 	//----------END VARIABLES----------
 
@@ -201,8 +204,9 @@ public class SwipeRecognizer : MonoBehaviour {
 		if (inResolveMode) {
 			handleResolveSwipe ();
 		} else {
-			handleCaptureSwipe ();
-		}
+            totalVector = Vector3.zero;
+            handleCaptureSwipe ();
+        }
 	}
 
 	private void handleCaptureSwipe() {
@@ -216,12 +220,15 @@ public class SwipeRecognizer : MonoBehaviour {
 		switch(currentBound) {
 		case ResolveBounds.top:
 			SwipeCalculation (topCamera);
+            swipedTop = true;
 			break;
 		case ResolveBounds.side:
 			SwipeCalculation (sideCamera);
-			break;
+            swipedSide = true;
+            break;
 		case ResolveBounds.front:
 			SwipeCalculation (frontCamera);
+            swipedFront = true;
 			break; 
 		case ResolveBounds.none:
 			break;
@@ -292,8 +299,21 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public void ExitResolveMode() {
 		inResolveMode = false;
+        swipedFront = false;
+        swipedTop = false;
+        swipedSide = false;
+        swipeGameMode.DisableCameras();
+        swipeGameMode.EventResolved();
 	}
 
+    private void HandleExitResolveMode()
+    {
+        if(swipedFront && swipedSide && swipedTop)
+        {
+
+            ExitResolveMode();
+        }
+    }
 	private void SwipeCalculation(Camera cameraToUse) {
 		Vector2 prev = swipeGesture.PreviousPos[swipeGesture.recognizedId];
 		Vector2 swipeVector = swipeGesture.ScreenFlicks[swipeGesture.recognizedId];
@@ -354,6 +374,7 @@ public class SwipeRecognizer : MonoBehaviour {
 						if (positionDiff > Mathf.Min((Screen.height / 4f), (Screen.width) / 4f))
 						{
 							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
+                            HandleExitResolveMode();
 							continue;
 						}
 
@@ -387,11 +408,14 @@ public class SwipeRecognizer : MonoBehaviour {
 
                         if (cameraToUse == Camera.main)
                         {
+                            totalVector = swipeVector.normalized;
                             //for main camera to comparison in world space...
                             vTest = Mathf.Abs(Vector2.Dot(swipeVector.normalized, v.normalized));
                         }
                         else {
-                            vTest = Mathf.Abs(Vector3.Dot(worldEventVector, worldSwipeVector));
+                            totalVector += worldSwipeVector;
+                            totalVector = totalVector.normalized;
+                            vTest = Mathf.Abs(Vector3.Dot(worldEventVector, totalVector));
                         }
                         
                         Debug.Log(vTest);
@@ -401,7 +425,8 @@ public class SwipeRecognizer : MonoBehaviour {
                         if(vTest < 0.9f)
                         {
                             DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
-							continue;
+                            HandleExitResolveMode();
+                            continue;
 						}
 
 						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know by drawing a green line
@@ -432,11 +457,19 @@ public class SwipeRecognizer : MonoBehaviour {
 						Vector3 swipeStartWorld = cameraToUse.transform.TransformPoint (startCamera);
 						Vector3 swipeEndWorld = cameraToUse.transform.TransformPoint (endCamera);*/
 
-						if (!currentEvents.eventsPlaying[ev].isDetected)
+						if (!currentEvents.eventsPlaying[ev].isDetected && !inResolveMode)
 						{
 							currentEvents.eventsPlaying[ev].isDetected = true;
 							swipeGameMode.EventSwiped ();
 						}
+
+                        if(cameraToUse != Camera.main && inResolveMode)
+                        {
+                            //if we are here, we've successfully swiped the event..
+                            //tell user good job or something, then accumulate event and return to game.
+
+                            ExitResolveMode();
+                        }
 					}
 				}
 			} else if (cameraToUse.Equals(Camera.main)) {

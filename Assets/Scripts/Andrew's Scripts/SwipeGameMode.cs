@@ -59,7 +59,7 @@ public class SwipeGameMode : MonoBehaviour {
 		frontCamera.SetActive (true);
 	}
 
-	private void DisableCameras() {
+	public void DisableCameras() {
 		topCamera.SetActive (false);
 		sideCamera.SetActive(false);
 		frontCamera.SetActive (false);

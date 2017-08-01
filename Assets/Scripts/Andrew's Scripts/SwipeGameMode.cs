@@ -15,10 +15,18 @@ public class SwipeGameMode : MonoBehaviour {
 	[SerializeField]
 	private GameObject frontCamera;
 
+    private bool swipedTop = false;
+    private bool swipedSide = false;
+    private bool swipedFront = false;
+
 	// Use this for initialization
 	void Start () {
 		
 	}
+
+    public void SetSwipeTop(bool swipe) { swipedTop = swipe; }
+    public void SetSwipeSide(bool swipe) { swipedSide = swipe; }
+    public void SetSwipeFront(bool swipe) { swipedFront = swipe; }
 
 	public void EventSwiped() {
 
@@ -33,28 +41,34 @@ public class SwipeGameMode : MonoBehaviour {
 	}
 
 	public void EventResolved() {
+        swipedTop = false;
+        swipedFront = false;
+        swipedSide = false;
 		eventPlayer.ResumePlaying ();
 	}
+
+    public bool SwipedAllThree() { return swipedTop && swipedFront && swipedSide; }
 
 	private void EnableCameras() {
 
 		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint ();
         Bounds b = eventPlayer.GetEventBounds(eventCenterPos);
-        //Debug.Log(b.min);
-        //Debug.Log(b.max);
-        //Debug.Log(b.extents);
+        
 		// Top Camera
-		topCamera.transform.position = eventCenterPos + new Vector3(0f, b.extents.y, 0f);
+        topCamera.transform.position = b.center + new Vector3(0f, b.extents.y, 0f);
+        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 30.0f;
 		topCamera.transform.LookAt (eventCenterPos);
 		topCamera.SetActive (true);
 
 		// Side Camera
-		sideCamera.transform.position = eventCenterPos - new Vector3 (b.extents.x, 0f, 0f);
+        sideCamera.transform.position = b.center - new Vector3(b.extents.x, 0f, 0f);
+        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 30.0f;
 		sideCamera.transform.LookAt (eventCenterPos, Vector3.up);
 		sideCamera.SetActive(true);
 
 		// Front Camera
-		frontCamera.transform.position = eventCenterPos - new Vector3 (0f, 0f, b.extents.z);
+        frontCamera.transform.position = b.center - new Vector3(0f, 0f, b.extents.z);
+        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 30.0f;
 		frontCamera.transform.LookAt (eventCenterPos, Vector3.up);
 		frontCamera.SetActive (true);
 	}

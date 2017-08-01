@@ -40,9 +40,6 @@ public class SwipeRecognizer : MonoBehaviour {
 	public Camera frontCamera;
 
     private Vector3 totalVector = Vector3.zero;
-    bool swipedTop = false;
-    bool swipedSide = false;
-    bool swipedFront = false;
 
 	//----------END VARIABLES----------
 
@@ -169,6 +166,8 @@ public class SwipeRecognizer : MonoBehaviour {
         t.lineDrawn = true;
         t.lineFading = false;
 		// Draw the line
+        Debug.Log(startEnd[0]);
+        Debug.Log(startEnd[1]);
         lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
 		//ren.SetPositions(startEnd);
 		Debug.Log ("Swipe was drawn " + type);
@@ -219,16 +218,16 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		switch(currentBound) {
 		case ResolveBounds.top:
-			SwipeCalculation (topCamera);
-            swipedTop = true;
+            swipeGameMode.SetSwipeTop(true);
+            SwipeCalculation (topCamera);
 			break;
 		case ResolveBounds.side:
-			SwipeCalculation (sideCamera);
-            swipedSide = true;
+            swipeGameMode.SetSwipeSide(true);
+            SwipeCalculation (sideCamera);
             break;
 		case ResolveBounds.front:
-			SwipeCalculation (frontCamera);
-            swipedFront = true;
+            swipeGameMode.SetSwipeFront(true);
+            SwipeCalculation (frontCamera);
 			break; 
 		case ResolveBounds.none:
 			break;
@@ -259,25 +258,26 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		ResolveBounds startBounds;
 
-		if (start.x < Screen.width * 0.3f) {
+		if (start.x > 0.1234375f && start.x < Screen.width * 0.2921875f) {
 			startBounds = ResolveBounds.top;
-		} else if (start.x > Screen.width * 0.35 && start.x < Screen.width * 0.65f) {
+		} else if (start.x > Screen.width * 0.415625 && start.x < Screen.width * 0.584375f) {
 			startBounds = ResolveBounds.side;
-		} else if (start.x > Screen.width * 0.7f) {
+		} else if (start.x > Screen.width * 0.7078125f) {
 			startBounds = ResolveBounds.front;
 		} else {
 			Debug.LogWarning ("Bad x on start");
 			return ResolveBounds.none;
 		}
 
-
 		ResolveBounds endBounds;
 
-		if (end.x < Screen.width * 0.3f) {
+        if (end.x > 0.1234375f && end.x < Screen.width * 0.2921875f)
+        {
 			endBounds = ResolveBounds.top;
-		} else if (end.x > Screen.width * 0.35 && end.x < Screen.width * 0.65f) {
+        } else if (end.x > Screen.width * 0.415625 && end.x < Screen.width * 0.584375f) {
 			endBounds = ResolveBounds.side;
-		} else if (end.x > Screen.width * 0.7f) {
+        } else if (end.x > Screen.width * 0.7078125f)
+        {
 			endBounds = ResolveBounds.front;
 		} else {
 			Debug.LogWarning ("Bad x on end");
@@ -297,23 +297,20 @@ public class SwipeRecognizer : MonoBehaviour {
 		inResolveMode = true;
 	}
 
-	public void ExitResolveMode() {
+	public void ExitResolveMode(bool success=false) {
 		inResolveMode = false;
-        swipedFront = false;
-        swipedTop = false;
-        swipedSide = false;
         swipeGameMode.DisableCameras();
         swipeGameMode.EventResolved();
 	}
 
-    private void HandleExitResolveMode()
+    private void TryExitResolveMode()
     {
-        if(swipedFront && swipedSide && swipedTop)
+        if(swipeGameMode.SwipedAllThree())
         {
-
             ExitResolveMode();
         }
     }
+
 	private void SwipeCalculation(Camera cameraToUse) {
 		Vector2 prev = swipeGesture.PreviousPos[swipeGesture.recognizedId];
 		Vector2 swipeVector = swipeGesture.ScreenFlicks[swipeGesture.recognizedId];
@@ -336,7 +333,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		// Begin event detection
 		// Here we iterate through every actively playing event, and see if our swipe path matches with the neutrino event path
-		// All calculations are done in screen coordinates
+		
 		if(currentEvents != null)
 		{
 			if(currentEvents.IsEventPlaying())
@@ -346,7 +343,6 @@ public class SwipeRecognizer : MonoBehaviour {
 				{
 					if (currentEvents.eventsPlaying[ev].isPlaying)
 					{
-
 						// Get the start and end positions of the neutrino path for this event, in world coordinates
 						Vector3 vStart = currentEvents.events[ev].startPos;
 						Vector3 vEnd = currentEvents.events[ev].endPos;
@@ -373,8 +369,9 @@ public class SwipeRecognizer : MonoBehaviour {
 						// Move on to next event
 						if (positionDiff > Mathf.Min((Screen.height / 4f), (Screen.width) / 4f))
 						{
+                            Debug.Log("Missed due to position");
 							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
-                            HandleExitResolveMode();
+                            TryExitResolveMode();
 							continue;
 						}
 
@@ -425,7 +422,7 @@ public class SwipeRecognizer : MonoBehaviour {
                         if(vTest < 0.9f)
                         {
                             DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
-                            HandleExitResolveMode();
+                            TryExitResolveMode();
                             continue;
 						}
 
@@ -467,7 +464,7 @@ public class SwipeRecognizer : MonoBehaviour {
                         {
                             //if we are here, we've successfully swiped the event..
                             //tell user good job or something, then accumulate event and return to game.
-
+                            Debug.Log("SUCCESS");
                             ExitResolveMode();
                         }
 					}
@@ -477,8 +474,5 @@ public class SwipeRecognizer : MonoBehaviour {
 				DrawSwipeLine(SwipeType.idle, swipeGesture.recognizedId%10);
 			}
 		}
-
 	}
-
-
 }

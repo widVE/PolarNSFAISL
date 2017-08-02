@@ -166,8 +166,8 @@ public class SwipeRecognizer : MonoBehaviour {
         t.lineDrawn = true;
         t.lineFading = false;
 		// Draw the line
-        Debug.Log(startEnd[0]);
-        Debug.Log(startEnd[1]);
+        //Debug.Log(startEnd[0]);
+        //Debug.Log(startEnd[1]);
         lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
 		//ren.SetPositions(startEnd);
 		Debug.Log ("Swipe was drawn " + type);
@@ -218,14 +218,17 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		switch(currentBound) {
 		case ResolveBounds.top:
+            Debug.Log("Resolve top");
             swipeGameMode.SetSwipeTop(true);
             SwipeCalculation (topCamera);
 			break;
 		case ResolveBounds.side:
+            Debug.Log("Resolve side");
             swipeGameMode.SetSwipeSide(true);
             SwipeCalculation (sideCamera);
             break;
 		case ResolveBounds.front:
+            Debug.Log("Resolve front");
             swipeGameMode.SetSwipeFront(true);
             SwipeCalculation (frontCamera);
 			break; 
@@ -405,11 +408,18 @@ public class SwipeRecognizer : MonoBehaviour {
 
                         if (cameraToUse == Camera.main)
                         {
-                            totalVector = swipeVector.normalized;
+                            //totalVector = swipeVector.normalized;
                             //for main camera to comparison in world space...
                             vTest = Mathf.Abs(Vector2.Dot(swipeVector.normalized, v.normalized));
                         }
                         else {
+                            if (totalVector.magnitude > 0)
+                            {
+                                if (Vector3.Dot(totalVector.normalized, worldSwipeVector.normalized) < 0.0f)
+                                {
+                                    worldSwipeVector = -worldSwipeVector;
+                                }
+                            }
                             totalVector += worldSwipeVector;
                             totalVector = totalVector.normalized;
                             vTest = Mathf.Abs(Vector3.Dot(worldEventVector, totalVector));

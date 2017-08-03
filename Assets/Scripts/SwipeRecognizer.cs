@@ -169,6 +169,7 @@ public class SwipeRecognizer : MonoBehaviour {
         //Debug.Log(startEnd[0]);
         //Debug.Log(startEnd[1]);
         lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
+        lines[index].GetComponent<LineRenderer>().sortingOrder = 1;
 		//ren.SetPositions(startEnd);
 		Debug.Log ("Swipe was drawn " + type);
 		toPlay.Play ();
@@ -424,7 +425,10 @@ public class SwipeRecognizer : MonoBehaviour {
                             totalVector = totalVector.normalized;
                             vTest = Mathf.Abs(Vector3.Dot(worldEventVector, totalVector));
                         }
-                        
+
+                        Debug.Log(worldEventVector.ToString("F4"));
+                        Debug.Log(worldSwipeVector.ToString("F4"));
+                        Debug.Log(totalVector.ToString("F4"));
                         Debug.Log(vTest);
 
                         // Give 30-degree lenience, and if over that, then it doesn't match

@@ -45,7 +45,7 @@ public class TouchTableLine : MonoBehaviour {
             if (newAlpha < 0)
             {
                 newAlpha = 0;
-                Debug.Log("Done fading");
+                //Debug.Log("Done fading");
                 lineFading = false;
             }
 

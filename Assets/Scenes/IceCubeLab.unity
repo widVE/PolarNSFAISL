@@ -1438,9 +1438,7 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures:
-  - {fileID: 0}
-  - {fileID: 0}
+  friendlyGestures: []
   flickTime: 0.1
   minDistance: 1
   movementThreshold: 0.5
@@ -2839,7 +2837,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 905924060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8911d155338b584408eb8954b67dc27d, type: 3}
   m_Name: 

@@ -63,61 +63,18 @@ namespace TouchScript.Gestures
 
         #endregion
 
-        #region Public properties
-
-        /// <summary>
-        /// Gets or sets time interval in seconds in which pointers must move by <see cref="MinDistance"/> for gesture to succeed.
-        /// </summary>
-        /// <value> Interval in seconds in which pointers must move by <see cref="MinDistance"/> for gesture to succeed. </value>
-        public float FlickTime
-        {
-            get { return flickTime; }
-            set { flickTime = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets minimum distance in cm to move in <see cref="FlickTime"/> before ending gesture for it to be recognized.
-        /// </summary>
-        /// <value> Minimum distance in cm to move in <see cref="FlickTime"/> before ending gesture for it to be recognized. </value>
-        public float MinDistance
-        {
-            get { return minDistance; }
-            set { minDistance = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets minimum distance in cm pointers must move to start recognizing this gesture.
-        /// </summary>
-        /// <value> Minimum distance in cm pointers must move to start recognizing this gesture. </value>
-        /// <remarks> Prevents misinterpreting taps. </remarks>
-        public float MovementThreshold
-        {
-            get { return movementThreshold; }
-            set { movementThreshold = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets direction to look for.
-        /// </summary>
-        /// <value> Direction of movement. </value>
-        public GestureDirection Direction
-        {
-            get { return direction; }
-            set { direction = value; }
-        }
-
-        #endregion
 
         #region Private variables
 
-        [SerializeField]
-        private float flickTime = .1f;
+        //this is somehow not showing up on the unity inspector, and is being auto set to .1 even though we initialize it here differently...
+        //same is probably true for minDistance and movementThreshold...
+        public float flickTime = 2f;
 
         [SerializeField]
-        private float minDistance = 1f;
+        private float minDistance = .1f;
 
         [SerializeField]
-        private float movementThreshold = 1f;
+        private float movementThreshold = 0.1f;
 
         [SerializeField]
         private GestureDirection direction = GestureDirection.Any;
@@ -146,7 +103,20 @@ namespace TouchScript.Gestures
                     {
                         multiDeltaSequence.Add(activePointers[i].Id, new TimedSequence<Vector2>());
                     }
-                    multiDeltaSequence[activePointers[i].Id].Add(activePointers[i].Position - activePointers[i].PreviousPosition);
+                    else
+                    {
+                        float check = (activePointers[i].Position - activePointers[i].PreviousPosition).sqrMagnitude;
+                       // Debug.Log(check);
+                        if (check > 0.0f && check < 10000.0f)
+                        {
+                            multiDeltaSequence[activePointers[i].Id].Add(activePointers[i].Position - activePointers[i].PreviousPosition);
+                            //Debug.Log(activePointers[i].Position);
+                            //Debug.Log(activePointers[i].PreviousPosition);//previous position value here is sometimes out of wack... causing first value added to have huge magnitude, so added 10000 check above
+                            //Debug.Log(multiDeltaSequence[activePointers[i].Id].Count() + " " + (activePointers[i].PreviousPosition - activePointers[i].Position));
+                        }
+                    }
+
+                    
                 }
             }
         }
@@ -166,13 +136,13 @@ namespace TouchScript.Gestures
                 isActive[pointers[i].Id] = true;
                 moving[pointers[i].Id] = false;
                 movementBuffer[pointers[i].Id] = Vector2.zero;
-                PreviousPos[pointers[i].Id] = Vector2.zero;
+                PreviousPos[pointers[i].Id] = pointers[i].Position; //Vector2.zero;
                 ScreenFlicks[pointers[i].Id] = Vector2.zero;
                 FlickTimes[pointers[i].Id] = 0.0f;
-                if (!multiDeltaSequence.ContainsKey(activePointers[i].Id))
-                {
-                    multiDeltaSequence.Add(activePointers[i].Id, new TimedSequence<Vector2>());
-                }
+                //if (!multiDeltaSequence.ContainsKey(pointers[i].Id))
+                //{
+                //    multiDeltaSequence.Add(pointers[i].Id, new TimedSequence<Vector2>());
+                //}
             }
         }
 
@@ -181,18 +151,19 @@ namespace TouchScript.Gestures
         {
             base.pointersUpdated(pointers);
 
-            for (int i = 0; i < pointers.Count; ++i)
+           /* for (int i = 0; i < pointers.Count; ++i)
             {
                 if (isActive[pointers[i].Id] || !moving[pointers[i].Id])
                 {
                     movementBuffer[pointers[i].Id] += (pointers[i].Position - pointers[i].PreviousPosition);//ScreenPosition - PreviousScreenPosition;
                     var dpiMovementThreshold = MovementThreshold * touchManager.DotsPerCentimeter;
+                    //Debug.Log(dpiMovementThreshold + " " + movementBuffer[pointers[i].Id].sqrMagnitude);
                     if (movementBuffer[pointers[i].Id].sqrMagnitude >= dpiMovementThreshold * dpiMovementThreshold)
                     {
                         moving[pointers[i].Id] = true;
                     }
                 }
-            }
+            }*/
         }
 
         /// <inheritdoc />
@@ -204,30 +175,38 @@ namespace TouchScript.Gestures
             for (int i = 0; i < pointers.Count; ++i)
             {
                 //Debug.LogError("Released pointer: " + pointers[i].Id);
-                if(isActive[pointers[i].Id] && moving[pointers[i].Id])
+                if(isActive[pointers[i].Id])// && moving[pointers[i].Id])
                 {
-                    multiDeltaSequence[pointers[i].Id].Add(pointers[i].Position - pointers[i].PreviousPosition);
-                    float lastTime;
-                    var deltas = multiDeltaSequence[pointers[i].Id].FindElementsLaterThan(Time.time - FlickTime, out lastTime);
+                    //don't want to add to the sequence here...
+                    //multiDeltaSequence[pointers[i].Id].Add(pointers[i].PreviousPosition - pointers[i].Position);
+                    //Debug.Log(pointers[i].Id + " " + multiDeltaSequence[pointers[i].Id].Count());
+                    //float lastTime;
+                    //Debug.Log("**" + Time.time);
+                    var deltas = multiDeltaSequence[pointers[i].Id].FindElementsLaterThan(Time.time - 1.5f);//, out lastTime);
                     var totalMovement = Vector2.zero;
                     var count = deltas.Count;
-                    //Debug.Log("Deltas count: " + count);
+                    Debug.Log("Deltas count: " + count);
                     for (var j = 0; j < count; j++)
+                    {
+                       // Debug.Log(deltas[j]);
                         totalMovement += deltas[j];
+                    }
 
                     //Debug.Log(totalMovement);
-                    if (totalMovement.magnitude > MinDistance * touchManager.DotsPerCentimeter)
+                    if (totalMovement.magnitude > minDistance * touchManager.DotsPerCentimeter)
                     {
                         //setState(GestureState.Failed);
                     // }
                     // else
                     //{
                         ScreenFlicks[pointers[i].Id] = totalMovement;
-                        FlickTimes[pointers[i].Id] = Time.time - lastTime;
+                        //FlickTimes[pointers[i].Id] = Time.time - lastTime;
                         PreviousPos[pointers[i].Id] = pointers[i].PreviousPosition;
                         recognizedId = pointers[i].Id;
                         if (flickedInvoker != null) flickedInvoker.InvokeHandleExceptions(this, EventArgs.Empty);
                     }
+                    //added for better editor testing (id is always 0 in editor)
+                    //multiDeltaSequence[pointers[i].Id].Clear();
                 }
             }
         }

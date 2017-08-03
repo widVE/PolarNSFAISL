@@ -72,5 +72,10 @@ namespace TouchScript.Utils
             list.Reverse();
             return list;
         }
+
+        public int Count()
+        {
+            return points.Count;
+        }
     }
 }

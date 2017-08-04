@@ -8,6 +8,8 @@ public class SwipeGameMode : MonoBehaviour {
 
 	public SwipeRecognizer swipeRecognizer;
 
+    public EarthView earthView;
+
 	[SerializeField]
 	private GameObject topCamera;
 	[SerializeField]
@@ -40,11 +42,16 @@ public class SwipeGameMode : MonoBehaviour {
 		swipeRecognizer.EnterResolveMode();
 	}
 
-	public void EventResolved() {
+	public void EventResolved(bool success=false) {
         swipedTop = false;
         swipedFront = false;
         swipedSide = false;
 		eventPlayer.ResumePlaying ();
+        if(success)
+        {
+            //assuming just one event here for now..
+            earthView.AddDetectedEvent(swipeRecognizer.currentEvents.events[0].startPos, swipeRecognizer.currentEvents.events[0].endPos);
+        }
 	}
 
     public bool SwipedAllThree() { return swipedTop && swipedFront && swipedSide; }

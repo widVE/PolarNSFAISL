@@ -304,7 +304,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	public void ExitResolveMode(bool success=false) {
 		inResolveMode = false;
         swipeGameMode.DisableCameras();
-        swipeGameMode.EventResolved();
+        swipeGameMode.EventResolved(success);
 	}
 
     private void TryExitResolveMode()
@@ -479,7 +479,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             //if we are here, we've successfully swiped the event..
                             //tell user good job or something, then accumulate event and return to game.
                             Debug.Log("SUCCESS");
-                            ExitResolveMode();
+                            ExitResolveMode(true);
                         }
 					}
 				}

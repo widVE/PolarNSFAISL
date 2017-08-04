@@ -4,29 +4,30 @@ using UnityEngine;
 
 public class EarthView : MonoBehaviour {
 
-	public PuzzleLineAdjuster lineAdjuster;
+	//public PuzzleLineAdjuster lineAdjuster;
 
-	public PuzzleCameraController puzzleCamController;
+	//public PuzzleCameraController puzzleCamController;
 
 	private Vector3 puzzleArrayOffset = new Vector3 (3000f, 0, 0);
 
-	public LineRenderer adjustRen;
+	//public LineRenderer adjustRen;
+	//public LineRenderer pathRen;
 
-	public LineRenderer pathRen;
+    private List<LineRenderer> detectedEvents;
 
 	// Use this for initialization
 	void Start () {
 	
 		// Ensure the line renderers aren't using world space, to prevent us having to do another transformation
-		adjustRen.useWorldSpace = true;
-		pathRen.useWorldSpace = true;
+		//adjustRen.useWorldSpace = true;
+		//pathRen.useWorldSpace = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		// If an event is being viewed, render the current adjustable line and the actual line
-		if (puzzleCamController.isViewingEvent()) {
+		/*if (puzzleCamController.isViewingEvent()) {
 
 			// World positions of the endpoints, relative to world coordinates
 			Vector3 currentPathStart = lineAdjuster.getCurrentPathStart();
@@ -53,8 +54,6 @@ public class EarthView : MonoBehaviour {
 			adjustLineStart = trans.TransformPoint (adjustLineStart);
 			adjustLineEnd = trans.TransformPoint (adjustLineEnd);
 
-
-
 			Vector3[] adjustPos = new Vector3[2];
 			adjustPos [0] = adjustLineStart;
 			adjustPos [1] = adjustLineEnd;
@@ -71,9 +70,21 @@ public class EarthView : MonoBehaviour {
 		} else {
 			adjustRen.SetPositions (new Vector3[2]);
 			pathRen.SetPositions (new Vector3[2]);
-		}
+		}*/
 	}
 
+    public void AddDetectedEvent(Vector3 start, Vector3 end)
+    {
+        LineRenderer r = new LineRenderer();
+        //r.gameObject.AddComponent(r);
+        r.startWidth = 5.0f;
+        r.endWidth = 5.0f;
+        r.useWorldSpace = true;
+        r.SetPosition(0, start);
+        r.SetPosition(1, end);
+
+        detectedEvents.Add(r);
+    }
 
 	private Vector3[] extendLine(Vector3[] endPoints) {
 

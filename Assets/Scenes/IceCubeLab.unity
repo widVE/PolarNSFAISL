@@ -23,9 +23,9 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.66652244, g: 0.79022485, b: 0.9852941, a: 1}
   m_AmbientEquatorColor: {r: 0.7254902, g: 0.83137256, b: 0.9254902, a: 1}
   m_AmbientGroundColor: {r: 0.4156863, g: 0.38823533, b: 0.36862746, a: 1}
-  m_AmbientIntensity: 0.77
+  m_AmbientIntensity: 1
   m_AmbientMode: 1
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 57c9f2a624fad4e46afb98b21a6a9868, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -293,6 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventPlayer: {fileID: 1214818565}
   swipeRecognizer: {fileID: 598479286}
+  earthView: {fileID: 320499170}
   topCamera: {fileID: 1230875518}
   sideCamera: {fileID: 1683310190}
   frontCamera: {fileID: 730068715}
@@ -916,6 +917,12 @@ Transform:
   m_Father: {fileID: 1598169317}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &320499170 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114950695345184682, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+    type: 2}
+  m_PrefabInternal: {fileID: 1881022070}
+  m_Script: {fileID: 11500000, guid: 3085f2b377a14aa47af0c19ead6b4cd8, type: 3}
 --- !u!1 &345339658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,7 +2268,7 @@ Camera:
   m_GameObject: {fileID: 730068715}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.11759299, g: 0.33324835, b: 0.6397059, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -2762,7 +2769,7 @@ Camera:
   m_GameObject: {fileID: 905924060}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -3804,7 +3811,7 @@ Camera:
   m_GameObject: {fileID: 1230875518}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.11764706, g: 0.33333334, b: 0.6392157, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -5195,7 +5202,7 @@ Camera:
   m_GameObject: {fileID: 1683310190}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.11764706, g: 0.33333334, b: 0.6392157, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -5291,7 +5298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1747252004
 Transform:
   m_ObjectHideFlags: 0
@@ -5676,12 +5683,42 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1105120554910968, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114950695345184682, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
         type: 2}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 81838810144810656, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20758036109292944, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+        type: 2}
+      propertyPath: m_ClearFlags
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 20758036109292944, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+        type: 2}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 20758036109292944, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+        type: 2}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 0.1406
+      objectReference: {fileID: 0}
+    - target: {fileID: 114523547860158644, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+        type: 2}
+      propertyPath: spin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114523547860158644, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
+        type: 2}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34c074cd0fe42c843a5a95b0b44bdf15, type: 2}
@@ -6451,7 +6488,7 @@ Transform:
   m_GameObject: {fileID: 1981362553}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2987, y: -1127.98, z: 10472}
-  m_LocalScale: {x: 2295.2532, y: 1, z: 2532.1943}
+  m_LocalScale: {x: 4209.371, y: 1, z: 3860.3767}
   m_Children: []
   m_Father: {fileID: 1598169317}
   m_RootOrder: 2

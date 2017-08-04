@@ -61,7 +61,7 @@ public class DOMController : MonoBehaviour {
             eventSphere.transform.localScale = new Vector3(fRadius, fRadius, fRadius);
 
             //todo - improve the timing calculation...
-            float fColorFrac = 1.0f / 7.0f;
+            float fColorFrac = 1.0f / 5.0f;
 
 
 			if (fTimeFrac < fColorFrac)
@@ -84,12 +84,12 @@ public class DOMController : MonoBehaviour {
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.green);
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.green);
 			}
-			else if (fTimeFrac < 5.0f * fColorFrac)
+			else
 			{
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.blue);
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.blue);
 			}
-			else if (fTimeFrac < 6.0f * fColorFrac)
+			/*else if (fTimeFrac < 6.0f * fColorFrac)
 			{
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", UnityEngine.Color.magenta);
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", UnityEngine.Color.magenta);
@@ -98,7 +98,7 @@ public class DOMController : MonoBehaviour {
 			{
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", purple);
 				eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", purple);
-			} 
+			}*/ 
         }
 
         on = true;

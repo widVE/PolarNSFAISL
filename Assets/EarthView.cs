@@ -4,86 +4,61 @@ using UnityEngine;
 
 public class EarthView : MonoBehaviour {
 
-	//public PuzzleLineAdjuster lineAdjuster;
+    public GameObject lineObject;
 
-	//public PuzzleCameraController puzzleCamController;
-
-	private Vector3 puzzleArrayOffset = new Vector3 (3000f, 0, 0);
-
-	//public LineRenderer adjustRen;
-	//public LineRenderer pathRen;
-
-    private List<LineRenderer> detectedEvents;
+    private List<GameObject> detectedEvents = new List<GameObject>();
+    private List<Vector3> lineData = new List<Vector3>();
 
 	// Use this for initialization
 	void Start () {
-	
-		// Ensure the line renderers aren't using world space, to prevent us having to do another transformation
-		//adjustRen.useWorldSpace = true;
-		//pathRen.useWorldSpace = true;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		// If an event is being viewed, render the current adjustable line and the actual line
-		/*if (puzzleCamController.isViewingEvent()) {
+        Transform trans = this.transform.Find("EarthModel").transform.Find("IceCubeLocation");
 
-			// World positions of the endpoints, relative to world coordinates
-			Vector3 currentPathStart = lineAdjuster.getCurrentPathStart();
-			Vector3 currentPathEnd = lineAdjuster.getCurrentPathEnd();
+        for(int i = 0; i < detectedEvents.Count; ++i)
+        {
+            LineRenderer r = detectedEvents[i].GetComponent<LineRenderer>();
+            Vector3[] v = new Vector3[2];
+            v[0] = lineData[i * 2];
+            v[1] = lineData[i * 2 + 1];
+            v[0] = trans.TransformPoint(v[0]);
+            v[1] = trans.TransformPoint(v[1]);
 
-			// Convert them to local (main array) coordinates so we can place them correctly on the miniature earth array
-			currentPathStart = lineAdjuster.transform.InverseTransformPoint(currentPathStart);
-			currentPathEnd = lineAdjuster.transform.InverseTransformPoint(currentPathEnd);
-
-			// World positions of the adjustable line, remove the offset to place it in main array instead of puzzle array
-			Vector3 adjustLineStart = lineAdjuster.getAdjustLineStart ();
-			Vector3 adjustLineEnd = lineAdjuster.getAdjustLineEnd ();
-
-			// Again convert them to local (main array) space
-			adjustLineStart = lineAdjuster.transform.InverseTransformPoint(adjustLineStart);
-			adjustLineEnd = lineAdjuster.transform.InverseTransformPoint (adjustLineEnd);
-
-
-			Transform trans = this.transform.Find ("IceCubeLocation").transform;
-
-			currentPathStart = trans.TransformPoint (currentPathStart);
-			currentPathEnd = trans.TransformPoint (currentPathEnd);
-
-			adjustLineStart = trans.TransformPoint (adjustLineStart);
-			adjustLineEnd = trans.TransformPoint (adjustLineEnd);
-
-			Vector3[] adjustPos = new Vector3[2];
-			adjustPos [0] = adjustLineStart;
-			adjustPos [1] = adjustLineEnd;
-
-			Vector3[] pathPos = new Vector3[2];
-			pathPos [0] = currentPathStart;
-			pathPos [1] = currentPathEnd;
-
-			adjustPos = extendLine (adjustPos);
-			pathPos = extendLine (pathPos);
-
-			adjustRen.SetPositions (adjustPos);
-			pathRen.SetPositions (pathPos);
-		} else {
-			adjustRen.SetPositions (new Vector3[2]);
-			pathRen.SetPositions (new Vector3[2]);
-		}*/
+            v = extendLine(v);
+            r.SetPosition(0, v[0]);
+            r.SetPosition(1, v[1]);
+        }
 	}
 
     public void AddDetectedEvent(Vector3 start, Vector3 end)
     {
-        LineRenderer r = new LineRenderer();
+        GameObject g = Instantiate(lineObject);
+        LineRenderer r = g.GetComponent<LineRenderer>();
         //r.gameObject.AddComponent(r);
         r.startWidth = 5.0f;
         r.endWidth = 5.0f;
-        r.useWorldSpace = true;
-        r.SetPosition(0, start);
-        r.SetPosition(1, end);
+        
+        Vector3[] v = new Vector3[2];
+        v[0] = start;
+        v[1] = end;
 
-        detectedEvents.Add(r);
+        lineData.Add(start);
+        lineData.Add(end);
+
+        Transform trans = this.transform.Find("EarthModel").transform.Find("IceCubeLocation");
+
+        v[0] = trans.TransformPoint(v[0]);
+        v[1] = trans.TransformPoint(v[1]);
+
+        v = extendLine(v);
+        r.SetPosition(0, v[0]);
+        r.SetPosition(1, v[1]);
+
+        detectedEvents.Add(g);
     }
 
 	private Vector3[] extendLine(Vector3[] endPoints) {

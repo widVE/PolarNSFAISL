@@ -410,25 +410,28 @@ public class EventPlayer : MonoBehaviour {
 
     void StopPlaying(int e)
     {
-        //Debug.Log("Stopped playing");
-        eventsPlaying[e].eventIndex = 0;
-        eventsPlaying[e].isPlaying = false;
-        eventsPlaying[e].isDetected = false;
-        eventsPlaying[e].advancedIndex = false;
-        eventsPlaying[e].playStartTime = 0.0f;
-        eventsPlaying[e].eventStartTime = 0.0f;
-        eventsPlaying[e].eventEndTime = 0.0f;
-        eventsPlaying[e].eventStartFrame = 0;
-        eventsPlaying[e].eventEndFrame = 0;
-		eventsPlaying [e].ActivatedDoms = new List<DomState> ();
-
-        //turn off all event visualization?
-        for(int i = 0; i < events[e].eventData.Count; ++i)
+        //Debug.Log("Stopped playing" + e);
+        if (e != -1)
         {
-			GameObject d = arrayGenerator.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str];
-            if(d != null)
+            eventsPlaying[e].eventIndex = 0;
+            eventsPlaying[e].isPlaying = false;
+            eventsPlaying[e].isDetected = false;
+            eventsPlaying[e].advancedIndex = false;
+            eventsPlaying[e].playStartTime = 0.0f;
+            eventsPlaying[e].eventStartTime = 0.0f;
+            eventsPlaying[e].eventEndTime = 0.0f;
+            eventsPlaying[e].eventStartFrame = 0;
+            eventsPlaying[e].eventEndFrame = 0;
+            eventsPlaying[e].ActivatedDoms = new List<DomState>();
+
+            //turn off all event visualization?
+            for (int i = 0; i < events[e].eventData.Count; ++i)
             {
-                d.GetComponent<DOMController>().TurnOff();
+                GameObject d = arrayGenerator.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str];
+                if (d != null)
+                {
+                    d.GetComponent<DOMController>().TurnOff();
+                }
             }
         }
     }
@@ -463,8 +466,6 @@ public class EventPlayer : MonoBehaviour {
 			//todo - to handle sped up play back, need to potentially loop ahead here, until we calculate a frame count beyond the current...
 			if (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count && eventsPlaying[currEventNumber].advancedIndex)
 			{
-
-
 				GameObject d = arrayGenerator.DOMArray[events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].dom, events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].str];
 
 				float fTimeFrac = 0.0f;

@@ -15,7 +15,7 @@ public class ParticleEnergyGrapher : MonoBehaviour {
 	void Start () {
 		points = new ParticleSystem.Particle[resolution];
 		InitializePoints ();
-		visEvent = GameObject.Find ("DOMArrayProcedural").GetComponent<EventPlayer>();
+        visEvent = GameObject.Find("DomArray").GetComponent<EventPlayer>();
 	}
 
 	// Update is called once per frame

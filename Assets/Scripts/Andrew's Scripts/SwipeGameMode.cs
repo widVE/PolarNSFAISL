@@ -12,10 +12,16 @@ public class SwipeGameMode : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject topCamera;
+    [SerializeField]
+    private GameObject topPanel;
 	[SerializeField]
 	private GameObject sideCamera;
+    [SerializeField]
+    private GameObject sidePanel;
 	[SerializeField]
 	private GameObject frontCamera;
+    [SerializeField]
+    private GameObject frontPanel;
 
     private bool swipedTop = false;
     private bool swipedSide = false;
@@ -66,23 +72,32 @@ public class SwipeGameMode : MonoBehaviour {
         topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 30.0f;
 		topCamera.transform.LookAt (eventCenterPos);
 		topCamera.SetActive (true);
+        topPanel.SetActive(true);
 
 		// Side Camera
         sideCamera.transform.position = b.center - new Vector3(b.extents.x, 0f, 0f);
         sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 30.0f;
 		sideCamera.transform.LookAt (eventCenterPos, Vector3.up);
 		sideCamera.SetActive(true);
+        sidePanel.SetActive(true);
 
 		// Front Camera
         frontCamera.transform.position = b.center - new Vector3(0f, 0f, b.extents.z);
         frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 30.0f;
 		frontCamera.transform.LookAt (eventCenterPos, Vector3.up);
 		frontCamera.SetActive (true);
+        frontPanel.SetActive(true);
 	}
 
 	public void DisableCameras() {
 		topCamera.SetActive (false);
 		sideCamera.SetActive(false);
 		frontCamera.SetActive (false);
+        topPanel.SetActive(false);
+        sidePanel.SetActive(false);
+        frontPanel.SetActive(false);
+        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
 	}
 }

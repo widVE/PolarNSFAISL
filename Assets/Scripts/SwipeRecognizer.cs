@@ -39,7 +39,12 @@ public class SwipeRecognizer : MonoBehaviour {
 	public Camera sideCamera;
 	public Camera frontCamera;
 
+    public GameObject topPanel;
+    public GameObject sidePanel;
+    public GameObject frontPanel;
+
     private Vector3 totalVector = Vector3.zero;
+    private Vector3 totalScore = Vector3.zero;
 
 	//----------END VARIABLES----------
 
@@ -205,6 +210,7 @@ public class SwipeRecognizer : MonoBehaviour {
 			handleResolveSwipe ();
 		} else {
             totalVector = Vector3.zero;
+            totalScore = Vector3.zero;
             handleCaptureSwipe ();
         }
 	}
@@ -307,14 +313,6 @@ public class SwipeRecognizer : MonoBehaviour {
         swipeGameMode.EventResolved(success);
 	}
 
-    private void TryExitResolveMode()
-    {
-        if(swipeGameMode.SwipedAllThree())
-        {
-            ExitResolveMode();
-        }
-    }
-
 	private void SwipeCalculation(Camera cameraToUse) {
 		Vector2 prev = swipeGesture.PreviousPos[swipeGesture.recognizedId];
 		Vector2 swipeVector = swipeGesture.ScreenFlicks[swipeGesture.recognizedId];
@@ -326,14 +324,9 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		// If we should show the line, then calculate where the screen-coordinate end points lie in world coordinates
 		// We do this because line renderers only work with positions in 3D, not screen coordinates
-		//if (showLine) {
 		startEnd[0] = cameraToUse.ScreenToWorldPoint(new Vector3(prev.x, prev.y, cameraToUse.nearClipPlane + 1));
 		startEnd[1] = cameraToUse.ScreenToWorldPoint(new Vector3(next.x, next.y, cameraToUse.nearClipPlane + 1));
 		//Debug.Log("Line Drawn: " + startEnd[0] + " to " + startEnd[1]);
-		//ren.SetPositions(startEnd);
-		/*} else {
-			Debug.Log ("showLine was false");
-		}*/
 
 		// Begin event detection
 		// Here we iterate through every actively playing event, and see if our swipe path matches with the neutrino event path
@@ -375,7 +368,23 @@ public class SwipeRecognizer : MonoBehaviour {
 						{
                             Debug.Log("Missed due to position");
 							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
-                            TryExitResolveMode();
+                            if (cameraToUse == frontCamera)
+                            {
+                                frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                            }
+                            else if(cameraToUse == sideCamera)
+                            {
+                                sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                            }
+                            else if(cameraToUse == topCamera)
+                            {
+                                topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                            }
+
+                            if (swipeGameMode.SwipedAllThree())
+                            {
+                                StartCoroutine(DelayedResolve(2f, false));
+                            }
 							continue;
 						}
 
@@ -424,19 +433,147 @@ public class SwipeRecognizer : MonoBehaviour {
                             totalVector += worldSwipeVector;
                             totalVector = totalVector.normalized;
                             vTest = Mathf.Abs(Vector3.Dot(worldEventVector, totalVector));
+                            
+                            if(cameraToUse == frontCamera)
+                            {
+                                totalScore.z = vTest;
+                                if(totalScore.x == 0f && totalScore.y == 0f)
+                                {
+                                    frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                }
+                                else if (totalScore.x > 0f && totalScore.y == 0f)
+                                {
+                                    if (totalScore.z > totalScore.x)
+                                    {
+                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                                else if (totalScore.x == 0f && totalScore.y > 0f)
+                                {
+                                    if (totalScore.z > totalScore.y)
+                                    {
+                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                                else if (totalScore.x > 0f && totalScore.y > 0f)
+                                {
+                                    if (totalScore.z > totalScore.x && totalScore.z > totalScore.y)
+                                    {
+                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                            } 
+                            else if(cameraToUse == sideCamera)
+                            {
+                                totalScore.y = vTest;
+                                if (totalScore.x == 0f && totalScore.z == 0f)
+                                {
+                                    sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                }
+                                else if(totalScore.x > 0f && totalScore.z == 0f)
+                                {
+                                    if(totalScore.y > totalScore.x)
+                                    {
+                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else 
+                                    {
+                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                                else if(totalScore.x == 0f && totalScore.z > 0f)
+                                {
+                                    if (totalScore.y > totalScore.z)
+                                    {
+                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                                else if(totalScore.x > 0f && totalScore.z > 0f)
+                                {
+                                    if (totalScore.y > totalScore.x && totalScore.y > totalScore.z)
+                                    {
+                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                            }
+                            else if(cameraToUse == topCamera)
+                            {
+                                totalScore.x = vTest;
+                                if (totalScore.y == 0f && totalScore.z == 0f)
+                                {
+                                    topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                }
+                                else if (totalScore.y > 0f && totalScore.z == 0f)
+                                {
+                                    if (totalScore.x > totalScore.y)
+                                    {
+                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                                else if (totalScore.y == 0f && totalScore.z > 0f)
+                                {
+                                    if (totalScore.x > totalScore.z)
+                                    {
+                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                                else if (totalScore.y > 0f && totalScore.z > 0f)
+                                {
+                                    if (totalScore.x > totalScore.y && totalScore.x > totalScore.z)
+                                    {
+                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+                                    }
+                                    else
+                                    {
+                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                    }
+                                }
+                            }
                         }
 
-                        Debug.Log(worldEventVector.ToString("F4"));
-                        Debug.Log(worldSwipeVector.ToString("F4"));
-                        Debug.Log(totalVector.ToString("F4"));
+                        //Debug.Log(worldEventVector.ToString("F4"));
+                        //Debug.Log(worldSwipeVector.ToString("F4"));
+                        //Debug.Log(totalVector.ToString("F4"));
                         Debug.Log(vTest);
 
                         // Give 30-degree lenience, and if over that, then it doesn't match
                         //if (angleDiff >= 30.0f)
                         if(vTest < 0.9f)
                         {
+                            //if vTest < than prior vTest, mark red, else green...
                             DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
-                            TryExitResolveMode();
+                            if (swipeGameMode.SwipedAllThree())
+                            {
+                                StartCoroutine(DelayedResolve(2f, false));
+                            }
                             continue;
 						}
 
@@ -479,7 +616,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             //if we are here, we've successfully swiped the event..
                             //tell user good job or something, then accumulate event and return to game.
                             Debug.Log("SUCCESS");
-                            ExitResolveMode(true);
+                            StartCoroutine(DelayedResolve(2f, true));
                         }
 					}
 				}
@@ -489,4 +626,22 @@ public class SwipeRecognizer : MonoBehaviour {
 			}
 		}
 	}
+
+    private IEnumerator DelayedResolve(float waittime, bool success)
+    {
+        if(success)
+        {
+            frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+            sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+            topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
+        }
+        else
+        {
+            frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+            sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+            topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+        }
+        yield return new WaitForSeconds(waittime);
+        ExitResolveMode(success);
+    }
 }

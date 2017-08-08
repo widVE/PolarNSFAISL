@@ -42,13 +42,17 @@ public class LineEnergyGrapher : MonoBehaviour {
             points[i].y = transform.position.y;
             //points[i].z = zDistance;
 		}
-			
 	}
 
 	private void UpdatePoints() {
 		//Debug.Log ("Update Points started");
-		for (int i = 0; i < points.Length - 1; i++) {
-			points [i].y = points [i + 1].y;
+		for (int i = 0; i < points.Length; i++) {
+            float x = (i * 5f);
+            points[i] = this.transform.TransformPoint(new Vector3(x, 0f, zDistance));
+            if (i < points.Length - 1)
+            {
+                points[i].y = points[i + 1].y;
+            }
 		}
 		// Either randomize or use VisualizeEvent totalEnergy
 		if (randomizeData) {
@@ -59,7 +63,9 @@ public class LineEnergyGrapher : MonoBehaviour {
 			//if (newValue > 1) {
 			//	newValue = 1;
 			//}
-            
+
+            //points[points.Length - 3].y = transform.position.y + newValue * 0.5f;
+            //points[points.Length - 2].y = transform.position.y + newValue;
             points[points.Length - 1].y = transform.position.y + newValue;
 		}
 	}

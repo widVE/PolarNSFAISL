@@ -315,11 +315,10 @@ public class EventPlayer : MonoBehaviour {
 			if (currEventNumber == -1) {
 				currEventNumber = UnityEngine.Random.Range(0, events.Count);
 			}
+
 			lastPlayTime = t;
             
 			//todo - don't allow same event to replay until it's done...
-            
-
             eventsPlaying[currEventNumber].newPlayTime = t;
             eventsPlaying[currEventNumber].eventStartTime = events[currEventNumber].eventData[0].time;
             eventsPlaying[currEventNumber].eventStartFrame = UnityEngine.Time.frameCount;
@@ -346,8 +345,6 @@ public class EventPlayer : MonoBehaviour {
 			//todo - to handle sped up play back, need to potentially loop ahead here, until we calculate a frame count beyond the current...
 			if (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count && eventsPlaying[currEventNumber].advancedIndex)
 			{
-				
-
 				GameObject d = arrayGenerator.DOMArray[events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].dom, events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].str];
 
 				float fTimeFrac = 0.0f;
@@ -362,7 +359,8 @@ public class EventPlayer : MonoBehaviour {
 					if (dc != null)
 					{
 						float charge = Mathf.Log (60000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
-						dc.TurnOn(fTimeFrac, charge);
+                        //Debug.Log(eventsPlaying[currEventNumber].eventIndex);
+                        dc.TurnOn(fTimeFrac, charge);
 						DomState toAdd = new DomState ();
 						toAdd.charge = charge;
 						toAdd.timeFrac = fTimeFrac;
@@ -389,10 +387,10 @@ public class EventPlayer : MonoBehaviour {
 				//these time values are in nanoseconds, so really huge, so this will probably be true every frame...
 				//instead let's do this based on frame count..
 				//given the event's time and our frame range, we can figure map the single event's time to which frame it should play...
-				float timeFrac = (events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].time - eventsPlaying[currEventNumber].eventStartTime) / (eventsPlaying[currEventNumber].eventEndTime - eventsPlaying[currEventNumber].eventStartTime);
-				int frameRange = eventsPlaying[currEventNumber].eventEndFrame - eventsPlaying[currEventNumber].eventStartFrame;
+				//float timeFrac = (events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].time - eventsPlaying[currEventNumber].eventStartTime) / (eventsPlaying[currEventNumber].eventEndTime - eventsPlaying[currEventNumber].eventStartTime);
+				//int frameRange = eventsPlaying[currEventNumber].eventEndFrame - eventsPlaying[currEventNumber].eventStartFrame;
 
-				float frameFrac = (float)eventsPlaying[currEventNumber].eventStartFrame + (timeFrac * (float)frameRange);
+				//float frameFrac = (float)eventsPlaying[currEventNumber].eventStartFrame + (timeFrac * (float)frameRange);
 
 				eventsPlaying[currEventNumber].eventIndex++;
 				eventsPlaying[currEventNumber].advancedIndex = true;

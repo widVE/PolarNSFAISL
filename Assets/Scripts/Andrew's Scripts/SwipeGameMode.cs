@@ -46,6 +46,9 @@ public class SwipeGameMode : MonoBehaviour {
 
 		// Add bounds for swiping
 		swipeRecognizer.EnterResolveMode();
+
+        //earthView.gameObject.transform.Find("EarthModel").GetComponent<SpinFree>().spin = false;
+        Camera.main.GetComponent<CameraRotate>().spin = false;
 	}
 
 	public void EventResolved(bool success=false) {
@@ -64,6 +67,9 @@ public class SwipeGameMode : MonoBehaviour {
                 a.Play();
             }
         }
+
+        //earthView.gameObject.transform.FindChild("EarthModel").GetComponent<SpinFree>().spin = true;
+        Camera.main.GetComponent<CameraRotate>().spin = true;
 	}
 
     public bool SwipedAllThree() { return swipedTop && swipedFront && swipedSide; }
@@ -72,25 +78,32 @@ public class SwipeGameMode : MonoBehaviour {
 
 		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint ();
         Bounds b = eventPlayer.GetEventBounds(eventCenterPos);
-        
+
 		// Top Camera
+        topCamera.transform.position = eventCenterPos;
+        topCamera.transform.rotation = Camera.main.transform.rotation;
+        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
+        topCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
         topCamera.transform.position = b.center + new Vector3(0f, b.extents.y, 0f);
-        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 30.0f;
-		topCamera.transform.LookAt (eventCenterPos);
 		topCamera.SetActive (true);
         topPanel.SetActive(true);
 
 		// Side Camera
-        sideCamera.transform.position = b.center - new Vector3(b.extents.x, 0f, 0f);
-        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 30.0f;
-		sideCamera.transform.LookAt (eventCenterPos, Vector3.up);
+        sideCamera.transform.position = eventCenterPos;
+        sideCamera.transform.rotation = Camera.main.transform.rotation;
+        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+        sideCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI/2f - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
+        sideCamera.transform.RotateAround(eventCenterPos, Vector3.up, 90f);
+        sideCamera.transform.position = b.center - sideCamera.transform.forward.normalized * b.extents.x;
 		sideCamera.SetActive(true);
         sidePanel.SetActive(true);
 
 		// Front Camera
-        frontCamera.transform.position = b.center - new Vector3(0f, 0f, b.extents.z);
-        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 30.0f;
-		frontCamera.transform.LookAt (eventCenterPos, Vector3.up);
+        frontCamera.transform.position = eventCenterPos;
+        frontCamera.transform.rotation = Camera.main.transform.rotation;
+        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+        frontCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI / 2f - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
+        frontCamera.transform.position = b.center - frontCamera.transform.forward.normalized * b.extents.z;
 		frontCamera.SetActive (true);
         frontPanel.SetActive(true);
 	}

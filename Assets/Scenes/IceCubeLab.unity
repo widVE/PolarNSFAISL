@@ -3173,7 +3173,6 @@ GameObject:
   - component: {fileID: 905924061}
   - component: {fileID: 905924066}
   - component: {fileID: 905924069}
-  - component: {fileID: 905924070}
   - component: {fileID: 905924068}
   m_Layer: 0
   m_Name: Main Camera
@@ -3289,6 +3288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {fileID: 1928379452}
+  spin: 1
+  speed: 5
 --- !u!114 &905924069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3315,18 +3316,6 @@ MonoBehaviour:
   blurIterations: 7
   glowIntensity: 0.6
   samples: 3
---- !u!114 &905924070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 905924060}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bfed13f5989cb3488076be6b47af218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Volume: 1
 --- !u!1 &920176859
 GameObject:
   m_ObjectHideFlags: 0
@@ -4335,7 +4324,7 @@ Transform:
   m_GameObject: {fileID: 1230875518}
   m_LocalRotation: {x: -0.000000923872, y: 0.0000010356307, z: -0.00000044424087,
     w: -1}
-  m_LocalPosition: {x: 1110.685, y: -646.41296, z: 1867.4197}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1527969113}

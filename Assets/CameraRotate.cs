@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraRotate : MonoBehaviour {
 
     public GameObject pivot;
+    public bool spin=true;
+    public float speed = 5f;
 	// Use this for initialization
 	void Start () {
 		
@@ -12,6 +14,9 @@ public class CameraRotate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        gameObject.transform.RotateAround(pivot.transform.position, Vector3.up, 5 * Time.deltaTime);
+        if (spin)
+        {
+            gameObject.transform.RotateAround(pivot.transform.position, Vector3.up, speed * Time.deltaTime);
+        }
 	}
 }

@@ -134,7 +134,6 @@ public class SwipeRecognizer : MonoBehaviour {
 		swipeGesture.Flicked -= swipeHandler;
 	}
 
-
 	/// <summary>
 	/// Function for drawing the player's swipe based on when/how the swipe was made
 	/// </summary>
@@ -177,23 +176,10 @@ public class SwipeRecognizer : MonoBehaviour {
         lines[index].GetComponent<LineRenderer>().sortingOrder = 1;
 		//ren.SetPositions(startEnd);
 		Debug.Log ("Swipe was drawn " + type);
-		toPlay.Play ();
-	}
-
-	/// <summary>
-	/// Checks if the swipe was on the left-hand side of the array
-	/// 
-	/// </summary>
-	/// <returns><c>true</c>true if the start and end of the line are on the left side of the screen,<c>false</c> otherwise.</returns>
-	/// <param name="start">Start of the swipe line in screen coordinates</param>
-	/// <param name="end">End of the swipe line in screen coordinates</param>
-	private bool InSwipeBounds(Vector2 start, Vector2 end) {
-
-		// Check bounds relative to screen pixel width
-		if ((start.x > Screen.width/2) || (end.x > Screen.width/2)) {
-			return false;
-		}
-		return true;
+        if (toPlay != null && toPlay.isActiveAndEnabled)
+        {
+            toPlay.Play();
+        }
 	}
 
 	/// <summary>

@@ -257,9 +257,9 @@ public class SwipeRecognizer : MonoBehaviour {
 		if (start.x > 0.1234375f && start.x < Screen.width * 0.2921875f) {
 			startBounds = ResolveBounds.top;
 		} else if (start.x > Screen.width * 0.415625 && start.x < Screen.width * 0.584375f) {
-			startBounds = ResolveBounds.side;
-		} else if (start.x > Screen.width * 0.7078125f) {
 			startBounds = ResolveBounds.front;
+		} else if (start.x > Screen.width * 0.7078125f) {
+			startBounds = ResolveBounds.side;
 		} else {
 			Debug.LogWarning ("Bad x on start");
 			return ResolveBounds.none;
@@ -271,10 +271,10 @@ public class SwipeRecognizer : MonoBehaviour {
         {
 			endBounds = ResolveBounds.top;
         } else if (end.x > Screen.width * 0.415625 && end.x < Screen.width * 0.584375f) {
-			endBounds = ResolveBounds.side;
+			endBounds = ResolveBounds.front;
         } else if (end.x > Screen.width * 0.7078125f)
         {
-			endBounds = ResolveBounds.front;
+			endBounds = ResolveBounds.side;
 		} else {
 			Debug.LogWarning ("Bad x on end");
 			return ResolveBounds.none;

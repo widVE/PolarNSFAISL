@@ -36,11 +36,12 @@ public class EarthView : MonoBehaviour {
 
     public void AddDetectedEvent(Vector3 start, Vector3 end)
     {
-        GameObject g = Instantiate(lineObject);
+        GameObject g = Instantiate(lineObject, transform);
+
         LineRenderer r = g.GetComponent<LineRenderer>();
         //r.gameObject.AddComponent(r);
-        r.startWidth = 5.0f;
-        r.endWidth = 5.0f;
+        r.startWidth = 3.0f;
+        r.endWidth = 3.0f;
         
         Vector3[] v = new Vector3[2];
         v[0] = start;

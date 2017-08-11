@@ -10,6 +10,9 @@ public class EventPlayer : MonoBehaviour {
     public string newEventFile;
 
     //public GameObject particle;   //used for debugging trajectory for now
+    public GameObject sparks;
+    List<GameObject> sparkList = new List<GameObject>();
+
     public float playSpeed = 0.01f;
     private float eventFrequency = 10.0f;
     public float totalEnergy = 0.0f;
@@ -18,6 +21,7 @@ public class EventPlayer : MonoBehaviour {
     private float lastPlayTime = 0.0f;
 	private DomArrayGenerator arrayGenerator;
 	private int currEventNumber = -1;
+    public int lastEventNumber = -1;
 	private bool keepPlaying = true;
 
 	private bool donePlaying = false;
@@ -89,9 +93,9 @@ public class EventPlayer : MonoBehaviour {
     {
         Vector3 outCart = Vector3.zero;
         float a = radius * Mathf.Cos(elevation);
-        outCart.x = a * Mathf.Cos(polar);
+        outCart.z = a * Mathf.Cos(polar);
         outCart.y = radius * Mathf.Sin(elevation);
-        outCart.z = a * Mathf.Sin(polar);
+        outCart.x = a * Mathf.Sin(polar);
         return outCart;
     }
 
@@ -220,9 +224,9 @@ public class EventPlayer : MonoBehaviour {
                             e.eventData = new List<EventData>(ed);
                             e.theta = lastTheta;
                             e.phi = lastPhi;
-                            //todo - derive a start and end point from ed, theta, phi
-                            float thetaDeg = Mathf.Rad2Deg * e.theta;
-                            float phiDeg = Mathf.Rad2Deg * e.phi;
+                            
+                            float thetaDeg = Mathf.Rad2Deg * (e.theta);
+                            float phiDeg = Mathf.Rad2Deg * (e.phi);
                             Vector3 dir = SphericalToCartesian(1.0f, phiDeg, thetaDeg);
 
                             
@@ -291,16 +295,32 @@ public class EventPlayer : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        
 
-		if (donePlaying && !isSwiped) {
-			timer -= Time.deltaTime;
-			if (timer <= 0f) {
-				timer = 2.0f;
-				StopPlaying (currEventNumber);
-				donePlaying = false;
-			}
-		}
+        for (int j = 0; j < sparkList.Count; ++j)
+        {
+            GameObject s = sparkList[j];
+            sparkList[j].transform.Translate(0f, 20f, 0f);
+            //-1127 is y value of ground - add this as a reference..
+            if(sparkList[j].transform.position.y > -47f)
+            {
+                sparkList.RemoveAt(j);
+                DestroyObject(s);
+            }
+        }
+
+        if (donePlaying && !isSwiped)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                timer = 2.0f;
+                StopPlaying(currEventNumber);
+                //set this back to -1 as we don't necessarily want to replay the same event if it wasn't swiped..
+                lastEventNumber = currEventNumber;
+                currEventNumber = -1;
+                donePlaying = false;
+            }
+        }
 
 		if (!keepPlaying) {
 			return;
@@ -314,6 +334,7 @@ public class EventPlayer : MonoBehaviour {
         {
 			if (currEventNumber == -1) {
 				currEventNumber = UnityEngine.Random.Range(0, events.Count);
+                lastEventNumber = currEventNumber;
 			}
 
 			lastPlayTime = t;
@@ -367,6 +388,14 @@ public class EventPlayer : MonoBehaviour {
 				
 						eventsPlaying [currEventNumber].ActivatedDoms.Add (toAdd);
 
+                        if (sparks != null)
+                        {
+                            GameObject spark = Instantiate(sparks, transform);
+                            spark.transform.position = d.transform.position;
+                            spark.GetComponent<ParticleSystem>().Play();
+                            sparkList.Add(spark);
+                        }
+
 						AudioSource asource = dc.GetComponent<AudioSource>();
 						if (asource != null && asource.isActiveAndEnabled)
 						{
@@ -402,8 +431,6 @@ public class EventPlayer : MonoBehaviour {
 				donePlaying = true;
 			}
         }
-            
-        
 	}
 
     void StopPlaying(int e)
@@ -455,6 +482,7 @@ public class EventPlayer : MonoBehaviour {
 		keepPlaying = true;
 		isSwiped = false;
 		StopPlaying (currEventNumber);
+        lastEventNumber = currEventNumber;
 		currEventNumber = -1;
 	}
 

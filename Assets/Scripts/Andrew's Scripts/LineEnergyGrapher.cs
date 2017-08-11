@@ -60,10 +60,10 @@ public class LineEnergyGrapher : MonoBehaviour {
 		} else {
 
 			float newValue = visEvent.totalEnergy;
-			//if (newValue > 1) {
-			//	newValue = 1;
-			//}
-
+			if (newValue > 100f) {
+				newValue = 100f;
+			}
+            //Debug.Log(newValue);
             //points[points.Length - 3].y = transform.position.y + newValue * 0.5f;
             //points[points.Length - 2].y = transform.position.y + newValue;
             points[points.Length - 1].y = transform.position.y + newValue;

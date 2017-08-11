@@ -19,7 +19,7 @@ namespace TouchScript.Behaviors.Visualizer
         /// The link to UI.Text component.
         /// </summary>
         public Text Text;
-
+        public GameObject cameraToMove;
         private StringBuilder stringBuilder = new StringBuilder(64);
 
         #region Protected methods
@@ -29,6 +29,16 @@ namespace TouchScript.Behaviors.Visualizer
         {
             base.updateOnce(pointer);
 
+            if(cameraToMove == null)
+            {
+                cameraToMove = GameObject.Find("PointerCam");
+                if(cameraToMove != null)
+                {
+                    Debug.Log("Found pointer camera");
+                }
+            }
+
+            //Size = 256;
             stringBuilder.Length = 0;
             stringBuilder.Append("Pointer id: ");
             stringBuilder.Append(pointer.Id);
@@ -55,6 +65,17 @@ namespace TouchScript.Behaviors.Visualizer
             }
 
             Text.text = stringBuilder.ToString();
+        }
+
+        public override void update(Pointer pointer)
+        {
+            base.update(pointer);
+
+            if (cameraToMove != null)
+            {
+                //Debug.Log("Translating camera " + (pointer.PreviousPosition - pointer.Position).ToString("F4"));
+                cameraToMove.transform.Translate(pointer.PreviousPosition.x - pointer.Position.x, pointer.PreviousPosition.y - pointer.Position.y, 0f);
+            }
         }
 
         #endregion

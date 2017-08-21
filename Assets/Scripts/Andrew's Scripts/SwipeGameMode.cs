@@ -61,6 +61,7 @@ public class SwipeGameMode : MonoBehaviour {
             //assuming just one event here for now..
             earthView.AddDetectedEvent(swipeRecognizer.currentEvents.events[swipeRecognizer.currentEvents.lastEventNumber].startPos, 
                 swipeRecognizer.currentEvents.events[swipeRecognizer.currentEvents.lastEventNumber].endPos);
+
             AudioSource a = gameObject.GetComponent<AudioSource>();
             if(a != null && a.isActiveAndEnabled)
             {

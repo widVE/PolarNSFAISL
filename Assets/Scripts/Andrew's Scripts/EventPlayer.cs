@@ -357,8 +357,11 @@ public class EventPlayer : MonoBehaviour {
                 alarm.Play();
             }
 
-            truePath.SetPosition(0, events[currEventNumber].startPos);
-            truePath.SetPosition(1, events[currEventNumber].endPos);
+            if (truePath != null)
+            {
+                truePath.SetPosition(0, events[currEventNumber].startPos);
+                truePath.SetPosition(1, events[currEventNumber].endPos);
+            }
         }
 
 	    if(IsEventPlaying())

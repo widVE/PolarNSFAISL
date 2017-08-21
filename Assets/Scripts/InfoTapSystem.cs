@@ -6,12 +6,18 @@ using TouchScript.Gestures;
 public class InfoTapSystem : MonoBehaviour
 {
     private const int MAX_INFO_MSGS = 5;
+
+    [SerializeField]
+    // The prefab to instantiate for every double tap
+    private GameObject template;
+
     struct InfoBounds
     {
         //bounds in viewport space
         public Vector2 minBounds;
         public Vector2 maxBounds;
         public string infoMsg;
+        public Vector3 panelPosition;
     };
 
     InfoBounds[] infoArray = new InfoBounds[MAX_INFO_MSGS];
@@ -50,6 +56,12 @@ public class InfoTapSystem : MonoBehaviour
             {
                 //show the string on screen in some sort of UI bubble..
                 Debug.Log(infoArray[i].infoMsg);
+                if(template != null)
+                {
+                    GameObject newPanel = Instantiate(template);
+                    newPanel.GetComponent<RectTransform>().position = infoArray[i].panelPosition;
+                    //have it stay visible for some time amount...
+                }
             }
         }
     }

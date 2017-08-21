@@ -40,7 +40,8 @@ public class EventPanelManager : MonoBehaviour {
 	/// <param name="vStart">The starting point of the neutrino path of this event</param>
 	/// <param name="vEnd">The ending point of the neutrino path of this event</param>
 	/// <param name="domStates">List of dom states (doms activated by this event, and their state params)</param>
-	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, Vector2 swipeStart, Vector2 swipeEnd, List<EventPlayer.DomState> domStates) {
+	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, 
+        Vector2 swipeStart, Vector2 swipeEnd) {//, List<EventPlayer.DomState> domStates) {
 
 		// Instantiate a new UI panel for the event
 		GameObject newPanel = Instantiate (template);
@@ -52,7 +53,7 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.GetComponent<EventInfo> ().setEnergy (cumulative_energy);
 		//newPanel.GetComponent<EventInfo> ().setCoordinates (coordinates);
 		//newPanel.GetComponent<EventInfo> ().setEventCenterPosition (eventCenterPosition);
-		newPanel.GetComponent<EventInfo> ().setDomStates (domStates);
+		//newPanel.GetComponent<EventInfo> ().setDomStates (domStates);
 		newPanel.GetComponent<EventInfo> ().setNeutrinoPathStart (neutrinoStart);
 		newPanel.GetComponent<EventInfo> ().setNeutrinoPathEnd (neutrinoEnd);
 		newPanel.GetComponent<EventInfo> ().setSwipePathStart (swipeStart);
@@ -63,7 +64,7 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.name = "Event: " + name; 
 
 		// The panel has two buttons, so set up the OnClick functions for each button
-		newPanel.GetComponentsInChildren<Button> ()[0].onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);
+		//newPanel.GetComponentsInChildren<Button> ()[0].onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);
 		newPanel.GetComponentsInChildren<Button> ()[1].onClick.AddListener (newPanel.GetComponent<EventInfo>().delete);
 
 		// Add the event to our list of events

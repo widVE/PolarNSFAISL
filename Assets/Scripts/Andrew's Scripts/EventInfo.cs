@@ -47,13 +47,13 @@ public class EventInfo : MonoBehaviour {
 	/// </summary>
 	void Start() {
 		man = this.transform.parent.GetComponent<EventPanelManager> ();
-		GameObject puzzleCamera = GameObject.Find ("Puzzle Camera");
+		/*GameObject puzzleCamera = GameObject.Find ("Puzzle Camera");
 
 		if (puzzleCamera == null) {
 			Debug.LogError ("Puzzle camera not present in scene");
 		}
 
-		puzzleCameraController = puzzleCamera.GetComponent<PuzzleCameraController> ();
+		puzzleCameraController = puzzleCamera.GetComponent<PuzzleCameraController> ();*/
 	}
 
 	/// <summary>

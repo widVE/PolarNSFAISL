@@ -176,8 +176,9 @@ public class SwipeRecognizer : MonoBehaviour {
         lines[index].GetComponent<LineRenderer>().sortingOrder = 1;
 		//ren.SetPositions(startEnd);
 		Debug.Log ("Swipe was drawn " + type);
-        if (toPlay != null && toPlay.isActiveAndEnabled)
+        if (toPlay != null)
         {
+            Debug.Log(toPlay.clip.name);
             toPlay.Play();
         }
 	}
@@ -603,6 +604,17 @@ public class SwipeRecognizer : MonoBehaviour {
                             //tell user good job or something, then accumulate event and return to game.
                             Debug.Log("SUCCESS");
                             StartCoroutine(DelayedResolve(2f, true));
+                            
+                            GameObject panel = GameObject.Find("EventPanel");
+                            if (panel != null)
+                            {
+                                EventPanelManager epm = panel.GetComponent<EventPanelManager>();
+                                if (epm != null)
+                                {
+                                    epm.addEvent("Test", currentEvents.totalEnergy, vStart, vEnd,
+                                    screenStart, screenEnd);
+                                }
+                            }
                         }
 					}
 				}

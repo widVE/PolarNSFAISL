@@ -29,6 +29,7 @@ public class ParticleEnergyGrapher : MonoBehaviour {
         ParticleSystem.Particle p = new ParticleSystem.Particle();
         p.position = Vector3.zero;
         //convert latlong to particle position via mollweide projection conversion
+
         p.color = Color.red;
         p.size = 0.1f;
         points.Add(p);

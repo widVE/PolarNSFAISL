@@ -42,6 +42,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public GameObject topPanel;
     public GameObject sidePanel;
     public GameObject frontPanel;
+    public GameObject refinePanel;
 
     private Vector3 totalVector = Vector3.zero;
     private Vector3 totalScore = Vector3.zero;
@@ -138,27 +139,19 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// Function for drawing the player's swipe based on when/how the swipe was made
 	/// </summary>
 	/// <param name="type">The type of swipe</param>
-	private void DrawSwipeLine(SwipeType type, int index=0) {
+	private void DrawSwipeLine(SwipeType type, int index=0, Camera cameraToUse=null) {
 		
-		AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
-		AudioSource toPlay = null;
 
 		// Set the gradient appropriately
 		switch (type) {
 		case SwipeType.missed:
             lines[index].GetComponent<LineRenderer>().colorGradient = missedGradient;
-			//ren.colorGradient = missedGradient;
-			toPlay = aSources [0];
 			break;
 		case SwipeType.found:
             lines[index].GetComponent<LineRenderer>().colorGradient = foundGradient;
-            //ren.colorGradient = foundGradient;
-			toPlay = aSources [2];
 			break;
 		case SwipeType.idle:
             lines[index].GetComponent<LineRenderer>().colorGradient = idleGradient;
-			//ren.colorGradient = idleGradient;
-			toPlay = aSources [1];
 			break;
 		default:
 			break;
@@ -174,12 +167,32 @@ public class SwipeRecognizer : MonoBehaviour {
         //Debug.Log(startEnd[1]);
         lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
         lines[index].GetComponent<LineRenderer>().sortingOrder = 1;
-		//ren.SetPositions(startEnd);
-		//Debug.Log ("Swipe was drawn " + type);
-        if (toPlay != null)
+        //ren.SetPositions(startEnd);
+        //Debug.Log ("Swipe was drawn " + type);
+        if (cameraToUse != null && cameraToUse == Camera.main)
         {
-            //Debug.Log(toPlay.clip.name);
-            toPlay.Play();
+            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            AudioSource toPlay = null;
+
+            switch (type)
+            {
+                case SwipeType.missed:
+                    toPlay = aSources[0];
+                    break;
+                case SwipeType.found:
+                    toPlay = aSources[2];
+                    break;
+                case SwipeType.idle:
+                    toPlay = aSources[1];
+                    break;
+                default:
+                    break;
+            }
+
+            if (toPlay != null)
+            {
+                toPlay.Play();
+            }
         }
 	}
 
@@ -292,13 +305,26 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public void EnterResolveMode() {
 		inResolveMode = true;
-	}
+        
+        if (refinePanel != null)
+        {
+            string txt = refinePanel.GetComponent<UnityEngine.UI.Text>().text;
+            int percentIdx = txt.IndexOf('%');
+            string subTxt = txt.Substring(percentIdx - 5, 5);
+            string accuracy = "00.00";
+            string newTxt = txt.Replace(subTxt, accuracy);
+            refinePanel.GetComponent<UnityEngine.UI.Text>().text = newTxt;
+            refinePanel.SetActive(true);
+
+        }
+    }
 
 	public void ExitResolveMode(bool success=false) {
 		inResolveMode = false;
         swipeGameMode.DisableCameras();
         swipeGameMode.EventResolved(success);
-	}
+        refinePanel.SetActive(false);
+    }
 
 	private void SwipeCalculation(Camera cameraToUse) {
 		Vector2 prev = swipeGesture.PreviousPos[swipeGesture.recognizedId];
@@ -354,7 +380,7 @@ public class SwipeRecognizer : MonoBehaviour {
 						if (positionDiff > Mathf.Min((Screen.height / 4f), (Screen.width) / 4f))
 						{
                             Debug.Log("Missed due to position");
-							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
+							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10, cameraToUse);
                             if (cameraToUse == frontCamera)
                             {
                                 frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
@@ -420,7 +446,16 @@ public class SwipeRecognizer : MonoBehaviour {
                             totalVector += worldSwipeVector;
                             totalVector = totalVector.normalized;
                             vTest = Mathf.Abs(Vector3.Dot(worldEventVector, totalVector));
-                            
+                            if(refinePanel != null)
+                            {
+                                string txt = refinePanel.GetComponent<UnityEngine.UI.Text>().text;
+                                int percentIdx = txt.IndexOf('%');
+                                string subTxt = txt.Substring(percentIdx - 5, 5);
+                                string accuracy = (vTest*100f).ToString("F2");
+                                string newTxt = txt.Replace(subTxt, accuracy);
+                                refinePanel.GetComponent<UnityEngine.UI.Text>().text = newTxt;
+                            }
+
                             if(cameraToUse == frontCamera)
                             {
                                 totalScore.z = vTest;
@@ -553,19 +588,38 @@ public class SwipeRecognizer : MonoBehaviour {
 
                         // Give 30-degree lenience, and if over that, then it doesn't match
                         //if (angleDiff >= 30.0f)
-                        if(vTest < 0.9f)
+                        if (cameraToUse == Camera.main)
                         {
-                            //if vTest < than prior vTest, mark red, else green...
-                            DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10);
-                            if (swipeGameMode.SwipedAllThree())
+                            if (vTest < 0.9f)
                             {
-                                StartCoroutine(DelayedResolve(2f, false));
+                                //if vTest < than prior vTest, mark red, else green...
+                                DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId % 10, cameraToUse);
+                                continue;
                             }
-                            continue;
-						}
+                        }
+                        else
+                        {
+                            if (vTest < 0.999f)
+                            {
+                                //if vTest < than prior vTest, mark red, else green...
+                                DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId % 10, cameraToUse);
+                                if (swipeGameMode.SwipedAllThree())
+                                {
+                                    if (vTest < 0.9f)
+                                    {
+                                        StartCoroutine(DelayedResolve(2f, false));
+                                        continue;
+                                    }
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                        }
 
 						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know by drawing a green line
-						DrawSwipeLine(SwipeType.found, swipeGesture.recognizedId%10);
+						DrawSwipeLine(SwipeType.found, swipeGesture.recognizedId%10, cameraToUse);
 
 						// Now calculate a few more things and add the event to the panel
 
@@ -611,7 +665,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 EventPanelManager epm = panel.GetComponent<EventPanelManager>();
                                 if (epm != null)
                                 {
-                                    Debug.Log(currentEvents.lastEventNumber);
+                                    //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                     epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                     screenStart, screenEnd);
                                 }
@@ -621,7 +675,7 @@ public class SwipeRecognizer : MonoBehaviour {
 				}
 			} else if (cameraToUse.Equals(Camera.main)) {
 				// Else then no events playing, so draw an idle swipe line
-				DrawSwipeLine(SwipeType.idle, swipeGesture.recognizedId%10);
+				DrawSwipeLine(SwipeType.idle, swipeGesture.recognizedId%10, cameraToUse);
 			}
 		}
 	}

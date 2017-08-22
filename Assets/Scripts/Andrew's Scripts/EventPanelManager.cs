@@ -78,7 +78,7 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.GetComponent<Image> ().color = new Color (Random.Range (0.3f, 1f), Random.Range (0.3f, 1f), Random.Range (0.3f, 1f));
 
 		// Add name text and return it
-		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Event: " + name;
+		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Source: " + name;
 		return newPanel.GetComponent<EventInfo> ();
 	}
 

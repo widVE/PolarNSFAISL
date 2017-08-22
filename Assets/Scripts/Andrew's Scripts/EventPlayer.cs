@@ -110,7 +110,7 @@ public class EventPlayer : MonoBehaviour {
             string[] files = System.IO.Directory.GetFiles(eventDirectory);
             GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
             int numSources = sources.Length;
-
+            Debug.Log("Num sources: " + numSources);
             foreach (string file in files)
             {
                 if (file.EndsWith(".txt"))

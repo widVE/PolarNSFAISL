@@ -65,7 +65,7 @@ public class EventPanelManager : MonoBehaviour {
 
 		// The panel has two buttons, so set up the OnClick functions for each button
 		//newPanel.GetComponentsInChildren<Button> ()[0].onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);
-		newPanel.GetComponentsInChildren<Button> ()[1].onClick.AddListener (newPanel.GetComponent<EventInfo>().delete);
+		//newPanel.GetComponentsInChildren<Button> ()[1].onClick.AddListener (newPanel.GetComponent<EventInfo>().delete);
 
 		// Add the event to our list of events
 		panels.Add (newPanel);

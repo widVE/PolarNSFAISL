@@ -175,10 +175,10 @@ public class SwipeRecognizer : MonoBehaviour {
         lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
         lines[index].GetComponent<LineRenderer>().sortingOrder = 1;
 		//ren.SetPositions(startEnd);
-		Debug.Log ("Swipe was drawn " + type);
+		//Debug.Log ("Swipe was drawn " + type);
         if (toPlay != null)
         {
-            Debug.Log(toPlay.clip.name);
+            //Debug.Log(toPlay.clip.name);
             toPlay.Play();
         }
 	}
@@ -611,7 +611,8 @@ public class SwipeRecognizer : MonoBehaviour {
                                 EventPanelManager epm = panel.GetComponent<EventPanelManager>();
                                 if (epm != null)
                                 {
-                                    epm.addEvent("Test", currentEvents.totalEnergy, vStart, vEnd,
+                                    Debug.Log(currentEvents.lastEventNumber);
+                                    epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                     screenStart, screenEnd);
                                 }
                             }

@@ -259,10 +259,10 @@ public class SwipeRecognizer : MonoBehaviour {
 			return ResolveBounds.none;
 		}
 
-		if (end.y < Screen.height * 0.3 || end.y > Screen.height * 0.6) {
+		/*if (end.y < Screen.height * 0.3 || end.y > Screen.height * 0.6) {
 			Debug.LogWarning ("Bad y on end");
 			return ResolveBounds.none;
-		}
+		}*/
 
 		// Y values are in bounds, now check x values
 
@@ -279,7 +279,7 @@ public class SwipeRecognizer : MonoBehaviour {
 			return ResolveBounds.none;
 		}
 
-		ResolveBounds endBounds;
+		/*ResolveBounds endBounds;
 
         if (end.x > 0.1234375f && end.x < Screen.width * 0.2921875f)
         {
@@ -292,9 +292,10 @@ public class SwipeRecognizer : MonoBehaviour {
 		} else {
 			Debug.LogWarning ("Bad x on end");
 			return ResolveBounds.none;
-		}
+		}*/
 
-		if (startBounds == endBounds) {
+        if (startBounds != ResolveBounds.none)//endBounds)
+        {
 			return startBounds;
 		} else {
 			Debug.LogWarning ("StartEnd mismatch");

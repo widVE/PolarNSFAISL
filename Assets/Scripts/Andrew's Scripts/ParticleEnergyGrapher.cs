@@ -20,16 +20,36 @@ public class ParticleEnergyGrapher : MonoBehaviour {
 	void Start () {
 		//points = new ParticleSystem.Particle[resolution];
 		//InitializePoints ();
-        AddPoint(Vector2.zero);
+        //AddPoint(Vector2.zero);
+        AddPoint(new Vector2(35f, 20f));
         visEvent = GameObject.Find("DomArray").GetComponent<EventPlayer>();
 	}
+
+    Vector2 CalculateMollweide(float lambda, float phi, float cx=1f, float cy=1f, float cp=Mathf.PI) {
+        float nextPhi = MollweideBromleyTheta(cp, phi);
+        return new Vector2(cx * lambda * Mathf.Cos(nextPhi), cy * Mathf.Sin(phi));
+    }
+     
+    float MollweideBromleyTheta(float cp, float phi) {
+        float cpsinPhi = cp * Mathf.Sin(phi);
+        int i = 30;
+        float delta;
+        float p = phi;
+        do {
+            delta = (phi + Mathf.Sin(phi) - cpsinPhi) / (1 + Mathf.Cos(phi));
+            p -= delta;
+        } while (Mathf.Abs(delta) > 0.001f && --i > 0);
+
+        return p / 2;
+    }
 
     public void AddPoint(Vector2 latLong)
     {
         ParticleSystem.Particle p = new ParticleSystem.Particle();
-        p.position = Vector3.zero;
+        //p.position = Vector3.zero;
         //convert latlong to particle position via mollweide projection conversion
-
+        Vector2 pXY = CalculateMollweide(latLong.x, latLong.y, Mathf.Sqrt(2f) / (Mathf.PI * 0.5f), Mathf.Sqrt(2f), Mathf.PI);
+        p.position.Set(pXY.x, pXY.y, 0f);
         p.color = Color.red;
         p.size = 0.1f;
         points.Add(p);

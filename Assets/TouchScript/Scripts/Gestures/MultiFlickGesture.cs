@@ -97,7 +97,7 @@ namespace TouchScript.Gestures
         {
             for(int i = 0; i < activePointers.Count; ++i)
             {
-                if(isActive[activePointers[i].Id])
+                if(isActive.ContainsKey(activePointers[i].Id) && isActive[activePointers[i].Id])
                 {
                     if (!multiDeltaSequence.ContainsKey(activePointers[i].Id))
                     {
@@ -139,10 +139,10 @@ namespace TouchScript.Gestures
                 PreviousPos[pointers[i].Id] = pointers[i].Position; //Vector2.zero;
                 ScreenFlicks[pointers[i].Id] = Vector2.zero;
                 FlickTimes[pointers[i].Id] = 0.0f;
-                //if (!multiDeltaSequence.ContainsKey(pointers[i].Id))
-                //{
-                //    multiDeltaSequence.Add(pointers[i].Id, new TimedSequence<Vector2>());
-                //}
+                if (!multiDeltaSequence.ContainsKey(pointers[i].Id))
+                {
+                    multiDeltaSequence.Add(pointers[i].Id, new TimedSequence<Vector2>());
+                }
             }
         }
 

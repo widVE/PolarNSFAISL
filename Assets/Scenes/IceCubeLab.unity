@@ -307,13 +307,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventPlayer: {fileID: 1214818565}
   swipeRecognizer: {fileID: 598479286}
-  earthView: {fileID: 320499170}
   topCamera: {fileID: 1230875518}
   topPanel: {fileID: 246312909}
   sideCamera: {fileID: 1683310190}
   sidePanel: {fileID: 934094788}
   frontCamera: {fileID: 730068715}
   frontPanel: {fileID: 744158707}
+  transitionDuration: 2.5
 --- !u!4 &94977850
 Transform:
   m_ObjectHideFlags: 0
@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 246312912}
   - component: {fileID: 246312913}
   - component: {fileID: 246312911}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Top Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1229,7 +1229,7 @@ GameObject:
   - component: {fileID: 287330469}
   - component: {fileID: 287330470}
   - component: {fileID: 287330471}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1342,6 +1342,10 @@ Prefab:
       propertyPath: m_Name
       value: SphereMapPoints
       objectReference: {fileID: 0}
+    - target: {fileID: 1053101423318238, guid: 6e3c731aded57694e855b39faa903462, type: 2}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e3c731aded57694e855b39faa903462, type: 2}
   m_IsPrefabParent: 0
@@ -1405,7 +1409,7 @@ GameObject:
   - component: {fileID: 343047212}
   - component: {fileID: 343047211}
   - component: {fileID: 343047216}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EventPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2002,7 +2006,7 @@ GameObject:
   - component: {fileID: 482620887}
   - component: {fileID: 482620886}
   - component: {fileID: 482620885}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Refine Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2098,7 +2102,7 @@ GameObject:
   - component: {fileID: 494311603}
   - component: {fileID: 494311602}
   - component: {fileID: 494311601}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EnergyGraphTextVertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2189,7 +2193,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 500305340}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2211,7 +2215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00008655584, y: -0.00014972687}
+  m_AnchoredPosition: {x: 0.00008655584, y: -0.0000076293945}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &526965591
@@ -2358,7 +2362,7 @@ GameObject:
   - component: {fileID: 571371470}
   - component: {fileID: 571371469}
   - component: {fileID: 571371468}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2474,6 +2478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeGameMode: {fileID: 94977849}
+  earthView: {fileID: 320499170}
   swipeGesture: {fileID: 598479301}
   lineObject: {fileID: 1241771750635288, guid: 0667ea373fe599a47b203dbda1663775, type: 2}
   currentEvents: {fileID: 1214818565}
@@ -3172,7 +3177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 696675354}
   - component: {fileID: 696675355}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3452,7 +3457,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967263
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3521,7 +3526,7 @@ GameObject:
   - component: {fileID: 744158711}
   - component: {fileID: 744158710}
   - component: {fileID: 744158709}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Front Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3709,7 +3714,7 @@ GameObject:
   - component: {fileID: 771481211}
   - component: {fileID: 771481210}
   - component: {fileID: 771481213}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SphereMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3962,7 +3967,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 781891938}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4216,7 +4221,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 905924060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8911d155338b584408eb8954b67dc27d, type: 3}
   m_Name: 
@@ -4331,7 +4336,7 @@ GameObject:
   - component: {fileID: 934094792}
   - component: {fileID: 934094791}
   - component: {fileID: 934094790}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Side Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4783,7 +4788,7 @@ GameObject:
   - component: {fileID: 1064371503}
   - component: {fileID: 1064371502}
   - component: {fileID: 1064371500}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scrollbar Horizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5039,7 +5044,7 @@ GameObject:
   - component: {fileID: 1155510030}
   - component: {fileID: 1155510029}
   - component: {fileID: 1155510028}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EnergyGraphTextHorizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5545,7 +5550,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967263
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5686,6 +5691,10 @@ Prefab:
     - target: {fileID: 4104603818988104, guid: dadf6aefda565f041a6b702f1ed408bb, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -5.327
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561728604964450, guid: dadf6aefda565f041a6b702f1ed408bb, type: 2}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dadf6aefda565f041a6b702f1ed408bb, type: 2}
@@ -7062,7 +7071,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967263
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -7156,7 +7165,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1779084598}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7304,7 +7313,7 @@ GameObject:
   - component: {fileID: 1830690708}
   - component: {fileID: 1830690707}
   - component: {fileID: 1830690705}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8359,7 +8368,7 @@ GameObject:
   - component: {fileID: 1937481876}
   - component: {fileID: 1937481877}
   - component: {fileID: 1937481878}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,8 +8,6 @@ public class SwipeGameMode : MonoBehaviour {
 
 	public SwipeRecognizer swipeRecognizer;
 
-    public EarthView earthView;
-
 	[SerializeField]
 	private GameObject topCamera;
     [SerializeField]
@@ -59,9 +57,7 @@ public class SwipeGameMode : MonoBehaviour {
         if(success)
         {
             //assuming just one event here for now..
-            earthView.AddDetectedEvent(swipeRecognizer.currentEvents.events[swipeRecognizer.currentEvents.lastEventNumber].startPos, 
-                swipeRecognizer.currentEvents.events[swipeRecognizer.currentEvents.lastEventNumber].endPos);
-
+            
             AudioSource a = gameObject.GetComponent<AudioSource>();
             if(a != null && a.isActiveAndEnabled)
             {
@@ -76,38 +72,96 @@ public class SwipeGameMode : MonoBehaviour {
 
     public bool SwipedAllThree() { return swipedTop && swipedFront && swipedSide; }
 
+    public float transitionDuration = 10f;
+    
+    IEnumerator Transition(Vector3 from, Vector3 to, Quaternion fromQ, Quaternion toQ, GameObject toObject)
+    {
+        float t = 0.0f;
+        while (t < 1.0f)
+        {
+            //Debug.Log(t);
+            t += Time.deltaTime * (Time.timeScale / transitionDuration);
+            toObject.transform.position = Vector3.Lerp(from, to, t);
+            toObject.transform.rotation = Quaternion.Slerp(fromQ, toQ, t);
+            //Debug.Log(from);
+            //Debug.Log(to);
+            //Debug.Log(toObject.transform.position);
+            yield return 0;
+        }
+    }
+
 	private void EnableCameras() {
 
 		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint ();
         Bounds b = eventPlayer.GetEventBounds(eventCenterPos);
 
 		// Top Camera
-        topCamera.transform.position = eventCenterPos;
+        topCamera.transform.position = Camera.main.transform.position;
         topCamera.transform.rotation = Camera.main.transform.rotation;
-        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
+
         topCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
-        topCamera.transform.position = b.center + new Vector3(0f, b.extents.y, 0f);
-		topCamera.SetActive (true);
+        //topCamera.transform.position = b.center + new Vector3(0f, b.extents.y, 0f);
+
+        Quaternion endQ = topCamera.transform.rotation;
+
+        topCamera.transform.position = Camera.main.transform.position;
+        topCamera.transform.rotation = Camera.main.transform.rotation;
+
+        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
+
+		topCamera.SetActive(true);
         topPanel.SetActive(true);
 
+        StartCoroutine(Transition(Camera.main.transform.position, b.center + new Vector3(0f, b.extents.y, 0f), 
+            Camera.main.transform.rotation, endQ, topCamera));
+        
 		// Side Camera
-        sideCamera.transform.position = eventCenterPos;
+       
+        sideCamera.transform.position = Camera.main.transform.position;
         sideCamera.transform.rotation = Camera.main.transform.rotation;
-        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+        
         sideCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI/2f - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
         sideCamera.transform.RotateAround(eventCenterPos, Vector3.up, 90f);
-        sideCamera.transform.position = b.center - sideCamera.transform.forward.normalized * b.extents.x;
+
+        endQ = sideCamera.transform.rotation;
+
+        //sideCamera.transform.position = b.center - sideCamera.transform.forward.normalized * b.extents.x;
+        
+        Vector3 forward = sideCamera.transform.forward.normalized;
+
+        sideCamera.transform.position = Camera.main.transform.position;
+        sideCamera.transform.rotation = Camera.main.transform.rotation;
+
+        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+
 		sideCamera.SetActive(true);
         sidePanel.SetActive(true);
 
+        StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * b.extents.x,
+            Camera.main.transform.rotation, endQ, sideCamera));
+        
+
 		// Front Camera
-        frontCamera.transform.position = eventCenterPos;
+        frontCamera.transform.position = Camera.main.transform.position;
         frontCamera.transform.rotation = Camera.main.transform.rotation;
-        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+       
         frontCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI / 2f - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
-        frontCamera.transform.position = b.center - frontCamera.transform.forward.normalized * b.extents.z;
-		frontCamera.SetActive (true);
+        //frontCamera.transform.position = b.center - frontCamera.transform.forward.normalized * b.extents.z;
+
+        forward = frontCamera.transform.forward.normalized;
+        endQ = frontCamera.transform.rotation;
+
+        frontCamera.transform.position = Camera.main.transform.position;
+        frontCamera.transform.rotation = Camera.main.transform.rotation;
+
+        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 60.0f;
+
+        frontCamera.SetActive (true);
         frontPanel.SetActive(true);
+
+        StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * b.extents.z,
+            Camera.main.transform.rotation, endQ, frontCamera));
+        
 	}
 
 	public void DisableCameras() {

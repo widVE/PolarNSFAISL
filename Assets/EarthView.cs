@@ -34,7 +34,7 @@ public class EarthView : MonoBehaviour {
         }
 	}
 
-    public void AddDetectedEvent(Vector3 start, Vector3 end)
+    public void AddDetectedEvent(Vector3 start, Vector3 end, Color color)
     {
         GameObject g = Instantiate(lineObject, transform);
 
@@ -42,6 +42,8 @@ public class EarthView : MonoBehaviour {
         //r.gameObject.AddComponent(r);
         r.startWidth = 3.0f;
         r.endWidth = 3.0f;
+        r.startColor = color;
+        r.endColor = color;
         
         Vector3[] v = new Vector3[2];
         v[0] = start;

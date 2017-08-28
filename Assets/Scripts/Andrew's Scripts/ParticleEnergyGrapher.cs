@@ -21,7 +21,7 @@ public class ParticleEnergyGrapher : MonoBehaviour {
 		//points = new ParticleSystem.Particle[resolution];
 		//InitializePoints ();
         //AddPoint(Vector2.zero);
-        AddPoint(new Vector2(35f, 20f));
+        AddPoint(new Vector2(Mathf.Deg2Rad * 15f, Mathf.Deg2Rad * 10f));
         visEvent = GameObject.Find("DomArray").GetComponent<EventPlayer>();
 	}
 
@@ -36,7 +36,7 @@ public class ParticleEnergyGrapher : MonoBehaviour {
         float delta;
         float p = phi;
         do {
-            delta = (phi + Mathf.Sin(phi) - cpsinPhi) / (1 + Mathf.Cos(phi));
+            delta = (phi + Mathf.Sin(phi) - cpsinPhi) / (1f + Mathf.Cos(phi));
             p -= delta;
         } while (Mathf.Abs(delta) > 0.001f && --i > 0);
 
@@ -49,7 +49,8 @@ public class ParticleEnergyGrapher : MonoBehaviour {
         //p.position = Vector3.zero;
         //convert latlong to particle position via mollweide projection conversion
         Vector2 pXY = CalculateMollweide(latLong.x, latLong.y, Mathf.Sqrt(2f) / (Mathf.PI * 0.5f), Mathf.Sqrt(2f), Mathf.PI);
-        p.position.Set(pXY.x, pXY.y, 0f);
+        Debug.Log("Mollweide: " + pXY);
+        p.position.Set(pXY.x*792f, pXY.y*900f, 0f);
         p.color = Color.red;
         p.size = 0.1f;
         points.Add(p);

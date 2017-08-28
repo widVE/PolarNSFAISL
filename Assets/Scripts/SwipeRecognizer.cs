@@ -8,6 +8,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	//----------VARIABLES----------
 
 	public SwipeGameMode swipeGameMode;
+    public EarthView earthView;
 
 	// TouchScript gesture that this script listens to
 	public MultiFlickGesture swipeGesture;
@@ -259,11 +260,6 @@ public class SwipeRecognizer : MonoBehaviour {
 			return ResolveBounds.none;
 		}
 
-		/*if (end.y < Screen.height * 0.3 || end.y > Screen.height * 0.6) {
-			Debug.LogWarning ("Bad y on end");
-			return ResolveBounds.none;
-		}*/
-
 		// Y values are in bounds, now check x values
 
 		ResolveBounds startBounds;
@@ -279,29 +275,13 @@ public class SwipeRecognizer : MonoBehaviour {
 			return ResolveBounds.none;
 		}
 
-		/*ResolveBounds endBounds;
-
-        if (end.x > 0.1234375f && end.x < Screen.width * 0.2921875f)
-        {
-			endBounds = ResolveBounds.top;
-        } else if (end.x > Screen.width * 0.415625 && end.x < Screen.width * 0.584375f) {
-			endBounds = ResolveBounds.front;
-        } else if (end.x > Screen.width * 0.7078125f)
-        {
-			endBounds = ResolveBounds.side;
-		} else {
-			Debug.LogWarning ("Bad x on end");
-			return ResolveBounds.none;
-		}*/
-
-        if (startBounds != ResolveBounds.none)//endBounds)
+        if (startBounds != ResolveBounds.none)
         {
 			return startBounds;
 		} else {
 			Debug.LogWarning ("StartEnd mismatch");
 			return ResolveBounds.none;
 		}
-
 	}
 
 	public void EnterResolveMode() {
@@ -667,8 +647,12 @@ public class SwipeRecognizer : MonoBehaviour {
                                 if (epm != null)
                                 {
                                     //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                    epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                    screenStart, screenEnd);
+                                    EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                        screenStart, screenEnd);
+
+                                    earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
+                                        currentEvents.events[currentEvents.lastEventNumber].endPos, e.gameObject.GetComponent<UnityEngine.UI.Image> ().color);
+
                                 }
                             }
                         }

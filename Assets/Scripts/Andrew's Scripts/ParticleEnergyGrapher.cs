@@ -50,7 +50,7 @@ public class ParticleEnergyGrapher : MonoBehaviour {
         //convert latlong to particle position via mollweide projection conversion
         Vector2 pXY = CalculateMollweide(latLong.x, latLong.y, Mathf.Sqrt(2f) / (Mathf.PI * 0.5f), Mathf.Sqrt(2f), Mathf.PI);
         Debug.Log("Mollweide: " + pXY);
-        p.position.Set(pXY.x*792f, pXY.y*900f, 0f);
+        p.position.Set(5f, 10f, 0f);//(pXY.x, pXY.y, 0f);
         p.color = Color.red;
         p.size = 0.1f;
         points.Add(p);

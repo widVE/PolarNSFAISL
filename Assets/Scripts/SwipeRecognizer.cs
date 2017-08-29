@@ -358,7 +358,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
 						// If the difference is too large, draw the missed line and return immediately - ya missed it!
 						// Move on to next event
-						if (positionDiff > Mathf.Min((Screen.height / 4f), (Screen.width) / 4f))
+						if (positionDiff > Mathf.Min((Screen.height / 3f), (Screen.width / 3f)))
 						{
                             Debug.Log("Missed due to position");
 							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10, cameraToUse);
@@ -437,10 +437,12 @@ public class SwipeRecognizer : MonoBehaviour {
                                 refinePanel.GetComponent<UnityEngine.UI.Text>().text = newTxt;
                             }
 
+                            //change this to just be a gradient from red to green based on vTest.
                             if(cameraToUse == frontCamera)
                             {
                                 totalScore.z = vTest;
-                                if(totalScore.x == 0f && totalScore.y == 0f)
+                                frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                /*if(totalScore.x == 0f && totalScore.y == 0f)
                                 {
                                     frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
                                 }
@@ -476,12 +478,13 @@ public class SwipeRecognizer : MonoBehaviour {
                                     {
                                         frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
                                     }
-                                }
+                                }*/
                             } 
                             else if(cameraToUse == sideCamera)
                             {
                                 totalScore.y = vTest;
-                                if (totalScore.x == 0f && totalScore.z == 0f)
+                                sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                /*if (totalScore.x == 0f && totalScore.z == 0f)
                                 {
                                     sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
                                 }
@@ -517,12 +520,13 @@ public class SwipeRecognizer : MonoBehaviour {
                                     {
                                         sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
                                     }
-                                }
+                                }*/
                             }
                             else if(cameraToUse == topCamera)
                             {
                                 totalScore.x = vTest;
-                                if (totalScore.y == 0f && totalScore.z == 0f)
+                                topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                /*if (totalScore.y == 0f && totalScore.z == 0f)
                                 {
                                     topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
                                 }
@@ -558,7 +562,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                     {
                                         topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
                                     }
-                                }
+                                }*/
                             }
                         }
 
@@ -667,7 +671,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
     private IEnumerator DelayedResolve(float waittime, bool success)
     {
-        if(success)
+        /*if(success)
         {
             frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
             sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
@@ -678,7 +682,7 @@ public class SwipeRecognizer : MonoBehaviour {
             frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
             sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
             topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-        }
+        }*/
         yield return new WaitForSeconds(waittime);
         ExitResolveMode(success);
     }

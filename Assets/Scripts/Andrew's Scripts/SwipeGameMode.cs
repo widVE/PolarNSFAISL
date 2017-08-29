@@ -8,6 +8,10 @@ public class SwipeGameMode : MonoBehaviour {
 
 	public SwipeRecognizer swipeRecognizer;
 
+    public ParticleEnergyGrapher sphereMap;
+
+    public Strings domStrings;
+
 	[SerializeField]
 	private GameObject topCamera;
     [SerializeField]
@@ -57,7 +61,9 @@ public class SwipeGameMode : MonoBehaviour {
         if(success)
         {
             //assuming just one event here for now..
-            
+            //add point to sphere map...
+            sphereMap.AddPoint(new Vector2(0.4f, 2.4f));
+
             AudioSource a = gameObject.GetComponent<AudioSource>();
             if(a != null && a.isActiveAndEnabled)
             {
@@ -72,15 +78,16 @@ public class SwipeGameMode : MonoBehaviour {
 
     public bool SwipedAllThree() { return swipedTop && swipedFront && swipedSide; }
 
-    public float transitionDuration = 10f;
+    public float transitionDuration = 2f;
     
     IEnumerator Transition(Vector3 from, Vector3 to, Quaternion fromQ, Quaternion toQ, GameObject toObject)
     {
-        float t = 0.0f;
+        float startTime = Time.time;
+        float t = 0f;
         while (t < 1.0f)
         {
             //Debug.Log(t);
-            t += Time.deltaTime * (Time.timeScale / transitionDuration);
+            t = (Time.time - startTime) / transitionDuration;
             toObject.transform.position = Vector3.Lerp(from, to, t);
             toObject.transform.rotation = Quaternion.Slerp(fromQ, toQ, t);
             //Debug.Log(from);
@@ -91,6 +98,12 @@ public class SwipeGameMode : MonoBehaviour {
     }
 
 	private void EnableCameras() {
+
+        if(domStrings != null)
+        {
+            domStrings.cam = topCamera.transform;
+            //domStrings.scaleMultiplier = 0.0005f;
+        }
 
 		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint ();
         Bounds b = eventPlayer.GetEventBounds(eventCenterPos);
@@ -107,12 +120,13 @@ public class SwipeGameMode : MonoBehaviour {
         topCamera.transform.position = Camera.main.transform.position;
         topCamera.transform.rotation = Camera.main.transform.rotation;
 
-        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
+        //topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
 
 		topCamera.SetActive(true);
         topPanel.SetActive(true);
 
-        StartCoroutine(Transition(Camera.main.transform.position, b.center + new Vector3(0f, b.extents.y, 0f), 
+        StartCoroutine(Transition(Camera.main.transform.position, b.center + 
+            new Vector3(0f, Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.z) + b.extents.y, 0f), 
             Camera.main.transform.rotation, endQ, topCamera));
         
 		// Side Camera
@@ -132,12 +146,12 @@ public class SwipeGameMode : MonoBehaviour {
         sideCamera.transform.position = Camera.main.transform.position;
         sideCamera.transform.rotation = Camera.main.transform.rotation;
 
-        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+        //sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
 
 		sideCamera.SetActive(true);
         sidePanel.SetActive(true);
 
-        StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * b.extents.x,
+        StartCoroutine(Transition(Camera.main.transform.position, b.center -  forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.y, b.extents.z)) - forward * b.extents.x,
             Camera.main.transform.rotation, endQ, sideCamera));
         
 
@@ -154,12 +168,12 @@ public class SwipeGameMode : MonoBehaviour {
         frontCamera.transform.position = Camera.main.transform.position;
         frontCamera.transform.rotation = Camera.main.transform.rotation;
 
-        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 60.0f;
+        //frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 60.0f;
 
         frontCamera.SetActive (true);
         frontPanel.SetActive(true);
 
-        StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * b.extents.z,
+        StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.y)) - forward * b.extents.z,
             Camera.main.transform.rotation, endQ, frontCamera));
         
 	}

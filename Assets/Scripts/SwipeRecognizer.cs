@@ -9,6 +9,10 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public SwipeGameMode swipeGameMode;
     public EarthView earthView;
+    public PlotSphereMap sphereMap;
+    public GameObject scorePanel;
+
+    private int neutrinoScore = 0;
 
 	// TouchScript gesture that this script listens to
 	public MultiFlickGesture swipeGesture;
@@ -658,6 +662,24 @@ public class SwipeRecognizer : MonoBehaviour {
                                         currentEvents.events[currentEvents.lastEventNumber].endPos, e.gameObject.GetComponent<UnityEngine.UI.Image> ().color);
 
                                 }
+                            }
+
+                            //assuming just one event here for now..
+                            //add point to sphere map...
+                            if (sphereMap != null)
+                            {
+                                Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
+                                dir = dir.normalized;
+                                float longitude = Mathf.Acos(Vector3.Dot(dir, Vector3.up));
+                                float lat = Mathf.Acos(Vector3.Dot(dir, Vector3.forward));
+                                sphereMap.PlotPoint(new Vector2(lat, longitude));
+                            }
+
+                            if(scorePanel != null)
+                            {
+                                neutrinoScore++;
+                                string countTxt = "Score: " + neutrinoScore.ToString() + " Neutrinos";
+                                scorePanel.GetComponent<UnityEngine.UI.Text>().text = countTxt;
                             }
                         }
 					}

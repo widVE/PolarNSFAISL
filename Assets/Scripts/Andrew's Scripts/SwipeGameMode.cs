@@ -8,8 +8,6 @@ public class SwipeGameMode : MonoBehaviour {
 
 	public SwipeRecognizer swipeRecognizer;
 
-    public ParticleEnergyGrapher sphereMap;
-
     public Strings domStrings;
 
 	[SerializeField]
@@ -60,10 +58,6 @@ public class SwipeGameMode : MonoBehaviour {
 		eventPlayer.ResumePlaying ();
         if(success)
         {
-            //assuming just one event here for now..
-            //add point to sphere map...
-            sphereMap.AddPoint(new Vector2(0.4f, 2.4f));
-
             AudioSource a = gameObject.GetComponent<AudioSource>();
             if(a != null && a.isActiveAndEnabled)
             {

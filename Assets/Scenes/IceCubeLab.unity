@@ -1317,19 +1317,6 @@ Transform:
   m_Father: {fileID: 1598169317}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &320499170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114950695345184682, guid: 34c074cd0fe42c843a5a95b0b44bdf15,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1053498421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3085f2b377a14aa47af0c19ead6b4cd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineObject: {fileID: 1241771750635288, guid: 0667ea373fe599a47b203dbda1663775, type: 2}
 --- !u!1 &343047210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,7 +2136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00008140064, y: -0.00007247925}
+  m_AnchoredPosition: {x: -0.00008140064, y: -0.000063344836}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &526965591
@@ -2482,7 +2469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeGameMode: {fileID: 94977849}
-  earthView: {fileID: 320499170}
+  earthView: {fileID: 0}
   sphereMap: {fileID: 771481214}
   scorePanel: {fileID: 1702583981}
   swipeGesture: {fileID: 598479301}
@@ -3807,7 +3794,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 771481209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b4acf3a9f012544fb6ae8685fb92e8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 989fd308cf890174ba215d0a6b7d7c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   plotPoint: {fileID: 1883998085386648, guid: 423f2d2aed25c4c489607309f4f1675e, type: 2}
@@ -4241,12 +4228,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 905924060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8911d155338b584408eb8954b67dc27d, type: 3}
+  m_Script: {fileID: 11500000, guid: 333fab013bc319a4cbfcaf12e635dc43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pivot: {fileID: 1928379452}
+  pivot: {fileID: 0}
   spin: 1
   speed: 5
 --- !u!114 &905924069
@@ -4608,7 +4595,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 966682116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 383acf8813462dd4d9395888498d020e, type: 3}
+  m_Script: {fileID: 11500000, guid: 49979fe3309801942ae80655a0f52ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeLeft: 60
@@ -4881,7 +4868,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1053498422}
-  - component: {fileID: 320499170}
+  - component: {fileID: 1053498423}
   m_Layer: 0
   m_Name: EarthView
   m_TagString: Untagged
@@ -4905,6 +4892,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1053498423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1053498421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f5ae4c0d550d684da1feb0b5e88e67c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineObject: {fileID: 1241771750635288, guid: 0667ea373fe599a47b203dbda1663775, type: 2}
 --- !u!1 &1064371499
 GameObject:
   m_ObjectHideFlags: 0

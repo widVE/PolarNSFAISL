@@ -185,7 +185,7 @@ namespace TouchScript.Gestures
                     var deltas = multiDeltaSequence[pointers[i].Id].FindElementsLaterThan(Time.time - 1.5f);//, out lastTime);
                     var totalMovement = Vector2.zero;
                     var count = deltas.Count;
-                    Debug.Log("Deltas count: " + count);
+                    //Debug.Log("Deltas count: " + count);
                     for (var j = 0; j < count; j++)
                     {
                        // Debug.Log(deltas[j]);

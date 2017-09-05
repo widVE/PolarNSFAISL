@@ -329,7 +329,7 @@ public class EventPlayer : MonoBehaviour {
         float t = UnityEngine.Time.time;
 
         totalEnergy = 0.0f;
-        //r or every 60 seconds
+        //r or every eventFrequency seconds
 		if ((UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || (t - lastPlayTime) > eventFrequency) && !IsEventPlaying())
         {
 			if (currEventNumber == -1) {

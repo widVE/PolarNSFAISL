@@ -11,6 +11,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public EarthView earthView;
     public PlotSphereMap sphereMap;
     public GameObject scorePanel;
+    public GameObject detectionCone;
 
     private int neutrinoScore = 0;
 
@@ -48,6 +49,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public GameObject sidePanel;
     public GameObject frontPanel;
     public GameObject refinePanel;
+    public GameObject congratsPanel;
 
     private Vector3 totalVector = Vector3.zero;
     private Vector3 totalScore = Vector3.zero;
@@ -308,7 +310,18 @@ public class SwipeRecognizer : MonoBehaviour {
 		inResolveMode = false;
         swipeGameMode.DisableCameras();
         swipeGameMode.EventResolved(success);
-        refinePanel.SetActive(false);
+        if (refinePanel != null)
+        {
+            refinePanel.SetActive(false);
+        }
+        if (congratsPanel != null)
+        {
+            congratsPanel.SetActive(false);
+        }
+        if(detectionCone != null)
+        {
+            detectionCone.SetActive(false);
+        }
     }
 
 	private void SwipeCalculation(Camera cameraToUse) {
@@ -362,29 +375,16 @@ public class SwipeRecognizer : MonoBehaviour {
 
 						// If the difference is too large, draw the missed line and return immediately - ya missed it!
 						// Move on to next event
-						if (positionDiff > Mathf.Min((Screen.height / 3f), (Screen.width / 3f)))
-						{
-                            Debug.Log("Missed due to position");
-							DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId%10, cameraToUse);
-                            if (cameraToUse == frontCamera)
+                        //this position check doesn't need to be done for the front,side,top cameras.
+                        if (cameraToUse == Camera.main)
+                        {
+                            if (positionDiff > Mathf.Min((Screen.height / 4f), (Screen.width / 4f)))
                             {
-                                frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
+                                Debug.Log("Missed due to position");
+                                DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId % 10, cameraToUse);
+                                continue;
                             }
-                            else if(cameraToUse == sideCamera)
-                            {
-                                sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                            }
-                            else if(cameraToUse == topCamera)
-                            {
-                                topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                            }
-
-                            if (swipeGameMode.SwipedAllThree())
-                            {
-                                StartCoroutine(DelayedResolve(2f, false));
-                            }
-							continue;
-						}
+                        }
 
                         Vector3 worldEventVector = (vEnd - vStart).normalized;
                         Vector3 worldSwipeVector = (startEnd[0] - startEnd[1]).normalized;
@@ -638,6 +638,16 @@ public class SwipeRecognizer : MonoBehaviour {
 						if (!currentEvents.eventsPlaying[ev].isDetected && !inResolveMode)
 						{
 							currentEvents.eventsPlaying[ev].isDetected = true;
+                            if(cameraToUse == Camera.main)
+                            {
+                                if(detectionCone != null)
+                                {
+                                    detectionCone.SetActive(true);
+                                    Quaternion q = detectionCone.transform.rotation;
+                                    q.SetLookRotation(worldSwipeVector.normalized);
+                                    detectionCone.transform.rotation = q;
+                                }
+                            }
 							swipeGameMode.EventSwiped ();
 						}
 
@@ -646,7 +656,15 @@ public class SwipeRecognizer : MonoBehaviour {
                             //if we are here, we've successfully swiped the event..
                             //tell user good job or something, then accumulate event and return to game.
                             Debug.Log("SUCCESS");
-                            StartCoroutine(DelayedResolve(2f, true));
+
+                            if(congratsPanel != null)
+                            {
+                                swipeGameMode.DisableCameras();
+                                congratsPanel.SetActive(true);
+                                congratsPanel.GetComponent<UnityEngine.UI.Text>().text = "Great Job!  You detected a neutrino from a: " + currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
+                            }
+
+                            StartCoroutine(DelayedResolve(3f, true));
                             
                             GameObject panel = GameObject.Find("EventPanel");
                             if (panel != null)

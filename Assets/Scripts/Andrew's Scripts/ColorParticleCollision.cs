@@ -25,13 +25,13 @@ public class ColorParticleCollision : MonoBehaviour {
 
 	void Start() {
 
-        externalParts = transform.FindChild("s1DOM_ExternalParts").gameObject;
+        externalParts = transform.Find("s1DOM_ExternalParts").gameObject;
         if (externalParts != null)
         {
             domGlobe = externalParts.GetComponent<MeshRenderer>();
             //r.materials[0].shader = Shader.Find("Particles/Additive");
             //need to change this on all LOD levels as well too...
-            GameObject shell = externalParts.transform.FindChild("Outer").gameObject;
+            GameObject shell = externalParts.transform.Find("Outer").gameObject;
             if (shell != null)
             {
                 domGlobe2 = shell.GetComponent<MeshRenderer>();

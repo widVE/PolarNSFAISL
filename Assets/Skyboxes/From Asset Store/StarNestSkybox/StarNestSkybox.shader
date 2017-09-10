@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
 //Star Nest algorithm by Pablo Román Andrioli
@@ -103,7 +105,7 @@ Shader "Skybox/StarNest" {
 			
 			v2f vert(appdata_t v) {
 				v2f OUT;
-				OUT.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+				OUT.pos = UnityObjectToClipPos(v.vertex);
 				float3 cameraPos = float3(0,kInnerRadius + kCameraHeight,0); 	// The camera's current position
 			
 				// Get the ray from the camera to the vertex and its length (which is the far point of the ray passing through the atmosphere)

@@ -37,7 +37,7 @@ public class DOMController : MonoBehaviour {
             }
         }*/
 
-        eventSphere = transform.FindChild("low_poly_sphere").gameObject;
+        eventSphere = transform.Find("low_poly_sphere").gameObject;
         oldScale = eventSphere.transform.localScale.x;
 	}
 

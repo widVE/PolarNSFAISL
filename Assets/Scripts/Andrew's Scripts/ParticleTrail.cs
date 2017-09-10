@@ -28,7 +28,7 @@ public class ParticleTrail : MonoBehaviour {
 
 	public void enterTraceMode() {
 			
-		ren.numPositions = 2;
+		ren.positionCount = 2;
 		ren.SetPositions (points);
 		//Debug.Log ("Start Position: " + points [0]);
 		//Debug.Log ("End Position: " + points [1]);

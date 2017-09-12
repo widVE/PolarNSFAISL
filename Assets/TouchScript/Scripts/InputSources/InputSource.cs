@@ -3,6 +3,7 @@
  */
 
 using System;
+using TouchScript.Core;
 using TouchScript.Pointers;
 using UnityEngine;
 
@@ -41,9 +42,12 @@ namespace TouchScript.InputSources
 
         #region Private variables
 
-        [SerializeField] [HideInInspector] private bool advancedProps; // is used to save whether advanced properties are opened or closed
+        /// <exclude/>
+        [SerializeField]
+        [HideInInspector]
+		protected bool basicEditor = true;
 
-        private ICoordinatesRemapper coordinatesRemapper;
+		private ICoordinatesRemapper coordinatesRemapper;
         private TouchManagerInstance manager;
 
         #endregion
@@ -51,9 +55,13 @@ namespace TouchScript.InputSources
         #region Public methods
 
         /// <inheritdoc />
-        public virtual void UpdateInput()
+        public virtual bool UpdateInput()
         {
+            return false;
         }
+
+        /// <inheritdoc />
+        public virtual void UpdateResolution() {}
 
         /// <inheritdoc />
         public virtual bool CancelPointer(Pointer pointer, bool shouldReturn)
@@ -66,9 +74,7 @@ namespace TouchScript.InputSources
         #region Internal methods
 
         /// <inheritdoc />
-        public virtual void INTERNAL_DiscardPointer(Pointer pointer)
-        {
-        }
+        public virtual void INTERNAL_DiscardPointer(Pointer pointer) {}
 
         #endregion
 
@@ -164,15 +170,13 @@ namespace TouchScript.InputSources
         /// Called from <see cref="CoordinatesRemapper"/> setter to update touch handlers with the new value.
         /// </summary>
         /// <param name="remapper">The new remapper.</param>
-        protected virtual void updateCoordinatesRemapper(ICoordinatesRemapper remapper)
-        {
-        }
+        protected virtual void updateCoordinatesRemapper(ICoordinatesRemapper remapper) {}
 
         /// <summary>
         /// Remaps the coordinates using the <see cref="CoordinatesRemapper"/> if it is set.
         /// </summary>
         /// <param name="position">The position.</param>
-        /// <returns>Remapped position if <see cref="CoordinatesRemapper"/> is set; <see cref="position"/> otherwise.</returns>
+        /// <returns>Remapped position if <see cref="CoordinatesRemapper"/> is set; the value of position argument otherwise.</returns>
         protected virtual Vector2 remapCoordinates(Vector2 position)
         {
             if (coordinatesRemapper != null) return coordinatesRemapper.Remap(position);

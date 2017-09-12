@@ -15,12 +15,19 @@ using TouchScript.Utils.Attributes;
 
 namespace TouchScript.Layers
 {
-
+    /// <summary>
+    /// A layer which combines all types of hit recognition into one: UI (Screen Space and World), 3D and 2D.
+    /// </summary>
+    /// <seealso cref="TouchScript.Layers.TouchLayer" />
     [AddComponentMenu("TouchScript/Layers/Standard Layer")]
+    [HelpURL("http://touchscript.github.io/docs/html/T_TouchScript_Layers_StandardLayer.htm")]
     public class StandardLayer : TouchLayer
     {
         #region Public properties
 
+        /// <summary>
+        /// Indicates that the layer should look for 3D objects in the scene. Set this to <c>false</c> to optimize hit processing.
+        /// </summary>
         public bool Hit3DObjects
         {
             get { return hit3DObjects; }
@@ -31,6 +38,9 @@ namespace TouchScript.Layers
             }
         }
 
+        /// <summary>
+        /// Indicates that the layer should look for 2D objects in the scene. Set this to <c>false</c> to optimize hit processing.
+        /// </summary>
         public bool Hit2DObjects
         {
             get { return hit2DObjects; }
@@ -41,22 +51,36 @@ namespace TouchScript.Layers
             }
         }
 
+        /// <summary>
+        /// Indicates that the layer should look for World UI objects in the scene. Set this to <c>false</c> to optimize hit processing.
+        /// </summary>
         public bool HitWorldSpaceUI
         {
             get { return hitWorldSpaceUI; }
             set
             {
                 hitWorldSpaceUI = value;
+                setupInputModule();
                 updateVariants();
             }
         }
 
+        /// <summary>
+        /// Indicates that the layer should look for Screen Space UI objects in the scene. Set this to <c>false</c> to optimize hit processing.
+        /// </summary>
         public bool HitScreenSpaceUI
         {
             get { return hitScreenSpaceUI; }
-            set { hitScreenSpaceUI = value; }
+            set
+            {
+                hitScreenSpaceUI = value;
+                setupInputModule();
+            }
         }
 
+        /// <summary>
+        /// Indicates that the layer should query for <see cref="HitTest"/> components on target objects. Set this to <c>false</c> to optimize hit processing.
+        /// </summary>
         public bool UseHitFilters
         {
             get { return useHitFilters; }
@@ -102,11 +126,21 @@ namespace TouchScript.Layers
 #endif
         private static RaycastHit2D[] raycastHits2D = new RaycastHit2D[20];
 
-        [SerializeField]
-        private bool advancedProps; // is used to save if advanced properties are opened or closed
+#pragma warning disable CS0414
 
 		[SerializeField]
-		private bool hitProps;
+		[HideInInspector]
+		private bool basicEditor = true;
+
+		[SerializeField]
+        [HideInInspector]
+        private bool advancedProps; // is used to save if advanced properties are opened or closed
+
+#pragma warning restore CS0414
+
+		[SerializeField]
+        [HideInInspector]
+        private bool hitProps;
 
         [SerializeField]
         [ToggleLeft]
@@ -114,11 +148,11 @@ namespace TouchScript.Layers
 
         [SerializeField]
         [ToggleLeft]
-		private bool hit2DObjects = true;
+        private bool hit2DObjects = true;
 
         [SerializeField]
         [ToggleLeft]
-		private bool hitWorldSpaceUI = true;
+        private bool hitWorldSpaceUI = true;
 
         [SerializeField]
         [ToggleLeft]
@@ -132,6 +166,7 @@ namespace TouchScript.Layers
         private bool useHitFilters = false;
 
         private bool lookForCameraObjects = false;
+        private TouchScriptInputModule inputModule;
 
         /// <summary>
         /// Camera.
@@ -142,6 +177,7 @@ namespace TouchScript.Layers
 
         #region Public methods
 
+        /// <inheritdoc />
         public override HitResult Hit(IPointer pointer, out HitData hit)
         {
             if (base.Hit(pointer, out hit) != HitResult.Hit) return HitResult.Miss;
@@ -216,22 +252,28 @@ namespace TouchScript.Layers
         {
             if (!Application.isPlaying) return;
             TouchManager.Instance.FrameStarted += frameStartedHandler;
-			StartCoroutine(lateEnable());
+            StartCoroutine(lateEnable());
         }
 
-		private IEnumerator lateEnable()
-		{
-			// Need to wait while EventSystem initializes
-			yield return new WaitForEndOfFrame();
-			if (TouchScriptInputModule.Instance != null) TouchScriptInputModule.Instance.INTERNAL_Retain();
-		}
+        private IEnumerator lateEnable()
+        {
+            // Need to wait while EventSystem initializes
+            yield return new WaitForEndOfFrame();
+            setupInputModule();
+        }
 
         private void OnDisable()
         {
             if (!Application.isPlaying) return;
-            if (TouchScriptInputModule.Instance != null) TouchScriptInputModule.Instance.INTERNAL_Release();
+            if (inputModule != null) inputModule.INTERNAL_Release();
             if (TouchManager.Instance != null) TouchManager.Instance.FrameStarted -= frameStartedHandler;
         }
+
+		[ContextMenu("Basic Editor")]
+		private void switchToBasicEditor()
+		{
+			basicEditor = true;
+		}
 
         #endregion
 
@@ -263,6 +305,22 @@ namespace TouchScript.Layers
 
         #region Private functions
 
+        private void setupInputModule()
+        {
+            if (inputModule == null)
+            {
+                if (!hitWorldSpaceUI && !hitScreenSpaceUI) return;
+                inputModule = TouchScriptInputModule.Instance;
+                if (inputModule != null) TouchScriptInputModule.Instance.INTERNAL_Retain();
+            }
+            else
+            {
+                if (hitWorldSpaceUI || hitScreenSpaceUI) return;
+                inputModule.INTERNAL_Release();
+                inputModule = null;
+            }
+        }
+
         private HitResult performWorldSearch(IPointer pointer, out HitData hit)
         {
             hit = default(HitData);
@@ -276,7 +334,8 @@ namespace TouchScript.Layers
             var ray = _camera.ScreenPointToRay(position);
 
             int count;
-            
+            bool exclusiveSet = manager.HasExclusive;
+
             if (hit3DObjects)
             {
 #if UNITY_5_3_OR_NEWER
@@ -289,11 +348,20 @@ namespace TouchScript.Layers
                 // Try to do some optimizations if 2D and WS UI are not required
                 if (!hit2DObjects && !hitWorldSpaceUI)
                 {
+                    RaycastHit raycast;
+
                     if (count == 0) return HitResult.Miss;
                     if (count > 1)
                     {
                         raycastHitList.Clear();
-                        for (var i = 0; i < count; i++) raycastHitList.Add(raycastHits[i]);
+                        for (var i = 0; i < count; i++)
+                        {
+                            raycast = raycastHits[i];
+                            if (exclusiveSet && !manager.IsExclusive(raycast.transform)) continue;
+                            raycastHitList.Add(raycast);
+                        }
+                        if (raycastHitList.Count == 0) return HitResult.Miss;
+
                         raycastHitList.Sort(_raycastHitComparerFunc);
                         if (useHitFilters)
                         {
@@ -307,17 +375,30 @@ namespace TouchScript.Layers
                         hit = new HitData(raycastHitList[0], this);
                         return HitResult.Hit;
                     }
-                    if (useHitFilters) return doHit(pointer, raycastHits[0], out hit);
-                    hit = new HitData(raycastHits[0], this);
+
+                    raycast = raycastHits[0];
+                    if (exclusiveSet && !manager.IsExclusive(raycast.transform)) return HitResult.Miss;
+                    if (useHitFilters) return doHit(pointer, raycast, out hit);
+                    hit = new HitData(raycast, this);
                     return HitResult.Hit;
                 }
-                for (var i = 0; i < count; i++) hitList.Add(new HitData(raycastHits[i], this));
+                for (var i = 0; i < count; i++)
+                {
+                    var raycast = raycastHits[i];
+                    if (exclusiveSet && !manager.IsExclusive(raycast.transform)) continue;
+                    hitList.Add(new HitData(raycastHits[i], this));
+                }
             }
 
             if (hit2DObjects)
             {
                 count = Physics2D.GetRayIntersectionNonAlloc(ray, raycastHits2D, float.MaxValue, layerMask);
-                for (var i = 0; i < count; i++) hitList.Add(new HitData(raycastHits2D[i], this));
+                for (var i = 0; i < count; i++)
+                {
+                    var raycast = raycastHits2D[i];
+                    if (exclusiveSet && !manager.IsExclusive(raycast.transform)) continue;
+                    hitList.Add(new HitData(raycast, this));
+                }
             }
 
             if (hitWorldSpaceUI)
@@ -330,9 +411,9 @@ namespace TouchScript.Layers
                 {
                     var raycaster = raycasters[i] as GraphicRaycaster;
                     if (raycaster == null) continue;
-                    var canvas = TouchScriptInputModule.Instance.GetCanvasForRaycaster(raycaster); // TODO: cache
+                    var canvas = TouchScriptInputModule.Instance.GetCanvasForRaycaster(raycaster);
                     if ((canvas == null) || (canvas.renderMode == RenderMode.ScreenSpaceOverlay) || (canvas.worldCamera != _camera)) continue;
-                    performUISearchForCanvas(pointer, canvas, raycaster, float.MaxValue, ray);
+                    performUISearchForCanvas(pointer, canvas, raycaster, _camera, float.MaxValue, ray);
                 }
 
                 count = raycastHitUIList.Count;
@@ -368,7 +449,6 @@ namespace TouchScript.Layers
         private HitResult performSSUISearch(IPointer pointer, out HitData hit)
         {
             hit = default(HitData);
-
             raycastHitUIList.Clear();
 
             if (raycasters == null) raycasters = TouchScriptInputModule.Instance.GetRaycasters();
@@ -378,7 +458,7 @@ namespace TouchScript.Layers
             {
                 var raycaster = raycasters[i] as GraphicRaycaster;
                 if (raycaster == null) continue;
-                var canvas = TouchScriptInputModule.Instance.GetCanvasForRaycaster(raycaster); // TODO: cache
+                var canvas = TouchScriptInputModule.Instance.GetCanvasForRaycaster(raycaster);
                 if ((canvas == null) || (canvas.renderMode != RenderMode.ScreenSpaceOverlay)) continue;
                 performUISearchForCanvas(pointer, canvas, raycaster);
             }
@@ -397,23 +477,29 @@ namespace TouchScript.Layers
                     }
                     return HitResult.Miss;
                 }
+
                 hit = new HitData(raycastHitUIList[0], this, true);
                 return HitResult.Hit;
             }
+
             if (useHitFilters) return doHit(pointer, raycastHitUIList[0], out hit);
             hit = new HitData(raycastHitUIList[0], this, true);
             return HitResult.Hit;
         }
 
-        private void performUISearchForCanvas(IPointer pointer, Canvas canvas, GraphicRaycaster raycaster, float maxDistance = float.MaxValue, Ray ray = default(Ray))
+        private void performUISearchForCanvas(IPointer pointer, Canvas canvas, GraphicRaycaster raycaster, Camera eventCamera = null, float maxDistance = float.MaxValue, Ray ray = default(Ray))
         {
             var position = pointer.Position;
-            var eventCamera = canvas.worldCamera;
             var foundGraphics = GraphicRegistry.GetGraphicsForCanvas(canvas);
-            var count2 = foundGraphics.Count;
-            for (var j = 0; j < count2; j++)
+            var count = foundGraphics.Count;
+            var exclusiveSet = manager.HasExclusive;
+
+            for (var i = 0; i < count; i++)
             {
-                var graphic = foundGraphics[j];
+                var graphic = foundGraphics[i];
+                var t = graphic.transform;
+
+                if (exclusiveSet && !manager.IsExclusive(t)) continue;
 
                 if ((layerMask.value != -1) && ((layerMask.value & (1 << graphic.gameObject.layer)) == 0)) continue;
 
@@ -424,9 +510,8 @@ namespace TouchScript.Layers
                 if (!RectTransformUtility.RectangleContainsScreenPoint(graphic.rectTransform, position, eventCamera))
                     continue;
 
-                if (graphic.Raycast(position, null))
+                if (graphic.Raycast(position, eventCamera))
                 {
-                    var t = graphic.transform;
                     if (raycaster.ignoreReversedGraphics)
                         if (eventCamera == null)
                         {
@@ -444,7 +529,7 @@ namespace TouchScript.Layers
 
                     float distance = 0;
 
-                    if ((eventCamera == null) || (canvas.renderMode == RenderMode.ScreenSpaceOverlay)) { }
+                    if ((eventCamera == null) || (canvas.renderMode == RenderMode.ScreenSpaceOverlay)) {}
                     else
                     {
                         var transForward = t.forward;
@@ -457,17 +542,17 @@ namespace TouchScript.Layers
                     }
 
                     raycastHitUIList.Add(
-                            new RaycastHitUI()
-                            {
-                                GameObject = graphic.gameObject,
-                                Raycaster = raycaster,
-                                Graphic = graphic,
-                                GraphicIndex = raycastHitUIList.Count,
-                                Depth = graphic.depth,
-                                SortingLayer = canvas.sortingLayerID,
-                                SortingOrder = canvas.sortingOrder,
-                                Distance = distance
-                            });
+                        new RaycastHitUI()
+                        {
+                            Target = graphic.transform,
+                            Raycaster = raycaster,
+                            Graphic = graphic,
+                            GraphicIndex = raycastHitUIList.Count,
+                            Depth = graphic.depth,
+                            SortingLayer = canvas.sortingLayerID,
+                            SortingOrder = canvas.sortingOrder,
+                            Distance = distance
+                        });
                 }
             }
         }
@@ -558,6 +643,5 @@ namespace TouchScript.Layers
         }
 
         #endregion
-
     }
 }

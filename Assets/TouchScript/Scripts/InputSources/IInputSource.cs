@@ -2,6 +2,7 @@
  * @author Valentin Simonov / http://va.lent.in/
  */
 
+using TouchScript.Core;
 using TouchScript.Pointers;
 
 namespace TouchScript.InputSources
@@ -15,7 +16,6 @@ namespace TouchScript.InputSources
     /// </remarks>
     public interface IInputSource : INTERNAL_IInputSource
     {
-
         /// <summary>
         /// Gets or sets current coordinates remapper.
         /// </summary>
@@ -23,9 +23,14 @@ namespace TouchScript.InputSources
         ICoordinatesRemapper CoordinatesRemapper { get; set; }
 
         /// <summary>
-        /// This method is called by <see cref="TouchManagerInstance"/> to synchronously update the input.
+        /// This method is called by <see cref="ITouchManager"/> to synchronously update the input.
         /// </summary>
-        void UpdateInput();
+        bool UpdateInput();
+
+        /// <summary>
+        /// Forces the input to update its state when resolution changes.
+        /// </summary>
+        void UpdateResolution();
 
         /// <summary>
         /// Cancels the pointer.
@@ -36,6 +41,9 @@ namespace TouchScript.InputSources
         bool CancelPointer(Pointer pointer, bool shouldReturn);
     }
 
+    /// <summary>
+    /// Internal methods for <see cref="IInputSource"/>. DO NOT USE ANY OF THEM!
+    /// </summary>
     public interface INTERNAL_IInputSource
     {
         /// <summary>

@@ -8,6 +8,7 @@ using TouchScript.Utils;
 using TouchScript.Utils.Attributes;
 using TouchScript.Pointers;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TouchScript.Gestures
 {
@@ -47,7 +48,10 @@ namespace TouchScript.Gestures
         // Needed to overcome iOS AOT limitations
         private EventHandler<EventArgs> pressedInvoker;
 
-		public GestureEvent OnPress = new GestureEvent();
+        /// <summary>
+        /// Unity event, occurs when gesture is recognized.
+        /// </summary>
+        public GestureEvent OnPress = new GestureEvent();
 
         #endregion
 
@@ -70,6 +74,30 @@ namespace TouchScript.Gestures
         [SerializeField]
         [ToggleLeft]
         private bool ignoreChildren = false;
+
+#if UNITY_5_6_OR_NEWER
+        private CustomSampler gestureSampler;
+#endif
+
+        #endregion
+
+        #region Unity
+
+        /// <inheritdoc />
+        protected override void Awake()
+        {
+            base.Awake();
+
+#if UNITY_5_6_OR_NEWER
+            gestureSampler = CustomSampler.Create("[TouchScript] Press Gesture");
+#endif
+        }
+
+        [ContextMenu("Basic Editor")]
+        private void switchToBasicEditor()
+        {
+            basicEditor = true;
+        }
 
         #endregion
 
@@ -102,18 +130,32 @@ namespace TouchScript.Gestures
         /// <inheritdoc />
         protected override void pointersPressed(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.Begin();
+#endif
+
             base.pointersPressed(pointers);
 
             if (pointersNumState == PointersNumState.PassedMinThreshold)
             {
                 setState(GestureState.Recognized);
+#if UNITY_5_6_OR_NEWER
+                gestureSampler.End();
+#endif
                 return;
             }
             if (pointersNumState == PointersNumState.PassedMinMaxThreshold)
             {
                 setState(GestureState.Failed);
+#if UNITY_5_6_OR_NEWER
+                gestureSampler.End();
+#endif
                 return;
             }
+
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
@@ -123,7 +165,7 @@ namespace TouchScript.Gestures
             if (pressedInvoker != null) pressedInvoker.InvokeHandleExceptions(this, EventArgs.Empty);
             if (UseSendMessage && SendMessageTarget != null)
                 SendMessageTarget.SendMessage(PRESS_MESSAGE, this, SendMessageOptions.DontRequireReceiver);
-			if (UseUnityEvents) OnPress.Invoke(this);
+            if (UseUnityEvents) OnPress.Invoke(this);
         }
 
         #endregion

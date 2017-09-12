@@ -3,7 +3,7 @@
  */
 
 using System;
-using TouchScript.Editor.Utils;
+using TouchScript.Editor.EditorUI;
 using TouchScript.Gestures;
 using UnityEditor;
 using UnityEditorInternal;
@@ -16,37 +16,37 @@ namespace TouchScript.Editor.Gestures
     internal class GestureEditor : UnityEditor.Editor
     {
         private const string FRIENDLY_GESTURES_PROP = "friendlyGestures";
-        
-		public static readonly GUIContent TEXT_GENERAL_HEADER = new GUIContent("General settings", "General settings.");
-		public static readonly GUIContent TEXT_LIMITS_HEADER = new GUIContent("Limits", "Properties that limit the gesture.");
-		public static readonly GUIContent TEXT_GESTURES_HEADER = new GUIContent("Interaction with other Gestures", "Settings which allow this gesture to interact with other gestures.");
-		public static readonly GUIContent TEXT_ADVANCED_HEADER = new GUIContent("Advanced", "Advanced properties.");
-		public static readonly GUIContent TEXT_USE_SEND_MESSAGE_HEADER = new GUIContent("Use SendMessage", "Enables sending events through SendMessage. Warnning: this method is slow!");
-		public static readonly GUIContent TEXT_USE_UNITY_EVENTS_HEADER = new GUIContent("Use Unity Events", "Enables sending events through Unity Events.");
 
-		public static readonly GUIContent TEXT_FRIENDLY = new GUIContent("Friendly Gestures", "List of gestures which can work together with this gesture.");
-		public static readonly GUIContent TEXT_DEBUG_MODE = new GUIContent("Debug", "Turns on gesture debug mode.");
-		public static readonly GUIContent TEXT_SEND_STATE_CHANGE_MESSAGES = new GUIContent("Send State Change Messages", "If checked, the gesture will send a message for every state change. Gestures usually have their own more specific messages, so you should keep this toggle unchecked unless you really want state change messages.");
-		public static readonly GUIContent TEXT_SEND_MESSAGE_TARGET = new GUIContent("Target", "The GameObject target of Unity Messages. If null, host GameObject is used.");
-		public static readonly GUIContent TEXT_SEND_STATE_CHANGE_EVENTS = new GUIContent("Send State Change Events", "If checked, the gesture will send a events for every state change. Gestures usually have their own more specific messages, so you should keep this toggle unchecked unless you really want state change events.");
-		public static readonly GUIContent TEXT_COMBINE_POINTERS = new GUIContent("Combine Pointers", "When several fingers are used to perform a tap, pointers released not earlier than <CombineInterval> seconds ago are used to calculate gesture's final screen position.");
-		public static readonly GUIContent TEXT_COMBINE_TOUCH_POINTERS = new GUIContent("Combine Interval (sec)", TEXT_COMBINE_POINTERS.tooltip);
-		public static readonly GUIContent TEXT_REQUIRE_GESTURE_TO_FAIL = new GUIContent("Require Other Gesture to Fail", "Another gesture must fail for this gesture to start.");
-		public static readonly GUIContent TEXT_LIMIT_POINTERS = new GUIContent(" Limit Pointers", "");
+        public static readonly GUIContent TEXT_GENERAL_HEADER = new GUIContent("General settings", "General settings.");
+        public static readonly GUIContent TEXT_LIMITS_HEADER = new GUIContent("Limits", "Properties that limit the gesture.");
+        public static readonly GUIContent TEXT_GESTURES_HEADER = new GUIContent("Interaction with other Gestures", "Settings which allow this gesture to interact with other gestures.");
+        public static readonly GUIContent TEXT_ADVANCED_HEADER = new GUIContent("Advanced", "Advanced properties.");
+        public static readonly GUIContent TEXT_USE_SEND_MESSAGE_HEADER = new GUIContent("Use SendMessage", "Enables sending events through SendMessage. Warnning: this method is slow!");
+        public static readonly GUIContent TEXT_USE_UNITY_EVENTS_HEADER = new GUIContent("Use Unity Events", "Enables sending events through Unity Events.");
 
-        protected bool shouldDrawCombineTouches = false;
-		protected bool shouldDrawAdvanced = false;
-		protected bool shouldDrawGeneral = true;
+        public static readonly GUIContent TEXT_FRIENDLY = new GUIContent("Friendly Gestures", "List of gestures which can work together with this gesture.");
+        public static readonly GUIContent TEXT_DEBUG_MODE = new GUIContent("Debug", "Turns on gesture debug mode.");
+        public static readonly GUIContent TEXT_SEND_STATE_CHANGE_MESSAGES = new GUIContent("Send State Change Messages", "If checked, the gesture will send a message for every state change. Gestures usually have their own more specific messages, so you should keep this toggle unchecked unless you really want state change messages.");
+        public static readonly GUIContent TEXT_SEND_MESSAGE_TARGET = new GUIContent("Target", "The GameObject target of Unity Messages. If null, host GameObject is used.");
+        public static readonly GUIContent TEXT_SEND_STATE_CHANGE_EVENTS = new GUIContent("Send State Change Events", "If checked, the gesture will send a events for every state change. Gestures usually have their own more specific messages, so you should keep this toggle unchecked unless you really want state change events.");
+        public static readonly GUIContent TEXT_REQUIRE_GESTURE_TO_FAIL = new GUIContent("Require Other Gesture to Fail", "Another gesture must fail for this gesture to start.");
+        public static readonly GUIContent TEXT_LIMIT_POINTERS = new GUIContent(" Limit Pointers", "");
 
-		private Gesture instance;
+        protected bool shouldDrawAdvanced = false;
+        protected bool shouldDrawGeneral = true;
+
+        private Gesture instance;
+
+        private SerializedProperty basicEditor;
 
         private SerializedProperty debugMode, friendlyGestures, requireGestureToFail,
-        	minPointers, maxPointers, combinePointers, combinePointersInterval,
-        	useSendMessage, sendMessageTarget, sendStateChangeMessages,
-			useUnityEvents, sendStateChangeEvents;
-		private SerializedProperty OnStateChange;
-		private SerializedProperty advancedProps, limitsProps, generalProps;
-		private PropertyInfo useUnityEvents_prop, useSendMessage_prop;
+                                   minPointers, maxPointers,
+                                   useSendMessage, sendMessageTarget, sendStateChangeMessages,
+                                   useUnityEvents, sendStateChangeEvents;
+
+        private SerializedProperty OnStateChange;
+        private SerializedProperty advancedProps, limitsProps, generalProps;
+        private PropertyInfo useUnityEvents_prop, useSendMessage_prop;
 
         private ReorderableList friendlyGesturesList;
         private int indexToRemove = -1;
@@ -54,36 +54,35 @@ namespace TouchScript.Editor.Gestures
 
         protected virtual void OnEnable()
         {
-			instance = target as Gesture;
+            instance = target as Gesture;
 
             advancedProps = serializedObject.FindProperty("advancedProps");
-			limitsProps = serializedObject.FindProperty("limitsProps");
-			generalProps = serializedObject.FindProperty("generalProps");
+            limitsProps = serializedObject.FindProperty("limitsProps");
+            generalProps = serializedObject.FindProperty("generalProps");
+            basicEditor = serializedObject.FindProperty("basicEditor");
 
             debugMode = serializedObject.FindProperty("debugMode");
             friendlyGestures = serializedObject.FindProperty("friendlyGestures");
             requireGestureToFail = serializedObject.FindProperty("requireGestureToFail");
-            combinePointers = serializedObject.FindProperty("combinePointers");
-            combinePointersInterval = serializedObject.FindProperty("combinePointersInterval");
             useSendMessage = serializedObject.FindProperty("useSendMessage");
             sendMessageTarget = serializedObject.FindProperty("sendMessageTarget");
             sendStateChangeMessages = serializedObject.FindProperty("sendStateChangeMessages");
-			useUnityEvents = serializedObject.FindProperty("useUnityEvents");
-			sendStateChangeEvents = serializedObject.FindProperty("sendStateChangeEvents");
+            useUnityEvents = serializedObject.FindProperty("useUnityEvents");
+            sendStateChangeEvents = serializedObject.FindProperty("sendStateChangeEvents");
             minPointers = serializedObject.FindProperty("minPointers");
             maxPointers = serializedObject.FindProperty("maxPointers");
 
-			OnStateChange = serializedObject.FindProperty("OnStateChange");
+            OnStateChange = serializedObject.FindProperty("OnStateChange");
 
-			var type = instance.GetType();
-			useUnityEvents_prop = type.GetProperty("UseUnityEvents", BindingFlags.Instance | BindingFlags.Public);
-			useSendMessage_prop = type.GetProperty("UseSendMessage", BindingFlags.Instance | BindingFlags.Public);
+            var type = instance.GetType();
+            useUnityEvents_prop = type.GetProperty("UseUnityEvents", BindingFlags.Instance | BindingFlags.Public);
+            useSendMessage_prop = type.GetProperty("UseSendMessage", BindingFlags.Instance | BindingFlags.Public);
 
             minPointersFloat = minPointers.intValue;
             maxPointersFloat = maxPointers.intValue;
 
             friendlyGesturesList = new ReorderableList(serializedObject, friendlyGestures, false, true, false, true);
-			friendlyGesturesList.drawHeaderCallback += (rect) => GUI.Label(rect, TEXT_FRIENDLY);
+            friendlyGesturesList.drawHeaderCallback += (rect) => GUI.Label(rect, TEXT_FRIENDLY);
             friendlyGesturesList.drawElementCallback += (rect, index, active, focused) =>
             {
                 rect.height = 16;
@@ -95,144 +94,161 @@ namespace TouchScript.Editor.Gestures
                     EditorGUI.LabelField(rect, GUIContent.none);
                     return;
                 }
-                EditorGUI.LabelField(rect, string.Format("{0} @ {1}", gesture.GetType().Name, gesture.name), GUIElements.BoxLabelStyle);
+                EditorGUI.LabelField(rect, string.Format("{0} @ {1}", gesture.GetType().Name, gesture.name), GUIElements.BoxLabel);
             };
             friendlyGesturesList.onRemoveCallback += list => { indexToRemove = list.index; };
-
-			if (debugMode != null) shouldDrawAdvanced = true;
         }
 
         public override void OnInspectorGUI()
         {
-            serializedObject.UpdateIfDirtyOrScript();
+#if UNITY_5_6_OR_NEWER
+            serializedObject.UpdateIfRequiredOrScript();
+#else
+			serializedObject.UpdateIfDirtyOrScript();
+#endif
 
-			GUILayout.Space(5);
-			bool display;
+            GUILayout.Space(5);
+            bool display;
 
-			if (shouldDrawGeneral)
-			{
-				display = GUIElements.Header(TEXT_GENERAL_HEADER, generalProps);
-				if (display)
-				{
-					EditorGUI.indentLevel++;
-					drawGeneral();
-					EditorGUI.indentLevel--;
-				}
-			}
+            if (basicEditor.boolValue)
+            {
+                drawBasic();
+                if (GUIElements.BasicHelpBox(getHelpText()))
+                {
+                    basicEditor.boolValue = false;
+                    Repaint();
+                }
+            }
+            else
+            {
+                if (shouldDrawGeneral)
+                {
+                    display = GUIElements.Header(TEXT_GENERAL_HEADER, generalProps);
+                    if (display)
+                    {
+                        EditorGUI.indentLevel++;
+                        drawGeneral();
+                        EditorGUI.indentLevel--;
+                    }
+                }
 
-			drawOtherGUI();
+                drawOtherGUI();
 
-			display = GUIElements.Header(TEXT_LIMITS_HEADER, limitsProps);
-			if (display)
-			{
-				EditorGUI.indentLevel++;
-				drawLimits();
-				EditorGUI.indentLevel--;
-			}
+                display = GUIElements.Header(TEXT_LIMITS_HEADER, limitsProps);
+                if (display)
+                {
+                    EditorGUI.indentLevel++;
+                    drawLimits();
+                    EditorGUI.indentLevel--;
+                }
 
-			display = GUIElements.Header(TEXT_GESTURES_HEADER, friendlyGestures);
-			if (display)
-			{
-				EditorGUI.indentLevel++;
-				drawFriendlyGestures();
-				drawRequireToFail();
-				GUILayout.Space(5);
-				EditorGUI.indentLevel--;
-			}
+                display = GUIElements.Header(TEXT_GESTURES_HEADER, friendlyGestures);
+                if (display)
+                {
+                    EditorGUI.indentLevel++;
+                    drawFriendlyGestures();
+                    drawRequireToFail();
+                    GUILayout.Space(5);
+                    EditorGUI.indentLevel--;
+                }
 
-			display = GUIElements.Header(TEXT_USE_UNITY_EVENTS_HEADER, useUnityEvents, useUnityEvents, useUnityEvents_prop);
-			if (display)
-			{
-				EditorGUI.indentLevel++;
-				using (new EditorGUI.DisabledGroupScope(!useUnityEvents.boolValue))
-				{
-					drawUnityEvents();
-				}
-				EditorGUI.indentLevel--;
-			}
+                display = GUIElements.Header(TEXT_USE_UNITY_EVENTS_HEADER, useUnityEvents, useUnityEvents, useUnityEvents_prop);
+                if (display)
+                {
+                    EditorGUI.indentLevel++;
+                    using (new EditorGUI.DisabledGroupScope(!useUnityEvents.boolValue))
+                    {
+                        drawUnityEvents();
+                    }
+                    EditorGUI.indentLevel--;
+                }
 
-			display = GUIElements.Header(TEXT_USE_SEND_MESSAGE_HEADER, useSendMessage, useSendMessage, useSendMessage_prop);
-			if (display)
-			{
-				EditorGUI.indentLevel++;
-				using (new EditorGUI.DisabledGroupScope(!useSendMessage.boolValue))
-				{
-					drawSendMessage();
-				}
-				EditorGUI.indentLevel--;
-			}
+                display = GUIElements.Header(TEXT_USE_SEND_MESSAGE_HEADER, useSendMessage, useSendMessage, useSendMessage_prop);
+                if (display)
+                {
+                    EditorGUI.indentLevel++;
+                    using (new EditorGUI.DisabledGroupScope(!useSendMessage.boolValue))
+                    {
+                        drawSendMessage();
+                    }
+                    EditorGUI.indentLevel--;
+                }
 
-			if (shouldDrawAdvanced)
-			{
-				display = GUIElements.Header(TEXT_ADVANCED_HEADER, advancedProps);
-				if (display)
-				{
-					EditorGUI.indentLevel++;
-					drawAdvanced();
-					EditorGUI.indentLevel--;
-				}
-			}
+                if (shouldDrawAdvanced)
+                {
+                    display = GUIElements.Header(TEXT_ADVANCED_HEADER, advancedProps);
+                    if (display)
+                    {
+                        EditorGUI.indentLevel++;
+                        drawAdvanced();
+                        EditorGUI.indentLevel--;
+                    }
+                }
+
+                drawDebug();
+            }
 
             serializedObject.ApplyModifiedProperties();
         }
 
-		protected virtual void drawOtherGUI()
-		{
+        protected virtual void drawBasic() {}
 
-		}
+        protected virtual GUIContent getHelpText()
+        {
+            return new GUIContent("");
+        }
 
-		protected virtual void drawGeneral()
-		{
+        protected virtual void drawOtherGUI() {}
 
-		}
+        protected virtual void drawGeneral() {}
 
-		protected virtual void drawLimits()
-		{
-			var limitPointers = (minPointers.intValue > 0) || (maxPointers.intValue > 0);
-			var newLimitPointers = EditorGUILayout.ToggleLeft(TEXT_LIMIT_POINTERS, limitPointers);
-			if (newLimitPointers)
-			{
-				if (!limitPointers)
-				{
-					minPointersFloat = 0;
-					maxPointersFloat = 10;
-				}
-				else
-				{
-					minPointersFloat = (float) minPointers.intValue;
-					maxPointersFloat = (float) maxPointers.intValue;
-				}
-				//or this values doesn't change from script properly
-				EditorGUI.indentLevel++;
-				EditorGUILayout.LabelField("Min: " + (int)minPointersFloat + ", Max: " + (int)maxPointersFloat);
-				EditorGUILayout.MinMaxSlider(ref minPointersFloat, ref maxPointersFloat, 0, 10, GUILayout.MaxWidth(150));
-				EditorGUI.indentLevel--;
-			}
-			else
-			{
-				if (limitPointers)
-				{
-					minPointersFloat = 0;
-					maxPointersFloat = 0;
-				}
-			}
+        protected virtual void drawLimits()
+        {
+            var limitPointers = (minPointers.intValue > 0) || (maxPointers.intValue > 0);
+            var newLimitPointers = EditorGUILayout.ToggleLeft(TEXT_LIMIT_POINTERS, limitPointers);
+            if (newLimitPointers)
+            {
+                if (!limitPointers)
+                {
+                    minPointersFloat = 0;
+                    maxPointersFloat = 10;
+                }
+                else
+                {
+                    minPointersFloat = (float) minPointers.intValue;
+                    maxPointersFloat = (float) maxPointers.intValue;
+                }
+                //or this values doesn't change from script properly
+                EditorGUI.indentLevel++;
+                EditorGUILayout.LabelField("Min: " + (int) minPointersFloat + ", Max: " + (int) maxPointersFloat);
+                EditorGUILayout.MinMaxSlider(ref minPointersFloat, ref maxPointersFloat, 0, 10, GUILayout.MaxWidth(150));
+                EditorGUI.indentLevel--;
+            }
+            else
+            {
+                if (limitPointers)
+                {
+                    minPointersFloat = 0;
+                    maxPointersFloat = 0;
+                }
+            }
 
-			minPointers.intValue = (int)minPointersFloat;
-			maxPointers.intValue = (int)maxPointersFloat;
-		}
+            minPointers.intValue = (int) minPointersFloat;
+            maxPointers.intValue = (int) maxPointersFloat;
+        }
 
-		protected virtual void drawFriendlyGestures()
-		{
-			GUILayout.Space(5);
-			drawGestureList(friendlyGestures, addFriendlyGesture);
-			GUILayout.Space(5);
-		}
+        protected virtual void drawFriendlyGestures()
+        {
+            GUILayout.Space(5);
+            drawGestureList(friendlyGestures, addFriendlyGesture);
+            GUILayout.Space(5);
+        }
 
-		protected virtual void drawUnityEvents()
-		{
-			EditorGUILayout.PropertyField(OnStateChange);
-			EditorGUILayout.PropertyField(sendStateChangeEvents, TEXT_SEND_STATE_CHANGE_EVENTS);
-		}
+        protected virtual void drawUnityEvents()
+        {
+            EditorGUILayout.PropertyField(OnStateChange);
+            EditorGUILayout.PropertyField(sendStateChangeEvents, TEXT_SEND_STATE_CHANGE_EVENTS);
+        }
 
         protected virtual void drawSendMessage()
         {
@@ -240,40 +256,18 @@ namespace TouchScript.Editor.Gestures
             EditorGUILayout.PropertyField(sendStateChangeMessages, TEXT_SEND_STATE_CHANGE_MESSAGES);
         }
 
-        protected virtual void drawAdvanced()
+        protected virtual void drawAdvanced() {}
+
+        protected virtual void drawDebug()
         {
-            drawCombineTouches();
-            drawDebug();
+            if (debugMode == null) return;
+            EditorGUILayout.PropertyField(debugMode, TEXT_DEBUG_MODE);
         }
 
-		protected virtual void drawCombineTouches()
-		{
-			if (shouldDrawCombineTouches)
-			{
-				EditorGUILayout.PropertyField(combinePointers, TEXT_COMBINE_POINTERS);
-				if (combinePointers.boolValue)
-				{
-					EditorGUIUtility.labelWidth = 160;
-					EditorGUILayout.BeginHorizontal();
-					GUILayout.Label(GUIContent.none, GUILayout.Width(10));
-					EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true));
-					EditorGUILayout.PropertyField(combinePointersInterval, TEXT_COMBINE_TOUCH_POINTERS);
-					EditorGUILayout.EndVertical();
-					EditorGUILayout.EndHorizontal();
-				}
-			}
-		}
-
-		protected virtual void drawDebug()
-		{
-			if (debugMode == null) return;
-			EditorGUILayout.PropertyField(debugMode, TEXT_DEBUG_MODE);
-		}
-
-		protected virtual void drawRequireToFail()
-		{
-			EditorGUILayout.PropertyField(requireGestureToFail, TEXT_REQUIRE_GESTURE_TO_FAIL);
-		}
+        protected virtual void drawRequireToFail()
+        {
+            EditorGUILayout.PropertyField(requireGestureToFail, TEXT_REQUIRE_GESTURE_TO_FAIL);
+        }
 
         #region Gesture List
 
@@ -283,12 +277,12 @@ namespace TouchScript.Editor.Gestures
 
 //			Rect listRect = EditorGUI.IndentedRect(GUILayoutUtility.GetRect(0.0f, (prop.arraySize == 0 ? 0 : prop.arraySize - 1) * 16 + 60, GUILayout.ExpandWidth(true)));
 //			friendlyGesturesList.DoList(listRect);
-			friendlyGesturesList.DoLayoutList();
+            friendlyGesturesList.DoLayoutList();
 
             GUILayout.Space(9);
 
-			Rect dropArea = GUILayoutUtility.GetRect(0.0f, 50.0f, GUIElements.BoxStyle, GUILayout.ExpandWidth(true));
-            GUI.Box(dropArea, "Drag a Gesture Here", GUIElements.BoxStyle);
+            Rect dropArea = GUILayoutUtility.GetRect(0.0f, 50.0f, GUIElements.Box, GUILayout.ExpandWidth(true));
+            GUI.Box(dropArea, "Drag a Gesture Here", GUIElements.Box);
             switch (Event.current.type)
             {
                 case EventType.DragUpdated:

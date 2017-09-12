@@ -21,7 +21,15 @@ namespace TouchScript.Hit
         [Flags]
         public enum HitType
         {
-            ScreenSpace,
+            /// <summary>
+            /// An unknown hit.
+            /// </summary>
+            Unknown,
+
+            /// <summary>
+            /// Nothing hit, but some object grabbed the pointer.
+            /// </summary>
+            Screen,
 
             /// <summary>
             /// 3D hit.
@@ -97,6 +105,9 @@ namespace TouchScript.Hit
             get { return raycastHitUI; }
         }
 
+        /// <summary>
+        /// Indicates if this is a Screen Space hit.
+        /// </summary>
         public bool ScreenSpace
         {
             get { return screenSpace; }
@@ -144,6 +155,9 @@ namespace TouchScript.Hit
             }
         }
 
+        /// <summary>
+        /// Distance to the hit point.
+        /// </summary>
         public float Distance
         {
             get
@@ -161,6 +175,9 @@ namespace TouchScript.Hit
             }
         }
 
+        /// <summary>
+        /// Sorting layer of the hit target.
+        /// </summary>
         public int SortingLayer
         {
             get
@@ -171,7 +188,7 @@ namespace TouchScript.Hit
                         return 0;
                     case HitType.World2D:
                         if (sortingLayer == -1) updateSortingValues();
-                        return sortingLayer; 
+                        return sortingLayer;
                     case HitType.UI:
                         return raycastHitUI.SortingLayer;
                 }
@@ -179,6 +196,9 @@ namespace TouchScript.Hit
             }
         }
 
+        /// <summary>
+        /// Sorting order of the hit target.
+        /// </summary>
         public int SortingOrder
         {
             get
@@ -220,6 +240,8 @@ namespace TouchScript.Hit
         /// Initializes a new instance of the <see cref="HitData"/> struct.
         /// </summary>
         /// <param name="target"> Target Target. </param>
+        /// <param name="layer"> Touch layer this hit came from. </param>
+        /// <param name="screenSpace"> If the hit is screenspace UI. </param>
         public HitData(Transform target, TouchLayer layer, bool screenSpace = false)
         {
             this.target = target;
@@ -231,13 +253,15 @@ namespace TouchScript.Hit
             raycastHit = default(RaycastHit);
             raycastHit2D = default(RaycastHit2D);
             raycastHitUI = default(RaycastHitUI);
-            type = HitType.ScreenSpace;
+            type = HitType.Screen;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HitData"/> struct from a 3D raycast.
         /// </summary>
         /// <param name="value"> 3D raycast value. </param>
+        /// <param name="layer"> Touch layer this hit came from. </param>
+        /// <param name="screenSpace"> If the hit is screenspace UI. </param>
         public HitData(RaycastHit value, TouchLayer layer, bool screenSpace = false) : this(value.collider.transform, layer, screenSpace)
         {
             raycastHit = value;
@@ -248,6 +272,8 @@ namespace TouchScript.Hit
         /// Initializes a new instance of the <see cref="HitData"/> struct from a 2D raycast.
         /// </summary>
         /// <param name="value"> 2D raycast value. </param>
+        /// <param name="layer"> Touch layer this hit came from. </param>
+        /// <param name="screenSpace"> If the hit is screenspace UI. </param>
         public HitData(RaycastHit2D value, TouchLayer layer, bool screenSpace = false) :
             this(value.collider.transform, layer, screenSpace)
         {
@@ -259,8 +285,10 @@ namespace TouchScript.Hit
         /// Initializes a new instance of the <see cref="HitData"/> struct from a UI raycast.
         /// </summary>
         /// <param name="value"> UI raycast value. </param>
+        /// <param name="layer"> Touch layer this hit came from. </param>
+        /// <param name="screenSpace"> If the hit is screenspace UI. </param>
         public HitData(RaycastHitUI value, TouchLayer layer, bool screenSpace = false) :
-            this(value.GameObject.transform, layer, screenSpace)
+            this(value.Target, layer, screenSpace)
         {
             raycastHitUI = value;
             type = HitType.UI;

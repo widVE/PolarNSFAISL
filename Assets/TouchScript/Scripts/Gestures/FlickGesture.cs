@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using TouchScript.Utils;
 using TouchScript.Pointers;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TouchScript.Gestures
 {
@@ -137,9 +138,23 @@ namespace TouchScript.Gestures
         private bool isActive = false;
         private TimedSequence<Vector2> deltaSequence = new TimedSequence<Vector2>();
 
+#if UNITY_5_6_OR_NEWER
+		private CustomSampler gestureSampler;
+#endif
+
         #endregion
 
         #region Unity methods
+
+		/// <inheritdoc />
+		protected override void Awake()
+		{
+			base.Awake();
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler = CustomSampler.Create("[TouchScript] Flick Gesture");
+#endif
+		}
 
         /// <inheritdoc />
         protected void LateUpdate()
@@ -149,6 +164,12 @@ namespace TouchScript.Gestures
             deltaSequence.Add(ScreenPosition - PreviousScreenPosition);
         }
 
+        [ContextMenu("Basic Editor")]
+        private void switchToBasicEditor()
+        {
+            basicEditor = true;
+        }
+
         #endregion
 
         #region Gesture callbacks
@@ -156,6 +177,10 @@ namespace TouchScript.Gestures
         /// <inheritdoc />
         protected override void pointersPressed(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersPressed(pointers);
 
             if (pointersNumState == PointersNumState.PassedMaxThreshold ||
@@ -169,11 +194,19 @@ namespace TouchScript.Gestures
                 if (isActive) setState(GestureState.Failed);
                 else isActive = true;
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersUpdated(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersUpdated(pointers);
 
             if (isActive || !moving)
@@ -185,11 +218,19 @@ namespace TouchScript.Gestures
                     moving = true;
                 }
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersReleased(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersReleased(pointers);
 
             if (NumPointers == 0)
@@ -197,13 +238,16 @@ namespace TouchScript.Gestures
                 if (!isActive || !moving)
                 {
                     setState(GestureState.Failed);
+#if UNITY_5_6_OR_NEWER
+					gestureSampler.End();
+#endif
                     return;
                 }
 
                 deltaSequence.Add(ScreenPosition - PreviousScreenPosition);
 
                 float lastTime;
-                var deltas = deltaSequence.FindElementsLaterThan(Time.time - FlickTime, out lastTime);
+                var deltas = deltaSequence.FindElementsLaterThan(Time.unscaledTime - FlickTime, out lastTime);
                 var totalMovement = Vector2.zero;
                 var count = deltas.Count;
                 for (var i = 0; i < count; i++) totalMovement += deltas[i];
@@ -225,10 +269,14 @@ namespace TouchScript.Gestures
                 else
                 {
                     ScreenFlickVector = totalMovement;
-                    ScreenFlickTime = Time.time - lastTime;
+                    ScreenFlickTime = Time.unscaledTime - lastTime;
                     setState(GestureState.Recognized);
                 }
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />

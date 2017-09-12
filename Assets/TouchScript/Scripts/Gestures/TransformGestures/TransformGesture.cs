@@ -1,4 +1,4 @@
-﻿/*
+/*
  * @author Valentin Simonov / http://va.lent.in/
  */
 
@@ -8,8 +8,10 @@ using TouchScript.Gestures.TransformGestures.Base;
 using TouchScript.Layers;
 using TouchScript.Utils;
 using TouchScript.Pointers;
+using UnityEngine.Profiling;
+
 #if TOUCHSCRIPT_DEBUG
-using TouchScript.Utils.DebugUtils;
+using TouchScript.Debugging.GL;
 #endif
 using UnityEngine;
 
@@ -19,7 +21,7 @@ namespace TouchScript.Gestures.TransformGestures
     /// Recognizes a transform gesture, i.e. translation, rotation, scaling or a combination of these.
     /// </summary>
     [AddComponentMenu("TouchScript/Gestures/Transform Gesture")]
-    [HelpURL("http://touchscript.github.io/docs/html/T_TouchScript_Gestures_TransformGesture.htm")]
+    [HelpURL("http://touchscript.github.io/docs/html/T_TouchScript_Gestures_TransformGestures_TransformGesture.htm")]
     public class TransformGesture : TwoPointTransformGestureBase
     {
         #region Constants
@@ -30,6 +32,11 @@ namespace TouchScript.Gestures.TransformGestures
         [Flags]
         public enum TransformType
         {
+            /// <summary>
+            /// No transform.
+            /// </summary>
+            None = 0,
+
             /// <summary>
             /// Translation.
             /// </summary>
@@ -128,8 +135,8 @@ namespace TouchScript.Gestures.TransformGestures
 
         #region Private variables
 
-		[SerializeField]
-		private bool projectionProps; // Used in the custom inspector
+        [SerializeField]
+        private bool projectionProps; // Used in the custom inspector
 
         [SerializeField]
         private ProjectionType projection = ProjectionType.Layer;
@@ -139,6 +146,10 @@ namespace TouchScript.Gestures.TransformGestures
 
         private TouchLayer projectionLayer;
         private Plane transformPlane;
+
+#if UNITY_5_6_OR_NEWER
+		private CustomSampler gestureSampler;
+#endif
 
         #endregion
 
@@ -152,14 +163,25 @@ namespace TouchScript.Gestures.TransformGestures
         protected override void Awake()
         {
             base.Awake();
+
             transformPlane = new Plane();
+#if UNITY_5_6_OR_NEWER
+			gestureSampler = CustomSampler.Create("[TouchScript] Transform Gesture");
+#endif
         }
 
         /// <inheritdoc />
         protected override void OnEnable()
         {
             base.OnEnable();
+
             updateProjectionPlane();
+        }
+
+        [ContextMenu("Basic Editor")]
+        private void switchToBasicEditor()
+        {
+            basicEditor = true;
         }
 
         #endregion
@@ -169,6 +191,10 @@ namespace TouchScript.Gestures.TransformGestures
         /// <inheritdoc />
         protected override void pointersPressed(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersPressed(pointers);
 
             if (NumPointers == pointers.Count)
@@ -176,24 +202,56 @@ namespace TouchScript.Gestures.TransformGestures
                 projectionLayer = activePointers[0].GetPressData().Layer;
                 updateProjectionPlane();
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
-#if TOUCHSCRIPT_DEBUG
+#if UNITY_5_6_OR_NEWER
+		/// <inheritdoc />
+		protected override void pointersUpdated(IList<Pointer> pointers)
+		{
+			gestureSampler.Begin();
+
+			base.pointersUpdated(pointers);
+
+			gestureSampler.End();
+		}
+#endif
 
         /// <inheritdoc />
         protected override void pointersReleased(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersReleased(pointers);
 
+#if TOUCHSCRIPT_DEBUG
             if (getNumPoints() == 0) clearDebug();
             else drawDebugDelayed(getNumPoints());
-        }
 #endif
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
+        }
+
 
         #endregion
 
         #region Protected methods
 
+        /// <summary>
+        /// Projects the point which was scaled and rotated.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="dR">Delta rotation.</param>
+        /// <param name="dS">Delta scale.</param>
+        /// <param name="projectionParams">The projection parameters.</param>
+        /// <returns></returns>
         protected Vector3 projectScaledRotated(Vector2 point, float dR, float dS, ProjectionParams projectionParams)
         {
             var center = targetPositionOverridden ? targetPosition : cachedTransform.position;

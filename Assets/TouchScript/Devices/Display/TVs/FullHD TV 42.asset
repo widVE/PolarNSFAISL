@@ -9,7 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bb766ec5aebe4332b86a7b9b50eb01d, type: 3}
-  m_Name: Unknown Device
+  m_Name: FullHD TV 42
   m_EditorClassIdentifier: 
-  name: Unknown Device
-  dpi: 96
+  name: FullHD TV 42
+  dpi: 52
+  nativeDPI: 52
+  nativeResolution: {x: 1920, y: 1080}

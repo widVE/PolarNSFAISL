@@ -9,6 +9,7 @@ using TouchScript.Utils;
 using TouchScript.Utils.Attributes;
 using TouchScript.Pointers;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TouchScript.Gestures
 {
@@ -42,7 +43,10 @@ namespace TouchScript.Gestures
         // Needed to overcome iOS AOT limitations
         private EventHandler<EventArgs> tappedInvoker;
 
-		public GestureEvent OnTap = new GestureEvent();
+        /// <summary>
+        /// Unity event, occurs when gesture is recognized.
+        /// </summary>
+        public GestureEvent OnTap = new GestureEvent();
 
         #endregion
 
@@ -86,6 +90,29 @@ namespace TouchScript.Gestures
             }
         }
 
+        /// <summary>
+        /// Gets or sets the flag if pointers should be treated as a cluster.
+        /// </summary>
+        /// <value> <c>true</c> if pointers should be treated as a cluster; otherwise, <c>false</c>. </value>
+        /// <remarks>
+        /// At the end of a gesture when pointers are lifted off due to the fact that computers are faster than humans the very last pointer's position will be gesture's <see cref="Gesture.ScreenPosition"/> after that. This flag is used to combine several pointers which from the point of a user were lifted off simultaneously and set their centroid as gesture's <see cref="Gesture.ScreenPosition"/>.
+        /// </remarks>
+        public bool CombinePointers
+        {
+            get { return combinePointers; }
+            set { combinePointers = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets time interval before gesture is recognized to combine all lifted pointers into a cluster to use its center as <see cref="Gesture.ScreenPosition"/>.
+        /// </summary>
+        /// <value> Time in seconds to treat pointers lifted off during this interval as a single gesture. </value>
+        public float CombinePointersInterval
+        {
+            get { return combinePointersInterval; }
+            set { combinePointersInterval = value; }
+        }
+
         #endregion
 
         #region Private variables
@@ -95,13 +122,18 @@ namespace TouchScript.Gestures
 
         [SerializeField]
         [NullToggle(NullFloatValue = float.PositiveInfinity)]
-        private float timeLimit =
-            float.PositiveInfinity;
+        private float timeLimit = float.PositiveInfinity;
 
         [SerializeField]
         [NullToggle(NullFloatValue = float.PositiveInfinity)]
-        private float distanceLimit =
-            float.PositiveInfinity;
+        private float distanceLimit = float.PositiveInfinity;
+
+        [SerializeField]
+        [ToggleLeft]
+        private bool combinePointers = false;
+
+        [SerializeField]
+        private float combinePointersInterval = .3f;
 
         private float distanceLimitInPixelsSquared;
 
@@ -111,23 +143,38 @@ namespace TouchScript.Gestures
         private int tapsDone;
         private Vector2 startPosition;
         private Vector2 totalMovement;
+        private TimedSequence<Pointer> pointerSequence = new TimedSequence<Pointer>();
+
+#if UNITY_5_6_OR_NEWER
+        private CustomSampler gestureSampler;
+#endif
 
         #endregion
 
-		#region Public methods
+        #region Public methods
 
-		/// <inheritdoc />
-		public override bool ShouldReceivePointer(Pointer pointer)
-		{
-			if (!base.ShouldReceivePointer(pointer)) return false;
-			// Ignore redispatched pointers — they come from 2+ pointer gestures when one is left with 1 pointer.
-			// In this state it means that the user doesn't have an intention to tap the object.
-			return (pointer.Flags & Pointer.FLAG_RETURNED) == 0;
-		}
+        /// <inheritdoc />
+        public override bool ShouldReceivePointer(Pointer pointer)
+        {
+            if (!base.ShouldReceivePointer(pointer)) return false;
+            // Ignore redispatched pointers — they come from 2+ pointer gestures when one is left with 1 pointer.
+            // In this state it means that the user doesn't have an intention to tap the object.
+            return (pointer.Flags & Pointer.FLAG_RETURNED) == 0;
+        }
 
-		#endregion
+        #endregion
 
         #region Unity methods
+
+        /// <inheritdoc />
+        protected override void Awake()
+        {
+            base.Awake();
+
+#if UNITY_5_6_OR_NEWER
+            gestureSampler = CustomSampler.Create("[TouchScript] Tap Gesture");
+#endif
+        }
 
         /// <inheritdoc />
         protected override void OnEnable()
@@ -137,6 +184,12 @@ namespace TouchScript.Gestures
             distanceLimitInPixelsSquared = Mathf.Pow(distanceLimit * touchManager.DotsPerCentimeter, 2);
         }
 
+        [ContextMenu("Basic Editor")]
+        private void switchToBasicEditor()
+        {
+            basicEditor = true;
+        }
+
         #endregion
 
         #region Gesture callbacks
@@ -144,12 +197,19 @@ namespace TouchScript.Gestures
         /// <inheritdoc />
         protected override void pointersPressed(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.Begin();
+#endif
+
             base.pointersPressed(pointers);
 
             if (pointersNumState == PointersNumState.PassedMaxThreshold ||
                 pointersNumState == PointersNumState.PassedMinMaxThreshold)
             {
                 setState(GestureState.Failed);
+#if UNITY_5_6_OR_NEWER
+                gestureSampler.End();
+#endif
                 return;
             }
 
@@ -174,6 +234,9 @@ namespace TouchScript.Gestures
                         if ((pointers[0].Position - startPosition).sqrMagnitude > distanceLimitInPixelsSquared)
                         {
                             setState(GestureState.Failed);
+#if UNITY_5_6_OR_NEWER
+                            gestureSampler.End();
+#endif
                             return;
                         }
                     }
@@ -189,11 +252,19 @@ namespace TouchScript.Gestures
                     isActive = true;
                 }
             }
+
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersUpdated(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.Begin();
+#endif
+
             base.pointersUpdated(pointers);
 
             if (distanceLimit < float.PositiveInfinity)
@@ -201,34 +272,65 @@ namespace TouchScript.Gestures
                 totalMovement += pointers[0].Position - pointers[0].PreviousPosition;
                 if (totalMovement.sqrMagnitude > distanceLimitInPixelsSquared) setState(GestureState.Failed);
             }
+
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersReleased(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.Begin();
+#endif
+
             base.pointersReleased(pointers);
 
-            if (NumPointers == 0)
+            if (combinePointers)
             {
-                if (!isActive)
-                {
-                    setState(GestureState.Failed);
-                    return;
-                }
+                var count = pointers.Count;
+                for (var i = 0; i < count; i++) pointerSequence.Add(pointers[i]);
 
-                // pointers outside of gesture target are ignored in shouldCachePointerPosition()
-                // if all pointers are outside ScreenPosition will be invalid
-                if (TouchManager.IsInvalidPosition(ScreenPosition))
+                if (NumPointers == 0)
                 {
-                    setState(GestureState.Failed);
-                }
-                else
-                {
-                    tapsDone++;
-                    isActive = false;
-                    if (tapsDone >= numberOfTapsRequired) setState(GestureState.Recognized);
+                    // Checking which points were removed in clusterExistenceTime seconds to set their centroid as cached screen position
+                    var cluster = pointerSequence.FindElementsLaterThan(Time.unscaledTime - combinePointersInterval, shouldCachePointerPosition);
+                    cachedScreenPosition = ClusterUtils.Get2DCenterPosition(cluster);
+                    cachedPreviousScreenPosition = ClusterUtils.GetPrevious2DCenterPosition(cluster);
                 }
             }
+            else
+            {
+                if (NumPointers == 0)
+                {
+                    if (!isActive)
+                    {
+                        setState(GestureState.Failed);
+#if UNITY_5_6_OR_NEWER
+                        gestureSampler.End();
+#endif
+                        return;
+                    }
+
+                    // pointers outside of gesture target are ignored in shouldCachePointerPosition()
+                    // if all pointers are outside ScreenPosition will be invalid
+                    if (TouchManager.IsInvalidPosition(ScreenPosition))
+                    {
+                        setState(GestureState.Failed);
+                    }
+                    else
+                    {
+                        tapsDone++;
+                        isActive = false;
+                        if (tapsDone >= numberOfTapsRequired) setState(GestureState.Recognized);
+                    }
+                }
+            }
+
+#if UNITY_5_6_OR_NEWER
+            gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
@@ -239,7 +341,7 @@ namespace TouchScript.Gestures
             StopCoroutine("wait");
             if (tappedInvoker != null) tappedInvoker.InvokeHandleExceptions(this, EventArgs.Empty);
             if (UseSendMessage && SendMessageTarget != null) SendMessageTarget.SendMessage(TAP_MESSAGE, this, SendMessageOptions.DontRequireReceiver);
-			if (UseUnityEvents) OnTap.Invoke(this);
+            if (UseUnityEvents) OnTap.Invoke(this);
         }
 
         /// <inheritdoc />

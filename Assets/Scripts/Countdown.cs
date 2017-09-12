@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Countdown : MonoBehaviour {
 
-    public int timeLeft = 60;
+    
+    public int gameTime = 90;
+    private int timeLeft;
     private float oneSec = 0f;
     private bool countDown = true;
+    public GameObject score;
 	// Use this for initialization
 	void Start () {
-		
+        timeLeft = gameTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
         if (countDown)
         {
             oneSec += Time.deltaTime;
@@ -23,13 +27,22 @@ public class Countdown : MonoBehaviour {
                 timeLeft--;
                 if (timeLeft >= 0)
                 {
-                    string countTxt = GetComponent<UnityEngine.UI.Text>().text;
-                    countTxt = "Time left: " + timeLeft.ToString();
+                    string countTxt = "Time left: " + timeLeft.ToString();
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
                 }
                 else
                 {
+                    countDown = false;
                     //trigger a restart of the game...
+                    //high score list?
+                    timeLeft = gameTime;
+                    string countTxt = "Time left: " + timeLeft.ToString();
+                    GetComponent<UnityEngine.UI.Text>().text = countTxt;
+                    if(score != null)
+                    {
+                        //reset score..
+                        score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Neutrinos";
+                    }
                 }
             }
         }

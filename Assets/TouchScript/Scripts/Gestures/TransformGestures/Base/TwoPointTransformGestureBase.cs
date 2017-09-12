@@ -10,11 +10,14 @@ using UnityEngine;
 
 #if TOUCHSCRIPT_DEBUG
 using System.Collections;
-using TouchScript.Utils.DebugUtils;
+using TouchScript.Debugging.GL;
 #endif
 
 namespace TouchScript.Gestures.TransformGestures.Base
 {
+    /// <summary>
+    /// Abstract base classfor two-point transform gestures.
+    /// </summary>
     public abstract class TwoPointTransformGestureBase : TransformGestureBase
     {
         #region Constants
@@ -38,28 +41,6 @@ namespace TouchScript.Gestures.TransformGestures.Base
             {
                 minScreenPointsDistance = value;
                 updateMinScreenPointsDistance();
-            }
-        }
-
-        /// <inheritdoc />
-        public override Vector2 ScreenPosition
-        {
-            get
-            {
-                if (NumPointers == 0) return TouchManager.INVALID_POSITION;
-                if (NumPointers == 1) return activePointers[0].Position;
-                return (getPointScreenPosition(0) + getPointScreenPosition(1)) * .5f;
-            }
-        }
-
-        /// <inheritdoc />
-        public override Vector2 PreviousScreenPosition
-        {
-            get
-            {
-                if (NumPointers == 0) return TouchManager.INVALID_POSITION;
-                if (NumPointers == 1) return activePointers[0].PreviousPosition;
-                return (getPointPreviousScreenPosition(0) + getPointPreviousScreenPosition(1)) * .5f;
             }
         }
 
@@ -253,6 +234,7 @@ namespace TouchScript.Gestures.TransformGestures.Base
                         deltaRotation = dR;
                         deltaScale = dS;
                         setState(GestureState.Changed);
+                        resetValues();
                         break;
                 }
             }

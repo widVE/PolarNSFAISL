@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using TouchScript.Utils;
 using TouchScript.Pointers;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TouchScript.Gestures
 {
@@ -85,13 +86,45 @@ namespace TouchScript.Gestures
                                                    pointerReleasedInvoker,
                                                    pointerCancelledInvoker;
 
-        #endregion
+		#endregion
 
-        #region Gesture callbacks
+		#region Private variables
 
-        /// <inheritdoc />
-        protected override void pointersPressed(IList<Pointer> pointers)
+#if UNITY_5_6_OR_NEWER
+		private CustomSampler gestureSampler;
+#endif
+
+		#endregion
+
+		#region Unity
+
+		/// <inheritdoc />
+		protected override void Awake()
+		{
+			base.Awake();
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler = CustomSampler.Create("[TouchScript] Meta Gesture");
+#endif
+		}
+
+		[ContextMenu("Basic Editor")]
+		private void switchToBasicEditor()
+		{
+			basicEditor = true;
+		}
+
+		#endregion
+
+		#region Gesture callbacks
+
+		/// <inheritdoc />
+		protected override void pointersPressed(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersPressed(pointers);
 
             if (State == GestureState.Idle) setState(GestureState.Began);
@@ -106,11 +139,19 @@ namespace TouchScript.Gestures
             {
                 for (var i = 0; i < length; i++) SendMessageTarget.SendMessage(POINTER_PRESSED_MESSAGE, pointers[i], SendMessageOptions.DontRequireReceiver);
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersUpdated(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersUpdated(pointers);
 
             if (State == GestureState.Began || State == GestureState.Changed) setState(GestureState.Changed);
@@ -125,11 +166,19 @@ namespace TouchScript.Gestures
             {
                 for (var i = 0; i < length; i++) SendMessageTarget.SendMessage(POINTER_MOVED_MESSAGE, pointers[i], SendMessageOptions.DontRequireReceiver);
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersReleased(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersReleased(pointers);
 
             if ((State == GestureState.Began || State == GestureState.Changed) && NumPointers == 0) setState(GestureState.Ended);
@@ -144,11 +193,19 @@ namespace TouchScript.Gestures
             {
                 for (var i = 0; i < length; i++) SendMessageTarget.SendMessage(POINTER_RELEASED_MESSAGE, pointers[i], SendMessageOptions.DontRequireReceiver);
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersCancelled(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersCancelled(pointers);
 
             var length = pointers.Count;
@@ -161,6 +218,10 @@ namespace TouchScript.Gestures
             {
                 for (var i = 0; i < length; i++) SendMessageTarget.SendMessage(POINTER_CANCELLED_MESSAGE, pointers[i], SendMessageOptions.DontRequireReceiver);
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         #endregion

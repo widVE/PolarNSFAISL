@@ -10,7 +10,7 @@ using UnityEngine;
 
 #if TOUCHSCRIPT_DEBUG
 using System.Collections;
-using TouchScript.Utils.DebugUtils;
+using TouchScript.Debugging.GL;
 #endif
 
 namespace TouchScript.Gestures.TransformGestures.Base
@@ -187,7 +187,8 @@ namespace TouchScript.Gestures.TransformGestures.Base
                         deltaRotation = dR;
                         deltaScale = dS;
                         setState(GestureState.Changed);
-                        break;
+						resetValues();
+						break;
                 }
             }
         }
@@ -272,6 +273,7 @@ namespace TouchScript.Gestures.TransformGestures.Base
             return activePointers[0].PreviousPosition;
         }
 
+        /// <inheritdoc />
         protected override void updateType()
         {
             type = type & ~TransformGesture.TransformType.Translation;

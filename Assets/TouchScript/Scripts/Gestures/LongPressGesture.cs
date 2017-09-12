@@ -9,6 +9,7 @@ using TouchScript.Utils;
 using TouchScript.Utils.Attributes;
 using TouchScript.Pointers;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TouchScript.Gestures
 {
@@ -42,7 +43,10 @@ namespace TouchScript.Gestures
         // Needed to overcome iOS AOT limitations
         private EventHandler<EventArgs> longPressedInvoker;
 
-		public GestureEvent OnLongPress = new GestureEvent();
+        /// <summary>
+        /// Unity event, occurs when gesture is recognized.
+        /// </summary>
+        public GestureEvent OnLongPress = new GestureEvent();
 
         #endregion
 
@@ -87,9 +91,23 @@ namespace TouchScript.Gestures
 
         private Vector2 totalMovement;
 
+#if UNITY_5_6_OR_NEWER
+		private CustomSampler gestureSampler;
+#endif
+
         #endregion
 
         #region Unity methods
+
+		/// <inheritdoc />
+		protected override void Awake()
+		{
+			base.Awake();
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler = CustomSampler.Create("[TouchScript] Long Press Gesture");
+#endif
+		}
 
         /// <inheritdoc />
         protected override void OnEnable()
@@ -99,6 +117,12 @@ namespace TouchScript.Gestures
             distanceLimitInPixelsSquared = Mathf.Pow(distanceLimit * touchManager.DotsPerCentimeter, 2);
         }
 
+		[ContextMenu("Basic Editor")]
+		private void switchToBasicEditor()
+		{
+			basicEditor = true;
+		}
+
         #endregion
 
         #region Gesture callbacks
@@ -106,6 +130,10 @@ namespace TouchScript.Gestures
         /// <inheritdoc />
         protected override void pointersPressed(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersPressed(pointers);
 
             if (pointersNumState == PointersNumState.PassedMaxThreshold ||
@@ -118,11 +146,19 @@ namespace TouchScript.Gestures
                 setState(GestureState.Possible);
                 StartCoroutine("wait");
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersUpdated(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersUpdated(pointers);
 
             if (distanceLimit < float.PositiveInfinity)
@@ -130,17 +166,29 @@ namespace TouchScript.Gestures
                 totalMovement += ScreenPosition - PreviousScreenPosition;
                 if (totalMovement.sqrMagnitude > distanceLimitInPixelsSquared) setState(GestureState.Failed);
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
         protected override void pointersReleased(IList<Pointer> pointers)
         {
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.Begin();
+#endif
+
             base.pointersReleased(pointers);
 
             if (pointersNumState == PointersNumState.PassedMinThreshold)
             {
                 setState(GestureState.Failed);
             }
+
+#if UNITY_5_6_OR_NEWER
+			gestureSampler.End();
+#endif
         }
 
         /// <inheritdoc />
@@ -149,7 +197,7 @@ namespace TouchScript.Gestures
             base.onRecognized();
             if (longPressedInvoker != null) longPressedInvoker.InvokeHandleExceptions(this, EventArgs.Empty);
             if (UseSendMessage && SendMessageTarget != null) SendMessageTarget.SendMessage(LONG_PRESS_MESSAGE, this, SendMessageOptions.DontRequireReceiver);
-			if (UseUnityEvents) OnLongPress.Invoke(this);
+            if (UseUnityEvents) OnLongPress.Invoke(this);
         }
 
         /// <inheritdoc />
@@ -173,14 +221,11 @@ namespace TouchScript.Gestures
 
             if (State == GestureState.Possible)
             {
-                if (GetScreenPositionHitData().Target.IsChildOf(cachedTransform))
-                {
-                    setState(GestureState.Recognized);
-                }
-                else
-                {
+                var data = GetScreenPositionHitData();
+                if (data.Target == null || !data.Target.IsChildOf(cachedTransform))
                     setState(GestureState.Failed);
-                }
+                else
+                    setState(GestureState.Recognized);
             }
         }
 

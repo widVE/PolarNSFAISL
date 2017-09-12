@@ -1,4 +1,4 @@
-﻿/*
+/*
  * @author Valentin Simonov / http://va.lent.in/
  */
 
@@ -145,13 +145,23 @@ namespace TouchScript.InputSources
 
         private static StandardInput instance;
 
-		[SerializeField]
-		private bool generalProps; // Used in the custom inspector
+#pragma warning disable CS0414
 
 		[SerializeField]
-		private bool windowsProps; // Used in the custom inspector
+        [HideInInspector]
+        private bool generalProps; // Used in the custom inspector
 
         [SerializeField]
+        [HideInInspector]
+        private bool windowsProps; // Used in the custom inspector
+
+		[SerializeField]
+		[HideInInspector]
+		private bool webglProps; // Used in the custom inspector
+
+#pragma warning restore CS0414
+
+		[SerializeField]
         private Windows8APIType windows8API = Windows8APIType.Windows8;
 
         [SerializeField]
@@ -189,12 +199,49 @@ namespace TouchScript.InputSources
         #region Public methods
 
         /// <inheritdoc />
-        public override void UpdateInput()
+        public override bool UpdateInput()
         {
-            base.UpdateInput();
+            if (base.UpdateInput()) return true;
 
-            if (touchHandler != null) touchHandler.UpdateInput();
-            if (mouseHandler != null) mouseHandler.UpdateInput();
+            var handled = false;
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+            if (windows8PointerHandler != null) 
+            {
+                handled = windows8PointerHandler.UpdateInput();
+            } 
+            else
+            {
+                if (windows7PointerHandler != null) 
+                {
+                    handled = windows7PointerHandler.UpdateInput();
+                }
+                else 
+#endif
+            if (touchHandler != null)
+            {
+                handled = touchHandler.UpdateInput();
+            }
+            if (mouseHandler != null)
+            {
+                if (handled) mouseHandler.CancelMousePointer();
+                else handled = mouseHandler.UpdateInput();
+            }
+
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+            }
+#endif
+            return handled;
+        }
+
+        /// <inheritdoc />
+        public override void UpdateResolution()
+        {
+#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
+            if (windows8PointerHandler != null) windows8PointerHandler.UpdateResolution();
+            else if (windows7PointerHandler != null) windows7PointerHandler.UpdateResolution();
+#endif
+            if (touchHandler != null) touchHandler.UpdateResolution();
+            if (mouseHandler != null) mouseHandler.UpdateResolution();
         }
 
         /// <inheritdoc />
@@ -314,6 +361,12 @@ namespace TouchScript.InputSources
             base.OnDisable();
         }
 
+		[ContextMenu("Basic Editor")]
+		private void switchToBasicEditor()
+		{
+			basicEditor = true;
+		}
+
         #endregion
 
         #region Protected methods
@@ -398,6 +451,6 @@ namespace TouchScript.InputSources
         }
 #endif
 
-#endregion
+        #endregion
     }
 }

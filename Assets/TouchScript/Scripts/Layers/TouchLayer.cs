@@ -20,14 +20,13 @@ namespace TouchScript.Layers
     /// </summary>
     /// <remarks>
     /// <para>In <b>TouchScript</b> it's a layer's job to determine if a pointer on the screen hits anything in Unity's 3d/2d world.</para>
-    /// <para><see cref="ITouchManager"/> keeps a sorted list of all layers in <see cref="ITouchManager.Layers"/> which it queries when a new pointer appears. It's a layer's job to return <see cref="LayerHitResult.Hit"/> if this pointer hits an object. Layers can even be used to "hit" objects outside of Unity's 3d world, for example <b>Scaleform</b> integration is implemented this way.</para>
+    /// <para><see cref="ILayerManager"/> keeps a sorted list of all layers in <see cref="ILayerManager.Layers"/> which it queries when a new pointer appears. It's a layer's job to return <see cref="HitResult.Hit"/> if this pointer hits an object. Layers can even be used to "hit" objects outside of Unity's 3d world, for example <b>Scaleform</b> integration is implemented this way.</para>
     /// <para>Layers can be configured in a scene using <see cref="TouchManager"/> or from code using <see cref="ITouchManager"/> API.</para>
     /// <para>If you want to route pointers and manually control which objects they should "pointer" it's better to create a new layer extending <see cref="TouchLayer"/>.</para>
     /// </remarks>
     [ExecuteInEditMode]
     public abstract class TouchLayer : MonoBehaviour
     {
-
         #region Events
 
         /// <summary>
@@ -74,6 +73,15 @@ namespace TouchScript.Layers
         /// </summary>
         protected ProjectionParams layerProjectionParams;
 
+        /// <summary>
+        /// Layer manager.
+        /// </summary>
+        protected ILayerManager manager;
+
+        #endregion
+
+        #region Temporary variables
+
         private List<HitTest> tmpHitTestList = new List<HitTest>(10);
 
         #endregion
@@ -95,7 +103,7 @@ namespace TouchScript.Layers
         /// </summary>
         /// <param name="pointer">Pointer.</param>
         /// <param name="hit">Hit result.</param>
-        /// <returns><c>true</c>, if an object is hit, <see cref="LayerHitResult.Miss"/>; <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c>, if an object is hit, <see cref="HitResult.Miss"/>; <c>false</c> otherwise.</returns>
         public virtual HitResult Hit(IPointer pointer, out HitData hit)
         {
             hit = default(HitData);
@@ -120,6 +128,7 @@ namespace TouchScript.Layers
             setName();
             if (!Application.isPlaying) return;
 
+            manager = LayerManager.Instance;
             layerProjectionParams = createProjectionParams();
             StartCoroutine(lateAwake());
         }
@@ -129,7 +138,7 @@ namespace TouchScript.Layers
             yield return null;
 
             // Add ourselves after TouchManager finished adding layers in order
-            TouchManager.Instance.AddLayer(this, -1, false);
+            manager.AddLayer(this, -1, false);
         }
 
         // To be able to turn layers off
@@ -143,7 +152,7 @@ namespace TouchScript.Layers
             if (!Application.isPlaying || TouchManager.Instance == null) return;
 
             StopAllCoroutines();
-            TouchManager.Instance.RemoveLayer(this);
+            manager.RemoveLayer(this);
         }
 
         #endregion
@@ -164,12 +173,12 @@ namespace TouchScript.Layers
         {
             pressPointer(pointer);
             if (pointerPressInvoker != null) pointerPressInvoker.InvokeHandleExceptions(this, new TouchLayerEventArgs(pointer));
-			return true;
+            return true;
         }
 
         internal void INTERNAL_ReleasePointer(Pointer pointer)
         {
-            endPointer(pointer);
+            releasePointer(pointer);
         }
 
         internal void INTERNAL_RemovePointer(Pointer pointer)
@@ -186,6 +195,12 @@ namespace TouchScript.Layers
 
         #region Protected functions
 
+        /// <summary>
+        /// Checks the hit filters.
+        /// </summary>
+        /// <param name="pointer">The pointer.</param>
+        /// <param name="hit">HitData for the pointer.</param>
+        /// <returns></returns>
         protected HitResult checkHitFilters(IPointer pointer, HitData hit)
         {
             hit.Target.GetComponents(tmpHitTestList);
@@ -212,10 +227,15 @@ namespace TouchScript.Layers
             if (string.IsNullOrEmpty(Name)) Name = "Layer";
         }
 
-        protected virtual void addPointer(Pointer pointer) { }
+        /// <summary>
+        /// Called when a pointer is added.
+        /// </summary>
+        /// <param name="pointer">Pointer.</param>
+        /// <remarks>This method may also be used to update some internal state or resend this event somewhere.</remarks>
+        protected virtual void addPointer(Pointer pointer) {}
 
         /// <summary>
-        /// Called when a layer is touched to query the layer if this pointer hits something.
+        /// Called when a layer is pressed over an object detected by this layer.
         /// </summary>
         /// <param name="pointer">Pointer.</param>
         /// <remarks>This method may also be used to update some internal state or resend this event somewhere.</remarks>
@@ -229,13 +249,18 @@ namespace TouchScript.Layers
         protected virtual void updatePointer(Pointer pointer) {}
 
         /// <summary>
-        /// Called when a pointer ends.
+        /// Called when a pointer is released.
         /// </summary>
         /// <param name="pointer">Pointer.</param>
         /// <remarks>This method may also be used to update some internal state or resend this event somewhere.</remarks>
-        protected virtual void endPointer(Pointer pointer) {}
+        protected virtual void releasePointer(Pointer pointer) {}
 
-        protected virtual void removePointer(Pointer pointer) { }
+        /// <summary>
+        /// Called when a pointer is removed.
+        /// </summary>
+        /// <param name="pointer">Pointer.</param>
+        /// <remarks>This method may also be used to update some internal state or resend this event somewhere.</remarks>
+        protected virtual void removePointer(Pointer pointer) {}
 
         /// <summary>
         /// Called when a pointer is cancelled.

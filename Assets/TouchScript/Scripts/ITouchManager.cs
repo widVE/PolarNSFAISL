@@ -94,7 +94,7 @@ namespace TouchScript
         float DPI { get; }
 
         /// <summary>
-        /// Indicates if TouchScript should create a <see cref="CameraLayer"/> for you if no layers present in a scene.
+        /// Indicates if TouchScript should create a <see cref="StandardLayer"/> for you if no layers present in a scene.
         /// </summary>
         /// <value><c>true</c> if a CameraLayer should be created on startup; otherwise, <c>false</c>.</value>
         /// <remarks>This is usually a desired behavior but sometimes you would want to turn this off if you are using TouchScript only to get pointer input from some device.</remarks>
@@ -106,12 +106,6 @@ namespace TouchScript
         /// <value> <c>true</c> if StandardInput should be created; otherwise, <c>false</c>. </value>
         /// <remarks>This is usually a desired behavior but sometimes you would want to turn this off.</remarks>
         bool ShouldCreateStandardInput { get; set; }
-
-        /// <summary>
-        /// Gets the list of <see cref="TouchLayer"/>.
-        /// </summary>
-        /// <value>A sorted list of currently active layers.</value>
-        IList<TouchLayer> Layers { get; }
 
         /// <summary>
         /// Gets the list of <see cref="IInputSource"/>
@@ -147,29 +141,12 @@ namespace TouchScript
         IList<Pointer> PressedPointers { get; }
 
         /// <summary>
-        /// Adds a layer in a specific position.
+        /// Indicates that execution is currently inside a TouchScript Pointer Frame, i.e. before <see cref="FrameFinished"/> and after <see cref="FrameStarted"/> events.
         /// </summary>
-        /// <param name="layer">The layer to add.</param>
-        /// <param name="index">Layer index to add the layer to or <c>-1</c> to add to the end of the list.</param>
-        /// <param name="addIfExists">if set to <c>true</c> move the layer to another index if it is already added; don't move otherwise.</param>
-        /// <returns>
-        /// True if the layer was added.
-        /// </returns>
-        bool AddLayer(TouchLayer layer, int index = -1, bool addIfExists = true);
-
-        /// <summary>
-        /// Removes a layer.
-        /// </summary>
-        /// <param name="layer">The layer to remove.</param>
-        /// <returns>True if the layer was removed.</returns>
-        bool RemoveLayer(TouchLayer layer);
-
-        /// <summary>
-        /// Swaps layers.
-        /// </summary>
-        /// <param name="at">Layer index 1.</param>
-        /// <param name="to">Layer index 2.</param>
-        void ChangeLayerIndex(int at, int to);
+        /// <value>
+        ///   <c>true</c> if execution is inside a TouchScript Pointer Frame; otherwise, <c>false</c>.
+        /// </value>
+        bool IsInsidePointerFrame { get; }
 
         /// <summary>
         /// Adds an input source.
@@ -189,7 +166,7 @@ namespace TouchScript
         /// Cancels a pointer and returns it to the system of need.
         /// </summary>
         /// <param name="id">Pointer id to cancel.</param>
-        /// <param name="return">Should the pointer be returned to the system.</param>
+        /// <param name="shouldReturn">If the pointer should be redispatched to the system.</param>
         void CancelPointer(int id, bool shouldReturn);
 
         /// <summary>
@@ -197,6 +174,11 @@ namespace TouchScript
         /// </summary>
         /// <param name="id">Pointer id to cancel.</param>
         void CancelPointer(int id);
+
+        /// <summary>
+        /// Tells TouchScript to update internal state after a resolution change.
+        /// </summary>
+        void UpdateResolution();
     }
 
     /// <summary>

@@ -11,6 +11,7 @@ using TouchScript.Utils.Attributes;
 using TouchScript.Pointers;
 using UnityEngine;
 using UnityEngine.Events;
+using TouchScript.Core;
 
 namespace TouchScript.Gestures
 {
@@ -21,7 +22,10 @@ namespace TouchScript.Gestures
     {
         #region Constants
 
-		[Serializable]
+        /// <summary>
+        /// Unity event for gesture state changes.
+        /// </summary>
+        [Serializable]
 		public class GestureEvent : UnityEvent<Gesture> {}
 
         /// <summary>
@@ -201,29 +205,6 @@ namespace TouchScript.Gestures
         }
 
         /// <summary>
-        /// Gets or sets the flag if pointers should be treated as a cluster.
-        /// </summary>
-        /// <value> <c>true</c> if pointers should be treated as a cluster; otherwise, <c>false</c>. </value>
-        /// <remarks>
-        /// At the end of a gesture when pointers are lifted off due to the fact that computers are faster than humans the very last pointer's position will be gesture's <see cref="ScreenPosition"/> after that. This flag is used to combine several pointers which from the point of a user were lifted off simultaneously and set their centroid as gesture's <see cref="ScreenPosition"/>.
-        /// </remarks>
-        public bool CombinePointers
-        {
-            get { return combinePointers; }
-            set { combinePointers = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets time interval before gesture is recognized to combine all lifted pointers into a cluster to use its center as <see cref="ScreenPosition"/>.
-        /// </summary>
-        /// <value> Time in seconds to treat pointers lifted off during this interval as a single gesture. </value>
-        public float CombinePointersInterval
-        {
-            get { return combinePointersInterval; }
-            set { combinePointersInterval = value; }
-        }
-
-        /// <summary>
         /// Gets or sets whether gesture should use Unity's SendMessage in addition to C# events.
         /// </summary>
         /// <value> <c>true</c> if gesture uses SendMessage; otherwise, <c>false</c>. </value>
@@ -347,7 +328,7 @@ namespace TouchScript.Gestures
                     if (!TouchManager.IsInvalidPosition(cachedScreenPosition)) return cachedScreenPosition;
                     return TouchManager.INVALID_POSITION;
                 }
-                return ClusterUtils.Get2DCenterPosition(activePointers);
+                return activePointers[0].Position;
             }
         }
 
@@ -365,7 +346,7 @@ namespace TouchScript.Gestures
                         return cachedPreviousScreenPosition;
                     return TouchManager.INVALID_POSITION;
                 }
-                return ClusterUtils.GetPrevious2DCenterPosition(activePointers);
+                return activePointers[0].PreviousPosition;
             }
         }
 
@@ -459,27 +440,28 @@ namespace TouchScript.Gestures
         /// </summary>
         protected Transform cachedTransform;
 
+        /// <exclude />
+        [SerializeField]
+		[HideInInspector]
+		protected bool basicEditor = true;
+
 		[SerializeField]
+        [HideInInspector]
 		private bool generalProps; // Used in the custom inspector
 
 		[SerializeField]
+        [HideInInspector]
 		private bool limitsProps; // Used in the custom inspector
 
 		[SerializeField]
+        [HideInInspector]
 		private bool advancedProps; // Used in the custom inspector
 
-        [SerializeField]
+		[SerializeField]
         private int minPointers = 0;
 
         [SerializeField]
         private int maxPointers = 0;
-
-        [SerializeField]
-        [ToggleLeft]
-        private bool combinePointers = false;
-
-        [SerializeField]
-        private float combinePointersInterval = .3f;
 
         [SerializeField]
         [ToggleLeft]
@@ -509,7 +491,6 @@ namespace TouchScript.Gestures
 
         private int numPointers;
         private ReadOnlyCollection<Pointer> readonlyActivePointers;
-        private TimedSequence<Pointer> pointerSequence = new TimedSequence<Pointer>();
         private GestureManagerInstance gestureManagerInstance;
         private GestureState delayedStateChange = GestureState.Idle;
         private bool requiredGestureFailed = false;
@@ -520,13 +501,13 @@ namespace TouchScript.Gestures
         /// Cached screen position. 
         /// Used to keep tap's position which can't be calculated from pointers when the gesture is recognized since all pointers are gone.
         /// </summary>
-        private Vector2 cachedScreenPosition;
+        protected Vector2 cachedScreenPosition;
 
         /// <summary>
         /// Cached previous screen position.
         /// Used to keep tap's position which can't be calculated from pointers when the gesture is recognized since all pointers are gone.
         /// </summary>
-        private Vector2 cachedPreviousScreenPosition;
+        protected Vector2 cachedPreviousScreenPosition;
 
         #endregion
 
@@ -621,7 +602,6 @@ namespace TouchScript.Gestures
             switch (state)
             {
                 case GestureState.Cancelled:
-                case GestureState.Ended:
                 case GestureState.Failed:
                     return;
             }
@@ -647,7 +627,7 @@ namespace TouchScript.Gestures
         {
             HitData hit;
             fakePointer.Position = ScreenPosition;
-            touchManager.INTERNAL_GetHitTarget(fakePointer, out hit);
+            LayerManager.Instance.GetHitTarget(fakePointer, out hit);
             return hit;
         }
 
@@ -823,36 +803,20 @@ namespace TouchScript.Gestures
             for (var i = 0; i < count; i++) activePointers.Remove(pointers[i]);
             numPointers = total;
 
-            if (combinePointers)
-            {
-                for (var i = 0; i < count; i++) pointerSequence.Add(pointers[i]);
-
-                if (NumPointers == 0)
-                {
-                    // Checking which points were removed in clusterExistenceTime seconds to set their centroid as cached screen position
-                    var cluster = pointerSequence.FindElementsLaterThan(Time.time - combinePointersInterval,
-                        shouldCachePointerPosition);
-                    cachedScreenPosition = ClusterUtils.Get2DCenterPosition(cluster);
-                    cachedPreviousScreenPosition = ClusterUtils.GetPrevious2DCenterPosition(cluster);
-                }
-            }
-            else
-            {
-                if (NumPointers == 0)
-                {
-                    var lastPoint = pointers[count - 1];
-                    if (shouldCachePointerPosition(lastPoint))
-                    {
-                        cachedScreenPosition = lastPoint.Position;
-                        cachedPreviousScreenPosition = lastPoint.PreviousPosition;
-                    }
-                    else
-                    {
-                        cachedScreenPosition = TouchManager.INVALID_POSITION;
-                        cachedPreviousScreenPosition = TouchManager.INVALID_POSITION;
-                    }
-                }
-            }
+			if (NumPointers == 0)
+			{
+				var lastPoint = pointers[count - 1];
+				if (shouldCachePointerPosition(lastPoint))
+				{
+					cachedScreenPosition = lastPoint.Position;
+					cachedPreviousScreenPosition = lastPoint.PreviousPosition;
+				}
+				else
+				{
+					cachedScreenPosition = TouchManager.INVALID_POSITION;
+					cachedPreviousScreenPosition = TouchManager.INVALID_POSITION;
+				}
+			}
 
             pointersReleased(pointers);
         }

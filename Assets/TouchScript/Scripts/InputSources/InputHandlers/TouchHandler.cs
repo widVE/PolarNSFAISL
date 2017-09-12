@@ -1,4 +1,4 @@
-﻿/*
+/*
  * @author Michael Holub
  * @author Valentin Simonov / http://va.lent.in/
  */
@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TouchScript.Pointers;
 using TouchScript.Utils;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace TouchScript.InputSources.InputHandlers
 {
@@ -43,8 +44,12 @@ namespace TouchScript.InputSources.InputHandlers
 
         private ObjectPool<TouchPointer> touchPool;
         // Unity fingerId -> TouchScript touch info
-        private Dictionary<int, TouchState> systemToInternalId = new Dictionary<int, TouchState>();
+        private Dictionary<int, TouchState> systemToInternalId = new Dictionary<int, TouchState>(10);
         private int pointersNum;
+
+#if UNITY_5_6_OR_NEWER
+		private CustomSampler updateSampler;
+#endif
 
         #endregion
 
@@ -66,15 +71,23 @@ namespace TouchScript.InputSources.InputHandlers
             this.removePointer = removePointer;
             this.cancelPointer = cancelPointer;
 
-            touchPool = new ObjectPool<TouchPointer>(10, () => new TouchPointer(this), null, (t) => t.INTERNAL_Reset());
+            touchPool = new ObjectPool<TouchPointer>(10, () => new TouchPointer(this), null, resetPointer);
             touchPool.Name = "Touch";
+
+#if UNITY_5_6_OR_NEWER
+			updateSampler = CustomSampler.Create("[TouchScript] Update touch");
+#endif
         }
 
         #region Public methods
 
         /// <inheritdoc />
-        public void UpdateInput()
+        public bool UpdateInput()
         {
+#if UNITY_5_6_OR_NEWER
+			updateSampler.Begin();
+#endif
+
             for (var i = 0; i < Input.touchCount; ++i)
             {
                 var t = Input.GetTouch(i);
@@ -95,20 +108,22 @@ namespace TouchScript.InputSources.InputHandlers
                         }
                         break;
                     case TouchPhase.Moved:
-						if (systemToInternalId.TryGetValue(t.fingerId, out touchState))
-						{
-						    if (touchState.Phase != TouchPhase.Canceled)
-						    {
-						        touchState.Pointer.Position = t.position;
+                        if (systemToInternalId.TryGetValue(t.fingerId, out touchState))
+                        {
+                            if (touchState.Phase != TouchPhase.Canceled)
+                            {
+                                touchState.Pointer.Position = t.position;
                                 updatePointer(touchState.Pointer);
-						    }
-						}
+                            }
+                        }
                         else
                         {
                             // Missed began phase
                             systemToInternalId.Add(t.fingerId, new TouchState(internalAddPointer(t.position)));
                         }
                         break;
+                    // NOTE: Unity touch on Windows reports Cancelled as Ended
+                    // when a touch goes out of display boundary
                     case TouchPhase.Ended:
                         if (systemToInternalId.TryGetValue(t.fingerId, out touchState))
                         {
@@ -145,7 +160,16 @@ namespace TouchScript.InputSources.InputHandlers
                         break;
                 }
             }
+
+#if UNITY_5_6_OR_NEWER
+			updateSampler.End();
+#endif
+
+            return Input.touchCount > 0;
         }
+
+        /// <inheritdoc />
+        public void UpdateResolution() {}
 
         /// <inheritdoc />
         public bool CancelPointer(Pointer pointer, bool shouldReturn)
@@ -172,7 +196,9 @@ namespace TouchScript.InputSources.InputHandlers
             return false;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Releases resources.
+        /// </summary>
         public void Dispose()
         {
             foreach (var touchState in systemToInternalId)
@@ -243,6 +269,11 @@ namespace TouchScript.InputSources.InputHandlers
             return position;
         }
 
+        private void resetPointer(Pointer p)
+        {
+            p.INTERNAL_Reset();
+        }
+
         #endregion
 
         private struct TouchState
@@ -255,8 +286,6 @@ namespace TouchScript.InputSources.InputHandlers
                 Pointer = pointer;
                 Phase = phase;
             }
-
         }
-
     }
 }

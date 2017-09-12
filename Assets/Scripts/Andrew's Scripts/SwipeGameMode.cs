@@ -10,6 +10,8 @@ public class SwipeGameMode : MonoBehaviour {
 
     public Strings domStrings;
 
+    public bool isGamePlaying = false;
+
 	[SerializeField]
 	private GameObject topCamera;
     [SerializeField]

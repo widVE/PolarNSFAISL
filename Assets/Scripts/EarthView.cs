@@ -5,9 +5,9 @@ using UnityEngine;
 public class EarthView : MonoBehaviour {
 
     public GameObject lineObject;
-
-    private List<GameObject> detectedEvents = new List<GameObject>();
-    private List<Vector3> lineData = new List<Vector3>();
+    
+    //private List<GameObject> detectedEvents = new List<GameObject>();
+    //private List<Vector3> lineData = new List<Vector3>();
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +17,7 @@ public class EarthView : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        Transform trans = this.transform.Find("EarthModel").transform.Find("IceCubeLocation");
+        /*Transform trans = this.transform.Find("EarthModel").transform.Find("IceCubeLocation");
 
         for(int i = 0; i < detectedEvents.Count; ++i)
         {
@@ -31,14 +31,19 @@ public class EarthView : MonoBehaviour {
             v = extendLine(v);
             r.SetPosition(0, v[0]);
             r.SetPosition(1, v[1]);
-        }
+        }*/
 	}
 
     public void AddDetectedEvent(Vector3 start, Vector3 end, Color color)
     {
-        GameObject g = Instantiate(lineObject, transform);
+        GameObject g = Instantiate(lineObject, transform.Find("IceCubeLocation"));
+        g.layer = 11;
+        Quaternion q = g.transform.rotation;
+        q.SetLookRotation((end - start).normalized);
+        g.transform.rotation = q;
+        g.GetComponent<MeshRenderer>().material.color = color;
 
-        LineRenderer r = g.GetComponent<LineRenderer>();
+        /*LineRenderer r = g.GetComponent<LineRenderer>();
         //r.gameObject.AddComponent(r);
         r.startWidth = 3.0f;
         r.endWidth = 3.0f;
@@ -61,7 +66,7 @@ public class EarthView : MonoBehaviour {
         r.SetPosition(0, v[0]);
         r.SetPosition(1, v[1]);
 
-        detectedEvents.Add(g);
+        detectedEvents.Add(g);*/
     }
 
 	private Vector3[] extendLine(Vector3[] endPoints) {

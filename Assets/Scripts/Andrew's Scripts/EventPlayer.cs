@@ -8,7 +8,7 @@ public class EventPlayer : MonoBehaviour {
 
     public string eventDirectory;
     public string newEventFile;
-
+    public int newEventCutoff;
     //public GameObject particle;   //used for debugging trajectory for now
     public GameObject sparks;
     List<GameObject> sparkList = new List<GameObject>();
@@ -220,38 +220,41 @@ public class EventPlayer : MonoBehaviour {
                         //store old event...
                         if (!first)
                         {
-                            EventVis e = new EventVis();
-                            e.eventData = new List<EventData>(ed);
-                            e.theta = lastTheta;
-                            e.phi = lastPhi;
-                            
-                            float thetaDeg = Mathf.Rad2Deg * (e.theta);
-                            float phiDeg = Mathf.Rad2Deg * (e.phi);
-                            Vector3 dir = SphericalToCartesian(1.0f, phiDeg, thetaDeg);
-
-                            
-                            Vector3 avgPos = UnityEngine.Vector3.zero;
-                            for (int i = 0; i < ed.Count; ++i)
+                            if (ed.Count < newEventCutoff)
                             {
-                                avgPos += ed[i].pos;
-                                
-                            }
-                            avgPos /= (float)ed.Count;
-                            UnityEngine.Bounds b = new UnityEngine.Bounds(avgPos, new Vector3(1.0f, 1.0f, 1.0f));
-                            for (int i = 0; i < ed.Count; ++i)
-                            {
-                                b.Encapsulate(ed[i].pos);
+                                EventVis e = new EventVis();
+                                e.eventData = new List<EventData>(ed);
+                                e.theta = lastTheta;
+                                e.phi = lastPhi;
+
+                                float thetaDeg = Mathf.Rad2Deg * (e.theta);
+                                float phiDeg = Mathf.Rad2Deg * (e.phi);
+                                Vector3 dir = SphericalToCartesian(1.0f, phiDeg, thetaDeg);
+
+                                Vector3 avgPos = UnityEngine.Vector3.zero;
+                                for (int i = 0; i < ed.Count; ++i)
+                                {
+                                    avgPos += ed[i].pos;
+
+                                }
+                                avgPos /= (float)ed.Count;
+                                UnityEngine.Bounds b = new UnityEngine.Bounds(avgPos, new Vector3(1.0f, 1.0f, 1.0f));
+                                for (int i = 0; i < ed.Count; ++i)
+                                {
+                                    b.Encapsulate(ed[i].pos);
+                                }
+
+                                e.startPos = avgPos + dir * b.extents.magnitude;
+                                e.endPos = avgPos - dir * b.extents.magnitude;
+
+                                e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
+                                if (sources.Length > 0)
+                                {
+                                    e.eventSource = sources[UnityEngine.Random.Range(0, numSources - 1)];
+                                }
+                                events.Add(e);
                             }
 
-                            e.startPos = avgPos + dir * b.extents.magnitude;
-                            e.endPos = avgPos - dir * b.extents.magnitude;
-
-                            e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
-                            if (sources.Length > 0)
-                            {
-                                e.eventSource = sources[UnityEngine.Random.Range(0, numSources - 1)];
-                            }
-                            events.Add(e);
                             ed.Clear();
                         }
                         first = false;
@@ -263,7 +266,7 @@ public class EventPlayer : MonoBehaviour {
 
         if(events.Count > 0)
         {
-            Debug.Log(events.Count);
+            Debug.Log("Total Events: " + events.Count);
             eventsPlaying = new EventPlayback[events.Count];
             for(int e = 0; e < events.Count; ++e)
             {
@@ -354,7 +357,7 @@ public class EventPlayer : MonoBehaviour {
             eventsPlaying[currEventNumber].isDetected = false;
             if (alarm.isActiveAndEnabled)
             {
-                alarm.Play();
+                //alarm.Play();
             }
 
             if (truePath != null)

@@ -690,7 +690,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 dir = dir.normalized;
                                 float longitude = Mathf.Acos(Vector3.Dot(dir, Vector3.up));
                                 float lat = Mathf.Acos(Vector3.Dot(dir, Vector3.forward));
-                                sphereMap.PlotPoint(new Vector2(lat, longitude));
+                                //sphereMap.PlotPoint(new Vector2(lat, longitude));
                             }
 
                             if(scorePanel != null)

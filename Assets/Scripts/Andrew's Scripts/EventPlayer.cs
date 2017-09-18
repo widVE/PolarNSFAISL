@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public class EventPlayer : MonoBehaviour {
 
+    public GameObject helpSwipe;
     public string eventDirectory;
     public string newEventFile;
     public int newEventCutoff;
@@ -17,16 +18,20 @@ public class EventPlayer : MonoBehaviour {
     private float eventFrequency = 10.0f;
     public float totalEnergy = 0.0f;
     public float secondsBeforeHelp = 10.0f;
+    public float fadeTime = 3.0f;
     public float secondsBeforeDissappear = 10.0f;
 	private AudioSource alarm;
     private const float BELOW_ICE = -1950.0f;
     private float lastPlayTime = 0.0f;
+    private float fadeStart = -1.0f;
 	private DomArrayGenerator arrayGenerator;
 	private int currEventNumber = -1;
     public int lastEventNumber = -1;
 	private bool keepPlaying = true;
 
 	private bool donePlaying = false;
+    private bool firstPlay = true;
+    private bool beginFade = false;
 	private bool isSwiped = false;
 	private float timer = 2.0f;
 
@@ -335,10 +340,12 @@ public class EventPlayer : MonoBehaviour {
 
         totalEnergy = 0.0f;
         //r or every eventFrequency seconds
-		if ((UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || (t - lastPlayTime) > eventFrequency) && !IsEventPlaying())
+		if (/*(UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) ||*/ (t - lastPlayTime) > eventFrequency && !IsEventPlaying())
         {
-            //if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
+            if (firstPlay || (t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
             {
+                firstPlay = false;
+
                 if (currEventNumber == -1)
                 {
                     currEventNumber = UnityEngine.Random.Range(0, events.Count);
@@ -437,11 +444,57 @@ public class EventPlayer : MonoBehaviour {
 				eventsPlaying[currEventNumber].eventIndex++;
 				eventsPlaying[currEventNumber].advancedIndex = true;
 			}
+            else
+            {
+                if(beginFade)
+                {
+                    if(fadeStart == -1.0f)
+                    {
+                        fadeStart = t;
+                    }
+
+                    if(t - fadeStart < fadeTime)
+                    {
+                        //loop through all DOMs...
+                        for(int k = 0; k < events[currEventNumber].eventData.Count; ++k)
+                        {
+                            GameObject d = arrayGenerator.DOMArray[events[currEventNumber].eventData[k].dom, events[currEventNumber].eventData[k].str];
+                            d.GetComponent<DOMController>().Fade(1.0f - ((t-fadeStart)/fadeTime));
+                        }
+                    }
+                    else
+                    {
+                        beginFade = false;
+                        fadeStart = -1.0f;
+                    }
+                }
+            }
 
 			if (eventsPlaying[currEventNumber].eventIndex >= events[currEventNumber].eventData.Count - 1)
 			{
+                if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear - fadeTime)
+                {
+                    beginFade = true;
+                }
+
+                if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
+                {
+                    if (helpSwipe != null)
+                    {
+                        helpSwipe.SetActive(true);
+                    }
+                }
+
 				// Event done playing
-				donePlaying = true;
+                if((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
+                {
+                    donePlaying = true;
+                    //also need to deactivate if successful swipe occurs...
+                    if (helpSwipe != null)
+                    {
+                        helpSwipe.SetActive(false);
+                    }
+                }
 			}
         }
 	}

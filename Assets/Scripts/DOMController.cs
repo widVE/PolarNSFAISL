@@ -50,6 +50,17 @@ public class DOMController : MonoBehaviour {
         oldScale = eventSphere.transform.localScale.x;
 	}
 
+    public void Fade(float fTimeFrac)
+    {
+        if (eventSphere != null)
+        {
+            UnityEngine.Color c = eventSphere.GetComponent<MeshRenderer>().material.color;
+            c.a = fTimeFrac;
+            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);
+            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
+        }
+    }
+
     public void TurnOn(float fTimeFrac, float fRadius)
     {
         //Debug.Log("Turning on");

@@ -16,6 +16,8 @@ public class EventPlayer : MonoBehaviour {
     public float playSpeed = 0.01f;
     private float eventFrequency = 10.0f;
     public float totalEnergy = 0.0f;
+    public float secondsBeforeHelp = 10.0f;
+    public float secondsBeforeDissappear = 10.0f;
 	private AudioSource alarm;
     private const float BELOW_ICE = -1950.0f;
     private float lastPlayTime = 0.0f;
@@ -335,35 +337,40 @@ public class EventPlayer : MonoBehaviour {
         //r or every eventFrequency seconds
 		if ((UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || (t - lastPlayTime) > eventFrequency) && !IsEventPlaying())
         {
-			if (currEventNumber == -1) {
-				currEventNumber = UnityEngine.Random.Range(0, events.Count);
-                lastEventNumber = currEventNumber;
-			}
-
-			lastPlayTime = t;
-            
-			//todo - don't allow same event to replay until it's done...
-            eventsPlaying[currEventNumber].newPlayTime = t;
-            eventsPlaying[currEventNumber].eventStartTime = events[currEventNumber].eventData[0].time;
-            eventsPlaying[currEventNumber].eventStartFrame = UnityEngine.Time.frameCount;
-            
-            eventsPlaying[currEventNumber].eventEndFrame = UnityEngine.Time.frameCount + (int)((float)events[currEventNumber].eventData.Count / playSpeed);
-
-            eventsPlaying[currEventNumber].playStartTime = t;
-            eventsPlaying[currEventNumber].eventEndTime = events[currEventNumber].eventData[events[currEventNumber].eventData.Count - 1].time;
-            eventsPlaying[currEventNumber].advancedIndex = true;
-            eventsPlaying[currEventNumber].eventIndex = 0;
-            eventsPlaying[currEventNumber].isPlaying = true;
-            eventsPlaying[currEventNumber].isDetected = false;
-            if (alarm.isActiveAndEnabled)
+            //if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
             {
-                //alarm.Play();
-            }
+                if (currEventNumber == -1)
+                {
+                    currEventNumber = UnityEngine.Random.Range(0, events.Count);
+                    Debug.Log("Playing event: " + currEventNumber);
+                    lastEventNumber = currEventNumber;
+                }
 
-            if (truePath != null)
-            {
-                truePath.SetPosition(0, events[currEventNumber].startPos);
-                truePath.SetPosition(1, events[currEventNumber].endPos);
+                lastPlayTime = t;
+
+                //todo - don't allow same event to replay until it's done...
+                eventsPlaying[currEventNumber].newPlayTime = t;
+                eventsPlaying[currEventNumber].eventStartTime = events[currEventNumber].eventData[0].time;
+                eventsPlaying[currEventNumber].eventStartFrame = UnityEngine.Time.frameCount;
+
+                eventsPlaying[currEventNumber].eventEndFrame = UnityEngine.Time.frameCount + (int)((float)events[currEventNumber].eventData.Count / playSpeed);
+
+                eventsPlaying[currEventNumber].playStartTime = t;
+                eventsPlaying[currEventNumber].eventEndTime = events[currEventNumber].eventData[events[currEventNumber].eventData.Count - 1].time;
+                eventsPlaying[currEventNumber].advancedIndex = true;
+                eventsPlaying[currEventNumber].eventIndex = 0;
+                eventsPlaying[currEventNumber].isPlaying = true;
+                eventsPlaying[currEventNumber].isDetected = false;
+                if (alarm.isActiveAndEnabled)
+                {
+                    alarm.Play();
+                }
+
+                if (truePath != null)
+                {
+                    truePath.SetPosition(0, events[currEventNumber].startPos);
+                    truePath.SetPosition(1, events[currEventNumber].endPos);
+                }
             }
         }
 
@@ -481,7 +488,6 @@ public class EventPlayer : MonoBehaviour {
 		isSwiped = true;
 		keepPlaying = false;
 		FinishEvent ();
-
 	}
 
 	public void ResumePlaying() {

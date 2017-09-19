@@ -8,9 +8,12 @@ public class Countdown : MonoBehaviour {
     public int gameTime = 90;
     private int timeLeft;
     private float oneSec = 0f;
-    private bool countDown = true;
+    private bool countDown = false;
     public GameObject score;
 	// Use this for initialization
+
+    public void StartCountdown() { countDown = true; Debug.Log("Starting countdown"); }
+
 	void Start () {
         timeLeft = gameTime;
 	}

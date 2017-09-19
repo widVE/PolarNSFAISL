@@ -3491,6 +3491,95 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 439284964}
   m_Mesh: {fileID: 4300068, guid: 73134a962429d414884e07be83c08200, type: 3}
+--- !u!1 &447666988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 447666989}
+  - component: {fileID: 447666992}
+  - component: {fileID: 447666991}
+  - component: {fileID: 447666990}
+  m_Layer: 5
+  m_Name: StartText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &447666989
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 447666988}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1963363067}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2, y: -1000}
+  m_SizeDelta: {x: 350, y: 159}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &447666990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 447666988}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &447666991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 447666988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 55893ee3456f7e243b0b94b33dc13811, type: 3}
+    m_FontSize: 60
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 6
+    m_MaxSize: 60
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Start\t"
+--- !u!222 &447666992
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 447666988}
 --- !u!1 &447999630
 GameObject:
   m_ObjectHideFlags: 0
@@ -3747,6 +3836,49 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 468655627}
   m_Mesh: {fileID: 4300066, guid: 73134a962429d414884e07be83c08200, type: 3}
+--- !u!1 &473320331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 473320333}
+  - component: {fileID: 473320332}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &473320332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 473320331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &473320333
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 473320331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &474525211
 GameObject:
   m_ObjectHideFlags: 0
@@ -4074,7 +4206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00011147608, y: -0.000061035156}
+  m_AnchoredPosition: {x: -0.00011147608, y: 300.00003}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &502392516
@@ -4111,7 +4243,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: -36}
+  m_AnchoredPosition: {x: -5, y: -957}
   m_SizeDelta: {x: 350, y: 159}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &502392518
@@ -4152,7 +4284,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 502392520}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 966682121}
+        m_MethodName: StartCountdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!223 &502392519
@@ -4166,7 +4309,7 @@ Canvas:
   m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
@@ -5107,10 +5250,10 @@ GameObject:
   m_Component:
   - component: {fileID: 598479285}
   - component: {fileID: 598479286}
-  - component: {fileID: 598479291}
   - component: {fileID: 598479301}
   - component: {fileID: 598479287}
   - component: {fileID: 598479288}
+  - component: {fileID: 598479289}
   m_Layer: 0
   m_Name: TouchScript_Scripts
   m_TagString: Untagged
@@ -5209,7 +5352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   template: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
---- !u!114 &598479291
+--- !u!114 &598479289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -7697,6 +7840,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 875935736}
+  - component: {fileID: 875935737}
+  - component: {fileID: 875935738}
   m_Layer: 0
   m_Name: TouchScript
   m_TagString: Untagged
@@ -7719,6 +7864,90 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &875935737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 875935735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd4c394fe06f4ea49e03aaa5e7a8190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnFrameStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnFrameFinish:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointersAdd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointersUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointersPress:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointersRelease:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointersRemove:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPointersCancel:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  basicEditor: 0
+  displayDevice: {fileID: 0}
+  shouldCreateCameraLayer: 0
+  shouldCreateStandardInput: 0
+  useSendMessage: 0
+  sendMessageEvents: 252
+  sendMessageTarget: {fileID: 0}
+  useUnityEvents: 0
+  layers:
+  - {fileID: 905924066}
+  - {fileID: 0}
+--- !u!114 &875935738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 875935735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e276ccba4f7314d9988af19f9b3a611b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicEditor: 0
+  generalProps: 0
+  windowsProps: 0
+  webglProps: 0
+  windows8API: 0
+  windows7API: 0
+  webGLTouch: 1
+  windows8Mouse: 1
+  windows7Mouse: 1
+  universalWindowsMouse: 1
+  emulateSecondMousePointer: 1
 --- !u!1 &884548819
 GameObject:
   m_ObjectHideFlags: 0
@@ -7986,8 +8215,8 @@ MonoBehaviour:
   advancedProps: 0
   hitProps: 0
   hit3DObjects: 1
-  hit2DObjects: 0
-  hitWorldSpaceUI: 0
+  hit2DObjects: 1
+  hitWorldSpaceUI: 1
   hitScreenSpaceUI: 1
   layerMask:
     serializedVersion: 2
@@ -8472,7 +8701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 5, y: 5}
+  m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 0
 --- !u!1 &967637946
 GameObject:
@@ -9228,7 +9457,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 287330471}
   m_HandleRect: {fileID: 287330469}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0.5
   m_Size: 0.9999997
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -16982,7 +17211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 5, y: 5}
+  m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 0
 --- !u!1 &1704142821
 GameObject:
@@ -19358,7 +19587,6 @@ GameObject:
   - component: {fileID: 1963363067}
   - component: {fileID: 1963363072}
   - component: {fileID: 1963363071}
-  - component: {fileID: 1963363069}
   - component: {fileID: 1963363068}
   m_Layer: 5
   m_Name: StartButton
@@ -19373,20 +19601,20 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1963363066}
-  m_LocalRotation: {x: -0.000000923872, y: 0.0000010356307, z: -0.00000044424087,
-    w: -1}
-  m_LocalPosition: {x: 0, y: 0, z: 1883}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 502392517}
+  - {fileID: 447666989}
   m_Father: {fileID: 905924065}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 23.002, y: -5.327, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 9, y: -777}
-  m_SizeDelta: {x: 200, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1963363068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19395,45 +19623,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1963363066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 5, y: 5}
-  m_UseGraphicAlpha: 0
---- !u!114 &1963363069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1963363066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 80
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 8
-    m_MaxSize: 80
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Start
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!223 &1963363071
 Canvas:
   m_ObjectHideFlags: 0
@@ -19442,7 +19639,7 @@ Canvas:
   m_GameObject: {fileID: 1963363066}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
+  m_RenderMode: 0
   m_Camera: {fileID: 905924064}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -19938,7 +20135,6 @@ GameObject:
   - component: {fileID: 2013959688}
   - component: {fileID: 2013959687}
   - component: {fileID: 2013959691}
-  - component: {fileID: 2013959693}
   m_Layer: 11
   m_Name: EarthCamera
   m_TagString: Untagged
@@ -20029,29 +20225,6 @@ Skybox:
   m_GameObject: {fileID: 2013959685}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: d5095726ec74ffd449d1891dd1298bc3, type: 2}
---- !u!114 &2013959693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2013959685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5768c36d1bb4acea50bd233372843a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: EarthCamera
-  basicEditor: 1
-  advancedProps: 0
-  hitProps: 0
-  hit3DObjects: 1
-  hit2DObjects: 1
-  hitWorldSpaceUI: 1
-  hitScreenSpaceUI: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  useHitFilters: 0
 --- !u!1 &2014897892
 GameObject:
   m_ObjectHideFlags: 0

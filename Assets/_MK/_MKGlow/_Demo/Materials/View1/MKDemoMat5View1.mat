@@ -7,70 +7,41 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MKDemoMat5View1
-  m_Shader: {fileID: 4800000, guid: 3f387b3c7760d5a488b5596b42425701, type: 3}
+  m_Shader: {fileID: 4800000, guid: dadfcbf3fd9ab9e4ba80fe75af45f5a0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-    - first:
-        name: _GlowMap
-      second:
+    - _GlowMap:
         m_Texture: {fileID: 2800000, guid: c43738b2b5ea39e488158498ed03aa6e, type: 3}
         m_Scale: {x: 3.67, y: 5.09}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MKGlowTex
-      second:
+    - _MKGlowTex:
         m_Texture: {fileID: 2800000, guid: c43738b2b5ea39e488158498ed03aa6e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MainTex
-      second:
+    - _MainTex:
         m_Texture: {fileID: 2800000, guid: d2bfdb919488ef040b6f7e30c6d08ebf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - first:
-        name: _Inner
-      second: 0.65
-    - first:
-        name: _MKGlowOffSet
-      second: 0
-    - first:
-        name: _MKGlowPower
-      second: 0.723
-    - first:
-        name: _MKGlowTexStrength
-      second: 3.05
-    - first:
-        name: _MKGlowTiling
-      second: 4
-    - first:
-        name: _MKGlowTilingX
-      second: 1
-    - first:
-        name: _MKGlowTilingY
-      second: 1
-    - first:
-        name: _MKTiling
-      second: 1.46
-    - first:
-        name: _Outter
-      second: 1.94
+    - _Inner: 0.65
+    - _MKGlowOffSet: 0
+    - _MKGlowPower: 1.17
+    - _MKGlowTexStrength: 1
+    - _MKGlowTiling: 4
+    - _MKGlowTilingX: 1
+    - _MKGlowTilingY: 1
+    - _MKTiling: 1.46
+    - _Outter: 1.94
     m_Colors:
-    - first:
-        name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _GlowColor
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _MKGlowColor
-      second: {r: 0.24264705, g: 0.24264705, b: 0.24264705, a: 1}
-    - first:
-        name: _MKGlowTexColor
-      second: {r: 0.19117647, g: 0.19117647, b: 0.19117647, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MKGlowColor: {r: 0.24264705, g: 0.24264705, b: 0.24264705, a: 1}
+    - _MKGlowTexColor: {r: 0.19117647, g: 0.19117647, b: 0.19117647, a: 1}

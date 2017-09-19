@@ -25,7 +25,17 @@ public class Tutorial : MonoBehaviour {
             }
 
             transform.GetChild(currPanelIndex).gameObject.SetActive(false);
+            ActivatePanelObject apo = transform.GetChild(currPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
+            if(apo != null)
+            {
+                apo.DeactivateObject();
+            }
             transform.GetChild(nextPanelIndex).gameObject.SetActive(true);
+            apo = transform.GetChild(nextPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
+            if (apo != null)
+            {
+                apo.ActivateObject();
+            }
 
             currPanelIndex = nextPanelIndex;
         }

@@ -56,6 +56,7 @@ public class DOMController : MonoBehaviour {
         {
             UnityEngine.Color c = eventSphere.GetComponent<MeshRenderer>().material.color;
             c.a = fTimeFrac;
+            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", c);
             eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);
             eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
         }
@@ -88,6 +89,7 @@ public class DOMController : MonoBehaviour {
             //float h = (fTimeFrac * 0.75f);
             UnityEngine.Color c = UnityEngine.Color.HSVToRGB(h, 1f, 1f);
            // UnityEngine.Color c2 = UnityEngine.Color.HSVToRGB(h, 0.75f, 0.75f);
+            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", c);
             eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);
             eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
             
@@ -147,6 +149,7 @@ public class DOMController : MonoBehaviour {
         if(eventSphere != null)
         {
             eventSphere.transform.localScale = new Vector3(oldScale, oldScale, oldScale);
+            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", defaultColor);
             eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", defaultColor);
             eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", defaultColor);
         }

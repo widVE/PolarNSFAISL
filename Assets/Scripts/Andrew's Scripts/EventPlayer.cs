@@ -32,6 +32,7 @@ public class EventPlayer : MonoBehaviour {
 	private bool donePlaying = false;
     private bool firstPlay = true;
     private bool beginFade = false;
+    private bool alreadyFaded = false;
 	private bool isSwiped = false;
 	private float timer = 2.0f;
 
@@ -465,6 +466,7 @@ public class EventPlayer : MonoBehaviour {
                     else
                     {
                         beginFade = false;
+                        alreadyFaded = true;
                         fadeStart = -1.0f;
                     }
                 }
@@ -474,7 +476,10 @@ public class EventPlayer : MonoBehaviour {
 			{
                 if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear - fadeTime)
                 {
-                    beginFade = true;
+                    if (!alreadyFaded)
+                    {
+                        beginFade = true;
+                    }
                 }
 
                 if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
@@ -515,6 +520,7 @@ public class EventPlayer : MonoBehaviour {
             eventsPlaying[e].eventEndFrame = 0;
             eventsPlaying[e].ActivatedDoms = new List<DomState>();
 
+            alreadyFaded = false;
             //turn off all event visualization?
             for (int i = 0; i < events[e].eventData.Count; ++i)
             {

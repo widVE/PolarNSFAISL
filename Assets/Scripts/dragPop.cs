@@ -28,7 +28,7 @@ public class dragPop : MonoBehaviour
     public AudioClip popClip;
     private List<pointer> pointerList;
     private int numPointers;
-    private float deltaPos;
+    private float deltaPos, deltaVel;
 
     // Use this for initialization
     void Start()
@@ -46,12 +46,26 @@ public class dragPop : MonoBehaviour
     {
         foreach (pointer point in pointerList) {
             deltaPos = Vector2.Distance(point.startPos, point.p.Position);
-            if (!point.audioObject.GetComponent<AudioSource>().isPlaying && Vector2.Distance(point.p.Position, point.p.PreviousPosition) > 20)
+            deltaVel = Vector2.Distance(point.p.Position, point.p.PreviousPosition);
+            //if (/*!point.audioObject.GetComponent<AudioSource>().isPlaying &&*/ deltaVel > 20)
+            //{
+            point.audioObject.GetComponent<AudioSource>().pitch = (.9f + deltaPos * .0005f);
+            //point.audioObject.GetComponent<AudioSource>().Play();
+            //Debug.Log(deltaVel);
+            if (deltaVel > 40)
             {
-                point.audioObject.GetComponent<AudioSource>().pitch = (.8f + deltaPos * .0005f);
-                point.audioObject.GetComponent<AudioSource>().Play();
+                point.audioObject.GetComponent<AudioSource>().volume = 1;
+            } else {
+                point.audioObject.GetComponent<AudioSource>().volume = deltaVel * .03f;
+            } if (deltaVel < 5)
+            {
+                point.audioObject.GetComponent<AudioSource>().volume = .1f;
             }
-            //point.audioObject.GetComponent<AudioSource>().pitch += 
+           // } else
+            //{
+            //    //point.audioObject.GetComponent<AudioSource>().Stop();
+            //    point.audioObject.GetComponent<AudioSource>().volume = 0;
+            //}
         }
     }
 
@@ -83,7 +97,7 @@ public class dragPop : MonoBehaviour
         //set audio source params
         source.clip = popClip;
         source.playOnAwake = false;
-        source.pitch = .8f;
+        source.pitch = .9f;
         source.volume = 1;
         source.loop = false;
         source.Play();
@@ -102,6 +116,7 @@ public class dragPop : MonoBehaviour
         {
             if (p.Id == pointerList[i].p.Id)
             {
+                Destroy(pointerList[i].audioObject);
                 pointerList.RemoveAt(i);
                 numPointers--;
                 return;

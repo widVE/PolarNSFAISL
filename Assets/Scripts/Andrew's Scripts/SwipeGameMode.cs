@@ -34,6 +34,16 @@ public class SwipeGameMode : MonoBehaviour {
 		
 	}
 
+    public void StartGame()
+    {
+        isGamePlaying = true;
+    }
+
+    public void StopGame()
+    {
+        isGamePlaying = false;
+    }
+
     public void SetSwipeTop(bool swipe) { swipedTop = swipe; }
     public void SetSwipeSide(bool swipe) { swipedSide = swipe; }
     public void SetSwipeFront(bool swipe) { swipedFront = swipe; }

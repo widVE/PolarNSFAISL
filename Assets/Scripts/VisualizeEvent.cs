@@ -421,11 +421,19 @@ public class VisualizeEvent : MonoBehaviour {
         eventsPlaying[e].eventStartFrame = 0;
         eventsPlaying[e].eventEndFrame = 0;
 		eventsPlaying [e].ActivatedDoms = new List<DomState> ();
-
+        Debug.Log("turning off events");
         //turn off all event visualization?
         for(int i = 0; i < events[e].eventData.Count; ++i)
         {
 			GameObject d = domData.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str].tableDom;
+
+            float lastTime = Time.time;
+            Debug.Log(lastTime);
+            while (Mathf.Abs(Time.time - lastTime) < 100)
+            {
+                Debug.Log("x");
+            }
+
             if(d != null)
             {
                 d.GetComponent<DOMController>().TurnOff();

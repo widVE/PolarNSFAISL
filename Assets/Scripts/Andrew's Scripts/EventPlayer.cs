@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class EventPlayer : MonoBehaviour {
 
     public GameObject helpSwipe;
+    public GameObject swipeGameMode;
+    public GameObject tutorial;
     public string eventDirectory;
     public string newEventFile;
     public int newEventCutoff;
@@ -34,6 +36,7 @@ public class EventPlayer : MonoBehaviour {
     private bool beginFade = false;
     private bool alreadyFaded = false;
 	private bool isSwiped = false;
+    private bool playingTutorial = false;
 	private float timer = 2.0f;
 
     public LineRenderer truePath;
@@ -79,8 +82,6 @@ public class EventPlayer : MonoBehaviour {
         public float newPlayTime;
 		public List<DomState> ActivatedDoms;
     };
-
-
 
     public EventPlayback[] eventsPlaying;
 
@@ -304,8 +305,25 @@ public class EventPlayer : MonoBehaviour {
         return false;
     }
 
+    public void PlayTutorialEvent()
+    {
+        playingTutorial = true;
+        firstPlay = true;
+    }
+
+    public void StopTutorialEvent()
+    {
+        playingTutorial = false;
+        firstPlay = false;
+    }
+
 	// Update is called once per frame
 	void Update () {
+
+        if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying && !playingTutorial)
+        {
+            return;
+        }
 
         for (int j = 0; j < sparkList.Count; ++j)
         {
@@ -347,11 +365,20 @@ public class EventPlayer : MonoBehaviour {
             {
                 firstPlay = false;
 
-                if (currEventNumber == -1)
+                if (playingTutorial)
                 {
-                    currEventNumber = UnityEngine.Random.Range(0, events.Count);
-                    Debug.Log("Playing event: " + currEventNumber);
+                    //always just play first event when not in game mode.
+                    currEventNumber = 0;
                     lastEventNumber = currEventNumber;
+                }
+                else
+                {
+                    if (currEventNumber == -1)
+                    {
+                        currEventNumber = UnityEngine.Random.Range(0, events.Count);
+                        Debug.Log("Playing event: " + currEventNumber);
+                        lastEventNumber = currEventNumber;
+                    }
                 }
 
                 lastPlayTime = t;
@@ -484,7 +511,7 @@ public class EventPlayer : MonoBehaviour {
 
                 if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
                 {
-                    if (helpSwipe != null)
+                    if (helpSwipe != null && !playingTutorial)
                     {
                         helpSwipe.SetActive(true);
                     }

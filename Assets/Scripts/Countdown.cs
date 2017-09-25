@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Countdown : MonoBehaviour {
 
-    
+    public GameObject swipeGame;
     public int gameTime = 90;
     private int timeLeft;
     private float oneSec = 0f;
@@ -12,7 +12,10 @@ public class Countdown : MonoBehaviour {
     public GameObject score;
 	// Use this for initialization
 
-    public void StartCountdown() { countDown = true; Debug.Log("Starting countdown"); }
+    public void StartCountdown() { 
+        countDown = true; 
+        Debug.Log("Starting game"); 
+    }
 
 	void Start () {
         timeLeft = gameTime;
@@ -45,6 +48,11 @@ public class Countdown : MonoBehaviour {
                     {
                         //reset score..
                         score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Neutrinos";
+                    }
+
+                    if(swipeGame != null)
+                    {
+                        swipeGame.GetComponent<SwipeGameMode>().StopGame();
                     }
                 }
             }

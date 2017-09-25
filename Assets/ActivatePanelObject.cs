@@ -21,6 +21,10 @@ public class ActivatePanelObject : MonoBehaviour {
         if(objectToActivate != null)
         {
             objectToActivate.SetActive(true);
+            if(objectToActivate.GetComponent<EventPlayer>() != null)
+            {
+                objectToActivate.GetComponent<EventPlayer>().PlayTutorialEvent();
+            }
         }
     }
 
@@ -29,6 +33,11 @@ public class ActivatePanelObject : MonoBehaviour {
         if (objectToActivate != null)
         {
             objectToActivate.SetActive(false);
+
+            if (objectToActivate.GetComponent<EventPlayer>() != null)
+            {
+                objectToActivate.GetComponent<EventPlayer>().StopTutorialEvent();
+            }
         }
     }
 }

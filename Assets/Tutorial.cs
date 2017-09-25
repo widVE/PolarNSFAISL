@@ -6,38 +6,57 @@ public class Tutorial : MonoBehaviour {
 
     private int currPanelIndex = 0;
     private float lastTime = 0f;
+    public bool playTutorial = true;
+    public float tutorialSpeed = 10.0f;
 
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        float currTime = Time.time;
-        if (currTime - lastTime > 10f)
+    public void ClearTutorial()
+    {
+        for(int i = 0; i < transform.childCount; ++i)
         {
-            lastTime = currTime;
-            int nextPanelIndex = currPanelIndex+1;
-            if(nextPanelIndex == transform.childCount)
-            {
-                nextPanelIndex = 0;
-            }
-
-            transform.GetChild(currPanelIndex).gameObject.SetActive(false);
-            ActivatePanelObject apo = transform.GetChild(currPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
+            ActivatePanelObject apo = transform.GetChild(i).GetComponent<ActivatePanelObject>();
             if(apo != null)
             {
                 apo.DeactivateObject();
             }
-            transform.GetChild(nextPanelIndex).gameObject.SetActive(true);
-            apo = transform.GetChild(nextPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
-            if (apo != null)
-            {
-                apo.ActivateObject();
-            }
 
-            currPanelIndex = nextPanelIndex;
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+	// Update is called once per frame
+	void Update () {
+        if (playTutorial)
+        {
+            float currTime = Time.time;
+            if (currTime - lastTime > tutorialSpeed)
+            {
+                lastTime = currTime;
+                int nextPanelIndex = currPanelIndex + 1;
+                if (nextPanelIndex == transform.childCount)
+                {
+                    nextPanelIndex = 0;
+                }
+
+                transform.GetChild(currPanelIndex).gameObject.SetActive(false);
+                ActivatePanelObject apo = transform.GetChild(currPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
+                if (apo != null)
+                {
+                    apo.DeactivateObject();
+                }
+                transform.GetChild(nextPanelIndex).gameObject.SetActive(true);
+                apo = transform.GetChild(nextPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
+                if (apo != null)
+                {
+                    apo.ActivateObject();
+                }
+
+                currPanelIndex = nextPanelIndex;
+            }
         }
 	}
 }

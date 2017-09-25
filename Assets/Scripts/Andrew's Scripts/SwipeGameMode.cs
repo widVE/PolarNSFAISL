@@ -5,8 +5,10 @@ using UnityEngine;
 public class SwipeGameMode : MonoBehaviour {
 
 	public EventPlayer eventPlayer;
-
+    public GameObject countdownTimer;
 	public SwipeRecognizer swipeRecognizer;
+    public GameObject mainCamera;
+    public GameObject tutorial;
 
     public Strings domStrings;
 
@@ -37,11 +39,36 @@ public class SwipeGameMode : MonoBehaviour {
     public void StartGame()
     {
         isGamePlaying = true;
+        if(countdownTimer != null)
+        {
+            countdownTimer.GetComponent<Countdown>().StartCountdown();
+        }
+
+        if(mainCamera != null)
+        {
+            mainCamera.GetComponent<CameraRotate>().spin = true;
+        }
+
+        if(tutorial != null)
+        {
+            tutorial.GetComponent<Tutorial>().playTutorial = false;
+            tutorial.GetComponent<Tutorial>().ClearTutorial();
+        }
     }
 
     public void StopGame()
     {
         isGamePlaying = false;
+
+        if (mainCamera != null)
+        {
+            mainCamera.GetComponent<CameraRotate>().spin = false;
+        }
+
+        if (tutorial != null)
+        {
+            tutorial.GetComponent<Tutorial>().playTutorial = true;
+        }
     }
 
     public void SetSwipeTop(bool swipe) { swipedTop = swipe; }

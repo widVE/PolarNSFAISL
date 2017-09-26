@@ -38,21 +38,29 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void StartGame()
     {
-        isGamePlaying = true;
-        if(countdownTimer != null)
+        if (!isGamePlaying)
         {
-            countdownTimer.GetComponent<Countdown>().StartCountdown();
-        }
+            isGamePlaying = true;
+            if (countdownTimer != null)
+            {
+                countdownTimer.GetComponent<Countdown>().StartCountdown();
+            }
 
-        if(mainCamera != null)
-        {
-            mainCamera.GetComponent<CameraRotate>().spin = true;
-        }
+            if (mainCamera != null)
+            {
+                mainCamera.GetComponent<CameraRotate>().spin = true;
+            }
 
-        if(tutorial != null)
-        {
-            tutorial.GetComponent<Tutorial>().playTutorial = false;
-            tutorial.GetComponent<Tutorial>().ClearTutorial();
+            if (tutorial != null)
+            {
+                tutorial.GetComponent<Tutorial>().playTutorial = false;
+                tutorial.GetComponent<Tutorial>().ClearTutorial();
+            }
+
+            if (eventPlayer != null)
+            {
+                eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
+            }
         }
     }
 
@@ -69,6 +77,13 @@ public class SwipeGameMode : MonoBehaviour {
         {
             tutorial.GetComponent<Tutorial>().playTutorial = true;
         }
+
+        if (eventPlayer != null)
+        {
+            eventPlayer.GetComponent<EventPlayer>().PlayTutorialEvent();
+        }
+
+        DisableCameras();
     }
 
     public void SetSwipeTop(bool swipe) { swipedTop = swipe; }

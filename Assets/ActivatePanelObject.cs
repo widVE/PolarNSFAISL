@@ -32,11 +32,13 @@ public class ActivatePanelObject : MonoBehaviour {
     {
         if (objectToActivate != null)
         {
-            objectToActivate.SetActive(false);
-
             if (objectToActivate.GetComponent<EventPlayer>() != null)
             {
                 objectToActivate.GetComponent<EventPlayer>().StopTutorialEvent();
+            }
+            else
+            {
+                objectToActivate.SetActive(false);
             }
         }
     }

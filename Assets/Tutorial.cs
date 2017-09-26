@@ -26,10 +26,13 @@ public class Tutorial : MonoBehaviour {
 
             transform.GetChild(i).gameObject.SetActive(false);
         }
+
+        currPanelIndex = 0;
     }
 
 	// Update is called once per frame
 	void Update () {
+
         if (playTutorial)
         {
             float currTime = Time.time;

@@ -112,7 +112,7 @@ public class EventPlayer : MonoBehaviour {
 	void Start () {
 
 		arrayGenerator = GetComponent<DomArrayGenerator> ();
-		alarm = GameObject.Find("Sound Effects").GetComponents<AudioSource> () [3];
+		//alarm = GameObject.Find("Sound Effects").GetComponents<AudioSource> () [3];
 
         if(eventDirectory.Length > 0)
         {
@@ -314,17 +314,19 @@ public class EventPlayer : MonoBehaviour {
     public void StopTutorialEvent()
     {
         playingTutorial = false;
-        firstPlay = false;
+        firstPlay = true;
+        currEventNumber = -1;
     }
 
 	// Update is called once per frame
 	void Update () {
 
+        //Debug.Log("Playing");
         if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying && !playingTutorial)
         {
             return;
         }
-
+        //Debug.Log("Playing2");
         for (int j = 0; j < sparkList.Count; ++j)
         {
             GameObject s = sparkList[j];
@@ -356,7 +358,7 @@ public class EventPlayer : MonoBehaviour {
 		}
 
         float t = UnityEngine.Time.time;
-
+        
         totalEnergy = 0.0f;
         //r or every eventFrequency seconds
 		if (/*(UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) ||*/ (t - lastPlayTime) > eventFrequency && !IsEventPlaying())
@@ -396,7 +398,8 @@ public class EventPlayer : MonoBehaviour {
                 eventsPlaying[currEventNumber].eventIndex = 0;
                 eventsPlaying[currEventNumber].isPlaying = true;
                 eventsPlaying[currEventNumber].isDetected = false;
-                if (alarm.isActiveAndEnabled)
+                
+                if (alarm != null && alarm.isActiveAndEnabled)
                 {
                     alarm.Play();
                 }

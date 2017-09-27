@@ -9,6 +9,8 @@ public class SwipeGameMode : MonoBehaviour {
 	public SwipeRecognizer swipeRecognizer;
     public GameObject mainCamera;
     public GameObject tutorial;
+    public GameObject refinePanel;
+    public GameObject congratsPanel;
 
     public Strings domStrings;
 
@@ -61,12 +63,28 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
             }
+
+            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            if(aSources != null)
+            {
+                AudioSource background = aSources[4];
+                if(background != null)
+                {
+                    background.Play();
+                }
+            }
         }
     }
 
     public void StopGame()
     {
         isGamePlaying = false;
+        
+        if (eventPlayer != null)
+        {
+            //eventPlayer.GetComponent<EventPlayer>().PlayTutorialEvent();
+            eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
+        }
 
         if (mainCamera != null)
         {
@@ -78,12 +96,28 @@ public class SwipeGameMode : MonoBehaviour {
             tutorial.GetComponent<Tutorial>().playTutorial = true;
         }
 
-        if (eventPlayer != null)
+        DisableCameras();
+
+        AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+        if (aSources != null)
         {
-            eventPlayer.GetComponent<EventPlayer>().PlayTutorialEvent();
+            AudioSource background = aSources[4];
+            if (background != null)
+            {
+                background.Stop();
+            }
         }
 
-        DisableCameras();
+        //todo - clear earth cones, clear event panel
+        if(refinePanel != null)
+        {
+            refinePanel.SetActive(false);
+        }
+
+        if(congratsPanel != null)
+        {
+            congratsPanel.SetActive(false);
+        }
     }
 
     public void SetSwipeTop(bool swipe) { swipedTop = swipe; }
@@ -172,6 +206,7 @@ public class SwipeGameMode : MonoBehaviour {
 
 		topCamera.SetActive(true);
         topPanel.SetActive(true);
+        topPanel.transform.parent.gameObject.SetActive(true);
 
         StartCoroutine(Transition(Camera.main.transform.position, b.center + 
             new Vector3(0f, Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.z) + b.extents.y, 0f), 

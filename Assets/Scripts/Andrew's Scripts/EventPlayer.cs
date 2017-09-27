@@ -307,8 +307,13 @@ public class EventPlayer : MonoBehaviour {
 
     public void PlayTutorialEvent()
     {
+        if (currEventNumber != -1)
+        {
+            StopPlaying(currEventNumber);
+        }
         playingTutorial = true;
         firstPlay = true;
+        currEventNumber = -1;
     }
 
     public void StopTutorialEvent()
@@ -533,6 +538,11 @@ public class EventPlayer : MonoBehaviour {
 			}
         }
 	}
+
+    public void StopCurrentEvent()
+    {
+        StopPlaying(currEventNumber);
+    }
 
     void StopPlaying(int e)
     {

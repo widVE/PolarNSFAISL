@@ -21,7 +21,10 @@ public class Tutorial : MonoBehaviour {
             ActivatePanelObject apo = transform.GetChild(i).GetComponent<ActivatePanelObject>();
             if(apo != null)
             {
-                apo.DeactivateObject();
+                if (apo.deactivateOnClear)
+                {
+                    apo.DeactivateObject();
+                }
             }
 
             transform.GetChild(i).gameObject.SetActive(false);

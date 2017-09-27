@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActivatePanelObject : MonoBehaviour {
 
     public GameObject objectToActivate;
+    public bool deactivateOnClear = true;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,7 @@ public class ActivatePanelObject : MonoBehaviour {
         if(objectToActivate != null)
         {
             objectToActivate.SetActive(true);
+
             if(objectToActivate.GetComponent<EventPlayer>() != null)
             {
                 objectToActivate.GetComponent<EventPlayer>().PlayTutorialEvent();
@@ -34,6 +36,7 @@ public class ActivatePanelObject : MonoBehaviour {
         {
             if (objectToActivate.GetComponent<EventPlayer>() != null)
             {
+                objectToActivate.GetComponent<EventPlayer>().StopCurrentEvent();
                 objectToActivate.GetComponent<EventPlayer>().StopTutorialEvent();
             }
             else

@@ -34,7 +34,7 @@ public class EarthView : MonoBehaviour {
         }*/
 	}
 
-    public void AddDetectedEvent(Vector3 start, Vector3 end, Color color)
+    public void AddDetectedEvent(Vector3 start, Vector3 end, Color color, float accuracy)
     {
         GameObject g = Instantiate(lineObject, transform.Find("IceCubeLocation"));
         g.layer = 11;
@@ -42,6 +42,9 @@ public class EarthView : MonoBehaviour {
         q.SetLookRotation((end - start).normalized);
         g.transform.rotation = q;
         g.GetComponent<MeshRenderer>().material.color = color;
+
+        //scale x and z based on accuracy
+        g.transform.localScale = new Vector3(5 + (1 - accuracy) * 50.0f, g.transform.localScale.y, 5 + (1 - accuracy) * 50.0f);
 
         /*LineRenderer r = g.GetComponent<LineRenderer>();
         //r.gameObject.AddComponent(r);

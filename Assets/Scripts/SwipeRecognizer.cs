@@ -363,6 +363,7 @@ public class SwipeRecognizer : MonoBehaviour {
 						// Convert them to screen coordinates
 						Vector3 screenStart = cameraToUse.WorldToScreenPoint(vStart);
 						Vector3 screenEnd = cameraToUse.WorldToScreenPoint(vEnd);
+                        //Vector
 
 						// First check - distance check
 						// See if the midpoints of both paths are relatively close
@@ -614,7 +615,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
 						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know by drawing a green line
 						DrawSwipeLine(SwipeType.found, swipeGesture.recognizedId%10, cameraToUse);
-
+                        //Debug.Log(vTest);
 						// Now calculate a few more things and add the event to the panel
 
 						// Need to do some mathematical magic to get the swipe endpoints into proper "estimated" world coordinates, not relative to the Main Camera
@@ -682,7 +683,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                         screenStart, screenEnd);
 
                                     earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
-                                        currentEvents.events[currentEvents.lastEventNumber].endPos, e.gameObject.GetComponent<UnityEngine.UI.Image> ().color);
+                                        currentEvents.events[currentEvents.lastEventNumber].endPos, e.gameObject.GetComponent<UnityEngine.UI.Image> ().color, vTest);
 
                                 }
                             }

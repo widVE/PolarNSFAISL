@@ -564,6 +564,13 @@ public class EventPlayer : MonoBehaviour {
             //turn off all event visualization?
             for (int i = 0; i < events[e].eventData.Count; ++i)
             {
+                float lastTime = Time.time;
+                //Debug.Log(lastTime);
+                //while (Mathf.Abs(Time.time - lastTime) < 100)
+                //{
+                //    Debug.Log("x");
+                //}
+
                 GameObject d = arrayGenerator.DOMArray[events[e].eventData[i].dom, events[e].eventData[i].str];
                 if (d != null)
                 {

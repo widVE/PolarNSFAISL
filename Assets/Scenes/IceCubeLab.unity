@@ -10079,12 +10079,12 @@ Prefab:
     - target: {fileID: 11400000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
       propertyPath: touchCursor
       value: 
-      objectReference: {fileID: 11435582, guid: 7fd82b375cf1cdc45b55e2751d814207,
+      objectReference: {fileID: 114582366990431924, guid: e360e885328c2014192e181b0720c29d,
         type: 2}
     - target: {fileID: 11400000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
       propertyPath: mouseCursor
       value: 
-      objectReference: {fileID: 11416202, guid: a71503570adc6194b9bbc69bf19cc2de,
+      objectReference: {fileID: 11416202, guid: 1b211ec776e4e36488be7fa82ae023b4,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
@@ -13375,7 +13375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e211a94453170064682e76ae17e1c435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popClip: {fileID: 8300000, guid: 66c69a6d56d58cd4cab7a10b1b115eec, type: 3}
+  popClip: {fileID: 8300000, guid: 400e6c7364e998d489dd5d696e174ca5, type: 3}
 --- !u!1 &1289309284
 GameObject:
   m_ObjectHideFlags: 0

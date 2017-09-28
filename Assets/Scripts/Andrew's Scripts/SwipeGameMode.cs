@@ -11,6 +11,9 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject tutorial;
     public GameObject refinePanel;
     public GameObject congratsPanel;
+    public GameObject liveHelp;
+    public GameObject coneParent;
+    public GameObject eventPanel;
 
     public Strings domStrings;
 
@@ -108,7 +111,6 @@ public class SwipeGameMode : MonoBehaviour {
             }
         }
 
-        //todo - clear earth cones, clear event panel
         if(refinePanel != null)
         {
             refinePanel.SetActive(false);
@@ -117,6 +119,30 @@ public class SwipeGameMode : MonoBehaviour {
         if(congratsPanel != null)
         {
             congratsPanel.SetActive(false);
+        }
+
+        if(liveHelp != null)
+        {
+            liveHelp.SetActive(false);
+        }
+
+        if(eventPanel != null)
+        {
+            foreach(Transform child in eventPanel.transform)
+            {
+                if(child.gameObject.name.StartsWith("Event:"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+
+        if(coneParent != null)
+        {
+            foreach (Transform child in coneParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 

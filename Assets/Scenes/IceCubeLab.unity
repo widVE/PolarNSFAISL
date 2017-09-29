@@ -660,6 +660,7 @@ MonoBehaviour:
   sidePanel: {fileID: 934094788}
   frontCamera: {fileID: 730068715}
   frontPanel: {fileID: 744158707}
+  panelParent: {fileID: 121455330}
   transitionDuration: 3
 --- !u!4 &94977850
 Transform:
@@ -8730,7 +8731,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 2049, y: 2100}
-  m_SizeDelta: {x: 3000, y: 200}
+  m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &966682118
 MonoBehaviour:
@@ -18774,7 +18775,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 3500, y: 2100}
-  m_SizeDelta: {x: 3000, y: 200}
+  m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1702583983
 MonoBehaviour:

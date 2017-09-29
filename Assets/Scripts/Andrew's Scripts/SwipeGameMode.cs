@@ -76,6 +76,37 @@ public class SwipeGameMode : MonoBehaviour {
                     background.Play();
                 }
             }
+
+            //because these can be on during tutorial
+            if (topCamera != null)
+            {
+                topCamera.SetActive(false);
+            }
+
+            if(frontCamera != null)
+            {
+                frontCamera.SetActive(false);
+            }
+
+            if(sideCamera != null)
+            {
+                sideCamera.SetActive(false);
+            }
+
+            if(topPanel != null)
+            {
+                topPanel.SetActive(false);
+            }
+
+            if(sidePanel != null)
+            {
+                sidePanel.SetActive(false);
+            }
+
+            if(frontPanel != null)
+            {
+                frontPanel.SetActive(false);
+            }
         }
     }
 

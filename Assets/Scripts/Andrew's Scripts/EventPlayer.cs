@@ -509,30 +509,36 @@ public class EventPlayer : MonoBehaviour {
 
 			if (eventsPlaying[currEventNumber].eventIndex >= events[currEventNumber].eventData.Count - 1)
 			{
-                if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear - fadeTime)
+                if (!playingTutorial)
                 {
-                    if (!alreadyFaded)
+                    if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear - fadeTime)
                     {
-                        beginFade = true;
+                        if (!alreadyFaded)
+                        {
+                            beginFade = true;
+                        }
                     }
-                }
 
-                if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
-                {
-                    if (helpSwipe != null && !playingTutorial)
+                    if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
                     {
-                        helpSwipe.SetActive(true);
+                        if (helpSwipe != null && !playingTutorial)
+                        {
+                            if (!playingTutorial)
+                            {
+                                helpSwipe.SetActive(true);
+                            }
+                        }
                     }
-                }
 
-				// Event done playing
-                if((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
-                {
-                    donePlaying = true;
-                    //also need to deactivate if successful swipe occurs...
-                    if (helpSwipe != null)
+                    // Event done playing
+                    if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
                     {
-                        helpSwipe.SetActive(false);
+                        donePlaying = true;
+                        //also need to deactivate if successful swipe occurs...
+                        if (helpSwipe != null)
+                        {
+                            helpSwipe.SetActive(false);
+                        }
                     }
                 }
 			}

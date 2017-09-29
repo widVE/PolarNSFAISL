@@ -46,13 +46,26 @@ public class Tutorial : MonoBehaviour {
                 if (nextPanelIndex == transform.childCount)
                 {
                     nextPanelIndex = 0;
+                    GameObject ep = GameObject.Find("DomArray");
+                    if(ep != null)
+                    {
+                        EventPlayer e = ep.GetComponent<EventPlayer>();
+                        if(e != null)
+                        {
+                            e.StopCurrentEvent();
+                            e.StopTutorialEvent();
+                        }
+                    }
                 }
 
                 transform.GetChild(currPanelIndex).gameObject.SetActive(false);
                 ActivatePanelObject apo = transform.GetChild(currPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
                 if (apo != null)
                 {
-                    apo.DeactivateObject();
+                    if (apo.deactivateOnSwitch)
+                    {
+                        apo.DeactivateObject();
+                    }
                 }
                 transform.GetChild(nextPanelIndex).gameObject.SetActive(true);
                 apo = transform.GetChild(nextPanelIndex).gameObject.GetComponent<ActivatePanelObject>();

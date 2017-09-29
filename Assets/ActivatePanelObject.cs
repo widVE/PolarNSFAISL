@@ -6,7 +6,7 @@ public class ActivatePanelObject : MonoBehaviour {
 
     public GameObject objectToActivate;
     public bool deactivateOnClear = true;
-
+    public bool deactivateOnSwitch = true;
 	// Use this for initialization
 	void Start () {
         
@@ -25,6 +25,7 @@ public class ActivatePanelObject : MonoBehaviour {
 
             if(objectToActivate.GetComponent<EventPlayer>() != null)
             {
+                objectToActivate.GetComponent<EventPlayer>().StopCurrentEvent();
                 objectToActivate.GetComponent<EventPlayer>().PlayTutorialEvent();
             }
         }

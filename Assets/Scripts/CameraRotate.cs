@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraRotate : MonoBehaviour {
 
     public GameObject pivot;
-    public bool spin=true;
+    public bool spin=false;
     public float speed = 5f;
 	// Use this for initialization
 	void Start () {

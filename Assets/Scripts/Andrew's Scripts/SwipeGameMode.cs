@@ -5,8 +5,15 @@ using UnityEngine;
 public class SwipeGameMode : MonoBehaviour {
 
 	public EventPlayer eventPlayer;
-
+    public GameObject countdownTimer;
 	public SwipeRecognizer swipeRecognizer;
+    public GameObject mainCamera;
+    public GameObject tutorial;
+    public GameObject refinePanel;
+    public GameObject congratsPanel;
+    public GameObject liveHelp;
+    public GameObject coneParent;
+    public GameObject eventPanel;
 
     public Strings domStrings;
 
@@ -25,6 +32,8 @@ public class SwipeGameMode : MonoBehaviour {
     [SerializeField]
     private GameObject frontPanel;
 
+    public GameObject panelParent;
+
     private bool swipedTop = false;
     private bool swipedSide = false;
     private bool swipedFront = false;
@@ -33,6 +42,123 @@ public class SwipeGameMode : MonoBehaviour {
 	void Start () {
 		
 	}
+
+    public void StartGame()
+    {
+        if (!isGamePlaying)
+        {
+            isGamePlaying = true;
+            if (countdownTimer != null)
+            {
+                countdownTimer.GetComponent<Countdown>().StartCountdown();
+            }
+
+            if (mainCamera != null)
+            {
+                mainCamera.GetComponent<CameraRotate>().spin = true;
+            }
+
+            if (tutorial != null)
+            {
+                tutorial.GetComponent<Tutorial>().playTutorial = false;
+                tutorial.GetComponent<Tutorial>().ClearTutorial();
+            }
+
+            if (eventPlayer != null)
+            {
+                eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
+            }
+
+            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            if(aSources != null)
+            {
+                AudioSource background = aSources[4];
+                if(background != null)
+                {
+                    background.Play();
+                }
+            }
+
+            //because these can be on during tutorial
+            if (panelParent != null)
+            {
+                panelParent.SetActive(false);
+            }
+        }
+    }
+
+    public void StopGame()
+    {
+        isGamePlaying = false;
+        
+        if (eventPlayer != null)
+        {
+            //eventPlayer.GetComponent<EventPlayer>().PlayTutorialEvent();
+            eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
+        }
+
+        if (mainCamera != null)
+        {
+            mainCamera.GetComponent<CameraRotate>().spin = false;
+        }
+
+        if (tutorial != null)
+        {
+            tutorial.GetComponent<Tutorial>().playTutorial = true;
+        }
+
+        DisableCameras();
+
+        AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+        if (aSources != null)
+        {
+            AudioSource background = aSources[4];
+            if (background != null)
+            {
+                background.Stop();
+            }
+        }
+
+        if(refinePanel != null)
+        {
+            refinePanel.SetActive(false);
+        }
+
+        if(congratsPanel != null)
+        {
+            congratsPanel.SetActive(false);
+        }
+
+        if(liveHelp != null)
+        {
+            liveHelp.SetActive(false);
+        }
+
+        if(eventPanel != null)
+        {
+            foreach(Transform child in eventPanel.transform)
+            {
+                if(child.gameObject.name.StartsWith("Event:"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+
+        if(coneParent != null)
+        {
+            foreach (Transform child in coneParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        //because these can be on during tutorial
+        if (panelParent != null)
+        {
+            panelParent.SetActive(false);
+        }
+    }
 
     public void SetSwipeTop(bool swipe) { swipedTop = swipe; }
     public void SetSwipeSide(bool swipe) { swipedSide = swipe; }
@@ -118,8 +244,7 @@ public class SwipeGameMode : MonoBehaviour {
 
         //topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
 
-		topCamera.SetActive(true);
-        topPanel.SetActive(true);
+        panelParent.SetActive(true);
 
         StartCoroutine(Transition(Camera.main.transform.position, b.center + 
             new Vector3(0f, Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.z) + b.extents.y, 0f), 
@@ -144,13 +269,9 @@ public class SwipeGameMode : MonoBehaviour {
 
         //sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
 
-		sideCamera.SetActive(true);
-        sidePanel.SetActive(true);
-
         StartCoroutine(Transition(Camera.main.transform.position, b.center -  forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.y, b.extents.z)) - forward * b.extents.x,
             Camera.main.transform.rotation, endQ, sideCamera));
         
-
 		// Front Camera
         frontCamera.transform.position = Camera.main.transform.position;
         frontCamera.transform.rotation = Camera.main.transform.rotation;
@@ -166,21 +287,13 @@ public class SwipeGameMode : MonoBehaviour {
 
         //frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 60.0f;
 
-        frontCamera.SetActive (true);
-        frontPanel.SetActive(true);
-
         StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.y)) - forward * b.extents.z,
             Camera.main.transform.rotation, endQ, frontCamera));
         
 	}
 
 	public void DisableCameras() {
-		topCamera.SetActive (false);
-		sideCamera.SetActive(false);
-		frontCamera.SetActive (false);
-        topPanel.SetActive(false);
-        sidePanel.SetActive(false);
-        frontPanel.SetActive(false);
+        panelParent.SetActive(false);
         frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
         sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
         topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;

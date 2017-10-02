@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class EventPlayer : MonoBehaviour {
 
+    public GameObject helpSwipe;
+    public GameObject swipeGameMode;
+    public GameObject tutorial;
     public string eventDirectory;
     public string newEventFile;
     public int newEventCutoff;
@@ -17,17 +20,23 @@ public class EventPlayer : MonoBehaviour {
     private float eventFrequency = 10.0f;
     public float totalEnergy = 0.0f;
     public float secondsBeforeHelp = 10.0f;
+    public float fadeTime = 3.0f;
     public float secondsBeforeDissappear = 10.0f;
 	private AudioSource alarm;
     private const float BELOW_ICE = -1950.0f;
     private float lastPlayTime = 0.0f;
+    private float fadeStart = -1.0f;
 	private DomArrayGenerator arrayGenerator;
 	private int currEventNumber = -1;
     public int lastEventNumber = -1;
 	private bool keepPlaying = true;
 
 	private bool donePlaying = false;
+    private bool firstPlay = true;
+    private bool beginFade = false;
+    private bool alreadyFaded = false;
 	private bool isSwiped = false;
+    private bool playingTutorial = false;
 	private float timer = 2.0f;
 
     public LineRenderer truePath;
@@ -74,8 +83,6 @@ public class EventPlayer : MonoBehaviour {
 		public List<DomState> ActivatedDoms;
     };
 
-
-
     public EventPlayback[] eventsPlaying;
 
     public List<EventVis> events = new List<EventVis>();
@@ -105,7 +112,7 @@ public class EventPlayer : MonoBehaviour {
 	void Start () {
 
 		arrayGenerator = GetComponent<DomArrayGenerator> ();
-		alarm = GameObject.Find("Sound Effects").GetComponents<AudioSource> () [3];
+		//alarm = GameObject.Find("Sound Effects").GetComponents<AudioSource> () [3];
 
         if(eventDirectory.Length > 0)
         {
@@ -298,9 +305,33 @@ public class EventPlayer : MonoBehaviour {
         return false;
     }
 
+    public void PlayTutorialEvent()
+    {
+        if (currEventNumber != -1)
+        {
+            StopPlaying(currEventNumber);
+        }
+        playingTutorial = true;
+        firstPlay = true;
+        currEventNumber = -1;
+    }
+
+    public void StopTutorialEvent()
+    {
+        playingTutorial = false;
+        firstPlay = true;
+        currEventNumber = -1;
+    }
+
 	// Update is called once per frame
 	void Update () {
 
+        //Debug.Log("Playing");
+        if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying && !playingTutorial)
+        {
+            return;
+        }
+        //Debug.Log("Playing2");
         for (int j = 0; j < sparkList.Count; ++j)
         {
             GameObject s = sparkList[j];
@@ -332,18 +363,29 @@ public class EventPlayer : MonoBehaviour {
 		}
 
         float t = UnityEngine.Time.time;
-
+        
         totalEnergy = 0.0f;
         //r or every eventFrequency seconds
-		if ((UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) || (t - lastPlayTime) > eventFrequency) && !IsEventPlaying())
+		if (/*(UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) ||*/ (t - lastPlayTime) > eventFrequency && !IsEventPlaying())
         {
-            //if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
+            if (firstPlay || (t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
             {
-                if (currEventNumber == -1)
+                firstPlay = false;
+
+                if (playingTutorial)
                 {
-                    currEventNumber = UnityEngine.Random.Range(0, events.Count);
-                    Debug.Log("Playing event: " + currEventNumber);
+                    //always just play first event when not in game mode.
+                    currEventNumber = 0;
                     lastEventNumber = currEventNumber;
+                }
+                else
+                {
+                    if (currEventNumber == -1)
+                    {
+                        currEventNumber = UnityEngine.Random.Range(0, events.Count);
+                        Debug.Log("Playing event: " + currEventNumber);
+                        lastEventNumber = currEventNumber;
+                    }
                 }
 
                 lastPlayTime = t;
@@ -361,7 +403,8 @@ public class EventPlayer : MonoBehaviour {
                 eventsPlaying[currEventNumber].eventIndex = 0;
                 eventsPlaying[currEventNumber].isPlaying = true;
                 eventsPlaying[currEventNumber].isDetected = false;
-                if (alarm.isActiveAndEnabled)
+                
+                if (alarm != null && alarm.isActiveAndEnabled)
                 {
                     alarm.Play();
                 }
@@ -437,14 +480,75 @@ public class EventPlayer : MonoBehaviour {
 				eventsPlaying[currEventNumber].eventIndex++;
 				eventsPlaying[currEventNumber].advancedIndex = true;
 			}
+            else
+            {
+                if(beginFade)
+                {
+                    if(fadeStart == -1.0f)
+                    {
+                        fadeStart = t;
+                    }
+
+                    if(t - fadeStart < fadeTime)
+                    {
+                        //loop through all DOMs...
+                        for(int k = 0; k < events[currEventNumber].eventData.Count; ++k)
+                        {
+                            GameObject d = arrayGenerator.DOMArray[events[currEventNumber].eventData[k].dom, events[currEventNumber].eventData[k].str];
+                            d.GetComponent<DOMController>().Fade(1.0f - ((t-fadeStart)/fadeTime));
+                        }
+                    }
+                    else
+                    {
+                        beginFade = false;
+                        alreadyFaded = true;
+                        fadeStart = -1.0f;
+                    }
+                }
+            }
 
 			if (eventsPlaying[currEventNumber].eventIndex >= events[currEventNumber].eventData.Count - 1)
 			{
-				// Event done playing
-				donePlaying = true;
+                if (!playingTutorial)
+                {
+                    if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear - fadeTime)
+                    {
+                        if (!alreadyFaded)
+                        {
+                            beginFade = true;
+                        }
+                    }
+
+                    if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
+                    {
+                        if (helpSwipe != null && !playingTutorial)
+                        {
+                            if (!playingTutorial)
+                            {
+                                helpSwipe.SetActive(true);
+                            }
+                        }
+                    }
+
+                    // Event done playing
+                    if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
+                    {
+                        donePlaying = true;
+                        //also need to deactivate if successful swipe occurs...
+                        if (helpSwipe != null)
+                        {
+                            helpSwipe.SetActive(false);
+                        }
+                    }
+                }
 			}
         }
 	}
+
+    public void StopCurrentEvent()
+    {
+        StopPlaying(currEventNumber);
+    }
 
     void StopPlaying(int e)
     {
@@ -462,6 +566,7 @@ public class EventPlayer : MonoBehaviour {
             eventsPlaying[e].eventEndFrame = 0;
             eventsPlaying[e].ActivatedDoms = new List<DomState>();
 
+            alreadyFaded = false;
             //turn off all event visualization?
             for (int i = 0; i < events[e].eventData.Count; ++i)
             {

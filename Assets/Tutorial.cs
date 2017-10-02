@@ -6,28 +6,76 @@ public class Tutorial : MonoBehaviour {
 
     private int currPanelIndex = 0;
     private float lastTime = 0f;
+    public bool playTutorial = true;
+    public float tutorialSpeed = 10.0f;
 
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        float currTime = Time.time;
-        if (currTime - lastTime > 10f)
+    public void ClearTutorial()
+    {
+        for(int i = 0; i < transform.childCount; ++i)
         {
-            lastTime = currTime;
-            int nextPanelIndex = currPanelIndex+1;
-            if(nextPanelIndex == transform.childCount)
+            ActivatePanelObject apo = transform.GetChild(i).GetComponent<ActivatePanelObject>();
+            if(apo != null)
             {
-                nextPanelIndex = 0;
+                if (apo.deactivateOnClear)
+                {
+                    apo.DeactivateObject();
+                }
             }
 
-            transform.GetChild(currPanelIndex).gameObject.SetActive(false);
-            transform.GetChild(nextPanelIndex).gameObject.SetActive(true);
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
 
-            currPanelIndex = nextPanelIndex;
+        currPanelIndex = 0;
+    }
+
+	// Update is called once per frame
+	void Update () {
+
+        if (playTutorial)
+        {
+            float currTime = Time.time;
+            if (currTime - lastTime > tutorialSpeed)
+            {
+                lastTime = currTime;
+                int nextPanelIndex = currPanelIndex + 1;
+                if (nextPanelIndex == transform.childCount)
+                {
+                    nextPanelIndex = 0;
+                    GameObject ep = GameObject.Find("DomArray");
+                    if(ep != null)
+                    {
+                        EventPlayer e = ep.GetComponent<EventPlayer>();
+                        if(e != null)
+                        {
+                            e.StopCurrentEvent();
+                            e.StopTutorialEvent();
+                        }
+                    }
+                }
+
+                transform.GetChild(currPanelIndex).gameObject.SetActive(false);
+                ActivatePanelObject apo = transform.GetChild(currPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
+                if (apo != null)
+                {
+                    if (apo.deactivateOnSwitch)
+                    {
+                        apo.DeactivateObject();
+                    }
+                }
+                transform.GetChild(nextPanelIndex).gameObject.SetActive(true);
+                apo = transform.GetChild(nextPanelIndex).gameObject.GetComponent<ActivatePanelObject>();
+                if (apo != null)
+                {
+                    apo.ActivateObject();
+                }
+
+                currPanelIndex = nextPanelIndex;
+            }
         }
 	}
 }

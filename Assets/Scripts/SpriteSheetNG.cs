@@ -8,17 +8,19 @@ public class SpriteSheetNG : MonoBehaviour
     public int _uvTieY = 1;
     public int _fps = 10;
     private Vector2 _size;
-    private Renderer _myRenderer;
+    //private Renderer _myRenderer;
+    private UnityEngine.UI.Image _myRenderer;
     private int _lastIndex = -1;
  
     void Start ()
     {
         _size = new Vector2 (1.0f / _uvTieX ,
                              1.0f / _uvTieY);
+        
+
+        _myRenderer = GetComponent<UnityEngine.UI.Image>();
  
-        _myRenderer = GetComponent<Renderer>();
- 
-        if(_myRenderer == null) enabled = false;
+        //if(_myRenderer == null) enabled = false;
  
         _myRenderer.material.SetTextureScale ("_MainTex", _size);
     }
@@ -43,7 +45,6 @@ public class SpriteSheetNG : MonoBehaviour
             }
  
             _myRenderer.material.SetTextureOffset ("_MainTex", offset);
- 
  
             _lastIndex = index;
         }

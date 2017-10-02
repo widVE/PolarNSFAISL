@@ -212,7 +212,12 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// <param name="sender">Sender of the event, unused</param>
 	/// <param name="e">Unity Event arguments object, unused</param>
 	private void swipeHandler(object sender, System.EventArgs e) {
-        
+
+        if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying)
+        {
+            return;
+        }
+
 		if (inResolveMode) {
 			handleResolveSwipe ();
 		} else {

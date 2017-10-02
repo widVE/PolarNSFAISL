@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Countdown : MonoBehaviour {
 
-    
+    public GameObject swipeGame;
     public int gameTime = 90;
     private int timeLeft;
     private float oneSec = 0f;
-    private bool countDown = true;
+    private bool countDown = false;
     public GameObject score;
 	// Use this for initialization
+
+    public void StartCountdown() { 
+        countDown = true; 
+        Debug.Log("Starting game"); 
+    }
+
 	void Start () {
         timeLeft = gameTime;
 	}
@@ -29,6 +35,7 @@ public class Countdown : MonoBehaviour {
                 {
                     string countTxt = "Time left: " + timeLeft.ToString();
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
+                    GetComponent<UnityEngine.UI.Text>().alignment = TextAnchor.MiddleCenter;
                 }
                 else
                 {
@@ -42,6 +49,11 @@ public class Countdown : MonoBehaviour {
                     {
                         //reset score..
                         score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Neutrinos";
+                    }
+
+                    if(swipeGame != null)
+                    {
+                        swipeGame.GetComponent<SwipeGameMode>().StopGame();
                     }
                 }
             }

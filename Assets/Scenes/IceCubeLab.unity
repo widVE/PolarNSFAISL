@@ -886,7 +886,7 @@ Prefab:
     - target: {fileID: 114157993328522150, guid: baecfb18d38e84c4492c0a2e5b117aa2,
         type: 2}
       propertyPath: secondsBeforeHelp
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: baecfb18d38e84c4492c0a2e5b117aa2, type: 2}
@@ -8804,7 +8804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeGame: {fileID: 94977848}
-  gameTime: 20
+  gameTime: 30
   score: {fileID: 1702583981}
 --- !u!114 &966682122
 MonoBehaviour:

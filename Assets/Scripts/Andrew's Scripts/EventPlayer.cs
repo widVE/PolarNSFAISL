@@ -527,11 +527,11 @@ public class EventPlayer : MonoBehaviour {
                             
                             if (/*!playingTutorial*/true)
                             {
-                                Debug.Log("huh");
+                                //Debug.Log("huh");
                                 Vector3 diff = (events[currEventNumber].startPos - events[currEventNumber].endPos).normalized;
                                 //helpSwipe.transform.position = (events[currEventNumber].startPos + events[currEventNumber].endPos) / 2;
                                 float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-                                helpSwipe.transform.localRotation = Quaternion.Euler(helpSwipe.transform.localRotation.x, helpSwipe.transform.localRotation.y, angle - 90);
+                                helpSwipe.transform.localRotation = Quaternion.Euler(helpSwipe.transform.localRotation.x, helpSwipe.transform.localRotation.y, angle);
                                 helpSwipe.SetActive(true);
                                 //TODO: set 2d rotation of helpSwipe to match current event
                             }

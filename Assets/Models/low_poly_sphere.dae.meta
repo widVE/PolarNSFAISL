@@ -3,15 +3,32 @@ guid: 3130bfc8ec3cee74cb5a4e29226318af
 timeCreated: 1488560589
 licenseType: Free
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 21
   fileIDToRecycleName:
     100000: //RootNode
     100002: skp_camera_Last_Saved_SketchUp_View
+    100004: ID11
+    100006: group_0
+    100008: group_1
+    100010: group_2
     400000: //RootNode
     400002: skp_camera_Last_Saved_SketchUp_View
+    400004: ID11
+    400006: group_0
+    400008: group_1
+    400010: group_2
     2300000: //RootNode
+    2300002: ID11
+    2300004: group_1
+    2300006: group_2
     3300000: //RootNode
+    3300002: ID11
+    3300004: group_1
+    3300006: group_2
     4300000: SketchUp
+    4300002: ID11
+    4300004: group_1
+    4300006: group_2
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -23,6 +40,8 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -33,6 +52,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -40,7 +60,10 @@ ModelImporter:
     globalScale: 0.0254
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
@@ -56,7 +79,8 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 1
+    normalCalculationMode: 0
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

@@ -15,8 +15,6 @@ public class DOMController : MonoBehaviour {
     private Shader partAdd = null;
     private float oldScale = 1.0f;
 
-    private Color orange = new UnityEngine.Color(1.0f, 0.5f, 0.0f, 1.0f);
-    private Color purple = new UnityEngine.Color(0.5f, 0.0f, 1.0f, 1.0f);
     private Color defaultColor = new UnityEngine.Color(0.5f, 0.5f, 0.5f, 1.0f);
 
 	// Use this for initialization

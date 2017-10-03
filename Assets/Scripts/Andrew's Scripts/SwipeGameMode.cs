@@ -14,6 +14,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject liveHelp;
     public GameObject coneParent;
     public GameObject eventPanel;
+    public GameObject startButton;
 
     public Strings domStrings;
 
@@ -66,6 +67,7 @@ public class SwipeGameMode : MonoBehaviour {
 
             if (eventPlayer != null)
             {
+                eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
             }
 
@@ -84,6 +86,11 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 panelParent.SetActive(false);
             }
+
+            if(startButton != null)
+            {
+                startButton.SetActive(false);
+            }
         }
     }
 
@@ -91,6 +98,11 @@ public class SwipeGameMode : MonoBehaviour {
     {
         isGamePlaying = false;
         
+        if(startButton != null)
+        {
+            startButton.SetActive(true);
+        }
+
         if (eventPlayer != null)
         {
             //eventPlayer.GetComponent<EventPlayer>().PlayTutorialEvent();

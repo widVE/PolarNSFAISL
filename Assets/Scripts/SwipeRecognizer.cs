@@ -309,6 +309,8 @@ public class SwipeRecognizer : MonoBehaviour {
             refinePanel.SetActive(true);
 
         }
+
+        currentEvents.scaleArray(0.149815f);
     }
 
 	public void ExitResolveMode(bool success=false) {
@@ -327,6 +329,8 @@ public class SwipeRecognizer : MonoBehaviour {
         {
             detectionCone.SetActive(false);
         }
+
+        currentEvents.scaleArray(3f);
     }
 
 	private void SwipeCalculation(Camera cameraToUse) {
@@ -644,7 +648,7 @@ public class SwipeRecognizer : MonoBehaviour {
 						if (!currentEvents.eventsPlaying[ev].isDetected && !inResolveMode)
 						{
 							currentEvents.eventsPlaying[ev].isDetected = true;
-                            if(cameraToUse == Camera.main)
+                            /*if(cameraToUse == Camera.main)
                             {
                                 if(detectionCone != null)
                                 {
@@ -653,7 +657,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                     q.SetLookRotation(worldSwipeVector.normalized);
                                     detectionCone.transform.rotation = q;
                                 }
-                            }
+                            }*/
 							swipeGameMode.EventSwiped ();
 						}
 

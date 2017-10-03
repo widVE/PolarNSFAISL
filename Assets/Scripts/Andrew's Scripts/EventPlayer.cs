@@ -586,6 +586,28 @@ public class EventPlayer : MonoBehaviour {
         }
     }
 
+    public void scaleArray(float fScale)
+    {
+        GameObject da = GameObject.Find("DomArray");
+        for(int i = 0; i < DomArrayGenerator.NUM_STRINGS; ++i)
+        {
+            for(int j = 0; j < DomArrayGenerator.NUM_DOMS_PER_STRING; ++j)
+            {
+                GameObject d = arrayGenerator.DOMArray[i, j];
+                if (d != null)
+                {
+                    DOMController dc = d.GetComponent<DOMController>();
+                    if (dc != null && !dc.on)
+                    {
+                        Vector3 v = d.transform.localScale;
+                        v.Set(fScale, fScale, fScale);
+                        d.transform.localScale = v;
+                    }
+                }
+            }
+        }
+    }
+
 	private IEnumerator DelayedReset(float waittime, int e) {
 		yield return new WaitForSeconds (waittime);
 		StopPlaying (e);

@@ -40,7 +40,8 @@ public class EarthView : MonoBehaviour {
         g.layer = 11;
         Quaternion q = g.transform.rotation;
         q.SetLookRotation((end - start).normalized);
-        g.transform.rotation = q;
+        g.transform.localRotation = q;
+        //g.transform.position = transform.Find("IceCubeLocation").position;
         g.GetComponent<MeshRenderer>().material.color = color;
 
         //scale x and z based on accuracy

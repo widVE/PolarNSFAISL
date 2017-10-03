@@ -12,8 +12,8 @@ public class DomArrayGenerator : MonoBehaviour {
 
     //should keep track of all created objects here in a sort of "dom" matrix..
     //this could allow for very efficient DOM lookups later...
-    private const int NUM_STRINGS = 86;
-    private const int NUM_DOMS_PER_STRING = 64;
+    public const int NUM_STRINGS = 86;
+    public const int NUM_DOMS_PER_STRING = 64;
 
 	public GameObject[,] DOMArray = new GameObject[NUM_STRINGS,NUM_DOMS_PER_STRING];
 

@@ -509,6 +509,7 @@ public class EventPlayer : MonoBehaviour {
 
 			if (eventsPlaying[currEventNumber].eventIndex >= events[currEventNumber].eventData.Count - 1)
 			{
+              
                 if (!playingTutorial)
                 {
                     if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear - fadeTime)
@@ -518,14 +519,21 @@ public class EventPlayer : MonoBehaviour {
                             beginFade = true;
                         }
                     }
-
+                    //Debug.Log(eventFrequency + secondsBeforeHelp);
                     if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
                     {
-                        if (helpSwipe != null && !playingTutorial)
+                        if (helpSwipe != null /*&& !playingTutorial*/)
                         {
+                            
                             if (!playingTutorial)
                             {
+                                //Debug.Log("huh");
+                                Vector3 diff = (events[currEventNumber].startPos - events[currEventNumber].endPos).normalized;
+                                //helpSwipe.transform.position = (events[currEventNumber].startPos + events[currEventNumber].endPos) / 2;
+                                float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                                helpSwipe.transform.localRotation = Quaternion.Euler(helpSwipe.transform.localRotation.x, helpSwipe.transform.localRotation.y, angle);
                                 helpSwipe.SetActive(true);
+                                //TODO: set 2d rotation of helpSwipe to match current event
                             }
                         }
                     }

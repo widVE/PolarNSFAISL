@@ -12,16 +12,17 @@ public class DOMController : MonoBehaviour {
     private MeshRenderer domGlobe = null;
     private MeshRenderer domGlobe2 = null;
     private Shader standard = null;
-    private Shader partAdd = null;
+    private Shader glow = null;
     private float oldScale = 1.0f;
 
-    private Color defaultColor = new UnityEngine.Color(0.5f, 0.5f, 0.5f, 1.0f);
+    private Color defaultColor = new UnityEngine.Color(0.6666f, 0.6666f, 0.6666f, 1.0f);
+    private Color defaultColor2 = new UnityEngine.Color(0.8f, 0.6f, 0.0f, 1.0f);
 
 	// Use this for initialization
 	void Start () {
-        /*standard = Shader.Find("Standard");
-        partAdd = Shader.Find("Particles/Additive");
-        GameObject externalParts = transform.FindChild("s1DOM_ExternalParts").gameObject;
+        standard = Shader.Find("Standard");
+        glow = Shader.Find("MK/MKGlow/Transparent/Diffuse");
+        /*GameObject externalParts = transform.FindChild("s1DOM_ExternalParts").gameObject;
         if (externalParts != null)
         {
             domGlobe = externalParts.GetComponent<MeshRenderer>();
@@ -35,15 +36,17 @@ public class DOMController : MonoBehaviour {
             }
         }*/
 
-        Transform t = transform.Find("low_poly_sphere");
+        /*Transform t = transform.Find("low_poly_sphere");
         if (t != null)
         {
             eventSphere = t.gameObject;
         }
         else 
-        {
+        {*/
             eventSphere = gameObject;
-        }
+            domGlobe = eventSphere.transform.Find("group_1").gameObject.GetComponent<MeshRenderer>();
+            domGlobe2 = eventSphere.transform.Find("group_2").gameObject.GetComponent<MeshRenderer>();
+        //}
         
         oldScale = eventSphere.transform.localScale.x;
 	}
@@ -52,11 +55,19 @@ public class DOMController : MonoBehaviour {
     {
         if (eventSphere != null)
         {
-            UnityEngine.Color c = eventSphere.GetComponent<MeshRenderer>().material.color;
+            UnityEngine.Color c = domGlobe.material.color;
             c.a = fTimeFrac;
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", c);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", c);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
+
+            domGlobe.material.SetColor("_Color", c);
+            domGlobe.material.SetColor("_MKGlowColor", c);
+            domGlobe.material.SetColor("_MKGlowTexColor", c);
+
+            domGlobe2.material.SetColor("_Color", c);
+            domGlobe2.material.SetColor("_MKGlowColor", c);
+            domGlobe2.material.SetColor("_MKGlowTexColor", c);
         }
     }
 
@@ -64,15 +75,15 @@ public class DOMController : MonoBehaviour {
     {
         //Debug.Log("Turning on");
         //change a material on the globe so that it glows...
-       /* if(domGlobe != null)
+        if(domGlobe != null)
         {
-            domGlobe.materials[0].shader = partAdd;
+            domGlobe.materials[0].shader = glow;
         }
 
         if (domGlobe2 != null)
         {
-            domGlobe2.materials[2].shader = partAdd;
-        }*/
+            domGlobe2.materials[0].shader = glow;
+        }
 
         if (eventSphere != null)
         {
@@ -87,9 +98,18 @@ public class DOMController : MonoBehaviour {
             //float h = (fTimeFrac * 0.75f);
             UnityEngine.Color c = UnityEngine.Color.HSVToRGB(h, 1f, 1f);
            // UnityEngine.Color c2 = UnityEngine.Color.HSVToRGB(h, 0.75f, 0.75f);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", c);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", c);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
+
+
+            domGlobe.material.SetColor("_Color", c);
+            domGlobe.material.SetColor("_MKGlowColor", c);
+            domGlobe.material.SetColor("_MKGlowTexColor", c);
+
+            domGlobe2.material.SetColor("_Color", c);
+            domGlobe2.material.SetColor("_MKGlowColor", c);
+            domGlobe2.material.SetColor("_MKGlowTexColor", c);
             
             /*float fColorFrac = 1.0f / 5.0f;
 			if (fTimeFrac < fColorFrac)
@@ -134,22 +154,31 @@ public class DOMController : MonoBehaviour {
 
     public void TurnOff()
     {
-        /*if (domGlobe != null)
+        if (domGlobe != null)
         {
             domGlobe.materials[0].shader = standard;
         }
 
         if (domGlobe2 != null)
         {
-            domGlobe2.materials[2].shader = standard;
-        }*/
+            domGlobe2.materials[0].shader = standard;
+        }
 
         if(eventSphere != null)
         {
             eventSphere.transform.localScale = new Vector3(oldScale, oldScale, oldScale);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", defaultColor);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", defaultColor);
-            eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", defaultColor);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", defaultColor);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", defaultColor);
+            //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", defaultColor);
+
+
+            domGlobe.material.SetColor("_Color", defaultColor);
+            domGlobe.material.SetColor("_MKGlowColor", defaultColor);
+            domGlobe.material.SetColor("_MKGlowTexColor", defaultColor);
+
+            domGlobe2.material.SetColor("_Color", defaultColor2);
+            domGlobe2.material.SetColor("_MKGlowColor", defaultColor2);
+            domGlobe2.material.SetColor("_MKGlowTexColor", defaultColor2);
         }
 
         on = false;

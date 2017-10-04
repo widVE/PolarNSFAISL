@@ -15,8 +15,18 @@ public class EventPanelManager : MonoBehaviour {
 	// The EventBox prefab to instantiate for every swiped event
 	private GameObject template;
 
-	// List of EventBoxes currently representing swiped events
-	private List<GameObject> panels = new List<GameObject> ();
+    //image sources for events
+    public Sprite grb;
+    public Sprite blackHole;
+    public Sprite blazar;
+    public Sprite supernova;
+    public Sprite radioGalaxy;
+    public Sprite quazar;
+    public Sprite agn;
+
+
+    // List of EventBoxes currently representing swiped events
+    private List<GameObject> panels = new List<GameObject> ();
 
 	// Sound effect for when events are removed
 	private AudioSource removeSound;
@@ -62,6 +72,35 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "Event: " + name; 
+
+        //set up image that goes along with event
+        switch (name)
+        {
+            case "Gamma Ray Burst":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = grb;
+                break;
+            case "Black Hole":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blackHole;
+                break;
+            case "Radio Galaxy":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = radioGalaxy;
+                break;
+            case "Blazar":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
+                break;
+            case "Quazar":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
+                break;
+            case "Supernova":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = supernova;
+                break;
+            case "Active Galactic Nucleus":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
+                break;
+            default:
+                break;
+        }
+       
 
 		// The panel has two buttons, so set up the OnClick functions for each button
 		//newPanel.GetComponentsInChildren<Button> ()[0].onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);

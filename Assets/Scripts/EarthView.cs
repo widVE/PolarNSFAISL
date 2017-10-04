@@ -5,18 +5,45 @@ using UnityEngine;
 public class EarthView : MonoBehaviour {
 
     public GameObject lineObject;
+    public GameObject swipeGame;
+
+    struct eventCone
+    {
+        public GameObject cone;
+        public GameObject point;
+
+        public eventCone(GameObject cone, GameObject point)
+        {
+            this.cone = cone;
+            this.point = point;
+        }
+    }
+
+    private List<eventCone> cones;
     
     //private List<GameObject> detectedEvents = new List<GameObject>();
     //private List<Vector3> lineData = new List<Vector3>();
 
 	// Use this for initialization
 	void Start () {
-
+        cones = new List<eventCone>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+        foreach (eventCone cone in cones)
+        {
+            cone.cone.transform.LookAt(cone.point.transform);
+        }
+
+        if (swipeGame != null)
+        {
+            if (!swipeGame.GetComponent<SwipeGameMode>().isGamePlaying)
+            {
+                cones.Clear();
+            }
+        }
         /*Transform trans = this.transform.Find("EarthModel").transform.Find("IceCubeLocation");
 
         for(int i = 0; i < detectedEvents.Count; ++i)
@@ -32,7 +59,7 @@ public class EarthView : MonoBehaviour {
             r.SetPosition(0, v[0]);
             r.SetPosition(1, v[1]);
         }*/
-	}
+    }
 
     public void AddDetectedEvent(Vector3 start, Vector3 end, Color color, float accuracy)
     {
@@ -47,6 +74,9 @@ public class EarthView : MonoBehaviour {
         //scale x and z based on accuracy
         g.transform.localScale = new Vector3(5 + (1 - accuracy) * 50.0f, g.transform.localScale.y, 5 + (1 - accuracy) * 50.0f);
 
+        GameObject lookAtPoint = new GameObject();
+        lookAtPoint.transform.position = end;
+        cones.Add(new eventCone(g, lookAtPoint));
         /*LineRenderer r = g.GetComponent<LineRenderer>();
         //r.gameObject.AddComponent(r);
         r.startWidth = 3.0f;

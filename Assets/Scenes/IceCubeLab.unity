@@ -3426,8 +3426,9 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: The array of DOMs record light that is produced through neutrino interaction
-        with ice particles, this interaction is called an "event".
+      value: When a neutrino interacts with a molecule of ice, it produces a secondary
+        particle called a muon.  DOMs record light that is produced by the muon, this
+        is called as a "neutrino event".
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -4284,7 +4285,7 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: Refine your direction by swiping from a top, front, and side view.  Improve
-        your accuracy to get higher scores.
+        your accuracy to learn where this neutrino came from and to get higher scores.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -5316,8 +5317,8 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: The Ice Cube Neutrino Observatory is made up of an array of over 5,000
-        Digital Optical Modules (DOMs) frozen deep into the Antarctic Ice.
+      value: IceCube is made up of an array of over 5,000 Digital Optical Modules
+        (DOMs) frozen deep into the Antarctic Ice.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -6167,8 +6168,8 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: This interaction is timestamped, digitized, and sent up cables to the
-        IceCubeLab
+      value: This light is timestamped, digitized, and sent up through two mile long
+        cables to the IceCubeLab
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -7707,8 +7708,8 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: Find out what cosmic source the event originated from, how far away it
-        is and other information about the source.
+      value: Find out what cosmic source that neutrino could have originated from
+        and learn more about the source.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -19093,8 +19094,7 @@ Prefab:
     - target: {fileID: 114519648303229958, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
         type: 2}
       propertyPath: m_Text
-      value: "Welcome to the Ice Cube Neutrino \nObservatory at the South Pole in
-        Antarctica!"
+      value: "Welcome to the IceCube Neutrino \nObservatory at the South Pole in Antarctica!"
       objectReference: {fileID: 0}
     - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
         type: 2}
@@ -19986,7 +19986,7 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: The Observatory records the interactions of Neutrinos - nearly massless,
+      value: The observatory records the interactions of neutrinos - nearly massless,
         subatomic particles.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}

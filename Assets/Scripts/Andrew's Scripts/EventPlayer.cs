@@ -36,7 +36,7 @@ public class EventPlayer : MonoBehaviour {
     private bool beginFade = false;
     private bool alreadyFaded = false;
 	private bool isSwiped = false;
-    private bool playingTutorial = false;
+    private bool playingTutorial = true;
 	private float timer = 2.0f;
 
     public LineRenderer truePath;
@@ -522,7 +522,7 @@ public class EventPlayer : MonoBehaviour {
                     //Debug.Log(eventFrequency + secondsBeforeHelp);
                     if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp)
                     {
-                        if (helpSwipe != null /*&& !playingTutorial*/)
+                        if (helpSwipe != null && !playingTutorial)
                         {
                             
                             if (!playingTutorial)

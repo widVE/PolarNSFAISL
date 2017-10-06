@@ -8,10 +8,12 @@ public class DOMController : MonoBehaviour {
     public float lastCharge = 0.0f;
     public int stringNum = 0;
     public int domNum = 0;
+    public Material glowMaterial;
     private GameObject eventSphere = null;
     private MeshRenderer domGlobe = null;
     private MeshRenderer domGlobe2 = null;
-    private Shader standard = null;
+    private Material domGlobeMat1 = null;
+    private Material domGlobeMat2 = null;
     private Shader glow = null;
     private float oldScale = 1.0f;
 
@@ -20,8 +22,8 @@ public class DOMController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        standard = Shader.Find("Standard");
-        glow = Shader.Find("MK/MKGlow/Transparent/Diffuse");
+        //standard = Shader.Find("Standard");
+        //glow = Shader.Find("MK/MKGlow/Transparent/Diffuse");
         /*GameObject externalParts = transform.FindChild("s1DOM_ExternalParts").gameObject;
         if (externalParts != null)
         {
@@ -43,9 +45,11 @@ public class DOMController : MonoBehaviour {
         }
         else 
         {*/
-            eventSphere = gameObject;
-            domGlobe = eventSphere.transform.Find("group_1").gameObject.GetComponent<MeshRenderer>();
-            domGlobe2 = eventSphere.transform.Find("group_2").gameObject.GetComponent<MeshRenderer>();
+        eventSphere = gameObject;
+        domGlobe = eventSphere.transform.Find("group_1").gameObject.GetComponent<MeshRenderer>();
+        domGlobe2 = eventSphere.transform.Find("group_2").gameObject.GetComponent<MeshRenderer>();
+        domGlobeMat1 = domGlobe.sharedMaterial;
+        domGlobeMat2 = domGlobe2.sharedMaterial;
         //}
         
         oldScale = eventSphere.transform.localScale.x;
@@ -77,12 +81,12 @@ public class DOMController : MonoBehaviour {
         //change a material on the globe so that it glows...
         if(domGlobe != null)
         {
-            domGlobe.materials[0].shader = glow;
+            domGlobe.material = glowMaterial;
         }
 
         if (domGlobe2 != null)
         {
-            domGlobe2.materials[0].shader = glow;
+            domGlobe2.material = glowMaterial;
         }
 
         if (eventSphere != null)
@@ -156,12 +160,12 @@ public class DOMController : MonoBehaviour {
     {
         if (domGlobe != null)
         {
-            domGlobe.materials[0].shader = standard;
+            domGlobe.material = domGlobeMat1;
         }
 
         if (domGlobe2 != null)
         {
-            domGlobe2.materials[0].shader = standard;
+            domGlobe2.material = domGlobeMat2;
         }
 
         if(eventSphere != null)
@@ -172,13 +176,13 @@ public class DOMController : MonoBehaviour {
             //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", defaultColor);
 
 
-            domGlobe.material.SetColor("_Color", defaultColor);
+            /*domGlobe.material.SetColor("_Color", defaultColor);
             domGlobe.material.SetColor("_MKGlowColor", defaultColor);
             domGlobe.material.SetColor("_MKGlowTexColor", defaultColor);
 
             domGlobe2.material.SetColor("_Color", defaultColor2);
             domGlobe2.material.SetColor("_MKGlowColor", defaultColor2);
-            domGlobe2.material.SetColor("_MKGlowTexColor", defaultColor2);
+            domGlobe2.material.SetColor("_MKGlowTexColor", defaultColor2);*/
         }
 
         on = false;

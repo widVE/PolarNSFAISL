@@ -170,6 +170,25 @@ public class SwipeGameMode : MonoBehaviour {
         {
             panelParent.SetActive(false);
         }
+
+        //position top, front, side cameras for tutorial...
+        if(topCamera != null)
+        {
+            topCamera.transform.position.Set(282.7f, 795.5f, 48.72999f);
+            topCamera.transform.rotation = Quaternion.Euler(90f, 0f, -28f);
+        }
+
+        if(frontCamera != null)
+        {
+            frontCamera.transform.position.Set(-27.87561f, -5.495117f, -535.4141f);
+            frontCamera.transform.rotation = Quaternion.Euler(0f, 28f, 0f);
+        }
+
+        if(sideCamera != null)
+        {
+            sideCamera.transform.position.Set(-424.5464f, -5.495117f, 424.7562f);
+            sideCamera.transform.rotation = Quaternion.Euler(0f, 118f, 0f);
+        }
     }
 
     public void SetSwipeTop(bool swipe) { swipedTop = swipe; }

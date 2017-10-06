@@ -23,6 +23,10 @@ public class EventPanelManager : MonoBehaviour {
     public Sprite radioGalaxy;
     public Sprite quazar;
     public Sprite agn;
+    public Sprite xrayBinary;
+    public Sprite magnetar;
+    public Sprite noSource;
+    public Sprite snr;
 
 
     // List of EventBoxes currently representing swiped events

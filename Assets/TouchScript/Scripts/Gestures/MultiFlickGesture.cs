@@ -17,6 +17,7 @@ namespace TouchScript.Gestures
     [HelpURL("http://touchscript.github.io/docs/html/T_TouchScript_Gestures_FlickGesture.htm")]
     public class MultiFlickGesture : Gesture
     {
+        
         #region Constants
 
         /// <summary>
@@ -69,6 +70,8 @@ namespace TouchScript.Gestures
         //this is somehow not showing up on the unity inspector, and is being auto set to .1 even though we initialize it here differently...
         //same is probably true for minDistance and movementThreshold...
         public float flickTime = 2f;
+
+        private GameObject liveHelp;
 
         [SerializeField]
         private float minDistance = .1f;
@@ -129,6 +132,16 @@ namespace TouchScript.Gestures
         protected override void pointersPressed(IList<Pointer> pointers)
         {
             base.pointersPressed(pointers);
+
+            if(liveHelp == null)
+            {
+                liveHelp = GameObject.Find("LiveHelpGood");
+            }
+            
+            if(liveHelp != null)
+            {
+                liveHelp.SetActive(false);
+            }
 
             for(int i = 0; i < pointers.Count; ++i)
             {

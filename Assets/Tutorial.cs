@@ -54,6 +54,20 @@ public class Tutorial : MonoBehaviour {
                         {
                             e.StopCurrentEvent();
                             e.StopTutorialEvent();
+                            e.scaleArray(3f);
+                        }
+                    }
+                }
+
+                if (currPanelIndex == 8)
+                {
+                    GameObject ep = GameObject.Find("DomArray");
+                    if (ep != null)
+                    {
+                        EventPlayer e = ep.GetComponent<EventPlayer>();
+                        if (e != null)
+                        {
+                            e.scaleArray(0.149815f);
                         }
                     }
                 }

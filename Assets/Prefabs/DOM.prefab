@@ -969,7 +969,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1401277341345980}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26a660d00bfc52741a7c194c82ced589, type: 3}
   m_Name: 
@@ -978,6 +978,7 @@ MonoBehaviour:
   lastCharge: 0
   stringNum: 0
   domNum: 0
+  glowMaterial: {fileID: 0}
 --- !u!205 &205800656574834800
 LODGroup:
   m_ObjectHideFlags: 1

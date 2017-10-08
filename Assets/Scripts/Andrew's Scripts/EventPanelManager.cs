@@ -101,6 +101,18 @@ public class EventPanelManager : MonoBehaviour {
             case "Active Galactic Nucleus":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
                 break;
+            case "X-Ray Binary":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
+                break;
+            case "Supernova Remnant":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = snr;
+                break;
+            case "Magnetar":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = magnetar;
+                break;
+            case "No Source":
+                newPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
+                break;
             default:
                 break;
         }

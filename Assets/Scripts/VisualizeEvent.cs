@@ -58,7 +58,7 @@ public class VisualizeEvent : MonoBehaviour {
         public float eventEndTime;
         public float playStartTime;
         public float newPlayTime;
-		public List<DomState> ActivatedDoms;
+		// List<DomState> ActivatedDoms;
     };
 
 
@@ -263,7 +263,7 @@ public class VisualizeEvent : MonoBehaviour {
                 eventsPlaying[e].playStartTime = 0.0f;
                 eventsPlaying[e].advancedIndex = false;
                 eventsPlaying[e].newPlayTime = 0.0f;
-				eventsPlaying [e].ActivatedDoms = new List<DomState> ();
+				//eventsPlaying [e].ActivatedDoms = new List<DomState> ();
             }
         }
 	}
@@ -347,11 +347,11 @@ public class VisualizeEvent : MonoBehaviour {
                             {
 								float charge = Mathf.Log (20000.0f * events [e].eventData [eventsPlaying [e].eventIndex].charge * events [e].eventData [eventsPlaying [e].eventIndex].charge);
                                 dc.TurnOn(fTimeFrac, charge);
-								DomState toAdd = new DomState ();
-								toAdd.charge = charge;
-								toAdd.timeFrac = fTimeFrac;
-								toAdd.Dom = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str].puzzleDom;
-								eventsPlaying [e].ActivatedDoms.Add (toAdd);
+								//DomState toAdd = new DomState ();
+								//toAdd.charge = charge;
+								//toAdd.timeFrac = fTimeFrac;
+								//toAdd.Dom = domData.DOMArray[events[e].eventData[eventsPlaying[e].eventIndex].dom, events[e].eventData[eventsPlaying[e].eventIndex].str].puzzleDom;
+								//eventsPlaying [e].ActivatedDoms.Add (toAdd);
 
                                 AudioSource asource = dc.GetComponent<AudioSource>();
                                 if (asource != null && asource.isActiveAndEnabled)
@@ -420,7 +420,7 @@ public class VisualizeEvent : MonoBehaviour {
         eventsPlaying[e].eventEndTime = 0.0f;
         eventsPlaying[e].eventStartFrame = 0;
         eventsPlaying[e].eventEndFrame = 0;
-		eventsPlaying [e].ActivatedDoms = new List<DomState> ();
+		//eventsPlaying [e].ActivatedDoms = new List<DomState> ();
         Debug.Log("turning off events");
         //turn off all event visualization?
         for(int i = 0; i < events[e].eventData.Count; ++i)

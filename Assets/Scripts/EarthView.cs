@@ -29,6 +29,11 @@ public class EarthView : MonoBehaviour {
         cones = new List<eventCone>();
 	}
 	
+    public void ClearCones()
+    {
+        cones.Clear();
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -39,7 +44,7 @@ public class EarthView : MonoBehaviour {
 
         if (swipeGame != null)
         {
-            if (!swipeGame.GetComponent<SwipeGameMode>().isGamePlaying)
+            if (!swipeGame.GetComponent<SwipeGameMode>().isGamePlaying())
             {
                 cones.Clear();
             }

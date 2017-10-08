@@ -12,6 +12,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public PlotSphereMap sphereMap;
     public GameObject scorePanel;
     public GameObject detectionCone;
+    public GameObject helpSwipe;
 
     private int neutrinoScore = 0;
 
@@ -213,7 +214,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// <param name="e">Unity Event arguments object, unused</param>
 	private void swipeHandler(object sender, System.EventArgs e) {
 
-        if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying)
+        if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying())
         {
             return;
         }

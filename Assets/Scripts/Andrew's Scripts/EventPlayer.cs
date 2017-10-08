@@ -80,7 +80,7 @@ public class EventPlayer : MonoBehaviour {
         public float eventEndTime;
         public float playStartTime;
         public float newPlayTime;
-		public List<DomState> ActivatedDoms;
+		//public List<DomState> ActivatedDoms;
     };
 
     public EventPlayback[] eventsPlaying;
@@ -287,7 +287,7 @@ public class EventPlayer : MonoBehaviour {
                 eventsPlaying[e].playStartTime = 0.0f;
                 eventsPlaying[e].advancedIndex = false;
                 eventsPlaying[e].newPlayTime = 0.0f;
-				eventsPlaying [e].ActivatedDoms = new List<DomState> ();
+				//eventsPlaying [e].ActivatedDoms = new List<DomState> ();
             }
         }
 	}
@@ -307,6 +307,8 @@ public class EventPlayer : MonoBehaviour {
 
     public void PlayTutorialEvent()
     {
+        totalEnergy = 0.0f;
+
         if (currEventNumber != -1)
         {
             StopPlaying(currEventNumber);
@@ -318,20 +320,23 @@ public class EventPlayer : MonoBehaviour {
 
     public void StopTutorialEvent()
     {
+        totalEnergy = 0.0f;
         playingTutorial = false;
         firstPlay = true;
+        donePlaying = false;
         currEventNumber = -1;
+        lastPlayTime = -eventFrequency; //this forces an event to play right away.
+        //Debug.Log(UnityEngine.Time.time);
     }
 
 	// Update is called once per frame
 	void Update () {
 
-        //Debug.Log("Playing");
-        if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying && !playingTutorial)
+        if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying() && !playingTutorial)
         {
             return;
         }
-        //Debug.Log("Playing2");
+        
         for (int j = 0; j < sparkList.Count; ++j)
         {
             GameObject s = sparkList[j];
@@ -366,10 +371,11 @@ public class EventPlayer : MonoBehaviour {
         
         totalEnergy = 0.0f;
         //r or every eventFrequency seconds
-		if (/*(UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.R) ||*/ (t - lastPlayTime) > eventFrequency && !IsEventPlaying())
+		if ((t - lastPlayTime) > eventFrequency && !IsEventPlaying())
         {
             if (firstPlay || (t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear)
             {
+                //Debug.Log("Playing new");
                 firstPlay = false;
 
                 if (playingTutorial)
@@ -438,11 +444,11 @@ public class EventPlayer : MonoBehaviour {
 						float charge = Mathf.Log (60000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
                         //Debug.Log(eventsPlaying[currEventNumber].eventIndex);
                         dc.TurnOn(fTimeFrac, charge);
-						DomState toAdd = new DomState ();
-						toAdd.charge = charge;
-						toAdd.timeFrac = fTimeFrac;
+						//DomState toAdd = new DomState ();
+						//toAdd.charge = charge;
+						//toAdd.timeFrac = fTimeFrac;
 				
-						eventsPlaying [currEventNumber].ActivatedDoms.Add (toAdd);
+						//eventsPlaying [currEventNumber].ActivatedDoms.Add (toAdd);
 
                         if (sparks != null)
                         {
@@ -524,16 +530,19 @@ public class EventPlayer : MonoBehaviour {
                     {
                         if (helpSwipe != null && !playingTutorial)
                         {
-                            
-                            if (!playingTutorial)
+                            float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
+                            if (t - pressTime > secondsBeforeHelp)
                             {
-                                //Debug.Log("huh");
                                 Vector3 diff = (events[currEventNumber].startPos - events[currEventNumber].endPos).normalized;
                                 //helpSwipe.transform.position = (events[currEventNumber].startPos + events[currEventNumber].endPos) / 2;
                                 float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
                                 helpSwipe.transform.localRotation = Quaternion.Euler(helpSwipe.transform.localRotation.x, helpSwipe.transform.localRotation.y, angle);
                                 helpSwipe.SetActive(true);
                                 //TODO: set 2d rotation of helpSwipe to match current event
+                            }
+                            else
+                            {
+                                helpSwipe.SetActive(false);
                             }
                         }
                     }
@@ -555,6 +564,7 @@ public class EventPlayer : MonoBehaviour {
 
     public void StopCurrentEvent()
     {
+        //Debug.Log("Stopping event" + currEventNumber);
         StopPlaying(currEventNumber);
     }
 
@@ -572,7 +582,7 @@ public class EventPlayer : MonoBehaviour {
             eventsPlaying[e].eventEndTime = 0.0f;
             eventsPlaying[e].eventStartFrame = 0;
             eventsPlaying[e].eventEndFrame = 0;
-            eventsPlaying[e].ActivatedDoms = new List<DomState>();
+            //eventsPlaying[e].ActivatedDoms = new List<DomState>();
 
             alreadyFaded = false;
             //turn off all event visualization?
@@ -661,11 +671,11 @@ public class EventPlayer : MonoBehaviour {
 					{
 						float charge = Mathf.Log (60000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
 						dc.TurnOn(fTimeFrac, charge);
-						DomState toAdd = new DomState ();
-						toAdd.charge = charge;
-						toAdd.timeFrac = fTimeFrac;
+						//DomState toAdd = new DomState ();
+						//toAdd.charge = charge;
+						//toAdd.timeFrac = fTimeFrac;
 
-						eventsPlaying [currEventNumber].ActivatedDoms.Add (toAdd);
+						//eventsPlaying [currEventNumber].ActivatedDoms.Add (toAdd);
 
 						AudioSource asource = dc.GetComponent<AudioSource>();
 						if (asource != null && asource.isActiveAndEnabled)

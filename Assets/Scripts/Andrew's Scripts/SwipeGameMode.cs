@@ -18,7 +18,7 @@ public class SwipeGameMode : MonoBehaviour {
 
     public Strings domStrings;
 
-    public bool isGamePlaying = false;
+    private bool isGame;
 
 	[SerializeField]
 	private GameObject topCamera;
@@ -35,20 +35,27 @@ public class SwipeGameMode : MonoBehaviour {
 
     public GameObject panelParent;
 
-    private bool swipedTop = false;
-    private bool swipedSide = false;
-    private bool swipedFront = false;
+    private bool swipedTop;
+    private bool swipedSide;
+    private bool swipedFront;
 
 	// Use this for initialization
 	void Start () {
-		
+        isGame = false;
+        swipedTop = false;
+        swipedSide = false;
+        swipedFront = false;
 	}
+
+    public bool isGamePlaying() { return isGame; }
 
     public void StartGame()
     {
-        if (!isGamePlaying)
+        Debug.Log("STARTING");
+        if (!isGame)
         {
-            isGamePlaying = true;
+            Debug.Log("IS STARTING");
+            isGame = true;
             if (countdownTimer != null)
             {
                 countdownTimer.GetComponent<Countdown>().StartCountdown();
@@ -69,6 +76,7 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
+                Debug.Log("Stopping tutorial");
             }
 
             AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
@@ -96,7 +104,7 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void StopGame()
     {
-        isGamePlaying = false;
+        isGame = false;
         
         if(startButton != null)
         {
@@ -119,7 +127,10 @@ public class SwipeGameMode : MonoBehaviour {
             tutorial.GetComponent<Tutorial>().playTutorial = true;
         }
 
-        DisableCameras();
+        if(swipeRecognizer != null)
+        {
+            swipeRecognizer.ExitResolveMode(false);
+        }
 
         AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
         if (aSources != null)
@@ -159,6 +170,8 @@ public class SwipeGameMode : MonoBehaviour {
 
         if(coneParent != null)
         {
+            //coneParent.GetComponent<EarthView>().ClearCones();
+
             foreach (Transform child in coneParent.transform)
             {
                 Destroy(child.gameObject);

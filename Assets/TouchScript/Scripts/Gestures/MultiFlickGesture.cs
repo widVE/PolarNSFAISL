@@ -71,7 +71,7 @@ namespace TouchScript.Gestures
         //same is probably true for minDistance and movementThreshold...
         public float flickTime = 2f;
 
-        private GameObject liveHelp;
+        private GameObject liveHelp = null;
 
         [SerializeField]
         private float minDistance = .1f;
@@ -135,12 +135,15 @@ namespace TouchScript.Gestures
 
             if(liveHelp == null)
             {
+                //but this might not be active...
                 liveHelp = GameObject.Find("LiveHelpGood");
+                Debug.Log("Found live help");
             }
             
             if(liveHelp != null)
             {
-                liveHelp.SetActive(false);
+                liveHelp.GetComponent<LiveHelpTimer>().pressTime = UnityEngine.Time.time;
+                Debug.Log(liveHelp.GetComponent<LiveHelpTimer>().pressTime);
             }
 
             for(int i = 0; i < pointers.Count; ++i)

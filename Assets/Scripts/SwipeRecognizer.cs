@@ -61,6 +61,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// Start - For variable initialization and gradient generation
 	/// </summary>
 	void Start () {
+
 		if (swipeGesture == null) {
 			Debug.LogError ("No Flick Gesture assigned for DetectSwipe component on " + this.gameObject.name);
 		}
@@ -133,6 +134,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// Subscribes to the flicked event when enabled
 	/// </summary>
 	private void OnEnable() {
+        Debug.Log("Added swipe gesture");
 		swipeGesture.Flicked += swipeHandler;
 	}
 
@@ -140,6 +142,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// Unsubscribes to the flicked event when disabled
 	/// </summary>
 	private void OnDisable() {
+        Debug.Log("Removed swipe gesture");
 		swipeGesture.Flicked -= swipeHandler;
 	}
 
@@ -316,8 +319,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public void ExitResolveMode(bool success=false) {
 		inResolveMode = false;
-        swipeGameMode.DisableCameras();
-        swipeGameMode.EventResolved(success);
+
         if (refinePanel != null)
         {
             refinePanel.SetActive(false);
@@ -330,8 +332,6 @@ public class SwipeRecognizer : MonoBehaviour {
         {
             detectionCone.SetActive(false);
         }
-
-        currentEvents.scaleArray(3f);
     }
 
 	private void SwipeCalculation(Camera cameraToUse) {
@@ -722,18 +722,10 @@ public class SwipeRecognizer : MonoBehaviour {
 
     private IEnumerator DelayedResolve(float waittime, bool success)
     {
-        /*if(success)
-        {
-            frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-            sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-            topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-        }
-        else
-        {
-            frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-            sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-            topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-        }*/
+        swipeGameMode.DisableCameras();
+        currentEvents.scaleArray(3f);
+        swipeGameMode.EventResolved(success);
+
         yield return new WaitForSeconds(waittime);
         ExitResolveMode(success);
     }

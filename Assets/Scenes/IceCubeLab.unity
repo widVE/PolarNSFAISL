@@ -598,7 +598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventPlayer: {fileID: 2031770144}
   countdownTimer: {fileID: 966682116}
-  swipeRecognizer: {fileID: 598479286}
+  swipeRecognizer: {fileID: 905924067}
   mainCamera: {fileID: 905924060}
   tutorial: {fileID: 696675353}
   refinePanel: {fileID: 482620883}
@@ -2221,7 +2221,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Start\t"
+  m_Text: Start Game
 --- !u!222 &306429208
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4312,11 +4312,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 598479285}
-  - component: {fileID: 598479286}
-  - component: {fileID: 598479301}
   - component: {fileID: 598479287}
   - component: {fileID: 598479288}
-  - component: {fileID: 598479289}
   m_Layer: 0
   m_Name: TouchScript_Scripts
   m_TagString: Untagged
@@ -4337,34 +4334,6 @@ Transform:
   m_Father: {fileID: 875935736}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &598479286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 598479284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fb3cd3b8324a96459a1e8bdcce5fa21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swipeGameMode: {fileID: 94977849}
-  earthView: {fileID: 1926621610}
-  sphereMap: {fileID: 771481214}
-  scorePanel: {fileID: 1702583981}
-  detectionCone: {fileID: 636053783}
-  helpSwipe: {fileID: 972033192}
-  swipeGesture: {fileID: 598479301}
-  lineObject: {fileID: 1241771750635288, guid: 0667ea373fe599a47b203dbda1663775, type: 2}
-  currentEvents: {fileID: 2031770144}
-  topCamera: {fileID: 1230875523}
-  sideCamera: {fileID: 1683310195}
-  frontCamera: {fileID: 730068720}
-  topPanel: {fileID: 246312909}
-  sidePanel: {fileID: 934094788}
-  frontPanel: {fileID: 744158707}
-  refinePanel: {fileID: 482620883}
-  congratsPanel: {fileID: 1987047126}
 --- !u!114 &598479287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4416,54 +4385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   template: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
---- !u!114 &598479289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 598479284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc7fd33c57d694994b0ab9f33fcdcbea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Global Fullscreen
-  type: 2
-  _camera: {fileID: 0}
---- !u!114 &598479301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 598479284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b17961a5d14764ebfba6cc17c02b15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStateChange:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  basicEditor: 0
-  generalProps: 0
-  limitsProps: 0
-  advancedProps: 0
-  minPointers: 0
-  maxPointers: 0
-  useSendMessage: 0
-  sendStateChangeMessages: 0
-  sendMessageTarget: {fileID: 0}
-  useUnityEvents: 0
-  sendStateChangeEvents: 0
-  requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
-  flickTime: 0.1
-  minDistance: 1
-  movementThreshold: 0.5
-  direction: 0
-  recognizedId: -1
 --- !u!1001 &608684174
 Prefab:
   m_ObjectHideFlags: 0
@@ -5728,7 +5649,6 @@ GameObject:
   - component: {fileID: 730068720}
   - component: {fileID: 730068718}
   - component: {fileID: 730068722}
-  - component: {fileID: 730068723}
   - component: {fileID: 730068717}
   m_Layer: 0
   m_Name: Front Camera
@@ -5827,29 +5747,6 @@ MonoBehaviour:
   blurIterations: 7
   glowIntensity: 0.6
   samples: 3
---- !u!114 &730068723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 730068715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5768c36d1bb4acea50bd233372843a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Main Camera
-  basicEditor: 1
-  advancedProps: 0
-  hitProps: 0
-  hit3DObjects: 1
-  hit2DObjects: 0
-  hitWorldSpaceUI: 0
-  hitScreenSpaceUI: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  useHitFilters: 0
 --- !u!1 &742291434
 GameObject:
   m_ObjectHideFlags: 0
@@ -6888,7 +6785,7 @@ Transform:
   - {fileID: 598479285}
   - {fileID: 1928935549}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &875935737
 MonoBehaviour:
@@ -6951,7 +6848,7 @@ MonoBehaviour:
   useUnityEvents: 0
   layers:
   - {fileID: 905924066}
-  - {fileID: 598479289}
+  - {fileID: 905924071}
 --- !u!114 &875935738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7060,9 +6957,12 @@ GameObject:
   - component: {fileID: 905924063}
   - component: {fileID: 905924062}
   - component: {fileID: 905924061}
-  - component: {fileID: 905924066}
   - component: {fileID: 905924069}
   - component: {fileID: 905924068}
+  - component: {fileID: 905924067}
+  - component: {fileID: 905924070}
+  - component: {fileID: 905924066}
+  - component: {fileID: 905924071}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7141,7 +7041,7 @@ Transform:
   - {fileID: 632166341}
   - {fileID: 202373314}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 26.955002, y: -5.155, z: 0}
 --- !u!114 &905924066
 MonoBehaviour:
@@ -7166,6 +7066,34 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   useHitFilters: 0
+--- !u!114 &905924067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905924060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb3cd3b8324a96459a1e8bdcce5fa21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swipeGameMode: {fileID: 94977849}
+  earthView: {fileID: 1926621610}
+  sphereMap: {fileID: 771481214}
+  scorePanel: {fileID: 1702583981}
+  detectionCone: {fileID: 636053783}
+  helpSwipe: {fileID: 972033192}
+  swipeGesture: {fileID: 905924070}
+  lineObject: {fileID: 1241771750635288, guid: 0667ea373fe599a47b203dbda1663775, type: 2}
+  currentEvents: {fileID: 2031770144}
+  topCamera: {fileID: 1230875523}
+  sideCamera: {fileID: 1683310195}
+  frontCamera: {fileID: 730068720}
+  topPanel: {fileID: 246312909}
+  sidePanel: {fileID: 934094788}
+  frontPanel: {fileID: 744158707}
+  refinePanel: {fileID: 482620883}
+  congratsPanel: {fileID: 1987047126}
 --- !u!114 &905924068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7206,6 +7134,54 @@ MonoBehaviour:
   blurIterations: 7
   glowIntensity: 0.6
   samples: 3
+--- !u!114 &905924070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905924060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b17961a5d14764ebfba6cc17c02b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  basicEditor: 0
+  generalProps: 0
+  limitsProps: 0
+  advancedProps: 0
+  minPointers: 0
+  maxPointers: 0
+  useSendMessage: 0
+  sendStateChangeMessages: 0
+  sendMessageTarget: {fileID: 0}
+  useUnityEvents: 0
+  sendStateChangeEvents: 0
+  requireGestureToFail: {fileID: 0}
+  friendlyGestures: []
+  flickTime: 0.1
+  minDistance: 1
+  movementThreshold: 0.5
+  direction: 0
+  recognizedId: -1
+--- !u!114 &905924071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905924060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7fd33c57d694994b0ab9f33fcdcbea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Fullscreen @ Main Camera
+  type: 0
+  _camera: {fileID: 905924064}
 --- !u!1 &910917471
 GameObject:
   m_ObjectHideFlags: 0
@@ -9306,14 +9282,18 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
-      propertyPath: touchCursor
-      value: 
-      objectReference: {fileID: 114582366990431924, guid: e360e885328c2014192e181b0720c29d,
-        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
       propertyPath: mouseCursor
       value: 
       objectReference: {fileID: 11416202, guid: 1b211ec776e4e36488be7fa82ae023b4,
+        type: 2}
+    - target: {fileID: 11400000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
+      propertyPath: touchCursor
+      value: 
+      objectReference: {fileID: 114582366990431924, guid: e360e885328c2014192e181b0720c29d,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
@@ -9548,7 +9528,6 @@ GameObject:
   - component: {fileID: 1230875523}
   - component: {fileID: 1230875521}
   - component: {fileID: 1230875525}
-  - component: {fileID: 1230875526}
   - component: {fileID: 1230875520}
   m_Layer: 0
   m_Name: Top Camera
@@ -9647,29 +9626,6 @@ MonoBehaviour:
   blurIterations: 7
   glowIntensity: 0.6
   samples: 3
---- !u!114 &1230875526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1230875518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5768c36d1bb4acea50bd233372843a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Main Camera
-  basicEditor: 1
-  advancedProps: 0
-  hitProps: 0
-  hit3DObjects: 1
-  hit2DObjects: 0
-  hitWorldSpaceUI: 0
-  hitScreenSpaceUI: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  useHitFilters: 0
 --- !u!1 &1234925215
 GameObject:
   m_ObjectHideFlags: 0
@@ -16236,7 +16192,6 @@ GameObject:
   - component: {fileID: 1683310195}
   - component: {fileID: 1683310193}
   - component: {fileID: 1683310197}
-  - component: {fileID: 1683310198}
   - component: {fileID: 1683310192}
   m_Layer: 0
   m_Name: Side Camera
@@ -16335,29 +16290,6 @@ MonoBehaviour:
   blurIterations: 7
   glowIntensity: 0.6
   samples: 3
---- !u!114 &1683310198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1683310190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5768c36d1bb4acea50bd233372843a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Main Camera
-  basicEditor: 1
-  advancedProps: 0
-  hitProps: 0
-  hit3DObjects: 1
-  hit2DObjects: 0
-  hitWorldSpaceUI: 0
-  hitScreenSpaceUI: 1
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  useHitFilters: 0
 --- !u!1 &1692477684
 GameObject:
   m_ObjectHideFlags: 0
@@ -20077,7 +20009,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 3, y: 44}
-  m_SizeDelta: {x: 250, y: 140}
+  m_SizeDelta: {x: 400, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110314984
 MonoBehaviour:

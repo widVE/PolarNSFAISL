@@ -98,6 +98,7 @@ namespace TouchScript.Gestures
         /// <inheritdoc />
         protected void LateUpdate()
         {
+           
             for(int i = 0; i < activePointers.Count; ++i)
             {
                 if(isActive.ContainsKey(activePointers[i].Id) && isActive[activePointers[i].Id])
@@ -132,12 +133,12 @@ namespace TouchScript.Gestures
         protected override void pointersPressed(IList<Pointer> pointers)
         {
             base.pointersPressed(pointers);
-
+           
             if(liveHelp == null)
             {
                 //but this might not be active...
                 liveHelp = GameObject.Find("LiveHelpGood");
-                Debug.Log("Found live help");
+                //Debug.Log("Found live help");
             }
             
             if(liveHelp != null)

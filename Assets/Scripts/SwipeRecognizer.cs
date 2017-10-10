@@ -13,8 +13,10 @@ public class SwipeRecognizer : MonoBehaviour {
     public GameObject scorePanel;
     public GameObject detectionCone;
     public GameObject helpSwipe;
+    public GameObject eventPanel;
+    public GameObject summaryPanel;
 
-    private int neutrinoScore = 0;
+    public int neutrinoScore = 0;
 
 	// TouchScript gesture that this script listens to
 	public MultiFlickGesture swipeGesture;
@@ -134,7 +136,6 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// Subscribes to the flicked event when enabled
 	/// </summary>
 	private void OnEnable() {
-        Debug.Log("Added swipe gesture");
 		swipeGesture.Flicked += swipeHandler;
 	}
 
@@ -142,7 +143,6 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// Unsubscribes to the flicked event when disabled
 	/// </summary>
 	private void OnDisable() {
-        Debug.Log("Removed swipe gesture");
 		swipeGesture.Flicked -= swipeHandler;
 	}
 
@@ -666,7 +666,7 @@ public class SwipeRecognizer : MonoBehaviour {
                         {
                             //if we are here, we've successfully swiped the event..
                             //tell user good job or something, then accumulate event and return to game.
-                            Debug.Log("SUCCESS");
+                            //Debug.Log("SUCCESS");
 
                             if(congratsPanel != null)
                             {
@@ -676,20 +676,30 @@ public class SwipeRecognizer : MonoBehaviour {
                             }
 
                             StartCoroutine(DelayedResolve(3f, true));
-                            
-                            GameObject panel = GameObject.Find("EventPanel");
-                            if (panel != null)
+                            Color summaryColor = Color.white;
+
+                            if (eventPanel != null)
                             {
-                                EventPanelManager epm = panel.GetComponent<EventPanelManager>();
+                                EventPanelManager epm = eventPanel.GetComponent<EventPanelManager>();
                                 if (epm != null)
                                 {
                                     //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                     EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                        screenStart, screenEnd);
-
+                                        screenStart, screenEnd, Color.white);
+                                    summaryColor = e.gameObject.GetComponent<UnityEngine.UI.Image>().color;
                                     earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
-                                        currentEvents.events[currentEvents.lastEventNumber].endPos, e.gameObject.GetComponent<UnityEngine.UI.Image> ().color, vTest);
+                                        currentEvents.events[currentEvents.lastEventNumber].endPos, summaryColor, vTest);
+                                }
+                            }
 
+                            if (summaryPanel != null)
+                            {
+                                EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
+                                if (epm != null)
+                                {
+                                    //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
+                                    EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                        screenStart, screenEnd, summaryColor, false);
                                 }
                             }
 

@@ -10,11 +10,13 @@ public class Countdown : MonoBehaviour {
     private float oneSec = 0f;
     private bool countDown = false;
     public GameObject score;
+    public GameObject summaryPanel;
+    public GameObject tutorial;
+    public GameObject startButton;
 	// Use this for initialization
 
     public void StartCountdown() { 
         countDown = true; 
-        Debug.Log("Starting game"); 
     }
 
 	void Start () {
@@ -53,10 +55,48 @@ public class Countdown : MonoBehaviour {
 
                     if(swipeGame != null)
                     {
-                        swipeGame.GetComponent<SwipeGameMode>().StopGame();
+                        if(summaryPanel != null)
+                        {
+                            summaryPanel.SetActive(true);
+                        }
+
+                        if (swipeGame != null)
+                        {
+                            swipeGame.GetComponent<SwipeGameMode>().StopGame();
+                        }
+
+                        StartCoroutine(DelayedResolve(10f, false));
                     }
                 }
             }
         }
 	}
+
+    private IEnumerator DelayedResolve(float waittime, bool success)
+    {
+        yield return new WaitForSeconds(waittime);
+
+        if (tutorial != null)
+        {
+            tutorial.GetComponent<Tutorial>().playTutorial = true;
+        }
+
+        if(startButton != null)
+        {
+            startButton.SetActive(true);
+        }
+
+        if (summaryPanel != null)
+        {
+            summaryPanel.SetActive(false);
+
+            foreach (Transform child in summaryPanel.transform)
+            {
+                if (child.gameObject.name.StartsWith("Event:"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+    }
 }

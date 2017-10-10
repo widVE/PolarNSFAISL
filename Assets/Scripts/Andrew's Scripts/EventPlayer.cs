@@ -530,7 +530,7 @@ public class EventPlayer : MonoBehaviour {
                     {
                         if (helpSwipe != null && !playingTutorial)
                         {
-                            float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
+                            /*float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
                             if (t - pressTime > secondsBeforeHelp)
                             {
                                 Vector3 diff = (events[currEventNumber].startPos - events[currEventNumber].endPos).normalized;
@@ -543,7 +543,7 @@ public class EventPlayer : MonoBehaviour {
                             else
                             {
                                 helpSwipe.SetActive(false);
-                            }
+                            }*/
                         }
                     }
 
@@ -649,6 +649,42 @@ public class EventPlayer : MonoBehaviour {
         lastEventNumber = currEventNumber;
 		currEventNumber = -1;
 	}
+
+    public float GetCurrentEnergy()
+    {
+        if (currEventNumber != -1)
+        {
+            return events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].charge;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+
+    public int GetCurrentDOM()
+    {
+        if (currEventNumber != -1)
+        {
+            return eventsPlaying[currEventNumber].eventIndex;
+        }
+        else 
+        {
+            return 0;
+        }
+    }
+
+    public float GetTotalDOMs()
+    {
+        if (currEventNumber != -1)
+        {
+            return (float)events[currEventNumber].eventData.Count;
+        }
+        else 
+        {
+            return 0f;
+        }
+    }
 
 	private void FinishEvent() {
 

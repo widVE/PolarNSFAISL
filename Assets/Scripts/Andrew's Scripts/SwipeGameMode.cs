@@ -14,6 +14,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject liveHelp;
     public GameObject coneParent;
     public GameObject eventPanel;
+    public GameObject summaryPanel;
     public GameObject startButton;
 
     public Strings domStrings;
@@ -51,10 +52,8 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void StartGame()
     {
-        Debug.Log("STARTING");
         if (!isGame)
         {
-            Debug.Log("IS STARTING");
             isGame = true;
             if (countdownTimer != null)
             {
@@ -76,7 +75,7 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
-                Debug.Log("Stopping tutorial");
+                eventPlayer.scaleArray(3f);
             }
 
             AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
@@ -106,10 +105,10 @@ public class SwipeGameMode : MonoBehaviour {
     {
         isGame = false;
         
-        if(startButton != null)
+        /*if(startButton != null)
         {
             startButton.SetActive(true);
-        }
+        }*/
 
         if (eventPlayer != null)
         {
@@ -122,10 +121,10 @@ public class SwipeGameMode : MonoBehaviour {
             mainCamera.GetComponent<CameraRotate>().spin = false;
         }
 
-        if (tutorial != null)
+        /*if (tutorial != null)
         {
             tutorial.GetComponent<Tutorial>().playTutorial = true;
-        }
+        }*/
 
         if(swipeRecognizer != null)
         {

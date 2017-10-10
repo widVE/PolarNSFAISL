@@ -55,7 +55,7 @@ public class EventPanelManager : MonoBehaviour {
 	/// <param name="vEnd">The ending point of the neutrino path of this event</param>
 	/// <param name="domStates">List of dom states (doms activated by this event, and their state params)</param>
 	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, 
-        Vector2 swipeStart, Vector2 swipeEnd) {//, List<EventPlayer.DomState> domStates) {
+        Vector2 swipeStart, Vector2 swipeEnd, Color inColor, bool eventPanel=true) {
 
 		// Instantiate a new UI panel for the event
 		GameObject newPanel = Instantiate (template);
@@ -126,14 +126,39 @@ public class EventPanelManager : MonoBehaviour {
 		panels.Add (newPanel);
 
 		// Adjust the panel's position based on the number of events already swiped in the list
-		Vector2 pos = new Vector2 (0f, (-100) * (panels.Count - 1) - 50);
+        //this needs to be adjusted for the summary panel...
+		Vector2 pos;
+        if(eventPanel)
+        {
+            pos = new Vector2(0f, (-100) * (panels.Count - 1) - 50);   
+        }
+        else 
+        {
+            pos = new Vector2(0f, (-200) * (panels.Count - 1) - 300);   
+        }
+
 		newPanel.GetComponent<RectTransform>().anchoredPosition = pos;
 
 		// Randomly color it for visual appeal
-		newPanel.GetComponent<Image> ().color = new Color (Random.Range (0.3f, 1f), Random.Range (0.3f, 1f), Random.Range (0.3f, 1f));
+        if (inColor != Color.white)
+        {
+            newPanel.GetComponent<Image>().color = inColor;
+        }
+        else
+        {
+            newPanel.GetComponent<Image>().color = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
+        }
 
 		// Add name text and return it
-		newPanel.transform.Find ("Text").GetComponent<Text> ().text = "Source: " + name;
+        if (inColor != Color.white)
+        {
+            newPanel.transform.Find("Text").GetComponent<Text>().text = name;
+        }
+        else
+        {
+            newPanel.transform.Find("Text").GetComponent<Text>().text = "Source: " + name;
+        }
+
 		return newPanel.GetComponent<EventInfo> ();
 	}
 

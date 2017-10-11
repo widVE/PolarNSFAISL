@@ -104,6 +104,10 @@ public class SwipeGameMode : MonoBehaviour {
     public void StopGame()
     {
         isGame = false;
+
+        swipedTop = false;
+        swipedFront = false;
+        swipedSide = false;
         
         /*if(startButton != null)
         {
@@ -114,6 +118,8 @@ public class SwipeGameMode : MonoBehaviour {
         {
             //eventPlayer.GetComponent<EventPlayer>().PlayTutorialEvent();
             eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
+
+            eventPlayer.ResumePlaying();
         }
 
         if (mainCamera != null)

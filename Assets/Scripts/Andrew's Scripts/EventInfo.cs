@@ -11,7 +11,7 @@ public class EventInfo : MonoBehaviour {
 	// ----------VARIABLES----------
 
 	// Reference to the puzzle camera controller, to move the camera to view this event
-	private PuzzleCameraController puzzleCameraController;
+	//private PuzzleCameraController puzzleCameraController;
 
 	// Reference to the panel manager, so we can tell it to remove us from the list when necessary
 	private  EventPanelManager man;
@@ -199,7 +199,7 @@ public class EventInfo : MonoBehaviour {
 	/// Used for the button on the EventPanels, this moves the puzzle camera
 	/// to focus on this event
 	/// </summary>
-	public void GoToPuzzleView() {
+	/*public void GoToPuzzleView() {
 		puzzleCameraController.MoveCamera (this);
 	}
 
@@ -209,5 +209,5 @@ public class EventInfo : MonoBehaviour {
 	public void delete() {
 		puzzleCameraController.MoveCamera (null);
 		man.removeEvent (this.gameObject);
-	}
+	}*/
 }

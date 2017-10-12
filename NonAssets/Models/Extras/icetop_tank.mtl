@@ -1,0 +1,16 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl RoundWallTexture
+Ka 0.000000 0.000000 0.000000
+Kd 0.847059 0.847059 0.843137
+Ks 0.330000 0.330000 0.330000
+map_Kd icetop_tank/RoundWallTexture.jpg
+
+newmtl Google_Earth_Snapshot
+Ka 0.000000 0.000000 0.000000
+Kd 0.458824 0.494118 0.450980
+Ks 0.330000 0.330000 0.330000
+map_Kd icetop_tank/Google_Earth_Snapshot.jpg
+

@@ -3570,7 +3570,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 83831b49a3b1d9741bfb33509d5859ad, type: 2}
+  - {fileID: 2100000, guid: 40875782c4df8d14db4f2769b7fb2bed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6213,7 +6213,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 696675353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2f26ae43d2d894586286c761c05e37, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da6474afd6dc7346910d7af858626fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playTutorial: 1
@@ -8413,7 +8413,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 972033192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47037618784748849885a2ae536ab569, type: 3}
+  m_Script: {fileID: 11500000, guid: 403699854b0ef924c85cc889c3ce478b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pressTime: 0

@@ -5,13 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/IceCubeLab_BACKUP.unity
-  - enabled: 0
-    path: Assets/Scenes/TableProto.unity
-  - enabled: 0
-    path: Assets/Scenes/NetworkMessageTesting.unity
-  - enabled: 0
-    path: Assets/Scenes/IceCubeLab 1.unity
   - enabled: 1
     path: Assets/Scenes/IceCubeLab.unity
+    guid: a1fc719aab76d564f95348f56fdf0f3b

@@ -30,7 +30,7 @@ public class EventPanelManager : MonoBehaviour {
 
 
     // List of EventBoxes currently representing swiped events
-    private List<GameObject> panels = new List<GameObject> ();
+    public List<GameObject> panels = new List<GameObject> ();
 
 	// Sound effect for when events are removed
 	private AudioSource removeSound;
@@ -92,7 +92,7 @@ public class EventPanelManager : MonoBehaviour {
             case "Blazar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
                 break;
-            case "Quazar":
+            case "Quasar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
                 break;
             case "Supernova":

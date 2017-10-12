@@ -3228,6 +3228,7 @@ MonoBehaviour:
   magnetar: {fileID: 21300000, guid: 9a12910fcdd9fcf4e80698274772c7ef, type: 3}
   noSource: {fileID: 21300000, guid: e6d21bb4c3b4b0843bfc2998b8c5b461, type: 3}
   snr: {fileID: 21300000, guid: 00ecc6e029d3836478d1605fbb722930, type: 3}
+  panels: []
 --- !u!114 &405555869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7620,6 +7621,7 @@ MonoBehaviour:
   eventPanel: {fileID: 1280512660}
   summaryPanel: {fileID: 405555865}
   neutrinoScore: 0
+  goalAccuracy: 0.9
   swipeGesture: {fileID: 905924070}
   lineObject: {fileID: 1241771750635288, guid: 0667ea373fe599a47b203dbda1663775, type: 2}
   currentEvents: {fileID: 2031770144}
@@ -8025,6 +8027,8 @@ MonoBehaviour:
   summaryPanel: {fileID: 405555865}
   tutorial: {fileID: 696675353}
   startButton: {fileID: 1963363066}
+  eventPanelManager: {fileID: 1280512660}
+  swipeRecognizer: {fileID: 905924060}
 --- !u!114 &966682122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13165,6 +13169,7 @@ MonoBehaviour:
   magnetar: {fileID: 21300000, guid: 9a12910fcdd9fcf4e80698274772c7ef, type: 3}
   noSource: {fileID: 21300000, guid: e6d21bb4c3b4b0843bfc2998b8c5b461, type: 3}
   snr: {fileID: 21300000, guid: 00ecc6e029d3836478d1605fbb722930, type: 3}
+  panels: []
 --- !u!114 &1280512662
 MonoBehaviour:
   m_ObjectHideFlags: 0

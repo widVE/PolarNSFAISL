@@ -17,6 +17,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public GameObject summaryPanel;
 
     public int neutrinoScore = 0;
+    public float goalAccuracy = .9f;
 
 	// TouchScript gesture that this script listens to
 	public MultiFlickGesture swipeGesture;
@@ -590,7 +591,7 @@ public class SwipeRecognizer : MonoBehaviour {
                         //if (angleDiff >= 30.0f)
                         if (cameraToUse == Camera.main)
                         {
-                            if (vTest < 0.9f)
+                            if (vTest < goalAccuracy)
                             {
                                 //if vTest < than prior vTest, mark red, else green...
                                 DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId % 10, cameraToUse);
@@ -605,7 +606,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId % 10, cameraToUse);
                                 if (swipeGameMode.SwipedAllThree())
                                 {
-                                    if (vTest < 0.9f)
+                                    if (vTest < goalAccuracy)
                                     {
                                         StartCoroutine(DelayedResolve(2f, false));
                                         continue;
@@ -688,7 +689,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                         screenStart, screenEnd, Color.white);
                                     summaryColor = e.gameObject.GetComponent<UnityEngine.UI.Image>().color;
                                     earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
-                                        currentEvents.events[currentEvents.lastEventNumber].endPos, summaryColor, vTest);
+                                        currentEvents.events[currentEvents.lastEventNumber].endPos, summaryColor, vTest, goalAccuracy);
                                 }
                             }
 

@@ -13,6 +13,8 @@ public class Countdown : MonoBehaviour {
     public GameObject summaryPanel;
     public GameObject tutorial;
     public GameObject startButton;
+    public GameObject eventPanelManager;
+    public GameObject swipeRecognizer;
 	// Use this for initialization
 
     public void StartCountdown() { 
@@ -42,6 +44,8 @@ public class Countdown : MonoBehaviour {
                 else
                 {
                     countDown = false;
+
+                    eventPanelManager.GetComponent<EventPanelManager>().panels.Clear();
                     //trigger a restart of the game...
                     //high score list?
                     timeLeft = gameTime;
@@ -50,6 +54,7 @@ public class Countdown : MonoBehaviour {
                     if(score != null)
                     {
                         //reset score..
+                        swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore = 0;
                         score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Neutrinos";
                     }
 
@@ -97,6 +102,8 @@ public class Countdown : MonoBehaviour {
                     Destroy(child.gameObject);
                 }
             }
+
+            summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
         }
     }
 }

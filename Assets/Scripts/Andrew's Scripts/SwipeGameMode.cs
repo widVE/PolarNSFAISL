@@ -60,6 +60,11 @@ public class SwipeGameMode : MonoBehaviour {
                 countdownTimer.GetComponent<Countdown>().StartCountdown();
             }
 
+            if (liveHelp != null)
+            {
+                liveHelp.SetActive(false);
+            }
+
             if (mainCamera != null)
             {
                 mainCamera.GetComponent<CameraRotate>().spin = true;
@@ -69,6 +74,11 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 tutorial.GetComponent<Tutorial>().playTutorial = false;
                 tutorial.GetComponent<Tutorial>().ClearTutorial();
+            }
+
+            if (swipeRecognizer != null)
+            {
+                swipeRecognizer.ExitResolveMode(false);
             }
 
             if (eventPlayer != null)

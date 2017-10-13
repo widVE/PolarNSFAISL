@@ -7,15 +7,16 @@ public class SpawnParticle : MonoBehaviour {
 	private GameObject particlePrefab;
 	[SerializeField]
 	private bool repeatTarget = false;
-	[SerializeField]
-	private int seed;
+	//[SerializeField]
+	//private int seed;
 	private GameObject currParticle;
 	private float updateListInterval = 0;
 	private GameObject[] domList;
 	private Vector3 target;
 	private bool targetSet = false;
 	private bool throwingParticle = true;
-	private ColorEventManager colorMan;
+	//private ColorEventManager colorMan;
+    private EventPlayer eventPlayer;
 	private float travelInterval = 0f;
 	private bool counting = false;
 	private ParticleTrail trail;
@@ -23,12 +24,12 @@ public class SpawnParticle : MonoBehaviour {
 	//private bool particleSpawned = false;
 	// Use this for initialization
 	void Start () {
-		UpdateDomList ();
-		colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
-		trail = GetComponent<ParticleTrail> ();
-		if (colorMan == null) {
-			Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
-		}
+		//UpdateDomList ();
+		eventPlayer = GameObject.Find("DomArray").GetComponent<EventPlayer> ();
+		//trail = GetComponent<ParticleTrail> ();
+		//if (colorMan == null) {
+		//	Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
+		//}
 	}
 	
 	// Update is called once per frame
@@ -38,48 +39,47 @@ public class SpawnParticle : MonoBehaviour {
 			travelInterval += Time.deltaTime;
 		}
 
-
-
-		updateListInterval += Time.deltaTime;
+		/*updateListInterval += Time.deltaTime;
 		if (updateListInterval >= 3f) {
 			updateListInterval = 0;
 			UpdateDomList ();
-		}
-		if (domList.Length == 0) {
+		}*/
+		/*if (domList.Length == 0) {
 			return;
-		}
+		}*/
 		if (throwingParticle && currParticle == null) {
 			throwingParticle = false;
-			colorMan.numActiveParticles++;
-			currParticle = (GameObject)Instantiate (particlePrefab, this.transform.position, Quaternion.identity);
+			//colorMan.numActiveParticles++;
+            currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[0].endPos, Quaternion.identity);
 			currParticle.transform.SetParent (this.transform);
 
 			// Find a random dom to shoot at
-			Random.InitState(seed * (int) System.DateTime.Now.Millisecond);
+			//Random.InitState(seed * (int) System.DateTime.Now.Millisecond);
 			if (repeatTarget) {
 				// If we haven't made a target yet (first iteration), get one
 				if (!targetSet) {
-					int index = Random.Range(0,domList.Length);
-					target = domList [index].transform.position;
+					//int index = Random.Range(0,domList.Length);
+					//target = domList [index].transform.position;
+                    target = eventPlayer.events[0].endPos;
 					Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
-					trail.setStart (currParticle.transform.position);
+					//trail.setStart (currParticle.transform.position);
 					targetSet = true;
 				}
 				// Move it
 				currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
 			} else {
 				// Every new particle gets a new target
-				int index = Random.Range(0,domList.Length);
-				target = domList [index].transform.position;
+				//int index = Random.Range(0,domList.Length);
+                target = eventPlayer.events[0].startPos;
 				Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
 				currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
 			}
 		}
 	}
 
-	private void UpdateDomList() {
+	/*private void UpdateDomList() {
 		domList = GameObject.FindGameObjectsWithTag ("DOM");
-	}
+	}*/
 		
 	public void startThrowing() {
 		throwingParticle = true;

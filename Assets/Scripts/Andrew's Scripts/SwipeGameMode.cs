@@ -85,7 +85,6 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
-                eventPlayer.scaleArray(3f);
             }
 
             AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
@@ -128,8 +127,8 @@ public class SwipeGameMode : MonoBehaviour {
         {
             //eventPlayer.GetComponent<EventPlayer>().PlayTutorialEvent();
             eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
-
             eventPlayer.ResumePlaying();
+            eventPlayer.scaleArray(3f);
         }
 
         if (mainCamera != null)
@@ -203,19 +202,34 @@ public class SwipeGameMode : MonoBehaviour {
         if(topCamera != null)
         {
             topCamera.transform.position.Set(282.7f, 795.5f, 48.72999f);
-            topCamera.transform.rotation = Quaternion.Euler(90f, 0f, -28f);
+            topCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
         }
 
         if(frontCamera != null)
         {
-            frontCamera.transform.position.Set(-27.87561f, -5.495117f, -535.4141f);
-            frontCamera.transform.rotation = Quaternion.Euler(0f, 28f, 0f);
+            frontCamera.transform.position.Set(159.2881f, -115.495117f, -713.4141f);
+            frontCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
         if(sideCamera != null)
         {
-            sideCamera.transform.position.Set(-424.5464f, -5.495117f, 424.7562f);
-            sideCamera.transform.rotation = Quaternion.Euler(0f, 118f, 0f);
+            sideCamera.transform.position.Set(-616.1577f, -115.495117f, 194.2025f);
+            sideCamera.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        }
+
+        if (frontPanel != null)
+        {
+            frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        }
+
+        if (sidePanel != null)
+        {
+            sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        }
+        
+        if (topPanel != null)
+        {
+            topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
         }
     }
 
@@ -226,7 +240,7 @@ public class SwipeGameMode : MonoBehaviour {
 	public void EventSwiped() {
 
 		// Freeze playing, display full event
-		eventPlayer.FreezePlaying ();
+		eventPlayer.FreezePlaying (true);
 
 		// Activate cameras
 		EnableCameras();

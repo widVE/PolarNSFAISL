@@ -101,6 +101,7 @@ public class DOMController : MonoBehaviour {
 
             //float h = (fTimeFrac * 0.75f);
             UnityEngine.Color c = UnityEngine.Color.HSVToRGB(h, 1f, 1f);
+            c.a = 1.0f;
            // UnityEngine.Color c2 = UnityEngine.Color.HSVToRGB(h, 0.75f, 0.75f);
             //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_Color", c);
             //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowColor", c);

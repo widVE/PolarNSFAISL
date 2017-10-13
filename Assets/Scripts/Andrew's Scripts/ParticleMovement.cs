@@ -11,9 +11,9 @@ public class ParticleMovement : MonoBehaviour {
 	private bool setUp = false;
 	[SerializeField]
 	private float speed = 0.2f;
-	private ParticleTrail trail;
+	//private ParticleTrail trail;
 
-	private ColorEventManager colorMan;
+	//private ColorEventManager colorMan;
 
 	private IEnumerator coroutine;
 	//private Vector3[] linePositions = new Vector3[500];
@@ -24,11 +24,11 @@ public class ParticleMovement : MonoBehaviour {
 	void Start() {
 		//linRen = this.GetComponent<LineRenderer> ();
 		//linRen.material = new Material(Shader.Find ("Particles/Additive"));
-		colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
-		trail = this.transform.parent.GetComponent<ParticleTrail> ();
-		if (colorMan == null) {
+		//colorMan = GameObject.Find("DOMArray").GetComponent<ColorEventManager> ();
+		//trail = this.transform.parent.GetComponent<ParticleTrail> ();
+		/*if (colorMan == null) {
 			Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
-		}
+		}*/
 
 		coroutine = WaitForReset (0.1f);
 
@@ -47,9 +47,9 @@ public class ParticleMovement : MonoBehaviour {
 			this.transform.Translate (direction * speed * Time.deltaTime);
 			if (Vector3.Distance(this.transform.position, target) >= startingDistance) {
 				//move = false;
-				StartCoroutine (coroutine);
+				//StartCoroutine (coroutine);
 			}
-
+            //Debug.Log(transform.position);
 //			if (interval > 0.01 && index < 500) {
 //				//linePositions [index] = this.transform.position;
 //				linRen.SetPosition(index, this.transform.position);
@@ -74,10 +74,10 @@ public class ParticleMovement : MonoBehaviour {
 		yield return new WaitForSeconds (waitTime);
 
 
-		colorMan.numActiveParticles--;
-		colorMan.resetGame ();
-		trail.setEnd (this.transform.position);
-		trail.enterTraceMode ();
+		//colorMan.numActiveParticles--;
+		//colorMan.resetGame ();
+		//trail.setEnd (this.transform.position);
+		//trail.enterTraceMode ();
 		Destroy (this.gameObject);
 	}
 }

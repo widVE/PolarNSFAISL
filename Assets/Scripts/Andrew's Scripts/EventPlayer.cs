@@ -149,6 +149,15 @@ public class EventPlayer : MonoBehaviour {
 								//Debug.LogWarning ("END SET");
                                 e.endPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
                             }
+
+                            if(events.Count == 0)
+                            {
+                                //for tutorial - make start and end further apart.
+                                Vector3 diff = e.startPos - e.endPos;
+                                diff.Normalize();
+                                e.startPos = e.startPos + diff * 1000.0f;
+                                e.endPos = e.endPos - diff * 1000.0f;
+                            }
                         }
                         else
                         {
@@ -635,11 +644,11 @@ public class EventPlayer : MonoBehaviour {
 		return totalEnergy;
 	}
 
-	public void FreezePlaying() {
+	public void FreezePlaying(bool forceAllVisible=false) {
 		timer = 2.0f;
 		isSwiped = true;
 		keepPlaying = false;
-		FinishEvent ();
+		FinishEvent (forceAllVisible);
 	}
 
 	public void ResumePlaying() {
@@ -686,63 +695,78 @@ public class EventPlayer : MonoBehaviour {
         }
     }
 
-	private void FinishEvent() {
+	private void FinishEvent(bool forceAllVisible) {
 
-		while (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count - 1) {
-			//todo - to handle sped up play back, need to potentially loop ahead here, until we calculate a frame count beyond the current...
-			if (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count && eventsPlaying[currEventNumber].advancedIndex)
-			{
-				GameObject d = arrayGenerator.DOMArray[events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].dom, events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].str];
+        if (!forceAllVisible)
+        {
+            while (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count - 1)
+            {
+                //todo - to handle sped up play back, need to potentially loop ahead here, until we calculate a frame count beyond the current...
+                if (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count && eventsPlaying[currEventNumber].advancedIndex)
+                {
+                    GameObject d = arrayGenerator.DOMArray[events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].dom, events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].str];
 
-				float fTimeFrac = 0.0f;
-				if (d != null)
-				{
-					totalEnergy += events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].charge;
+                    float fTimeFrac = 0.0f;
+                    if (d != null)
+                    {
+                        totalEnergy += events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].charge;
 
-					//fTimeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
-					//Ross - changed coloring to just be always rainbow, not dependent on time stamps..
-					fTimeFrac = (float)eventsPlaying[currEventNumber].eventIndex / (float)events[currEventNumber].eventData.Count;
-					DOMController dc = d.GetComponent<DOMController>();
-					if (dc != null)
-					{
-						float charge = Mathf.Log (60000.0f * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge * events [currEventNumber].eventData [eventsPlaying [currEventNumber].eventIndex].charge);
-						dc.TurnOn(fTimeFrac, charge);
-						//DomState toAdd = new DomState ();
-						//toAdd.charge = charge;
-						//toAdd.timeFrac = fTimeFrac;
+                        //fTimeFrac = (events[e].eventData[eventsPlaying[e].eventIndex].time - eventsPlaying[e].eventStartTime) / (eventsPlaying[e].eventEndTime - eventsPlaying[e].eventStartTime);
+                        //Ross - changed coloring to just be always rainbow, not dependent on time stamps..
+                        fTimeFrac = (float)eventsPlaying[currEventNumber].eventIndex / (float)events[currEventNumber].eventData.Count;
+                        DOMController dc = d.GetComponent<DOMController>();
+                        if (dc != null)
+                        {
+                            float charge = Mathf.Log(60000.0f * events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].charge * events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].charge);
+                            dc.TurnOn(fTimeFrac, charge);
 
-						//eventsPlaying [currEventNumber].ActivatedDoms.Add (toAdd);
+                            AudioSource asource = dc.GetComponent<AudioSource>();
+                            if (asource != null && asource.isActiveAndEnabled)
+                            {
+                                asource.Play();
+                            }
+                        }
+                    }
 
-						AudioSource asource = dc.GetComponent<AudioSource>();
-						if (asource != null && asource.isActiveAndEnabled)
-						{
-							asource.Play();
-						}
-					}
-				}
+                    //Vector3 dir = (events[e].endPos - events[e].startPos);
+                    //float mag = (events[e].endPos - events[e].startPos).magnitude;
+                    //particle.transform.position = events[e].startPos + dir * fTimeFrac;
+                }
 
-				//Vector3 dir = (events[e].endPos - events[e].startPos);
-				//float mag = (events[e].endPos - events[e].startPos).magnitude;
-				//particle.transform.position = events[e].startPos + dir * fTimeFrac;
-			}
+                //advance index depending on timing...
+                if (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count - 1)
+                {
+                    //time scale here is probably off...
+                    //these time values are in nanoseconds, so really huge, so this will probably be true every frame...
+                    //instead let's do this based on frame count..
+                    //given the event's time and our frame range, we can figure map the single event's time to which frame it should play...
+                    float timeFrac = (events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].time - eventsPlaying[currEventNumber].eventStartTime) / (eventsPlaying[currEventNumber].eventEndTime - eventsPlaying[currEventNumber].eventStartTime);
+                    int frameRange = eventsPlaying[currEventNumber].eventEndFrame - eventsPlaying[currEventNumber].eventStartFrame;
 
-			//advance index depending on timing...
-			if (eventsPlaying[currEventNumber].eventIndex < events[currEventNumber].eventData.Count - 1)
-			{
-				//time scale here is probably off...
-				//these time values are in nanoseconds, so really huge, so this will probably be true every frame...
-				//instead let's do this based on frame count..
-				//given the event's time and our frame range, we can figure map the single event's time to which frame it should play...
-				float timeFrac = (events[currEventNumber].eventData[eventsPlaying[currEventNumber].eventIndex].time - eventsPlaying[currEventNumber].eventStartTime) / (eventsPlaying[currEventNumber].eventEndTime - eventsPlaying[currEventNumber].eventStartTime);
-				int frameRange = eventsPlaying[currEventNumber].eventEndFrame - eventsPlaying[currEventNumber].eventStartFrame;
+                    float frameFrac = (float)eventsPlaying[currEventNumber].eventStartFrame + (timeFrac * (float)frameRange);
 
-				float frameFrac = (float)eventsPlaying[currEventNumber].eventStartFrame + (timeFrac * (float)frameRange);
+                    eventsPlaying[currEventNumber].eventIndex++;
+                    eventsPlaying[currEventNumber].advancedIndex = true;
+                }
+            }
+        }
+        else
+        {
+            int i = 0;
+            while (i < events[currEventNumber].eventData.Count)
+            {
+                GameObject d = arrayGenerator.DOMArray[events[currEventNumber].eventData[i].dom, events[currEventNumber].eventData[i].str];
+                float fTimeFrac = (float)i / (float)events[currEventNumber].eventData.Count;
+                DOMController dc = d.GetComponent<DOMController>();
+                if (dc != null)
+                {
+                    float charge = Mathf.Log(60000.0f * events[currEventNumber].eventData[i].charge * events[currEventNumber].eventData[i].charge);
+                    dc.TurnOn(fTimeFrac, charge);
+                }
 
-				eventsPlaying[currEventNumber].eventIndex++;
-				eventsPlaying[currEventNumber].advancedIndex = true;
-			}
-		}
-
+                i++;
+            }
+        }
 	}
 
 	public Vector3 GetEventCenterpoint() {

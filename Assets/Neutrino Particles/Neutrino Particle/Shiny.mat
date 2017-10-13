@@ -58,6 +58,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.473
@@ -66,6 +70,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 1
     - _GlossyReflections: 1
+    - _IntensityVC: 1
     - _MKGlowPower: 2.5
     - _MKGlowTexStrength: 1
     - _Metallic: 1
@@ -82,3 +87,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MKGlowColor: {r: 0.27405927, g: 0.49151877, b: 1, a: 0.5}
     - _MKGlowTexColor: {r: 0.34475282, g: 0.32082614, b: 1, a: 0.25}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

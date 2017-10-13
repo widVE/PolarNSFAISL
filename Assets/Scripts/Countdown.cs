@@ -15,7 +15,6 @@ public class Countdown : MonoBehaviour {
     public GameObject startButton;
     public GameObject eventPanelManager;
     public GameObject swipeRecognizer;
-	// Use this for initialization
 
     public void StartCountdown() { 
         countDown = true; 
@@ -40,6 +39,11 @@ public class Countdown : MonoBehaviour {
                     string countTxt = "Time left: " + timeLeft.ToString();
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
                     GetComponent<UnityEngine.UI.Text>().alignment = TextAnchor.MiddleCenter;
+
+                    if(timeLeft <= 5)
+                    {
+                        GetComponent<AudioSource>().Play();
+                    }
                 }
                 else
                 {

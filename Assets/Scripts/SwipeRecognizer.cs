@@ -73,7 +73,7 @@ public class SwipeRecognizer : MonoBehaviour {
         {
             for (int i = 0; i < 10; ++i)
             {
-                lines[i] = GameObject.Instantiate(lineObject);
+                lines[i] = GameObject.Instantiate(lineObject, Camera.main.transform);
             }
         }
 		BuildGradients ();
@@ -155,7 +155,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		
 
 		// Set the gradient appropriately
-		switch (type) {
+		/*switch (type) {
 		case SwipeType.missed:
             lines[index].GetComponent<LineRenderer>().colorGradient = missedGradient;
 			break;
@@ -167,18 +167,18 @@ public class SwipeRecognizer : MonoBehaviour {
 			break;
 		default:
 			break;
-		}
+		}*/
 
         TouchTableLine t = lines[index].GetComponent<TouchTableLine>();
 		// Reset the timer so the line will begin fading after 2 seconds
-		t.lineTimer = 1.5f;
+		t.lineTimer = 5.5f;
         t.lineDrawn = true;
         t.lineFading = false;
 		// Draw the line
         //Debug.Log(startEnd[0]);
         //Debug.Log(startEnd[1]);
         lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
-        lines[index].GetComponent<LineRenderer>().sortingOrder = 1;
+        //lines[index].GetComponent<LineRenderer>().sortingOrder = -1;
         //ren.SetPositions(startEnd);
         //Debug.Log ("Swipe was drawn " + type);
         if (cameraToUse != null && cameraToUse == Camera.main)

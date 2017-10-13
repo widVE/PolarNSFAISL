@@ -946,6 +946,11 @@ Prefab:
       propertyPath: tutorial
       value: 
       objectReference: {fileID: 696675353}
+    - target: {fileID: 120764146250612884, guid: be9b48d7decfd244789e3abfb31f5bb6,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be9b48d7decfd244789e3abfb31f5bb6, type: 2}
   m_IsPrefabParent: 0
@@ -7633,7 +7638,7 @@ MonoBehaviour:
   neutrinoScore: 0
   goalAccuracy: 0.9
   swipeGesture: {fileID: 905924070}
-  lineObject: {fileID: 1241771750635288, guid: 0667ea373fe599a47b203dbda1663775, type: 2}
+  lineObject: {fileID: 1325788989852762, guid: e8a3d923df68c4d499ddf6c288c7c661, type: 2}
   currentEvents: {fileID: 2031770144}
   topCamera: {fileID: 1230875523}
   sideCamera: {fileID: 1683310195}
@@ -7681,7 +7686,7 @@ MonoBehaviour:
   fullScreenGlowTint: {r: 0.92344296, g: 1, b: 1, a: 0}
   blurSpread: 0.25
   blurIterations: 7
-  glowIntensity: 0.6
+  glowIntensity: 0.496
   samples: 3
 --- !u!114 &905924070
 MonoBehaviour:
@@ -7994,7 +7999,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Time Left: 20\t\t\t"
+  m_Text: "Time Left: 90\t\t\t"
 --- !u!222 &966682119
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8033,7 +8038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeGame: {fileID: 94977848}
-  gameTime: 20
+  gameTime: 90
   score: {fileID: 1702583981}
   summaryPanel: {fileID: 405555865}
   tutorial: {fileID: 696675353}

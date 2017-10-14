@@ -178,7 +178,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2585,7 +2585,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3193,7 +3193,7 @@ RectTransform:
   - {fileID: 1971915500}
   - {fileID: 478494765}
   m_Father: {fileID: 2136369078}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 23.002, y: -5.327, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4713,7 +4713,7 @@ RectTransform:
   - {fileID: 1477620920}
   - {fileID: 1598847465}
   m_Father: {fileID: 2136369078}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5315,6 +5315,105 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 103961858}
   m_Script: {fileID: 11500000, guid: 28eee2f3ded6b704abea293ed86076a2, type: 3}
+--- !u!1 &623534040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1112115959736982, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 623534041}
+  - component: {fileID: 623534044}
+  - component: {fileID: 623534043}
+  - component: {fileID: 623534042}
+  m_Layer: 5
+  m_Name: TitlePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &623534041
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224844264983861428, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623534040}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2136369078}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1985, y: 2109}
+  m_SizeDelta: {x: 4000, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &623534042
+Canvas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623534040}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &623534043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114519648303229958, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623534040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ffa95f96c95ae9348b1e69ce2cd6e184, type: 3}
+    m_FontSize: 64
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 64
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Welcome to the IceCube Neutrino Observatory at the South Pole in Antarctica!
+--- !u!222 &623534044
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222851414536176050, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 623534040}
 --- !u!4 &631838050
 Transform:
   m_ObjectHideFlags: 0
@@ -6197,10 +6296,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 696675353}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 115, y: -1079.9999, z: -0.00024414062}
+  m_LocalPosition: {x: -1164, y: -209, z: -0.00024414062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2029268775}
   - {fileID: 2140732956}
   - {fileID: 1606811644}
   - {fileID: 691821411}
@@ -6214,7 +6312,7 @@ Transform:
   - {fileID: 1097315949}
   - {fileID: 994580262}
   m_Father: {fileID: 2136369078}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &696675355
 MonoBehaviour:
@@ -20813,125 +20911,6 @@ MonoBehaviour:
   objectToActivate: {fileID: 1431443793}
   deactivateOnClear: 1
   deactivateOnSwitch: 1
---- !u!1001 &2029268774
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 696675354}
-    m_Modifications:
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 1200
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1970919715329690, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114519648303229958, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_Text
-      value: "Welcome to the IceCube Neutrino \nObservatory at the South Pole in Antarctica!"
-      objectReference: {fileID: 0}
-    - target: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-        type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50, type: 2}
-  m_IsPrefabParent: 0
---- !u!224 &2029268775 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224500750252819168, guid: d2f4ab33c3c6b9a4080d3c5b6f433a50,
-    type: 2}
-  m_PrefabInternal: {fileID: 2029268774}
 --- !u!114 &2031770144 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114209731504949338, guid: be9b48d7decfd244789e3abfb31f5bb6,
@@ -21726,6 +21705,7 @@ RectTransform:
   - {fileID: 1702583982}
   - {fileID: 1280512665}
   - {fileID: 1963363067}
+  - {fileID: 623534041}
   - {fileID: 696675354}
   - {fileID: 568670748}
   - {fileID: 20168491}
@@ -21848,7 +21828,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}

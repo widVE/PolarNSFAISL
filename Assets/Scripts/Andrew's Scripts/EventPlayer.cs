@@ -247,7 +247,7 @@ public class EventPlayer : MonoBehaviour {
 
                                 float thetaDeg = Mathf.Rad2Deg * (e.theta);
                                 float phiDeg = Mathf.Rad2Deg * (e.phi);
-                                Vector3 dir = SphericalToCartesian(1.0f, phiDeg, thetaDeg);
+                                Vector3 dir = SphericalToCartesian(1.0f, phiDeg, thetaDeg+90f);
 
                                 Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)

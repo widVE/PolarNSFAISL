@@ -153,9 +153,9 @@ public class SwipeRecognizer : MonoBehaviour {
 	/// <param name="type">The type of swipe</param>
 	private void DrawSwipeLine(SwipeType type, int index=0, Camera cameraToUse=null) {
 		
-
+        //gradients causing alpha to goto 0..
 		// Set the gradient appropriately
-		/*switch (type) {
+		switch (type) {
 		case SwipeType.missed:
             lines[index].GetComponent<LineRenderer>().colorGradient = missedGradient;
 			break;
@@ -167,7 +167,7 @@ public class SwipeRecognizer : MonoBehaviour {
 			break;
 		default:
 			break;
-		}*/
+		}
 
         TouchTableLine t = lines[index].GetComponent<TouchTableLine>();
 		// Reset the timer so the line will begin fading after 2 seconds
@@ -346,8 +346,8 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		// If we should show the line, then calculate where the screen-coordinate end points lie in world coordinates
 		// We do this because line renderers only work with positions in 3D, not screen coordinates
-		startEnd[0] = cameraToUse.ScreenToWorldPoint(new Vector3(prev.x, prev.y, cameraToUse.nearClipPlane + 1));
-		startEnd[1] = cameraToUse.ScreenToWorldPoint(new Vector3(next.x, next.y, cameraToUse.nearClipPlane + 1));
+		startEnd[0] = cameraToUse.ScreenToWorldPoint(new Vector3(prev.x, prev.y, cameraToUse.nearClipPlane + 10));
+		startEnd[1] = cameraToUse.ScreenToWorldPoint(new Vector3(next.x, next.y, cameraToUse.nearClipPlane + 10));
 		//Debug.Log("Line Drawn: " + startEnd[0] + " to " + startEnd[1]);
 
 		// Begin event detection

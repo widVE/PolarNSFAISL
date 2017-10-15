@@ -17,20 +17,20 @@ public class EventPlayer : MonoBehaviour {
     List<GameObject> sparkList = new List<GameObject>();
 
     public float playSpeed = 0.01f;
-    private float eventFrequency = 10.0f;
     public float totalEnergy = 0.0f;
     public float secondsBeforeHelp = 10.0f;
     public float fadeTime = 3.0f;
     public float secondsBeforeDissappear = 10.0f;
+    public int lastEventNumber = -1;
+    public bool keepPlaying = false;
+
 	private AudioSource alarm;
     private const float BELOW_ICE = -1950.0f;
     private float lastPlayTime = 0.0f;
     private float fadeStart = -1.0f;
 	private DomArrayGenerator arrayGenerator;
 	private int currEventNumber = -1;
-    public int lastEventNumber = -1;
-	private bool keepPlaying = true;
-
+    private float eventFrequency = 10.0f;
 	private bool donePlaying = false;
     private bool firstPlay = true;
     private bool beginFade = false;
@@ -652,6 +652,7 @@ public class EventPlayer : MonoBehaviour {
 	}
 
 	public void ResumePlaying() {
+        Debug.Log("Resuming");
 		keepPlaying = true;
 		isSwiped = false;
 		StopPlaying (currEventNumber);

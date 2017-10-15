@@ -59,7 +59,7 @@ public class Tutorial : MonoBehaviour {
                     }
                 }
 
-                if (currPanelIndex == 8)
+                if (currPanelIndex == 7)
                 {
                     GameObject ep = GameObject.Find("DomArray");
                     if (ep != null)

@@ -25,6 +25,7 @@ public class ActivatePanelObject : MonoBehaviour {
 
             if(objectToActivate.GetComponent<EventPlayer>() != null)
             {
+                objectToActivate.GetComponent<EventPlayer>().keepPlaying = true;
                 objectToActivate.GetComponent<EventPlayer>().StopCurrentEvent();
                 objectToActivate.GetComponent<EventPlayer>().PlayTutorialEvent();
             }

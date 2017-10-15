@@ -83,6 +83,7 @@ public class SwipeGameMode : MonoBehaviour {
 
             if (eventPlayer != null)
             {
+                eventPlayer.GetComponent<EventPlayer>().keepPlaying = true;
                 eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
             }
@@ -249,7 +250,7 @@ public class SwipeGameMode : MonoBehaviour {
 		swipeRecognizer.EnterResolveMode();
 
         //earthView.gameObject.transform.Find("EarthModel").GetComponent<SpinFree>().spin = false;
-        //Camera.main.GetComponent<CameraRotate>().spin = false;
+        Camera.main.GetComponent<CameraRotate>().spin = false;
 	}
 
 	public void EventResolved(bool success=false) {
@@ -268,7 +269,7 @@ public class SwipeGameMode : MonoBehaviour {
         }
 
         //earthView.gameObject.transform.FindChild("EarthModel").GetComponent<SpinFree>().spin = true;
-        //Camera.main.GetComponent<CameraRotate>().spin = true;
+        Camera.main.GetComponent<CameraRotate>().spin = true;
 	}
 
     public bool SwipedAllThree() { return swipedTop && swipedFront && swipedSide; }

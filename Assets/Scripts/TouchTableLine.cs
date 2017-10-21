@@ -8,7 +8,9 @@ public class TouchTableLine : MonoBehaviour {
     public float lineTimer = 3.0f;
     public bool lineDrawn = false;
     public bool lineFading = false;
-    //public Vector3[] startEnd = new Vector3[2];
+    public Vector3[] startEnd = new Vector3[2];
+    private Vector3[] worldStartEnd = new Vector3[2];
+    public Camera camToUse;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +19,15 @@ public class TouchTableLine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (camToUse != null)
+        {
+            worldStartEnd[0] = camToUse.ScreenToWorldPoint(startEnd[0]);
+            worldStartEnd[1] = camToUse.ScreenToWorldPoint(startEnd[1]);
+
+            ren.SetPositions(worldStartEnd);
+        }
+
         // If the line is drawn on screen and is solid (not fading)
         if (lineDrawn)
         {

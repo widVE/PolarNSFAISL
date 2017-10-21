@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4717039094393142}
   - component: {fileID: 120634849162805978}
   - component: {fileID: 114745416585814332}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SwipeLineObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,10 @@ MonoBehaviour:
   lineTimer: 3
   lineDrawn: 0
   lineFading: 0
+  startEnd:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  camToUse: {fileID: 0}
 --- !u!120 &120634849162805978
 LineRenderer:
   m_ObjectHideFlags: 1

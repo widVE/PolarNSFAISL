@@ -40,6 +40,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	// Array used to store the endpoints of the swipe line in world coordinates, for use with the line renderer
     private Vector3[] startEnd = new Vector3[2];
+    private Vector3[] screenStartEnd = new Vector3[2];
 
 	private bool inResolveMode = false;
 
@@ -171,13 +172,16 @@ public class SwipeRecognizer : MonoBehaviour {
 
         TouchTableLine t = lines[index].GetComponent<TouchTableLine>();
 		// Reset the timer so the line will begin fading after 2 seconds
-		t.lineTimer = 5.5f;
+		t.lineTimer = 2f;
         t.lineDrawn = true;
         t.lineFading = false;
+        t.camToUse = cameraToUse;
+        t.startEnd[0] = screenStartEnd[0];
+        t.startEnd[1] = screenStartEnd[1];
 		// Draw the line
         //Debug.Log(startEnd[0]);
         //Debug.Log(startEnd[1]);
-        lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
+        //lines[index].GetComponent<LineRenderer>().SetPositions(startEnd);
         //lines[index].GetComponent<LineRenderer>().sortingOrder = -1;
         //ren.SetPositions(startEnd);
         //Debug.Log ("Swipe was drawn " + type);
@@ -346,6 +350,8 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		// If we should show the line, then calculate where the screen-coordinate end points lie in world coordinates
 		// We do this because line renderers only work with positions in 3D, not screen coordinates
+        screenStartEnd[0].Set(prev.x, prev.y, cameraToUse.nearClipPlane + 10f);
+        screenStartEnd[1].Set(next.x, next.y, cameraToUse.nearClipPlane + 10f);
 		startEnd[0] = cameraToUse.ScreenToWorldPoint(new Vector3(prev.x, prev.y, cameraToUse.nearClipPlane + 10));
 		startEnd[1] = cameraToUse.ScreenToWorldPoint(new Vector3(next.x, next.y, cameraToUse.nearClipPlane + 10));
 		//Debug.Log("Line Drawn: " + startEnd[0] + " to " + startEnd[1]);

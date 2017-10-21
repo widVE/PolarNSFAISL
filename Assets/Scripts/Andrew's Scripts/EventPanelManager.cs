@@ -91,6 +91,7 @@ public class EventPanelManager : MonoBehaviour {
                 break;
             case "Blazar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Blazar: An extragalactic source powered by a supermassive black hole at the center of a giant elliptical galaxy. They emit a relativistic jet that points to Earth.";
                 break;
             case "Quasar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
@@ -103,12 +104,15 @@ public class EventPanelManager : MonoBehaviour {
                 break;
             case "X-Ray Binary":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "X-ray Binary. A binary star produced by matter from one star to the other. The second one is usually a black hole or a neutron star.";
                 break;
             case "Supernova Remnant":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = snr;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Supernova remnant (SNR): Either galactic or extragalactic, these sources are the result of a supernova explosion.";
                 break;
             case "Magnetar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = magnetar;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Magnetar. A neutron star with a very powerful magnetic field that could produce neutrinos, gamma rays and x-rays.";
                 break;
             case "No Source":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
@@ -150,12 +154,12 @@ public class EventPanelManager : MonoBehaviour {
         }
 
 		// Add name text and return it
-        if (inColor != Color.white)
+        if (inColor == Color.white)
         {
-            newPanel.transform.Find("Text").GetComponent<Text>().text = name;
+        /*    newPanel.transform.Find("Text").GetComponent<Text>().text = name;
         }
         else
-        {
+        {*/
             newPanel.transform.Find("Text").GetComponent<Text>().text = "Source: " + name;
         }
 

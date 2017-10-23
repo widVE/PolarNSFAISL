@@ -57,6 +57,22 @@ public class EventPanelManager : MonoBehaviour {
 	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, 
         Vector2 swipeStart, Vector2 swipeEnd, Color inColor, bool eventPanel=true) {
 
+        if (inColor != Color.white)
+        {
+            for(int i = 0; i < panels.Count; ++i)
+            {
+                if(panels[i].name == "Event: " + name)
+                {
+                    //if already there, increment count
+                    int p;
+                    int.TryParse(panels[i].transform.Find("Count").GetComponent<Text>().text, out p);
+                    p++;
+                    panels[i].transform.Find("Count").GetComponent<Text>().text = p.ToString();
+                    return null;
+                }
+            }
+        }
+
 		// Instantiate a new UI panel for the event
 		GameObject newPanel = Instantiate (template);
 

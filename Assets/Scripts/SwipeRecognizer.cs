@@ -693,9 +693,13 @@ public class SwipeRecognizer : MonoBehaviour {
                                     //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                     EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                         screenStart, screenEnd, Color.white);
-                                    summaryColor = e.gameObject.GetComponent<UnityEngine.UI.Image>().color;
-                                    earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
-                                        currentEvents.events[currentEvents.lastEventNumber].endPos, summaryColor, vTest, goalAccuracy);
+                                    
+                                    if (e != null)
+                                    {
+                                        summaryColor = e.gameObject.GetComponent<UnityEngine.UI.Image>().color;
+                                        earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
+                                            currentEvents.events[currentEvents.lastEventNumber].endPos, summaryColor, vTest, goalAccuracy);
+                                    }
                                 }
                             }
 

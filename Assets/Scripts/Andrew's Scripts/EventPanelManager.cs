@@ -98,12 +98,15 @@ public class EventPanelManager : MonoBehaviour {
         {
             case "Gamma Ray Burst":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = grb;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Gamma Ray Burst: Extremely energetic explosion that has been observed in a distant galaxy.";
                 break;
             case "Black Hole":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blackHole;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Black Hole: A region of space time exhibiting such strong gravitational effects that nothing can escape from inside it.";
                 break;
             case "Radio Galaxy":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = radioGalaxy;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Radio Galaxy: A type of active galaxy that is very luminous at radio wavelengths.";
                 break;
             case "Blazar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
@@ -111,12 +114,15 @@ public class EventPanelManager : MonoBehaviour {
                 break;
             case "Quasar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Quasar: An active galactic nucleus powered by a super massive black hole surrounded by an orbiting disk of gas.";
                 break;
             case "Supernova":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = supernova;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Supernova: An astronomical event that results from the explosion of a massive star during the last stages of its life.";
                 break;
             case "Active Galactic Nucleus":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "Active Galactic Nucleus: a compact region at the center of a galaxy that has a much higher than normal luminosity over some portion of the electromagnetic spectrum.";
                 break;
             case "X-Ray Binary":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
@@ -132,6 +138,7 @@ public class EventPanelManager : MonoBehaviour {
                 break;
             case "No Source":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
+                newPanel.transform.Find("Text").GetComponent<Text>().text = "No Source: Some neutrinos originate from sources that are unknown or yet to be discovered!";
                 break;
             default:
                 break;

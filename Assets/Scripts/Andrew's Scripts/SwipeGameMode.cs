@@ -54,6 +54,7 @@ public class SwipeGameMode : MonoBehaviour {
     {
         if (!isGame)
         {
+            GameObject.Find("startClick").GetComponent<AudioSource>().Play();
             isGame = true;
             if (countdownTimer != null)
             {

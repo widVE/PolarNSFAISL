@@ -48,7 +48,7 @@ public class Countdown : MonoBehaviour {
                 else
                 {
                     countDown = false;
-
+                    int tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
                     eventPanelManager.GetComponent<EventPanelManager>().panels.Clear();
                     //trigger a restart of the game...
                     //high score list?
@@ -66,6 +66,14 @@ public class Countdown : MonoBehaviour {
                     {
                         if(summaryPanel != null)
                         {
+                            if (tempScore == 1)
+                            {
+                                summaryPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino source";
+                            } else
+                            {
+                                summaryPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino sources";
+                            }
+                            
                             summaryPanel.SetActive(true);
                         }
 

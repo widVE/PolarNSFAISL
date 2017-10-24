@@ -183,7 +183,7 @@ public class EventPanelManager : MonoBehaviour {
         }
         else
         {*/
-            newPanel.transform.Find("Text").GetComponent<Text>().text = "Source: " + name;
+            newPanel.transform.Find("Text").GetComponent<Text>().text = name;
         }
 
 		return newPanel.GetComponent<EventInfo> ();

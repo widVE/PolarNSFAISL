@@ -315,7 +315,7 @@ public class VisualizeEvent : MonoBehaviour {
                 alarm.Play();
             }
 
-            Debug.Log("Source: " + events[currEvent].eventSource.name);
+            //Debug.Log("Source: " + events[currEvent].eventSource.name);
         }
 
 	    if(IsEventPlaying())

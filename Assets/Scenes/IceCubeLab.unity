@@ -1516,9 +1516,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 55893ee3456f7e243b0b94b33dc13811, type: 3}
-    m_FontSize: 48
+    m_FontSize: 60
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 72
     m_Alignment: 1
@@ -1527,7 +1527,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Game Summary: You detected # neutrino sources
+  m_Text: 'Game Summary: You detected 0 neutrino sources
 
 '
 --- !u!222 &170969481
@@ -7480,7 +7480,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  basicEditor: 0
+  basicEditor: 1
   displayDevice: {fileID: 0}
   shouldCreateCameraLayer: 0
   shouldCreateStandardInput: 0
@@ -8130,7 +8130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeGame: {fileID: 94977848}
-  gameTime: 90
+  gameTime: 40
   score: {fileID: 1702583981}
   summaryPanel: {fileID: 405555865}
   tutorial: {fileID: 696675353}

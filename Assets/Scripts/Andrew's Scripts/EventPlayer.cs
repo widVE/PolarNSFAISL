@@ -539,7 +539,7 @@ public class EventPlayer : MonoBehaviour {
                     {
                         if (helpSwipe != null && !playingTutorial)
                         {
-                            /*float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
+                            float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
                             if (t - pressTime > secondsBeforeHelp)
                             {
                                 Vector3 diff = (events[currEventNumber].startPos - events[currEventNumber].endPos).normalized;
@@ -552,7 +552,7 @@ public class EventPlayer : MonoBehaviour {
                             else
                             {
                                 helpSwipe.SetActive(false);
-                            }*/
+                            }
                         }
                     }
 

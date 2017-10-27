@@ -9297,6 +9297,7 @@ GameObject:
   - component: {fileID: 905924070}
   - component: {fileID: 905924066}
   - component: {fileID: 905924071}
+  - component: {fileID: 905924072}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9520,6 +9521,35 @@ MonoBehaviour:
   Name: Fullscreen @ Main Camera
   type: 0
   _camera: {fileID: 905924064}
+--- !u!114 &905924072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905924060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd90a8856e1a49eba25728d5aaac9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  basicEditor: 1
+  generalProps: 0
+  limitsProps: 0
+  advancedProps: 0
+  minPointers: 0
+  maxPointers: 0
+  useSendMessage: 0
+  sendStateChangeMessages: 0
+  sendMessageTarget: {fileID: 0}
+  useUnityEvents: 0
+  sendStateChangeEvents: 0
+  requireGestureToFail: {fileID: 0}
+  friendlyGestures: []
 --- !u!1 &910917471
 GameObject:
   m_ObjectHideFlags: 0
@@ -22106,6 +22136,7 @@ GameObject:
   - component: {fileID: 1926621608}
   - component: {fileID: 1926621609}
   - component: {fileID: 1926621610}
+  - component: {fileID: 1926621611}
   m_Layer: 11
   m_Name: EarthModel
   m_TagString: Untagged
@@ -22210,6 +22241,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineObject: {fileID: 1533656600751392, guid: ce6f32bcf2a6b714cbce30e8bc14ddf6, type: 2}
   swipeGame: {fileID: 94977848}
+--- !u!114 &1926621611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1926621606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b8b9566642799469f5077164bb291f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  targetObject: {fileID: 1926621606}
+  metaGesture: {fileID: 905924072}
+  rotationSensitivity: 5
 --- !u!1001 &1928379442
 Prefab:
   m_ObjectHideFlags: 0

@@ -247,7 +247,7 @@ public class EventPlayer : MonoBehaviour {
 
                                 float thetaDeg = e.theta;
                                 float phiDeg = e.phi;
-                                Vector3 dir = SphericalToCartesian(1.0f, phiDeg - Mathf.PI, thetaDeg);
+                                Vector3 dir = SphericalToCartesian(1.0f, thetaDeg, phiDeg);
 
                                 Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)
@@ -539,7 +539,7 @@ public class EventPlayer : MonoBehaviour {
                     {
                         if (helpSwipe != null && !playingTutorial)
                         {
-                            /*float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
+                            float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
                             if (t - pressTime > secondsBeforeHelp)
                             {
                                 Vector3 diff = (events[currEventNumber].startPos - events[currEventNumber].endPos).normalized;
@@ -552,7 +552,7 @@ public class EventPlayer : MonoBehaviour {
                             else
                             {
                                 helpSwipe.SetActive(false);
-                            }*/
+                            }
                         }
                     }
 

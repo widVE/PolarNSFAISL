@@ -306,7 +306,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public void EnterResolveMode() {
 		inResolveMode = true;
-        
+        helpSwipe.SetActive(false);
         if (refinePanel != null)
         {
             string txt = refinePanel.GetComponent<UnityEngine.UI.Text>().text;

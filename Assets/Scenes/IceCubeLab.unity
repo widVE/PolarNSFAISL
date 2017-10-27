@@ -1086,8 +1086,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 96876927}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 453.23654, y: -49, z: -889.76587}
-  m_LocalScale: {x: 0.6666666, y: 0.6666666, z: 0.6666666}
+  m_LocalPosition: {x: -19, y: -49, z: -263}
+  m_LocalScale: {x: 0.14139362, y: 0.6666666, z: 0.16605836}
   m_Children:
   - {fileID: 160649190}
   - {fileID: 351612128}
@@ -2111,9 +2111,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 55893ee3456f7e243b0b94b33dc13811, type: 3}
-    m_FontSize: 48
+    m_FontSize: 60
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 72
     m_Alignment: 1
@@ -2122,7 +2122,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Game Summary: You detected # neutrino sources
+  m_Text: 'Game Summary: You detected 0 neutrino sources
 
 '
 --- !u!222 &170969481
@@ -5359,9 +5359,9 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: When a neutrino interacts with a molecule of ice, it produces a secondary
-        particle called a muon.  DOMs record light that is produced by the muon, this
-        is called a "neutrino event".
+      value: When a neutrino interacts with a proton or neutron in the ice, it produces
+        secondary particles such as muons.  The light pattern produced by a neutrino
+        interaction is called a "neutrino event".
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -6246,8 +6246,9 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: Refine your direction by swiping from a top, front, and side view.  Improve
-        your accuracy to learn where this neutrino came from and to get higher scores.
+      value: Refine your result by swiping the direction from a top, front, and side
+        view.  Reach your accuracy goal and find out where in the sky this neutrino
+        came from.  Getting the best direction estimates will give you higher scores.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -7516,8 +7517,8 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: IceCube is made up of an array of over 5,000 Digital Optical Modules
-        (DOMs) frozen deep into the Antarctic Ice.
+      value: IceCube is made up of an array of over 5,000 light sensors frozen deep
+        into the Antarctic Ice.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -7645,8 +7646,8 @@ Transform:
   - {fileID: 526429686}
   - {fileID: 780828414}
   - {fileID: 873710410}
-  - {fileID: 1417912201}
   - {fileID: 969433298}
+  - {fileID: 1417912201}
   - {fileID: 608684175}
   - {fileID: 988925153}
   m_Father: {fileID: 2136369078}
@@ -8370,7 +8371,7 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: This light is timestamped, digitized, and sent up through two mile long
+      value: The signal from the light is digitized and sent up through two mile long
         cables to the IceCubeLab
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
@@ -8971,8 +8972,8 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: When playing the game, identify the source phenomena and direction of
-        neutrino events by tracing the neutrino's path through the DOM array.
+      value: Find the direction where the neutrino came from by tracing the light
+        path through the IceCube array.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -9084,7 +9085,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  basicEditor: 0
+  basicEditor: 1
   displayDevice: {fileID: 0}
   shouldCreateCameraLayer: 0
   shouldCreateStandardInput: 0
@@ -9852,7 +9853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeGame: {fileID: 94977848}
-  gameTime: 90
+  gameTime: 40
   score: {fileID: 1702583981}
   summaryPanel: {fileID: 405555865}
   tutorial: {fileID: 696675353}
@@ -10051,17 +10052,17 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -10071,7 +10072,7 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -10125,12 +10126,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_Name
-      value: Panel9
+      value: Panel8
       objectReference: {fileID: 0}
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: Swipe the color pattern to estimate neutrino direction.
+      value: Swipe in the direction of the rainbow pattern, from red to blue, to estimate
+        the direction the neutrino was traveling.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -10435,8 +10437,9 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: Find out what cosmic source that neutrino could have originated from
-        and learn more about the source.
+      value: Neutrinos are cosmic messengers for discovery that can reveal the properties
+        of the most powerful objects in the universe.  Learn more about the cosmic
+        source that produced this neutrino.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -11527,9 +11530,10 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: "Disclaimer:  Scientists need more than one neutrino to identify a source,
-        and high-energy neutrinos are detected at a much slower pace than displayed
-        here. It\u2019s the excitement of a possible discovery that keeps them engaged. "
+      value: 'Disclaimer:  Neutrinos from astrophysical sources are detected at a
+        much slower pace than displayed here.  IceCube scientists have not identified
+        the source of all neutrinos that have been detected.  But the excitement for
+        discovery turns on every time a high energy neutrino is detected.'
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -17247,7 +17251,7 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -17301,13 +17305,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_Name
-      value: Panel8
+      value: Panel9
       objectReference: {fileID: 0}
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: The size of the sphere shows the how much light a DOM detected from a
-        neutrino and the colors show the order it traveled through the array.
+      value: The size of the sphere shows how much light each sensor detected.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -19326,8 +19329,9 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: "Neutrinos originate from distant astrophysical sources such as \nblack
-        holes, gamma ray bursts and exploding stars!"
+      value: Neutrinos are nearly massless subatomic particles that can reach Earth
+        from distant powerful cosmic sources such as black holes, gamma ray bursts
+        and exploding stars!
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -24332,8 +24336,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2059712119}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 59.9165, y: -49, z: -116.306816}
-  m_LocalScale: {x: 0.6666666, y: 0.6666666, z: 0.6666666}
+  m_LocalPosition: {x: 99, y: -49, z: 66}
+  m_LocalScale: {x: 0.25521773, y: 0.6666666, z: 0.21474065}
   m_Children:
   - {fileID: 2075473453}
   - {fileID: 1205741883}
@@ -25142,8 +25146,7 @@ Prefab:
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_Text
-      value: The observatory records the interactions of neutrinos - nearly massless,
-        subatomic particles.
+      value: IceCube explores the universe using neutrinos instead of light.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive

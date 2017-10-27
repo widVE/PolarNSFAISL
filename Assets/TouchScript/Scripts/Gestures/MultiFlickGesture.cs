@@ -134,7 +134,7 @@ namespace TouchScript.Gestures
         {
             base.pointersPressed(pointers);
            
-            /*if(liveHelp == null)
+            if(liveHelp == null)
             {
                 //but this might not be active...
                 liveHelp = GameObject.Find("LiveHelpGood");
@@ -145,7 +145,7 @@ namespace TouchScript.Gestures
             {
                 liveHelp.GetComponent<LiveHelpTimer>().pressTime = UnityEngine.Time.time;
                 Debug.Log(liveHelp.GetComponent<LiveHelpTimer>().pressTime);
-            }*/
+            }
 
             for(int i = 0; i < pointers.Count; ++i)
             {

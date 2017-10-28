@@ -14,9 +14,13 @@ public class TouchInteraction : MonoBehaviour {
     [Header("Object Settings")]
     [Tooltip("The target of the interaction")]
     public GameObject targetObject;
+    [Tooltip("Reference object for relative interaction (rotate around)")]
+    public GameObject referenceObject;
     [Tooltip("The meta gesture on the surface")]
     public MetaGesture metaGesture;
     [Header("Touch Settings")]
+    public bool rotate = true;
+    public bool rotateAround = true;
     [Tooltip("Sensitivity of object rotation")]
     public float rotationSensitivity = 1f;
 
@@ -81,15 +85,30 @@ public class TouchInteraction : MonoBehaviour {
         Vector2 pos = metaGesture.ScreenPosition;
         if (pos.x < Screen.width * 0.15f
             && pos.y < Screen.height * 0.3f) {
-            if (rotationSensitivity < 1f) rotationSensitivity = 1f;
-            // Get previous cursor position relative to main camera
-            Vector2 prevpos = metaGesture.PreviousScreenPosition;
-            // Compute displacement vector
-            Vector2 delta = (pos - prevpos) / rotationSensitivity;
+            if (rotate || rotateAround)
+            {
+                if (rotationSensitivity < 1f) rotationSensitivity = 1f;
+                // Get previous cursor position relative to main camera
+                Vector2 prevpos = metaGesture.PreviousScreenPosition;
+                // Compute displacement vector
+                Vector2 delta = (pos - prevpos) / rotationSensitivity;
 
-            Transform transform = targetObject.GetComponent<Transform>();
-            // Use displacement vector to rotate earth
-            transform.Rotate(new Vector3(delta.y, -delta.x, 0), Space.World);
+                Transform transform = targetObject.GetComponent<Transform>();
+                if (rotate)
+                {
+                    // Use displacement vector to rotate target
+                    transform.Rotate(new Vector3(delta.y, -delta.x, 0), Space.World);
+                }
+                if (rotateAround && referenceObject != null)
+                {
+                    Transform refTransf = referenceObject.GetComponent<Transform>();
+                    Vector3 cross = Vector3.Cross(transform.forward, transform.up);
+                    cross.Normalize();
+                    // Use displacement vector to rotate target around reference
+                    transform.RotateAround(refTransf.position, transform.up, delta.x);
+                    transform.RotateAround(refTransf.position, cross, delta.y);
+                }
+            }
         }
     }
 

@@ -22257,8 +22257,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  targetObject: {fileID: 1926621606}
+  targetObject: {fileID: 2013959685}
+  referenceObject: {fileID: 1926621606}
   metaGesture: {fileID: 905924072}
+  rotate: 1
+  rotateAround: 1
   rotationSensitivity: 5
 --- !u!1001 &1928379442
 Prefab:

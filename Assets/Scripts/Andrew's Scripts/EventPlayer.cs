@@ -12,7 +12,7 @@ public class EventPlayer : MonoBehaviour {
     public string eventDirectory;
     public string newEventFile;
     public int newEventCutoff;
-    //public GameObject particle;   //used for debugging trajectory for now
+    public GameObject particle;   //used for debugging trajectory for now
     public GameObject sparks;
     List<GameObject> sparkList = new List<GameObject>();
 
@@ -428,6 +428,12 @@ public class EventPlayer : MonoBehaviour {
                 {
                     truePath.SetPosition(0, events[currEventNumber].startPos);
                     truePath.SetPosition(1, events[currEventNumber].endPos);
+                }
+
+                if(particle != null)
+                {
+                    particle.GetComponent<SpawnParticle>().startThrowing();
+                    Debug.Log("Throwing particle");
                 }
             }
         }

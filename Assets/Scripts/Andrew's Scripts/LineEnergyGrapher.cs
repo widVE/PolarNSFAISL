@@ -46,7 +46,7 @@ public class LineEnergyGrapher : MonoBehaviour {
     }
 
 	private void InitializePoints() {
-        
+        //this needs to be called every time a new DOM is played...
         points = new Vector3[(int)visEvent.GetTotalDOMs()];
         for (int i = 0; i < visEvent.GetTotalDOMs(); i++)
         {

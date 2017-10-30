@@ -46,8 +46,8 @@ public class ParticleMovement : MonoBehaviour {
 			}
 			this.transform.Translate (direction * speed * Time.deltaTime);
 			if (Vector3.Distance(this.transform.position, target) >= startingDistance) {
-				//move = false;
-				//StartCoroutine (coroutine);
+				move = false;
+				StartCoroutine (coroutine);
 			}
             //Debug.Log(transform.position);
 //			if (interval > 0.01 && index < 500) {

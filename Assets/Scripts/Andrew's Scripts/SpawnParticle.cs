@@ -14,7 +14,7 @@ public class SpawnParticle : MonoBehaviour {
 	private GameObject[] domList;
 	private Vector3 target;
 	private bool targetSet = false;
-	private bool throwingParticle = true;
+	public bool throwingParticle = false;
 	//private ColorEventManager colorMan;
     private EventPlayer eventPlayer;
 	private float travelInterval = 0f;
@@ -50,7 +50,7 @@ public class SpawnParticle : MonoBehaviour {
 		if (throwingParticle && currParticle == null) {
 			throwingParticle = false;
 			//colorMan.numActiveParticles++;
-            currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[0].endPos, Quaternion.identity);
+            currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
 			currParticle.transform.SetParent (this.transform);
 
 			// Find a random dom to shoot at
@@ -60,7 +60,7 @@ public class SpawnParticle : MonoBehaviour {
 				if (!targetSet) {
 					//int index = Random.Range(0,domList.Length);
 					//target = domList [index].transform.position;
-                    target = eventPlayer.events[0].endPos;
+                    target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos;
 					Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
 					//trail.setStart (currParticle.transform.position);
 					targetSet = true;
@@ -70,7 +70,7 @@ public class SpawnParticle : MonoBehaviour {
 			} else {
 				// Every new particle gets a new target
 				//int index = Random.Range(0,domList.Length);
-                target = eventPlayer.events[0].startPos;
+                target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
 				Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
 				currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
 			}
@@ -80,7 +80,21 @@ public class SpawnParticle : MonoBehaviour {
 	/*private void UpdateDomList() {
 		domList = GameObject.FindGameObjectsWithTag ("DOM");
 	}*/
-		
+
+    void OnDisable()
+    {
+        //todo - fix this...
+        Debug.Log("Disabling particle spawner");
+        Destroy(currParticle.gameObject);
+        currParticle = null;
+        stopThrowing();
+    }
+
+    void OnEnable()
+    {
+        startThrowing();
+    }
+
 	public void startThrowing() {
 		throwingParticle = true;
 	}

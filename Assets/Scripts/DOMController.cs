@@ -52,6 +52,11 @@ public class DOMController : MonoBehaviour {
         domGlobeMat2 = domGlobe2.sharedMaterial;
         //}
         
+        /*if(glowMaterial != null)
+        {
+            glowMaterial.EnableKeyword("_EMISSION");
+        }*/
+
         oldScale = eventSphere.transform.localScale.x;
 	}
 
@@ -66,12 +71,14 @@ public class DOMController : MonoBehaviour {
             //eventSphere.GetComponent<MeshRenderer>().material.SetColor("_MKGlowTexColor", c);
 
             domGlobe.material.SetColor("_Color", c);
-            domGlobe.material.SetColor("_MKGlowColor", c);
-            domGlobe.material.SetColor("_MKGlowTexColor", c);
+            domGlobe.material.SetColor("_EmissionColor", c);
+            //domGlobe.material.SetColor("_MKGlowColor", c);
+            //domGlobe.material.SetColor("_MKGlowTexColor", c);
 
             domGlobe2.material.SetColor("_Color", c);
-            domGlobe2.material.SetColor("_MKGlowColor", c);
-            domGlobe2.material.SetColor("_MKGlowTexColor", c);
+            domGlobe2.material.SetColor("_EmisisonColor", c);
+            //domGlobe2.material.SetColor("_MKGlowColor", c);
+            //domGlobe2.material.SetColor("_MKGlowTexColor", c);
         }
     }
 
@@ -109,12 +116,14 @@ public class DOMController : MonoBehaviour {
 
 
             domGlobe.material.SetColor("_Color", c);
-            domGlobe.material.SetColor("_MKGlowColor", c);
-            domGlobe.material.SetColor("_MKGlowTexColor", c);
+            domGlobe.material.SetColor("_EmissionColor", c);
+            //domGlobe.material.SetColor("_MKGlowColor", c);
+            //domGlobe.material.SetColor("_MKGlowTexColor", c);
 
             domGlobe2.material.SetColor("_Color", c);
-            domGlobe2.material.SetColor("_MKGlowColor", c);
-            domGlobe2.material.SetColor("_MKGlowTexColor", c);
+            domGlobe2.material.SetColor("_Color", c);
+            //domGlobe2.material.SetColor("_MKGlowColor", c);
+            //domGlobe2.material.SetColor("_MKGlowTexColor", c);
             
             /*float fColorFrac = 1.0f / 5.0f;
 			if (fTimeFrac < fColorFrac)

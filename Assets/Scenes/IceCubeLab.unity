@@ -7709,7 +7709,6 @@ GameObject:
   - component: {fileID: 730068716}
   - component: {fileID: 730068720}
   - component: {fileID: 730068718}
-  - component: {fileID: 730068722}
   - component: {fileID: 730068717}
   m_Layer: 0
   m_Name: Front Camera
@@ -7782,32 +7781,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!114 &730068722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 730068715}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
-  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
-  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
-  glowLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  renderCamera: {fileID: 905924064}
-  showCutoutGlow: 0
-  showTransparentGlow: 1
-  glowType: 0
-  fullScreenGlowTint: {r: 0.92344296, g: 1, b: 1, a: 0}
-  blurSpread: 0.25
-  blurIterations: 7
-  glowIntensity: 0.496
-  samples: 3
 --- !u!1 &742291434
 GameObject:
   m_ObjectHideFlags: 0
@@ -9292,7 +9265,6 @@ GameObject:
   - component: {fileID: 905924063}
   - component: {fileID: 905924062}
   - component: {fileID: 905924061}
-  - component: {fileID: 905924069}
   - component: {fileID: 905924068}
   - component: {fileID: 905924067}
   - component: {fileID: 905924070}
@@ -9448,32 +9420,6 @@ MonoBehaviour:
   pivot: {fileID: 1928379452}
   spin: 0
   speed: 5
---- !u!114 &905924069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 905924060}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
-  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
-  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
-  glowLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  renderCamera: {fileID: 905924064}
-  showCutoutGlow: 0
-  showTransparentGlow: 1
-  glowType: 0
-  fullScreenGlowTint: {r: 0.92344296, g: 1, b: 1, a: 0}
-  blurSpread: 0.25
-  blurIterations: 7
-  glowIntensity: 0.496
-  samples: 3
 --- !u!114 &905924070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12743,7 +12689,6 @@ GameObject:
   - component: {fileID: 1230875519}
   - component: {fileID: 1230875523}
   - component: {fileID: 1230875521}
-  - component: {fileID: 1230875525}
   - component: {fileID: 1230875520}
   m_Layer: 0
   m_Name: Top Camera
@@ -12816,32 +12761,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!114 &1230875525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1230875518}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
-  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
-  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
-  glowLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  renderCamera: {fileID: 905924064}
-  showCutoutGlow: 0
-  showTransparentGlow: 1
-  glowType: 0
-  fullScreenGlowTint: {r: 0.92344296, g: 1, b: 1, a: 0}
-  blurSpread: 0.25
-  blurIterations: 7
-  glowIntensity: 0.496
-  samples: 3
 --- !u!1 &1234925215
 GameObject:
   m_ObjectHideFlags: 0
@@ -20271,7 +20190,6 @@ GameObject:
   - component: {fileID: 1683310191}
   - component: {fileID: 1683310195}
   - component: {fileID: 1683310193}
-  - component: {fileID: 1683310197}
   - component: {fileID: 1683310192}
   m_Layer: 0
   m_Name: Side Camera
@@ -20344,32 +20262,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!114 &1683310197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1683310190}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
-  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
-  glowRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7, type: 3}
-  glowLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  renderCamera: {fileID: 905924064}
-  showCutoutGlow: 0
-  showTransparentGlow: 1
-  glowType: 0
-  fullScreenGlowTint: {r: 0.92344296, g: 1, b: 1, a: 0}
-  blurSpread: 0.25
-  blurIterations: 7
-  glowIntensity: 0.496
-  samples: 3
 --- !u!1 &1692477684
 GameObject:
   m_ObjectHideFlags: 0
@@ -20476,7 +20368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 3537, y: 1988}
+  m_AnchoredPosition: {x: 3537, y: 2112}
   m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1702583983

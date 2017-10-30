@@ -16,7 +16,7 @@ SubShader {
 	LOD 200
 
 CGPROGRAM
-#pragma surface surf Lambert alpha
+#pragma surface surf Lambert alpha nofog
 
 sampler2D _MainTex;
 fixed4 _Color;

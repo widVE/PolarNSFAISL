@@ -195,4 +195,4 @@ MonoBehaviour:
   lastCharge: 0
   stringNum: 0
   domNum: 0
-  glowMaterial: {fileID: 2100000, guid: d35e09d1ab6da1b43a6a706d97601704, type: 2}
+  glowMaterial: {fileID: 2100000, guid: 1d3d68b4475c1784e969be2098fe3e74, type: 2}

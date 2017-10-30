@@ -254,6 +254,32 @@ public class SwipeGameMode : MonoBehaviour {
         Camera.main.GetComponent<CameraRotate>().spin = false;
 	}
 
+    public void summaryDone()
+    {
+        if (tutorial != null)
+        {
+            tutorial.GetComponent<Tutorial>().playTutorial = true;
+        }
+        if (startButton != null)
+        {
+            startButton.SetActive(true);
+        }
+        if (summaryPanel != null)
+        {
+            summaryPanel.SetActive(false);
+
+            foreach (Transform child in summaryPanel.transform)
+            {
+                if (child.gameObject.name.StartsWith("Event:"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
+        }
+    }
+
 	public void EventResolved(bool success=false) {
         swipedTop = false;
         swipedFront = false;

@@ -698,7 +698,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                     {
                                         summaryColor = e.gameObject.GetComponent<UnityEngine.UI.Image>().color;
                                         earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
-                                            currentEvents.events[currentEvents.lastEventNumber].endPos, summaryColor, vTest, goalAccuracy);
+                                            currentEvents.events[currentEvents.lastEventNumber].endPos + (currentEvents.events[currentEvents.lastEventNumber].endPos - currentEvents.events[currentEvents.lastEventNumber].startPos).normalized*500000f, summaryColor, vTest, goalAccuracy);
                                     }
                                 }
                             }

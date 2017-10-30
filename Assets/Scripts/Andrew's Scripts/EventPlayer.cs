@@ -245,9 +245,9 @@ public class EventPlayer : MonoBehaviour {
                                 e.theta = lastTheta;
                                 e.phi = lastPhi;
 
-                                float thetaDeg = e.theta;
-                                float phiDeg = e.phi;
-                                Vector3 dir = SphericalToCartesian(1.0f, thetaDeg, phiDeg);
+                                float theta = e.theta;
+                                float phi = e.phi;
+                                Vector3 dir = SphericalToCartesian(1.0f, theta, phi);
 
                                 Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)
@@ -652,7 +652,7 @@ public class EventPlayer : MonoBehaviour {
 	}
 
 	public void ResumePlaying() {
-        Debug.Log("Resuming");
+        //Debug.Log("Resuming");
 		keepPlaying = true;
 		isSwiped = false;
 		StopPlaying (currEventNumber);

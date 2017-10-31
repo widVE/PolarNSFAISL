@@ -61,7 +61,7 @@ public class SwipeGameMode : MonoBehaviour {
     void Update()
     {
         float timeSinceStart = UnityEngine.Time.time - timeStarted;
-        if(isSoft)
+        if (isSoft)
         {
             softTutorialTime = timeSinceStart;
             if (softTutorialTime > softTimeout)
@@ -82,9 +82,18 @@ public class SwipeGameMode : MonoBehaviour {
                 {
                     tutorial.GetComponent<Tutorial>().playTutorial = true;
                 }
-                
+
+                if (softTutorialText != null)
+                {
+                    softTutorialText.SetActive(false);
+                }
+
                 StopGame();
             }
+        }
+        else
+        {
+            timeStarted = UnityEngine.Time.time;
         }
     }
 
@@ -151,15 +160,7 @@ public class SwipeGameMode : MonoBehaviour {
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
             }
 
-            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
-            if(aSources != null)
-            {
-                AudioSource background = aSources[4];
-                if(background != null)
-                {
-                    background.Play();
-                }
-            }
+
 
             //because these can be on during tutorial
             if (panelParent != null)
@@ -205,6 +206,16 @@ public class SwipeGameMode : MonoBehaviour {
         if (softTutorialText != null)
         {
             softTutorialText.SetActive(false);
+        }
+
+        AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+        if (aSources != null)
+        {
+            AudioSource background = aSources[4];
+            if (background != null)
+            {
+                background.Play();
+            }
         }
 
         eventPlayer.ResumePlaying();

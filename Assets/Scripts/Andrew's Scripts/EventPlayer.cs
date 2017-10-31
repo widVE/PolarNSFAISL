@@ -101,10 +101,11 @@ public class EventPlayer : MonoBehaviour {
     private Vector3 SphericalToCartesian(float radius, float polar, float elevation)
     {
         Vector3 outCart = Vector3.zero;
-        float a = radius * Mathf.Cos(elevation);
-        outCart.z = a * Mathf.Cos(polar);
-        outCart.y = radius * Mathf.Sin(elevation);
-        outCart.x = a * Mathf.Sin(polar);
+        //float a = radius * Mathf.Sin(elevation);
+        outCart.x = radius * Mathf.Sin(polar) * Mathf.Sin(elevation);
+        outCart.y = radius * Mathf.Cos(elevation);
+        outCart.z = -radius * Mathf.Sin(elevation) * Mathf.Cos(polar);
+        Debug.Log(outCart.ToString("F4"));
         return outCart.normalized;
     }
 
@@ -247,7 +248,7 @@ public class EventPlayer : MonoBehaviour {
 
                                 float theta = e.theta;
                                 float phi = e.phi;
-                                Vector3 dir = SphericalToCartesian(1.0f, phi - Mathf.PI/2f, theta + Mathf.PI / 2f);
+                                Vector3 dir = SphericalToCartesian(1.0f, Mathf.PI - phi, theta);
 
                                 Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)

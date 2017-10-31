@@ -456,6 +456,10 @@ public class SwipeRecognizer : MonoBehaviour {
                                 int percentIdx = txt.IndexOf('%');
                                 string subTxt = txt.Substring(percentIdx - 5, 5);
                                 string accuracy = (vTest*100f).ToString("F2");
+                                if (vTest * 100f < 10f)
+                                {
+                                    accuracy = "0" + accuracy;
+                                }
                                 string newTxt = txt.Replace(subTxt, accuracy);
                                 refinePanel.GetComponent<UnityEngine.UI.Text>().text = newTxt;
                             }

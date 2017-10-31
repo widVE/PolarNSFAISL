@@ -16,10 +16,13 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject eventPanel;
     public GameObject summaryPanel;
     public GameObject startButton;
+    public GameObject softTutorialText;
 
     public Strings domStrings;
 
     private bool isGame;
+
+    private bool isSoft;
 
 	[SerializeField]
 	private GameObject topCamera;
@@ -43,12 +46,14 @@ public class SwipeGameMode : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         isGame = false;
+        isSoft = true;
         swipedTop = false;
         swipedSide = false;
         swipedFront = false;
 	}
 
     public bool isGamePlaying() { return isGame; }
+    public bool isSoftTutorial() { return isSoft; }
 
     public void StartGame()
     {
@@ -56,19 +61,10 @@ public class SwipeGameMode : MonoBehaviour {
         {
             GameObject.Find("startClick").GetComponent<AudioSource>().Play();
             isGame = true;
-            if (countdownTimer != null)
-            {
-                countdownTimer.GetComponent<Countdown>().StartCountdown();
-            }
 
             if (liveHelp != null)
             {
                 liveHelp.SetActive(false);
-            }
-
-            if (mainCamera != null)
-            {
-                mainCamera.GetComponent<CameraRotate>().spin = true;
             }
 
             if (tutorial != null)
@@ -109,12 +105,44 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 startButton.SetActive(false);
             }
+
+            if(softTutorialText != null)
+            {
+                softTutorialText.SetActive(true);
+            }
         }
+    }
+
+    public void/*IEnumerator*/ StopSoftTutorial()
+    {
+        /*if(isSoft)
+        {
+            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real.";
+            yield return new WaitForSeconds(3f);
+        }*/
+
+        if (countdownTimer != null)
+        {
+            countdownTimer.GetComponent<Countdown>().StartCountdown();
+        }
+
+        if (mainCamera != null)
+        {
+            mainCamera.GetComponent<CameraRotate>().spin = true;
+        }
+
+        if (softTutorialText != null)
+        {
+            softTutorialText.SetActive(false);
+        }
+
+        isSoft = false;
     }
 
     public void StopGame()
     {
         isGame = false;
+        isSoft = true;
 
         swipedTop = false;
         swipedFront = false;
@@ -254,10 +282,14 @@ public class SwipeGameMode : MonoBehaviour {
         Camera.main.GetComponent<CameraRotate>().spin = false;
 	}
 
-	public void EventResolved(bool success=false) {
+	public void EventResolved(bool success=false) 
+    {
         swipedTop = false;
         swipedFront = false;
         swipedSide = false;
+        
+        StopSoftTutorial();
+
 		eventPlayer.ResumePlaying ();
         if(success)
         {
@@ -370,7 +402,11 @@ public class SwipeGameMode : MonoBehaviour {
         
         //StartCoroutine(Transition(Camera.main.transform.position, b.center -  forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.y, b.extents.z)) - forward * b.extents.x,
         //    Camera.main.transform.rotation, endQ, sideCamera));
-        
+
+        if (isSoft)
+        {
+            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Good, now do the same in the top, front and side views.";
+        }
 
 	}
 

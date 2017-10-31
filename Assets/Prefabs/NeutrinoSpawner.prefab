@@ -55,7 +55,7 @@ MonoBehaviour:
   particlePrefab: {fileID: 1050718902816278, guid: 7b96dade1dcbaee4eb5bbfa3c6d301cb,
     type: 2}
   repeatTarget: 0
-  throwingParticle: 0
+  throwingParticle: 1
 --- !u!114 &114924389531745906
 MonoBehaviour:
   m_ObjectHideFlags: 1

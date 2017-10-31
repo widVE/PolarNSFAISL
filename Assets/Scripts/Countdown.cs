@@ -8,6 +8,7 @@ public class Countdown : MonoBehaviour {
     public int gameTime = 90;
     private int timeLeft;
     private float oneSec = 0f;
+    public float summaryPanelLength = 10f;
     private bool countDown = false;
     public GameObject score;
     public GameObject summaryPanel;
@@ -82,7 +83,7 @@ public class Countdown : MonoBehaviour {
                             swipeGame.GetComponent<SwipeGameMode>().StopGame();
                         }
 
-                        StartCoroutine(DelayedResolve(10f, false));
+                        StartCoroutine(DelayedResolve(summaryPanelLength, false));
                     }
                 }
             }

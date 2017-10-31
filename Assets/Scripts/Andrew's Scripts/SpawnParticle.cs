@@ -5,23 +5,20 @@ public class SpawnParticle : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject particlePrefab;
-	[SerializeField]
-	private bool repeatTarget = false;
-	//[SerializeField]
-	//private int seed;
+
 	private GameObject currParticle;
 	private float updateListInterval = 0;
 	private GameObject[] domList;
 	private Vector3 target;
 	private bool targetSet = false;
 	public bool throwingParticle = false;
+    public bool throwOnStart = false;
 	//private ColorEventManager colorMan;
     private EventPlayer eventPlayer;
 	private float travelInterval = 0f;
 	private bool counting = false;
 	private ParticleTrail trail;
 
-	//private bool particleSpawned = false;
 	// Use this for initialization
 	void Start () {
 		//UpdateDomList ();
@@ -31,50 +28,40 @@ public class SpawnParticle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (counting) {
+		if (counting) 
+        {
 			travelInterval += Time.deltaTime;
 		}
 
-		if (throwingParticle && currParticle == null) {
-
+		if (throwingParticle && currParticle == null) 
+        {
 			throwingParticle = false;
             currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
 			currParticle.transform.SetParent (this.transform);
 
-			if (repeatTarget) {
-				// If we haven't made a target yet (first iteration), get one
-				if (!targetSet) {
-					//int index = Random.Range(0,domList.Length);
-					//target = domList [index].transform.position;
-                    target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos;
-					Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
-					//trail.setStart (currParticle.transform.position);
-					targetSet = true;
-				}
-				// Move it
-				currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
-			} else {
-				// Every new particle gets a new target
-				//int index = Random.Range(0,domList.Length);
-                target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
-				Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
-				currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
-			}
+            target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
+			Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
+			currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
 		}
 	}
 
     void OnDisable()
     {
-        //todo - fix this...
-        Debug.Log("Disabling particle spawner");
-        Destroy(currParticle.gameObject);
-        currParticle = null;
-        stopThrowing();
+        if (currParticle != null)
+        {
+            Debug.Log("Disabling particle spawner");
+            Destroy(currParticle.gameObject);
+            currParticle = null;
+            stopThrowing();
+        }
     }
 
     void OnEnable()
     {
-        startThrowing();
+        if (throwOnStart)
+        {
+            startThrowing();
+        }
     }
 
 	public void startThrowing() {

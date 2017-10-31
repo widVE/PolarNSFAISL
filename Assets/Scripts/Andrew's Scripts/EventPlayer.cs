@@ -398,6 +398,10 @@ public class EventPlayer : MonoBehaviour {
                     if (currEventNumber == -1)
                     {
                         currEventNumber = UnityEngine.Random.Range(0, events.Count);
+                        if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
+                        {
+                            currEventNumber = 0;
+                        }
                         Debug.Log("Playing event: " + currEventNumber);
                         lastEventNumber = currEventNumber;
                     }
@@ -432,8 +436,11 @@ public class EventPlayer : MonoBehaviour {
 
                 if(particle != null)
                 {
-                    particle.GetComponent<SpawnParticle>().startThrowing();
-                    Debug.Log("Throwing particle");
+                    if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
+                    {
+                        particle.GetComponent<SpawnParticle>().startThrowing();
+                        //Debug.Log("Throwing particle");
+                    }
                 }
             }
         }
@@ -530,8 +537,10 @@ public class EventPlayer : MonoBehaviour {
 
 			if (eventsPlaying[currEventNumber].eventIndex >= events[currEventNumber].eventData.Count - 1)
 			{
-              
-                if (!playingTutorial)
+                if(swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
+                    swipeGameMode.GetComponent<SwipeGameMode>().softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Swipe in the direction of the event.";
+
+                if (!playingTutorial && !swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
                 {
                     if ((t - lastPlayTime) > eventFrequency + secondsBeforeHelp + secondsBeforeDissappear - fadeTime)
                     {

@@ -55,7 +55,7 @@ public class EventPanelManager : MonoBehaviour {
 	/// <param name="vEnd">The ending point of the neutrino path of this event</param>
 	/// <param name="domStates">List of dom states (doms activated by this event, and their state params)</param>
 	public EventInfo addEvent(string name, float cumulative_energy, Vector3 neutrinoStart, Vector3 neutrinoEnd, 
-        Vector2 swipeStart, Vector2 swipeEnd, Color inColor, bool eventPanel=true) {
+        Vector2 swipeStart, Vector2 swipeEnd, Color inColor, int score, bool eventPanel=true) {
 
         if (inColor != Color.white)
         {
@@ -63,11 +63,13 @@ public class EventPanelManager : MonoBehaviour {
             {
                 if(panels[i].name == "Event: " + name)
                 {
-                    //if already there, increment count
+                    //Debug.Log("Duplicate found, incrementing score");
+                    //if already there, increment score
                     int p;
-                    int.TryParse(panels[i].transform.Find("Count").GetComponent<Text>().text, out p);
-                    p++;
-                    panels[i].transform.Find("Count").GetComponent<Text>().text = p.ToString();
+                    int.TryParse(panels[i].transform.Find("Score").GetComponent<Text>().text, out p);
+                    p += score;
+                    //p++;
+                    panels[i].transform.Find("Score").GetComponent<Text>().text = p.ToString();
                     return null;
                 }
             }
@@ -88,8 +90,9 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.GetComponent<EventInfo> ().setNeutrinoPathEnd (neutrinoEnd);
 		newPanel.GetComponent<EventInfo> ().setSwipePathStart (swipeStart);
 		newPanel.GetComponent<EventInfo> ().setSwipePathEnd (swipeEnd);
-		// Setting the panel in the scene
-		newPanel.transform.SetParent (this.transform, false);
+        newPanel.GetComponent<EventInfo>().setScore(score);
+        // Setting the panel in the scene
+        newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "Event: " + name; 
 

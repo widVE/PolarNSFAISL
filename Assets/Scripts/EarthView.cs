@@ -22,9 +22,6 @@ public class EarthView : MonoBehaviour
 
     private List<eventCone> cones;
 
-    //private List<GameObject> detectedEvents = new List<GameObject>();
-    //private List<Vector3> lineData = new List<Vector3>();
-
     // Use this for initialization
     void Start()
     {
@@ -34,19 +31,21 @@ public class EarthView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        foreach (eventCone cone in cones)
+        if (cones != null)
         {
-            cone.cone.transform.LookAt(cone.point.transform);
-        }
-
-        if (swipeGame != null)
-        {
-            if (!swipeGame.GetComponent<SwipeGameMode>().isGamePlaying())
+            foreach (eventCone cone in cones)
             {
-                if (cones.Count > 0)
+                cone.cone.transform.LookAt(cone.point.transform);
+            }
+
+            if (swipeGame != null)
+            {
+                if (!swipeGame.GetComponent<SwipeGameMode>().isGamePlaying())
                 {
-                    cones.Clear();
+                    if (cones.Count > 0)
+                    {
+                        cones.Clear();
+                    }
                 }
             }
         }

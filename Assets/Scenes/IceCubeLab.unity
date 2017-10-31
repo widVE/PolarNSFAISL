@@ -986,6 +986,7 @@ MonoBehaviour:
   frontCamera: {fileID: 730068715}
   frontPanel: {fileID: 744158707}
   panelParent: {fileID: 121455330}
+  softTimeout: 30
   transitionDuration: 1
 --- !u!4 &94977850
 Transform:
@@ -1418,7 +1419,7 @@ Prefab:
         type: 2}
       propertyPath: truePath
       value: 
-      objectReference: {fileID: 103961860}
+      objectReference: {fileID: 0}
     - target: {fileID: 114209731504949338, guid: be9b48d7decfd244789e3abfb31f5bb6,
         type: 2}
       propertyPath: keepPlaying
@@ -1435,11 +1436,6 @@ Prefab:
 --- !u!1 &103961859 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1182606350042146, guid: be9b48d7decfd244789e3abfb31f5bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 103961858}
---- !u!120 &103961860 stripped
-LineRenderer:
-  m_PrefabParentObject: {fileID: 120764146250612884, guid: be9b48d7decfd244789e3abfb31f5bb6,
     type: 2}
   m_PrefabInternal: {fileID: 103961858}
 --- !u!1 &119966025
@@ -6204,7 +6200,7 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -6258,7 +6254,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_Name
-      value: Panel10
+      value: Panel9
       objectReference: {fileID: 0}
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -7669,7 +7665,6 @@ Transform:
   - {fileID: 780828414}
   - {fileID: 873710410}
   - {fileID: 969433298}
-  - {fileID: 1417912201}
   - {fileID: 608684175}
   - {fileID: 988925153}
   m_Father: {fileID: 2136369078}
@@ -10057,7 +10052,7 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 350
+      value: 306
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -10107,7 +10102,8 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: Swipe in the direction of the rainbow pattern, from red to blue, to estimate
-        the direction the neutrino was traveling.
+        the direction the neutrino was traveling.  The size of the sphere shows how
+        much light each sensor detected.
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -10353,7 +10349,7 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -10407,7 +10403,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_Name
-      value: Panel11
+      value: Panel10
       objectReference: {fileID: 0}
     - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -11508,7 +11504,7 @@ Prefab:
       value: 'Disclaimer:  Neutrinos from astrophysical sources are detected at a
         much slower pace than displayed here.  IceCube scientists have not identified
         the source of all neutrinos that have been detected.  But the excitement for
-        discovery turns on every time a high energy neutrino is detected.'
+        discovery ramps up every time a high energy neutrino is detected.'
       objectReference: {fileID: 0}
     - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
@@ -17285,139 +17281,6 @@ Transform:
   m_Father: {fileID: 318269113}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1417912200
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 696675354}
-    m_Modifications:
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 1200
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
-      propertyPath: m_Name
-      value: Panel9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_Text
-      value: The size of the sphere shows how much light each sensor detected.
-      objectReference: {fileID: 0}
-    - target: {fileID: 1145444937879928, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114467607155575430, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_FontData.m_BestFit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114602493613652146, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224263528334994648, guid: 03865f44d47203d459535fd944fe48bd,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -29
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
-  m_IsPrefabParent: 0
---- !u!224 &1417912201 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
-    type: 2}
-  m_PrefabInternal: {fileID: 1417912200}
 --- !u!1 &1419502583
 GameObject:
   m_ObjectHideFlags: 0
@@ -25343,7 +25206,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -11, y: 568}
-  m_SizeDelta: {x: 800, y: 200}
+  m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2142446309
 Canvas:

@@ -43,6 +43,12 @@ public class SwipeGameMode : MonoBehaviour {
     private bool swipedSide;
     private bool swipedFront;
 
+    private float timeStarted;
+    private float softTutorialTime;
+
+    [SerializeField]
+    private float softTimeout = 30f;
+
 	// Use this for initialization
 	void Start () {
         isGame = false;
@@ -52,8 +58,66 @@ public class SwipeGameMode : MonoBehaviour {
         swipedFront = false;
 	}
 
+    void Update()
+    {
+        float timeSinceStart = UnityEngine.Time.time - timeStarted;
+        if(isSoft)
+        {
+            softTutorialTime = timeSinceStart;
+            if (softTutorialTime > softTimeout)
+            {
+                //if sitting in the soft tutorial for over X seconds, restart...
+                //StopSoftTutorial();
+                if (startButton != null)
+                {
+                    startButton.SetActive(true);
+                }
+
+                if (softTutorialText != null)
+                {
+                    softTutorialText.SetActive(false);
+                }
+
+                if (tutorial != null)
+                {
+                    tutorial.GetComponent<Tutorial>().playTutorial = true;
+                }
+                
+                StopGame();
+            }
+        }
+    }
+
     public bool isGamePlaying() { return isGame; }
     public bool isSoftTutorial() { return isSoft; }
+
+    public void summaryDone()
+    {
+         if (tutorial != null)
+         {
+             tutorial.GetComponent<Tutorial>().playTutorial = true;
+         }
+
+         if (startButton != null)
+         {
+             startButton.SetActive(true);
+         }
+
+         if (summaryPanel != null)
+         {
+             summaryPanel.SetActive(false);
+ 
+             foreach (Transform child in summaryPanel.transform)
+             {
+                 if (child.gameObject.name.StartsWith("Event:"))
+                 {
+                     Destroy(child.gameObject);
+                 }
+             }
+ 
+             summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
+         }
+    }
 
     public void StartGame()
     {
@@ -61,6 +125,8 @@ public class SwipeGameMode : MonoBehaviour {
         {
             GameObject.Find("startClick").GetComponent<AudioSource>().Play();
             isGame = true;
+            
+            timeStarted = UnityEngine.Time.time;
 
             if (liveHelp != null)
             {
@@ -152,6 +218,8 @@ public class SwipeGameMode : MonoBehaviour {
         {
             StartCoroutine(InvokeMethod(1f, 5));
         }
+
+        softTutorialTime = 0f;
     }
 
     public void StopGame()

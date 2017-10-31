@@ -305,29 +305,50 @@ public class SwipeGameMode : MonoBehaviour {
 		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint ();
         Bounds b = eventPlayer.GetEventBounds(eventCenterPos);
 
+        // Front Camera
+        //frontCamera.transform.position = Camera.main.transform.position;
+        frontCamera.transform.rotation = Camera.main.transform.rotation;
+
+        frontCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI / 2f - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
+        frontCamera.transform.position = b.center - frontCamera.transform.forward.normalized * b.extents.z;
+
+        //forward = frontCamera.transform.forward.normalized;
+        //endQ = frontCamera.transform.rotation;
+
+        //frontCamera.transform.position = Camera.main.transform.position;
+        //frontCamera.transform.rotation = Camera.main.transform.rotation;
+
+        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 60.0f;
+
+        //StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.y)) - forward * b.extents.z,
+        //    Camera.main.transform.rotation, endQ, frontCamera));
+        
 		// Top Camera
-        topCamera.transform.position = Camera.main.transform.position;
+        //topCamera.transform.position = Camera.main.transform.position;
         topCamera.transform.rotation = Camera.main.transform.rotation;
 
         topCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
-        //topCamera.transform.position = b.center + new Vector3(0f, b.extents.y, 0f);
+        topCamera.transform.position = b.center + new Vector3(0f, b.extents.y, 0f);
 
         Quaternion endQ = topCamera.transform.rotation;
 
-        topCamera.transform.position = Camera.main.transform.position;
-        topCamera.transform.rotation = Camera.main.transform.rotation;
+        //topCamera.transform.position = Camera.main.transform.position;
+        //topCamera.transform.rotation = Camera.main.transform.rotation;
 
-        //topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
+        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
 
         panelParent.SetActive(true);
 
-        StartCoroutine(Transition(Camera.main.transform.position, b.center + 
-            new Vector3(0f, Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.z) + b.extents.y, 0f), 
-            Camera.main.transform.rotation, endQ, topCamera));
+        StartCoroutine(Transition(frontCamera.transform.position, b.center + new Vector3(0f, b.extents.y, 0f), 
+            frontCamera.transform.rotation, endQ, topCamera));
+
+        //StartCoroutine(Transition(Camera.main.transform.position, b.center + 
+        //    new Vector3(0f, Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.z) + b.extents.y, 0f), 
+        //    Camera.main.transform.rotation, endQ, topCamera));
         
 		// Side Camera
        
-        sideCamera.transform.position = Camera.main.transform.position;
+        //sideCamera.transform.position = Camera.main.transform.position;
         sideCamera.transform.rotation = Camera.main.transform.rotation;
         
         sideCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI/2f - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
@@ -335,36 +356,22 @@ public class SwipeGameMode : MonoBehaviour {
 
         endQ = sideCamera.transform.rotation;
 
-        //sideCamera.transform.position = b.center - sideCamera.transform.forward.normalized * b.extents.x;
+        sideCamera.transform.position = b.center - sideCamera.transform.forward.normalized * b.extents.x;
         
-        Vector3 forward = sideCamera.transform.forward.normalized;
+        //Vector3 forward = sideCamera.transform.forward.normalized;
 
-        sideCamera.transform.position = Camera.main.transform.position;
-        sideCamera.transform.rotation = Camera.main.transform.rotation;
+        //sideCamera.transform.position = Camera.main.transform.position;
+        //sideCamera.transform.rotation = Camera.main.transform.rotation;
 
-        //sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
 
-        StartCoroutine(Transition(Camera.main.transform.position, b.center -  forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.y, b.extents.z)) - forward * b.extents.x,
-            Camera.main.transform.rotation, endQ, sideCamera));
+        StartCoroutine(Transition(frontCamera.transform.position, b.center - sideCamera.transform.forward.normalized * b.extents.x,
+            frontCamera.transform.rotation, endQ, sideCamera));
         
-		// Front Camera
-        frontCamera.transform.position = Camera.main.transform.position;
-        frontCamera.transform.rotation = Camera.main.transform.rotation;
-       
-        frontCamera.transform.RotateAround(eventCenterPos, UnityEngine.Camera.main.transform.right.normalized, Mathf.Rad2Deg * (Mathf.PI / 2f - Mathf.Acos(Vector3.Dot(Camera.main.transform.forward.normalized, Vector3.up))));
-        //frontCamera.transform.position = b.center - frontCamera.transform.forward.normalized * b.extents.z;
-
-        forward = frontCamera.transform.forward.normalized;
-        endQ = frontCamera.transform.rotation;
-
-        frontCamera.transform.position = Camera.main.transform.position;
-        frontCamera.transform.rotation = Camera.main.transform.rotation;
-
-        //frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 60.0f;
-
-        StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.y)) - forward * b.extents.z,
-            Camera.main.transform.rotation, endQ, frontCamera));
+        //StartCoroutine(Transition(Camera.main.transform.position, b.center -  forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.y, b.extents.z)) - forward * b.extents.x,
+        //    Camera.main.transform.rotation, endQ, sideCamera));
         
+
 	}
 
 	public void DisableCameras() {

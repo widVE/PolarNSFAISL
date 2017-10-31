@@ -26,10 +26,6 @@ public class SpawnParticle : MonoBehaviour {
 	void Start () {
 		//UpdateDomList ();
 		eventPlayer = GameObject.Find("DomArray").GetComponent<EventPlayer> ();
-		//trail = GetComponent<ParticleTrail> ();
-		//if (colorMan == null) {
-		//	Debug.LogError ("Couldn't find ColorEventManager component in ParticleMovement");
-		//}
 	}
 	
 	// Update is called once per frame
@@ -39,22 +35,12 @@ public class SpawnParticle : MonoBehaviour {
 			travelInterval += Time.deltaTime;
 		}
 
-		/*updateListInterval += Time.deltaTime;
-		if (updateListInterval >= 3f) {
-			updateListInterval = 0;
-			UpdateDomList ();
-		}*/
-		/*if (domList.Length == 0) {
-			return;
-		}*/
 		if (throwingParticle && currParticle == null) {
+
 			throwingParticle = false;
-			//colorMan.numActiveParticles++;
             currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
 			currParticle.transform.SetParent (this.transform);
 
-			// Find a random dom to shoot at
-			//Random.InitState(seed * (int) System.DateTime.Now.Millisecond);
 			if (repeatTarget) {
 				// If we haven't made a target yet (first iteration), get one
 				if (!targetSet) {
@@ -76,10 +62,6 @@ public class SpawnParticle : MonoBehaviour {
 			}
 		}
 	}
-
-	/*private void UpdateDomList() {
-		domList = GameObject.FindGameObjectsWithTag ("DOM");
-	}*/
 
     void OnDisable()
     {

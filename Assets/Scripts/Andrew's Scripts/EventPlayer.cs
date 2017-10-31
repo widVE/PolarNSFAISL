@@ -105,7 +105,7 @@ public class EventPlayer : MonoBehaviour {
         outCart.z = a * Mathf.Cos(polar);
         outCart.y = radius * Mathf.Sin(elevation);
         outCart.x = a * Mathf.Sin(polar);
-        return outCart;
+        return outCart.normalized;
     }
 
 	// Use this for initialization
@@ -247,7 +247,7 @@ public class EventPlayer : MonoBehaviour {
 
                                 float theta = e.theta;
                                 float phi = e.phi;
-                                Vector3 dir = SphericalToCartesian(1.0f, theta, phi);
+                                Vector3 dir = SphericalToCartesian(1.0f, phi - Mathf.PI/2f, theta + Mathf.PI / 2f);
 
                                 Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)
@@ -664,6 +664,7 @@ public class EventPlayer : MonoBehaviour {
 		StopPlaying (currEventNumber);
         lastEventNumber = currEventNumber;
 		currEventNumber = -1;
+        lastPlayTime = -eventFrequency;
 	}
 
     public float GetCurrentEnergy()

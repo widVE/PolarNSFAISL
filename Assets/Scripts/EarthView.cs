@@ -44,7 +44,10 @@ public class EarthView : MonoBehaviour
         {
             if (!swipeGame.GetComponent<SwipeGameMode>().isGamePlaying())
             {
-                cones.Clear();
+                if (cones.Count > 0)
+                {
+                    cones.Clear();
+                }
             }
         }
         /*Transform trans = this.transform.Find("EarthModel").transform.Find("IceCubeLocation");
@@ -74,10 +77,10 @@ public class EarthView : MonoBehaviour
         //scale x and z based on accuracy
         //g.transform.localScale = new Vector3(5 + (1 - accuracy) * 50.0f, g.transform.localScale.y, 5 + (1 - accuracy) * 50.0f); //not based on goal
         g.transform.localScale = new Vector3(1 + (1 - ((accuracy - goal) / goal)) * 15.0f, g.transform.localScale.y, 1 + (1 - ((accuracy - goal) / goal)) * 15.0f); //based on goal
-        Vector3 endPoint = new Vector3(Random.Range(-200, 200), Random.Range(-200, 200), Random.Range(-200, 200));
-        Vector3 testPoint = (start - end) / 10;
+        //Vector3 endPoint = new Vector3(Random.Range(-200, 200), Random.Range(-200, 200), Random.Range(-200, 200));
+        //Vector3 testPoint = (start - end) / 10;
         GameObject lookAtPoint = new GameObject();
-        lookAtPoint.transform.position = testPoint;
+        lookAtPoint.transform.position = end;
         cones.Add(new eventCone(g, lookAtPoint));
         /*LineRenderer r = g.GetComponent<LineRenderer>();
         //r.gameObject.AddComponent(r);
@@ -100,12 +103,12 @@ public class EarthView : MonoBehaviour
         detectedEvents.Add(g);*/
     }
 
-    private Vector3[] extendLine(Vector3[] endPoints)
+    /*private Vector3[] extendLine(Vector3[] endPoints)
     {
 
         Vector3 direction = endPoints[1] - endPoints[0];
         endPoints[0] += (direction * 10);
         endPoints[1] -= (direction * 10);
         return endPoints;
-    }
+    }*/
 }

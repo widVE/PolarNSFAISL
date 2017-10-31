@@ -113,13 +113,18 @@ public class SwipeGameMode : MonoBehaviour {
         }
     }
 
-    public void/*IEnumerator*/ StopSoftTutorial()
+    private void CountdownSoft(int count)
     {
-        /*if(isSoft)
+        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: " + count.ToString();
+    }
+
+    public IEnumerator InvokeMethod(float interval, int invokeCount)
+    {
+        for (int i = 0; i < invokeCount; ++i)
         {
-            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real.";
-            yield return new WaitForSeconds(3f);
-        }*/
+            CountdownSoft(invokeCount-i);
+            yield return new WaitForSeconds(interval);
+        }
 
         if (countdownTimer != null)
         {
@@ -136,7 +141,17 @@ public class SwipeGameMode : MonoBehaviour {
             softTutorialText.SetActive(false);
         }
 
+        eventPlayer.ResumePlaying();
+
         isSoft = false;
+    }
+
+    public void StopSoftTutorial()
+    {
+        if(isSoft)
+        {
+            StartCoroutine(InvokeMethod(1f, 5));
+        }
     }
 
     public void StopGame()
@@ -176,6 +191,8 @@ public class SwipeGameMode : MonoBehaviour {
             swipeRecognizer.ExitResolveMode(false);
         }
 
+        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Let's do one for practice.";
+        
         AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
         if (aSources != null)
         {
@@ -231,19 +248,19 @@ public class SwipeGameMode : MonoBehaviour {
         //position top, front, side cameras for tutorial...
         if(topCamera != null)
         {
-            topCamera.transform.position.Set(282.7f, 795.5f, 48.72999f);
+            topCamera.transform.position.Set(282.7f, 501.8301f, 48.73f);
             topCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
         }
 
         if(frontCamera != null)
         {
-            frontCamera.transform.position.Set(159.2881f, -115.495117f, -713.4141f);
+            frontCamera.transform.position.Set(297.0201f, -115.495117f, -104.4141f);
             frontCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
 
         if(sideCamera != null)
         {
-            sideCamera.transform.position.Set(-616.1577f, -115.495117f, 194.2025f);
+            sideCamera.transform.position.Set(-9.701782f, -115.495117f, 21.46645f);
             sideCamera.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
         }
 
@@ -290,7 +307,6 @@ public class SwipeGameMode : MonoBehaviour {
         
         StopSoftTutorial();
 
-		eventPlayer.ResumePlaying ();
         if(success)
         {
             AudioSource a = gameObject.GetComponent<AudioSource>();
@@ -302,7 +318,11 @@ public class SwipeGameMode : MonoBehaviour {
         }
 
         //earthView.gameObject.transform.FindChild("EarthModel").GetComponent<SpinFree>().spin = true;
-        Camera.main.GetComponent<CameraRotate>().spin = true;
+        if (!isSoft)
+        {
+            eventPlayer.ResumePlaying();
+            Camera.main.GetComponent<CameraRotate>().spin = true;
+        }
 	}
 
     public bool SwipedAllThree() { return swipedTop && swipedFront && swipedSide; }
@@ -350,7 +370,7 @@ public class SwipeGameMode : MonoBehaviour {
         //frontCamera.transform.position = Camera.main.transform.position;
         //frontCamera.transform.rotation = Camera.main.transform.rotation;
 
-        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 60.0f;
+        frontCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.y) + 70.0f;
 
         //StartCoroutine(Transition(Camera.main.transform.position, b.center - forward * (Mathf.Tan((topCamera.GetComponent<Camera>().fieldOfView * Mathf.Deg2Rad) * 0.5f) * Mathf.Max(b.extents.x, b.extents.y)) - forward * b.extents.z,
         //    Camera.main.transform.rotation, endQ, frontCamera));
@@ -367,7 +387,7 @@ public class SwipeGameMode : MonoBehaviour {
         //topCamera.transform.position = Camera.main.transform.position;
         //topCamera.transform.rotation = Camera.main.transform.rotation;
 
-        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 60.0f;
+        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 70.0f;
 
         panelParent.SetActive(true);
 
@@ -395,7 +415,7 @@ public class SwipeGameMode : MonoBehaviour {
         //sideCamera.transform.position = Camera.main.transform.position;
         //sideCamera.transform.rotation = Camera.main.transform.rotation;
 
-        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 60.0f;
+        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 70.0f;
 
         StartCoroutine(Transition(frontCamera.transform.position, b.center - sideCamera.transform.forward.normalized * b.extents.x,
             frontCamera.transform.rotation, endQ, sideCamera));

@@ -304,9 +304,11 @@ public class SwipeRecognizer : MonoBehaviour {
 		}
 	}
 
-	public void EnterResolveMode() {
+	public void EnterResolveMode() 
+    {
 		inResolveMode = true;
         helpSwipe.SetActive(false);
+
         if (refinePanel != null)
         {
             string txt = refinePanel.GetComponent<UnityEngine.UI.Text>().text;
@@ -316,7 +318,6 @@ public class SwipeRecognizer : MonoBehaviour {
             string newTxt = txt.Replace(subTxt, accuracy);
             refinePanel.GetComponent<UnityEngine.UI.Text>().text = newTxt;
             refinePanel.SetActive(true);
-
         }
 
         currentEvents.scaleArray(0.149815f);
@@ -675,61 +676,71 @@ public class SwipeRecognizer : MonoBehaviour {
                             //tell user good job or something, then accumulate event and return to game.
                             //Debug.Log("SUCCESS");
 
+                            StartCoroutine(DelayedResolve(3f, true));
+
+                            
                             if(congratsPanel != null)
                             {
                                 swipeGameMode.DisableCameras();
-                                congratsPanel.SetActive(true);
-                                congratsPanel.GetComponent<UnityEngine.UI.Text>().text = "Great Job!  You detected a neutrino from a: " + currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
+
+                                if (!swipeGameMode.isSoftTutorial())
+                                {
+                                    congratsPanel.SetActive(true);
+                                    congratsPanel.GetComponent<UnityEngine.UI.Text>().text = "Great Job!  You detected a neutrino from a: " + currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
+                                }
                             }
 
-                            StartCoroutine(DelayedResolve(3f, true));
-                            Color summaryColor = Color.white;
 
-                            if (eventPanel != null)
+                            if (!swipeGameMode.isSoftTutorial())
                             {
-                                EventPanelManager epm = eventPanel.GetComponent<EventPanelManager>();
-                                if (epm != null)
+                                Color summaryColor = Color.white;
+
+                                if (eventPanel != null)
                                 {
-                                    //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                    EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                        screenStart, screenEnd, Color.white);
-                                    
-                                    if (e != null)
+                                    EventPanelManager epm = eventPanel.GetComponent<EventPanelManager>();
+                                    if (epm != null)
                                     {
-                                        summaryColor = e.gameObject.GetComponent<UnityEngine.UI.Image>().color;
-                                        earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
-                                            currentEvents.events[currentEvents.lastEventNumber].endPos + (currentEvents.events[currentEvents.lastEventNumber].endPos - currentEvents.events[currentEvents.lastEventNumber].startPos).normalized*500000f, summaryColor, vTest, goalAccuracy);
+                                        //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
+                                        EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                            screenStart, screenEnd, Color.white);
+
+                                        if (e != null)
+                                        {
+                                            summaryColor = e.gameObject.GetComponent<UnityEngine.UI.Image>().color;
+                                            earthView.AddDetectedEvent(currentEvents.events[currentEvents.lastEventNumber].startPos,
+                                                currentEvents.events[currentEvents.lastEventNumber].endPos + (currentEvents.events[currentEvents.lastEventNumber].endPos - currentEvents.events[currentEvents.lastEventNumber].startPos).normalized * 500000f, summaryColor, vTest, goalAccuracy);
+                                        }
                                     }
                                 }
-                            }
 
-                            if (summaryPanel != null)
-                            {
-                                EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
-                                if (epm != null)
+                                if (summaryPanel != null)
                                 {
-                                    //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                    EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                        screenStart, screenEnd, summaryColor, false);
+                                    EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
+                                    if (epm != null)
+                                    {
+                                        //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
+                                        EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                            screenStart, screenEnd, summaryColor, false);
+                                    }
                                 }
-                            }
 
-                            //assuming just one event here for now..
-                            //add point to sphere map...
-                            if (sphereMap != null)
-                            {
-                                Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
-                                dir = dir.normalized;
-                                float longitude = Mathf.Acos(Vector3.Dot(dir, Vector3.up));
-                                float lat = Mathf.Acos(Vector3.Dot(dir, Vector3.forward));
-                                //sphereMap.PlotPoint(new Vector2(lat, longitude));
-                            }
+                                //assuming just one event here for now..
+                                //add point to sphere map...
+                                if (sphereMap != null)
+                                {
+                                    Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
+                                    dir = dir.normalized;
+                                    float longitude = Mathf.Acos(Vector3.Dot(dir, Vector3.up));
+                                    float lat = Mathf.Acos(Vector3.Dot(dir, Vector3.forward));
+                                    //sphereMap.PlotPoint(new Vector2(lat, longitude));
+                                }
 
-                            if(scorePanel != null)
-                            {
-                                neutrinoScore++;
-                                string countTxt = "Score: " + neutrinoScore.ToString() + " Neutrinos";
-                                scorePanel.GetComponent<UnityEngine.UI.Text>().text = countTxt;
+                                if (scorePanel != null)
+                                {
+                                    neutrinoScore++;
+                                    string countTxt = "Score: " + neutrinoScore.ToString() + " Neutrinos";
+                                    scorePanel.GetComponent<UnityEngine.UI.Text>().text = countTxt;
+                                }
                             }
                         }
 					}

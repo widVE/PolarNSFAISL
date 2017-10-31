@@ -6668,7 +6668,7 @@ ParticleSystemRenderer:
   m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 3
+  m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 2100000, guid: ea604e513abca6d4fabc01f617c705aa, type: 2}
   - {fileID: 0}

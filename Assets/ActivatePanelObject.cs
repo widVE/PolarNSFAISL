@@ -29,6 +29,11 @@ public class ActivatePanelObject : MonoBehaviour {
                 objectToActivate.GetComponent<EventPlayer>().StopCurrentEvent();
                 objectToActivate.GetComponent<EventPlayer>().PlayTutorialEvent();
             }
+
+            if(objectToActivate.name == "FullDOMView")
+            {
+                GameObject.Find("DOMArrow").SetActive(true);
+            }
         }
     }
 
@@ -44,6 +49,16 @@ public class ActivatePanelObject : MonoBehaviour {
             else
             {
                 objectToActivate.SetActive(false);
+            }
+
+
+            if (objectToActivate.name == "FullDOMView")
+            {
+                GameObject g = GameObject.Find("DOMArrow");
+                if (g != null)
+                {
+                    g.SetActive(false);
+                }
             }
         }
     }

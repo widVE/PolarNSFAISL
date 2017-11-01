@@ -90,6 +90,11 @@ public class SwipeGameMode : MonoBehaviour {
 
                 StopGame();
             }
+
+            if (!isGame)
+            {
+                timeStarted = UnityEngine.Time.time;
+            }
         }
         else
         {
@@ -327,7 +332,9 @@ public class SwipeGameMode : MonoBehaviour {
         }
 
         //position top, front, side cameras for tutorial...
-        if(topCamera != null)
+        EnableCameras(true);
+
+        /*if(topCamera != null)
         {
             topCamera.transform.position.Set(282.7f, 501.8301f, 48.73f);
             topCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
@@ -343,7 +350,7 @@ public class SwipeGameMode : MonoBehaviour {
         {
             sideCamera.transform.position.Set(-9.701782f, -115.495117f, 21.46645f);
             sideCamera.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-        }
+        }*/
 
         if (frontPanel != null)
         {
@@ -393,12 +400,12 @@ public class SwipeGameMode : MonoBehaviour {
             AudioSource a = gameObject.GetComponent<AudioSource>();
             if(a != null && a.isActiveAndEnabled)
             {
-                //Debug.Log("Playing audio");
                 a.Play();
             }
         }
 
         //earthView.gameObject.transform.FindChild("EarthModel").GetComponent<SpinFree>().spin = true;
+        
         if (!isSoft)
         {
             eventPlayer.ResumePlaying();
@@ -427,7 +434,7 @@ public class SwipeGameMode : MonoBehaviour {
         }
     }
 
-	private void EnableCameras() {
+	private void EnableCameras(bool tutorial=false) {
 
         if(domStrings != null)
         {
@@ -435,8 +442,8 @@ public class SwipeGameMode : MonoBehaviour {
             //domStrings.scaleMultiplier = 0.0005f;
         }
 
-		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint ();
-        Bounds b = eventPlayer.GetEventBounds(eventCenterPos);
+		Vector3 eventCenterPos = eventPlayer.GetEventCenterpoint (tutorial ? 0 : -1);
+        Bounds b = eventPlayer.GetEventBounds(eventCenterPos, tutorial ? 0 : -1);
 
         // Front Camera
         //frontCamera.transform.position = Camera.main.transform.position;

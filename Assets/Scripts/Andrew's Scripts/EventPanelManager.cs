@@ -67,8 +67,8 @@ public class EventPanelManager : MonoBehaviour {
                     //if already there, increment score
                     int p;
                     int.TryParse(panels[i].transform.Find("Score").GetComponent<Text>().text, out p);
-                    p += score;
-                    //p++;
+                    //p += score;
+                    p++;
                     panels[i].transform.Find("Score").GetComponent<Text>().text = p.ToString();
                     return null;
                 }

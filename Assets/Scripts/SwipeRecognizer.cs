@@ -519,7 +519,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 int score = (int)(vTest * 10) * 100;
                                                 //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                                 //    screenStart, screenEnd, summaryColor, score, false);
-                                                Debug.Log("Added: " + score + " points.");
+                                                //Debug.Log("Added: " + score + " points.");
                                                 neutrinoScore += score;
                                                 updateScore();
                                                 spawnPoints(score, new Vector3(3050, 950, 0));
@@ -548,7 +548,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 int score = (int)(vTest * 10) * 100;
                                                 //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                                 //    screenStart, screenEnd, summaryColor, score, false);
-                                                Debug.Log("Added: " + score + " points.");
+                                                //Debug.Log("Added: " + score + " points.");
                                                 neutrinoScore += score;
                                                 updateScore();
                                                 spawnPoints(score, new Vector3(800, 950, 0));
@@ -597,33 +597,11 @@ public class SwipeRecognizer : MonoBehaviour {
                             }
                         }
 
+
 						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know by drawing a green line
 						DrawSwipeLine(SwipeType.found, swipeGesture.recognizedId%10, cameraToUse);
-                        //Debug.Log(vTest);
+
 						// Now calculate a few more things and add the event to the panel
-
-						// Need to do some mathematical magic to get the swipe endpoints into proper "estimated" world coordinates, not relative to the Main Camera
-						/*Vector3 pathCenterWorld = (vStart + vEnd) / 2f;
-
-						// Center position relative to the Main Camera
-						float centerpointCameraZValue = cameraToUse.transform.InverseTransformPoint(pathCenterWorld).z;
-
-						// Start and end of the swipe in world coordinates relative to the main camera
-						Vector3 startCamera = cameraToUse.transform.InverseTransformPoint (startEnd [0]);
-						Vector3 endCamera = cameraToUse.transform.InverseTransformPoint (startEnd [1]);
-
-						// EDIT for puzzle game - calculate and store the puzzle camera transform so that we can use it later
-
-						// "Pushing the line out" so that it has a z value equal to the event's midpoint z value relative to the camera
-						float startCoeff = centerpointCameraZValue / startCamera.z;
-						startCamera *= startCoeff;
-
-						float endCoeff = centerpointCameraZValue / endCamera.z;
-						endCamera *= endCoeff;
-
-						// startDirection and endDirection are now the positions of the swipe relative to the camera, convert them to world coordinates
-						Vector3 swipeStartWorld = cameraToUse.transform.TransformPoint (startCamera);
-						Vector3 swipeEndWorld = cameraToUse.transform.TransformPoint (endCamera);*/
 
 						if (!currentEvents.eventsPlaying[ev].isDetected && !inResolveMode)
 						{
@@ -650,7 +628,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                         //    screenStart, screenEnd, summaryColor, score, false);
                                         Debug.Log("Added: " + score + " points.");
                                         neutrinoScore += score;
-                                        neutrinoCount++;
+                                       
                                         updateScore();
                                         spawnPoints(score, new Vector3(3520, 1800, 0));
                                     }
@@ -697,6 +675,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                             screenStart, screenEnd, summaryColor2, 1000, false);
                                         Debug.Log("Added bonus: " + 1000 + " points.");
                                         neutrinoScore += 1000;
+                                        neutrinoCount++;
                                         updateScore();
                                         spawnPoints(1000, new Vector3(3520, 1800, 0));
                                     }
@@ -713,7 +692,6 @@ public class SwipeRecognizer : MonoBehaviour {
                                     congratsPanel.GetComponent<UnityEngine.UI.Text>().text = "Great Job!  You detected a neutrino from a: " + currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
                                 }
                             }
-
 
                             if (!swipeGameMode.isSoftTutorial())
                             {
@@ -734,7 +712,8 @@ public class SwipeRecognizer : MonoBehaviour {
                                     }
                                 }
                             }
-                          /*  if (summaryPanel != null)
+                            
+                            /*  if (summaryPanel != null)
                             {
                                 EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
                                 if (epm != null)
@@ -746,16 +725,16 @@ public class SwipeRecognizer : MonoBehaviour {
                                 }
                             } */
 
-                                //assuming just one event here for now..
-                                //add point to sphere map...
-                                if (sphereMap != null)
-                                {
-                                    Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
-                                    dir = dir.normalized;
-                                    float longitude = Mathf.Acos(Vector3.Dot(dir, Vector3.up));
-                                    float lat = Mathf.Acos(Vector3.Dot(dir, Vector3.forward));
-                                    //sphereMap.PlotPoint(new Vector2(lat, longitude));
-                                }
+                            //assuming just one event here for now..
+                            //add point to sphere map...
+                            if (sphereMap != null)
+                            {
+                                Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
+                                dir = dir.normalized;
+                                float longitude = Mathf.Acos(Vector3.Dot(dir, Vector3.up));
+                                float lat = Mathf.Acos(Vector3.Dot(dir, Vector3.forward));
+                                //sphereMap.PlotPoint(new Vector2(lat, longitude));
+                            }
 
                             /*if(scorePanel != null)
                             {

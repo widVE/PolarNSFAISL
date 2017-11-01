@@ -1029,7 +1029,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 32d3def3433165e46bb6f34f1cedfce1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: aecc73c6e4b26db4e925c161acfda575, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1449,6 +1449,11 @@ Prefab:
       propertyPath: particle
       value: 
       objectReference: {fileID: 871427960}
+    - target: {fileID: 114209731504949338, guid: be9b48d7decfd244789e3abfb31f5bb6,
+        type: 2}
+      propertyPath: newEventFile
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be9b48d7decfd244789e3abfb31f5bb6, type: 2}
   m_IsPrefabParent: 0
@@ -2209,7 +2214,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Game Summary: You detected 0 neutrino sources
+  m_Text: 'Game Summary: 0 neutrino sources detected. Score: 0
 
 '
 --- !u!222 &170969481
@@ -23806,7 +23811,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\tSource\t\t\t\tDescription\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t          Score"
+  m_Text: "\tSource\t\t\t\tDescription\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t          Count"
 --- !u!222 &1971915502
 CanvasRenderer:
   m_ObjectHideFlags: 0

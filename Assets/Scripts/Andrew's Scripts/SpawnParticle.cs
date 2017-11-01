@@ -3,9 +3,7 @@ using System.Collections;
 
 public class SpawnParticle : MonoBehaviour {
 
-	[SerializeField]
-	private GameObject particlePrefab;
-
+	public GameObject particlePrefab;
 	private GameObject currParticle;
 	private float updateListInterval = 0;
 	private GameObject[] domList;

@@ -55,6 +55,10 @@ MonoBehaviour:
   lineTimer: 3
   lineDrawn: 0
   lineFading: 0
+  startEnd:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  camToUse: {fileID: 0}
 --- !u!120 &120208497036259490
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -92,7 +96,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:

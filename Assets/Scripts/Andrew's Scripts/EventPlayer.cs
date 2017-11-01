@@ -105,7 +105,7 @@ public class EventPlayer : MonoBehaviour {
         outCart.x = radius * Mathf.Sin(polar) * Mathf.Sin(elevation);
         outCart.y = radius * Mathf.Cos(elevation);
         outCart.z = -radius * Mathf.Sin(elevation) * Mathf.Cos(polar);
-        Debug.Log(outCart.ToString("F4"));
+        //Debug.Log(outCart.ToString("F4"));
         return outCart.normalized;
     }
 
@@ -437,7 +437,16 @@ public class EventPlayer : MonoBehaviour {
 
                 if(particle != null)
                 {
-                    //if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
+                    /*if ((swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial()))
+                    {
+                        particle.GetComponent<SpawnParticle>().particlePrefab.transform.GetChild(0).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        particle.GetComponent<SpawnParticle>().particlePrefab.transform.GetChild(0).gameObject.SetActive(false);
+                    }*/
+
+                    if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
                     {
                         particle.GetComponent<SpawnParticle>().startThrowing();
                         //Debug.Log("Throwing particle");
@@ -787,20 +796,20 @@ public class EventPlayer : MonoBehaviour {
         }
 	}
 
-	public Vector3 GetEventCenterpoint() {
-		EventVis curr = events [currEventNumber];
+	public Vector3 GetEventCenterpoint(int index=-1) {
+		EventVis curr = events [index == -1 ? currEventNumber : 0];
 		return ((curr.startPos + curr.endPos) / 2);
 	}
 
-    public Bounds GetEventBounds(Vector3 centerPos)
+    public Bounds GetEventBounds(Vector3 centerPos, int index=-1)
     {
         Bounds b = new Bounds(centerPos, Vector3.zero);
         
-        for(int i = 0; i <  events[currEventNumber].eventData.Count; ++i)
+        for(int i = 0; i <  events[index == -1 ? currEventNumber : 0].eventData.Count; ++i)
         {
-            b.Encapsulate(events[currEventNumber].eventData[i].pos);
+            b.Encapsulate(events[index == -1 ? currEventNumber : 0].eventData[i].pos);
         }
+
         return b;
     }
-		
 }

@@ -160,7 +160,7 @@ public class EventPanelManager : MonoBehaviour {
 		Vector2 pos;
         if(eventPanel)
         {
-            pos = new Vector2(0f, (-118) * (panels.Count - 1));   
+            pos = new Vector2(0f, (-118) * (panels.Count - 1) - 50);   
         }
         else 
         {
@@ -223,7 +223,7 @@ public class EventPanelManager : MonoBehaviour {
 
 		// TODO: If you wanted to send a notification to players or have some other event happen when
 		//       an event source is "calculated" or "found" then here is where you would probably do it
-		Debug.Log ("Event \"sent\" to Players");
+		//Debug.Log ("Event \"sent\" to Players");
 	}
 		
 }

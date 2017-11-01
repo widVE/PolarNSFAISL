@@ -52,7 +52,7 @@ public class SwipeGameMode : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         isGame = false;
-        isSoft = true;
+        isSoft = false;
         swipedTop = false;
         swipedSide = false;
         swipedFront = false;
@@ -132,6 +132,8 @@ public class SwipeGameMode : MonoBehaviour {
     {
         if (!isGame)
         {
+            isSoft = true;
+
             GameObject.Find("startClick").GetComponent<AudioSource>().Play();
             isGame = true;
             
@@ -236,7 +238,7 @@ public class SwipeGameMode : MonoBehaviour {
     public void StopGame()
     {
         isGame = false;
-        isSoft = true;
+        isSoft = false;
 
         swipedTop = false;
         swipedFront = false;

@@ -16,7 +16,7 @@ PlayerSettings:
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
-  m_ShowUnitySplashLogo: 1
+  m_ShowUnitySplashLogo: 0
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
@@ -38,11 +38,11 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: 75e4b781f0cef0c41a1a33a980caad77, type: 3}
+  - logo: {fileID: 21300000, guid: e5ea623cf1dbfee43b72e1503ee22ed4, type: 3}
     duration: 2
   m_SplashScreenBackgroundLandscape: {fileID: 0}
   m_SplashScreenBackgroundPortrait: {fileID: 0}
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 6023e30339d12dd4884a736f6d85114f,
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: e5ea623cf1dbfee43b72e1503ee22ed4,
     type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -235,13 +235,13 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 2800000, guid: 6023e30339d12dd4884a736f6d85114f,
+  resolutionDialogBanner: {fileID: 2800000, guid: 5890c7f930a462046a9dc84f4fae28ca,
     type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 6023e30339d12dd4884a736f6d85114f, type: 3}
+      m_Icon: {fileID: 2800000, guid: 5890c7f930a462046a9dc84f4fae28ca, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []

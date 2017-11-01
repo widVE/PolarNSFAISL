@@ -487,18 +487,20 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 //TODO: add 100 point bonus
                                                 //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                                 Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                                int score = (int)(vTest * 10) * 100;
-                                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                                //    screenStart, screenEnd, summaryColor, score, false);
-                                                Debug.Log("Added: " + score + " points.");
-                                                neutrinoScore += score;
-                                                updateScore();
-                                                spawnPoints(score, new Vector3(1915, 950, 0));
+                                              
                                             }
                                         }
                                     }
                                 }
 
+                                //always add points
+                                int score = (int)(vTest * 10) * 10;
+                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                //    screenStart, screenEnd, summaryColor, score, false);
+                                Debug.Log("Added: " + score + " points.");
+                                neutrinoScore += score;
+                                updateScore();
+                                spawnPoints(score, new Vector3(1915, 1400, 0));
                             } 
                             else if(cameraToUse == sideCamera)
                             {
@@ -516,18 +518,19 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 //TODO: add 100 point bonus
                                                 //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                                 Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                                int score = (int)(vTest * 10) * 100;
-                                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                                //    screenStart, screenEnd, summaryColor, score, false);
-                                                //Debug.Log("Added: " + score + " points.");
-                                                neutrinoScore += score;
-                                                updateScore();
-                                                spawnPoints(score, new Vector3(3050, 950, 0));
+                                              
                                             }
                                         }
                                     }
                                 }
-
+                                //always add points
+                                int score = (int)(vTest * 10) * 10;
+                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                //    screenStart, screenEnd, summaryColor, score, false);
+                                //Debug.Log("Added: " + score + " points.");
+                                neutrinoScore += score;
+                                updateScore();
+                                spawnPoints(score, new Vector3(3050, 1400, 0));
                             }
                             else if(cameraToUse == topCamera)
                             {
@@ -545,18 +548,19 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 //TODO: add 100 point bonus
                                                 //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                                 Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                                int score = (int)(vTest * 10) * 100;
-                                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                                //    screenStart, screenEnd, summaryColor, score, false);
-                                                //Debug.Log("Added: " + score + " points.");
-                                                neutrinoScore += score;
-                                                updateScore();
-                                                spawnPoints(score, new Vector3(800, 950, 0));
+                                               
                                             }
                                         }
                                     }
                                 }
-
+                                //always add points
+                                int score = (int)(vTest * 10) * 10;
+                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                //    screenStart, screenEnd, summaryColor, score, false);
+                                //Debug.Log("Added: " + score + " points.");
+                                neutrinoScore += score;
+                                updateScore();
+                                spawnPoints(score, new Vector3(800, 1400, 0));
                             }
                         }
 
@@ -623,14 +627,17 @@ public class SwipeRecognizer : MonoBehaviour {
                                         //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                         //    screenStart, screenEnd, summaryColor, 0, false);
                                         //add in event again with actual score
-                                        int score = (int)(vTest * 10) * 100;
+                                        int score = 100;// (int)(vTest * 10) * 10;
                                         //e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                         //    screenStart, screenEnd, summaryColor, score, false);
                                         Debug.Log("Added: " + score + " points.");
                                         neutrinoScore += score;
                                        
                                         updateScore();
-                                        spawnPoints(score, new Vector3(3520, 1800, 0));
+
+                                        //what value is this?
+                                        /// spawnPoints(score, new Vector3(3520, 1800, 0));
+                                        spawnPoints(score, new Vector3(1920, 1700, 0));
                                     }
                                 }
                             }
@@ -673,11 +680,11 @@ public class SwipeRecognizer : MonoBehaviour {
                                         //add in event again with actual score
                                         e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                             screenStart, screenEnd, summaryColor2, 1000, false);
-                                        Debug.Log("Added bonus: " + 1000 + " points.");
-                                        neutrinoScore += 1000;
+                                        Debug.Log("Added bonus: " + 100 + " points.");
+                                        neutrinoScore += 100;
                                         neutrinoCount++;
                                         updateScore();
-                                        spawnPoints(1000, new Vector3(3520, 1800, 0));
+                                        spawnPoints(100, new Vector3(1920, 1700, 0));
                                     }
                                 }
                             }

@@ -12,8 +12,10 @@ public class pointsPopup : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        color = new Color(0, 1, 0, 1.0f);
-        scroll = .05f;
+        float value = float.Parse(text.text);
+        //color = new Color(0, 1, 0, 1.0f);
+        color = new Color(2f*(1f - (value/100f)), 2f * (value / 100f), 0, 1.0f);
+        scroll = 50f;
         duration = 1.5f;
         //text = gameObject.GetComponent<UnityEngine.UI.Text>();
         text.material.color = color;

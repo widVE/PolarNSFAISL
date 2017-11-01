@@ -488,8 +488,8 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                                 Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
                                                 int score = (int)(vTest * 10) * 100;
-                                                EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                                    screenStart, screenEnd, summaryColor, score, false);
+                                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                                //    screenStart, screenEnd, summaryColor, score, false);
                                                 Debug.Log("Added: " + score + " points.");
                                                 neutrinoScore += score;
                                                 updateScore();
@@ -498,43 +498,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                         }
                                     }
                                 }
-                                /*if(totalScore.x == 0f && totalScore.y == 0f)
-                                {
-                                    frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                }
-                                else if (totalScore.x > 0f && totalScore.y == 0f)
-                                {
-                                    if (totalScore.z > totalScore.x)
-                                    {
-                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }
-                                else if (totalScore.x == 0f && totalScore.y > 0f)
-                                {
-                                    if (totalScore.z > totalScore.y)
-                                    {
-                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }
-                                else if (totalScore.x > 0f && totalScore.y > 0f)
-                                {
-                                    if (totalScore.z > totalScore.x && totalScore.z > totalScore.y)
-                                    {
-                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }*/
+
                             } 
                             else if(cameraToUse == sideCamera)
                             {
@@ -553,8 +517,8 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                                 Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
                                                 int score = (int)(vTest * 10) * 100;
-                                                EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                                    screenStart, screenEnd, summaryColor, score, false);
+                                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                                //    screenStart, screenEnd, summaryColor, score, false);
                                                 Debug.Log("Added: " + score + " points.");
                                                 neutrinoScore += score;
                                                 updateScore();
@@ -563,43 +527,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                         }
                                     }
                                 }
-                                /*if (totalScore.x == 0f && totalScore.z == 0f)
-                                {
-                                    sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                }
-                                else if(totalScore.x > 0f && totalScore.z == 0f)
-                                {
-                                    if(totalScore.y > totalScore.x)
-                                    {
-                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else 
-                                    {
-                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }
-                                else if(totalScore.x == 0f && totalScore.z > 0f)
-                                {
-                                    if (totalScore.y > totalScore.z)
-                                    {
-                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }
-                                else if(totalScore.x > 0f && totalScore.z > 0f)
-                                {
-                                    if (totalScore.y > totalScore.x && totalScore.y > totalScore.z)
-                                    {
-                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }*/
+
                             }
                             else if(cameraToUse == topCamera)
                             {
@@ -618,8 +546,8 @@ public class SwipeRecognizer : MonoBehaviour {
                                                 //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                                 Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
                                                 int score = (int)(vTest * 10) * 100;
-                                                EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                                    screenStart, screenEnd, summaryColor, score, false);
+                                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                                //    screenStart, screenEnd, summaryColor, score, false);
                                                 Debug.Log("Added: " + score + " points.");
                                                 neutrinoScore += score;
                                                 updateScore();
@@ -628,43 +556,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                         }
                                     }
                                 }
-                                /*if (totalScore.y == 0f && totalScore.z == 0f)
-                                {
-                                    topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                }
-                                else if (totalScore.y > 0f && totalScore.z == 0f)
-                                {
-                                    if (totalScore.x > totalScore.y)
-                                    {
-                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }
-                                else if (totalScore.y == 0f && totalScore.z > 0f)
-                                {
-                                    if (totalScore.x > totalScore.z)
-                                    {
-                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }
-                                else if (totalScore.y > 0f && totalScore.z > 0f)
-                                {
-                                    if (totalScore.x > totalScore.y && totalScore.x > totalScore.z)
-                                    {
-                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.green;
-                                    }
-                                    else
-                                    {
-                                        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.red;
-                                    }
-                                }*/
+
                             }
                         }
 
@@ -750,12 +642,12 @@ public class SwipeRecognizer : MonoBehaviour {
                                         //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
                                         Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
                                         //add in empty event to init score to 0
-                                        EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                            screenStart, screenEnd, summaryColor, 0, false);
+                                        //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                        //    screenStart, screenEnd, summaryColor, 0, false);
                                         //add in event again with actual score
                                         int score = (int)(vTest * 10) * 100;
-                                        e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                            screenStart, screenEnd, summaryColor, score, false);
+                                        //e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                        //    screenStart, screenEnd, summaryColor, score, false);
                                         Debug.Log("Added: " + score + " points.");
                                         neutrinoScore += score;
                                         neutrinoCount++;

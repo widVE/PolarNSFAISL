@@ -160,7 +160,7 @@ public class EventPanelManager : MonoBehaviour {
 		Vector2 pos;
         if(eventPanel)
         {
-            pos = new Vector2(0f, (-100) * (panels.Count - 1) - 50);   
+            pos = new Vector2(0f, (-118) * (panels.Count - 1));   
         }
         else 
         {

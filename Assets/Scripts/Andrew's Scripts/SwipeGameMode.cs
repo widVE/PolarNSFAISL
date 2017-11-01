@@ -332,7 +332,7 @@ public class SwipeGameMode : MonoBehaviour {
         }
 
         //position top, front, side cameras for tutorial...
-        EnableCameras(true);
+        EnableCameras(true, false);
 
         /*if(topCamera != null)
         {
@@ -434,7 +434,7 @@ public class SwipeGameMode : MonoBehaviour {
         }
     }
 
-	private void EnableCameras(bool tutorial=false) {
+	private void EnableCameras(bool tutorial=false, bool makeVisible=true) {
 
         if(domStrings != null)
         {
@@ -477,7 +477,10 @@ public class SwipeGameMode : MonoBehaviour {
 
         topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 70.0f;
 
-        panelParent.SetActive(true);
+        if (makeVisible)
+        {
+            panelParent.SetActive(true);
+        }
 
         StartCoroutine(Transition(frontCamera.transform.position, b.center + new Vector3(0f, b.extents.y, 0f), 
             frontCamera.transform.rotation, endQ, topCamera));

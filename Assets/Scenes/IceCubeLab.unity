@@ -1438,7 +1438,7 @@ Prefab:
         type: 2}
       propertyPath: truePath
       value: 
-      objectReference: {fileID: 103961860}
+      objectReference: {fileID: 0}
     - target: {fileID: 114209731504949338, guid: be9b48d7decfd244789e3abfb31f5bb6,
         type: 2}
       propertyPath: keepPlaying
@@ -1455,11 +1455,6 @@ Prefab:
 --- !u!1 &103961859 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1182606350042146, guid: be9b48d7decfd244789e3abfb31f5bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 103961858}
---- !u!120 &103961860 stripped
-LineRenderer:
-  m_PrefabParentObject: {fileID: 120764146250612884, guid: be9b48d7decfd244789e3abfb31f5bb6,
     type: 2}
   m_PrefabInternal: {fileID: 103961858}
 --- !u!1 &119966025
@@ -22447,12 +22442,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1926621606}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34c20de9ecc8bde41b5ed3a66a8071a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spin: 1
+  spin: 0
   spinParent: 0
   speed: 5
   clockwise: 1

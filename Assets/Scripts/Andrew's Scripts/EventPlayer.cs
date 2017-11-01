@@ -437,7 +437,7 @@ public class EventPlayer : MonoBehaviour {
 
                 if(particle != null)
                 {
-                    if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
+                    //if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
                     {
                         particle.GetComponent<SpawnParticle>().startThrowing();
                         //Debug.Log("Throwing particle");

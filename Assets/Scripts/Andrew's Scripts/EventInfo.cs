@@ -16,6 +16,9 @@ public class EventInfo : MonoBehaviour {
 	// Reference to the panel manager, so we can tell it to remove us from the list when necessary
 	private  EventPanelManager man;
 
+    //score received from event (out of 500)
+    private int score;
+
 	// Name of this event
 	private string name;
 
@@ -99,11 +102,29 @@ public class EventInfo : MonoBehaviour {
 		this.name = name;
 	}
 
-	/// <summary>
-	/// Sets the energy
+    /// <summary>
+	/// Sets the score
 	/// </summary>
-	/// <param name="energy">The energy value to set</param>
-	public void setEnergy(float energy) {
+	/// <param name="name">The name to set</param>
+	public void setScore(int score)
+    {
+        this.score = score;
+    }
+
+    /// <summary>
+	/// Gets the score
+	/// </summary>
+	/// <param name="name">The name to set</param>
+	public int getScore()
+    {
+        return this.score;
+    }
+
+    /// <summary>
+    /// Sets the energy
+    /// </summary>
+    /// <param name="energy">The energy value to set</param>
+    public void setEnergy(float energy) {
 		this.peak_energy = energy;
 	}
 

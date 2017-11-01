@@ -49,7 +49,7 @@ public class Countdown : MonoBehaviour {
                 else
                 {
                     countDown = false;
-                    int tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
+                    int tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount;
                     eventPanelManager.GetComponent<EventPanelManager>().panels.Clear();
                     //trigger a restart of the game...
                     //high score list?

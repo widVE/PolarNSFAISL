@@ -69,10 +69,10 @@ public class Countdown : MonoBehaviour {
                         {
                             if (tempScore == 1)
                             {
-                                summaryPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino source";
+                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino source";
                             } else
                             {
-                                summaryPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino sources";
+                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino sources";
                             }
                             
                             summaryPanel.SetActive(true);

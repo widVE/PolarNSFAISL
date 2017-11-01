@@ -210,7 +210,7 @@ namespace TouchScript.Gestures
                     }
 
                     //Debug.Log(totalMovement);
-                    if (totalMovement.magnitude > minDistance * touchManager.DotsPerCentimeter)
+                    //if (totalMovement.magnitude > minDistance * touchManager.DotsPerCentimeter)
                     {
                         //setState(GestureState.Failed);
                     // }

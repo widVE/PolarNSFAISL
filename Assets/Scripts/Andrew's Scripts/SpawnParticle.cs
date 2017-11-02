@@ -7,10 +7,13 @@ public class SpawnParticle : MonoBehaviour {
 	private GameObject currParticle;
 	
 	public Vector3 target;
+    public Vector3 start;
+
 	private bool targetSet = false;
 	public bool throwingParticle = false;
     public bool throwOnStart = false;
-	
+    public bool followEvent = true;
+
     private EventPlayer eventPlayer;
 	
 	private bool counting = false;
@@ -28,12 +31,23 @@ public class SpawnParticle : MonoBehaviour {
 		if (throwingParticle && currParticle == null) 
         {
 			throwingParticle = false;
-            currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
-			currParticle.transform.SetParent (this.transform);
+            if (followEvent)
+            {
+                currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
+                currParticle.transform.SetParent(this.transform);
 
-            target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
-			Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
-			currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+                target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
+                //Debug.Log("Spawner " + this.gameObject.name + " is targeting " + target);
+                currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+            }
+            else 
+            {
+                currParticle = (GameObject)Instantiate(particlePrefab, start, Quaternion.identity);
+                currParticle.transform.SetParent(this.transform);
+
+                //Debug.Log("Spawner " + this.gameObject.name + " is targeting " + target);
+                currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+            }
 		}
 	}
 

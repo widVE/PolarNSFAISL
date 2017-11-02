@@ -681,8 +681,8 @@ public class SwipeRecognizer : MonoBehaviour {
                                         EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
                                             screenStart, screenEnd, summaryColor2, 0, false);
                                         //add in event again with actual score
-                                        e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                            screenStart, screenEnd, summaryColor2, 1000, false);
+                                        //e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                        //    screenStart, screenEnd, summaryColor2, 1000, false);
                                         Debug.Log("Added bonus: " + 100 + " points.");
                                         neutrinoScore += 100;
                                         neutrinoCount++;

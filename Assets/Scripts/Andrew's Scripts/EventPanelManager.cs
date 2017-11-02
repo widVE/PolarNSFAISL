@@ -102,62 +102,101 @@ public class EventPanelManager : MonoBehaviour {
         {
             case "Gamma Ray Burst":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = grb;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = grb;
+                if (congratsPanel)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = grb;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Gamma Ray Burst: Extremely energetic explosion that has been observed in a distant galaxy.";
                 break;
             case "Black Hole":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blackHole;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = blackHole;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = blackHole;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Black Hole: A region of space time exhibiting such strong gravitational effects that nothing can escape from inside it.";
                 break;
             case "Radio Galaxy":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = radioGalaxy;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = radioGalaxy;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = radioGalaxy;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Radio Galaxy: A type of active galaxy that is very luminous at radio wavelengths.";
                 break;
             case "Blazar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Blazar: An extragalactic source powered by a supermassive black hole at the center of a giant elliptical galaxy. They emit a relativistic jet that points to Earth.";
                 break;
             case "Quasar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Quasar: An active galactic nucleus powered by a super massive black hole surrounded by an orbiting disk of gas.";
                 break;
             case "Supernova":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = supernova;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = supernova;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = supernova;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Supernova: An astronomical event that results from the explosion of a massive star during the last stages of its life.";
                 break;
             case "Active Galactic Nucleus":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Active Galactic Nucleus: a compact region at the center of a galaxy that has a much higher than normal luminosity over some portion of the electromagnetic spectrum.";
                 break;
             case "X-Ray Binary":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "X-ray Binary. A binary star produced by matter from one star to the other. The second one is usually a black hole or a neutron star.";
                 break;
             case "Supernova Remnant":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = snr;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = snr;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = snr;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Supernova remnant (SNR): Either galactic or extragalactic, these sources are the result of a supernova explosion.";
                 break;
             case "Magnetar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = magnetar;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = magnetar;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = magnetar;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "Magnetar. A neutron star with a very powerful magnetic field that could produce neutrinos, gamma rays and x-rays.";
                 break;
             case "No Source":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
-                congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
+                if (congratsPanel != null)
+                {
+                    congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
+                }
                 newPanel.transform.Find("Text").GetComponent<Text>().text = "No Source: Some neutrinos originate from sources that are unknown or yet to be discovered!";
                 break;
             default:
                 break;
         }
        
+        if(congratsPanel)
+        {
+            //adding name underneath congrats image.
+            congratsPanel.transform.GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Text>().text = name;
+        }
 
 		// The panel has two buttons, so set up the OnClick functions for each button
 		//newPanel.GetComponentsInChildren<Button> ()[0].onClick.AddListener (newPanel.GetComponent<EventInfo>().GoToPuzzleView);

@@ -250,7 +250,7 @@ public class SwipeGameMode : MonoBehaviour {
     {
         if(isSoft)
         {
-            StartCoroutine(InvokeMethod(1f, 5));
+            StartCoroutine(InvokeMethod(1f, 3));
         }
 
         softTutorialTime = 0f;

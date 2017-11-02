@@ -98,8 +98,7 @@ namespace TouchScript.Gestures
         /// <inheritdoc />
         protected void LateUpdate()
         {
-           
-            for(int i = 0; i < activePointers.Count; ++i)
+            /*for(int i = 0; i < activePointers.Count; ++i)
             {
                 if(isActive.ContainsKey(activePointers[i].Id) && isActive[activePointers[i].Id])
                 {
@@ -111,7 +110,7 @@ namespace TouchScript.Gestures
                     {
                         float check = (activePointers[i].Position - activePointers[i].PreviousPosition).sqrMagnitude;
                        // Debug.Log(check);
-                        if (check > 0.0f && check < 10000.0f)
+                        if (check > 0.0f && check < 100000.0f)
                         {
                             multiDeltaSequence[activePointers[i].Id].Add(activePointers[i].Position - activePointers[i].PreviousPosition);
                             //Debug.Log(activePointers[i].Position);
@@ -119,10 +118,8 @@ namespace TouchScript.Gestures
                             //Debug.Log(multiDeltaSequence[activePointers[i].Id].Count() + " " + (activePointers[i].PreviousPosition - activePointers[i].Position));
                         }
                     }
-
-                    
                 }
-            }
+            }*/
         }
 
         #endregion
@@ -144,7 +141,7 @@ namespace TouchScript.Gestures
             if(liveHelp != null)
             {
                 liveHelp.GetComponent<LiveHelpTimer>().pressTime = UnityEngine.Time.time;
-                Debug.Log(liveHelp.GetComponent<LiveHelpTimer>().pressTime);
+                //Debug.Log(liveHelp.GetComponent<LiveHelpTimer>().pressTime);
             }
 
             for(int i = 0; i < pointers.Count; ++i)
@@ -156,10 +153,10 @@ namespace TouchScript.Gestures
                 PreviousPos[pointers[i].Id] = pointers[i].Position; //Vector2.zero;
                 ScreenFlicks[pointers[i].Id] = Vector2.zero;
                 FlickTimes[pointers[i].Id] = 0.0f;
-                if (!multiDeltaSequence.ContainsKey(pointers[i].Id))
+               /*if (!multiDeltaSequence.ContainsKey(pointers[i].Id))
                 {
                     multiDeltaSequence.Add(pointers[i].Id, new TimedSequence<Vector2>());
-                }
+                }*/
             }
         }
 
@@ -199,7 +196,7 @@ namespace TouchScript.Gestures
                     //Debug.Log(pointers[i].Id + " " + multiDeltaSequence[pointers[i].Id].Count());
                     //float lastTime;
                     //Debug.Log("**" + Time.time);
-                    var deltas = multiDeltaSequence[pointers[i].Id].FindElementsLaterThan(Time.unscaledTime - 5f);//, out lastTime);
+                    /*var deltas = multiDeltaSequence[pointers[i].Id].FindElementsLaterThan(Time.unscaledTime - 3f);//, out lastTime);
                     var totalMovement = Vector2.zero;
                     var count = deltas.Count;
                     //Debug.Log("Deltas count: " + count);
@@ -207,19 +204,19 @@ namespace TouchScript.Gestures
                     {
                        // Debug.Log(deltas[j]);
                         totalMovement += deltas[j];
-                    }
+                    }*/
 
                     //Debug.Log(totalMovement);
                     //if (totalMovement.magnitude > minDistance * touchManager.DotsPerCentimeter)
                     {
                         //setState(GestureState.Failed);
-                    // }
-                    // else
-                    //{
-                       // Debug.Log("Flick: " + totalMovement);
-                        ScreenFlicks[pointers[i].Id] = totalMovement;
+                        // }
+                        // else
+                        //{
+                        // Debug.Log("Flick: " + totalMovement);
+                        ScreenFlicks[pointers[i].Id] = PreviousPos[pointers[i].Id] - pointers[i].Position;//totalMovement;
                         //FlickTimes[pointers[i].Id] = Time.time - lastTime;
-                        PreviousPos[pointers[i].Id] = pointers[i].PreviousPosition;
+                        //PreviousPos[pointers[i].Id] = pointers[i].PreviousPosition;
                         recognizedId = pointers[i].Id;
                         if (flickedInvoker != null) flickedInvoker.InvokeHandleExceptions(this, EventArgs.Empty);
                     }

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4156978727397672}
   - component: {fileID: 114976418884090724}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Neutrino Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4407596384000074}
   - component: {fileID: 198492583774324882}
   - component: {fileID: 199528531167694812}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Neutrino Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4070951446429864}
   - component: {fileID: 23391130221698134}
   - component: {fileID: 102781023372967710}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 4778623132535782}
   - component: {fileID: 198533922094472262}
   - component: {fileID: 199494910374086980}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fade Mirror
   m_TagString: Untagged
   m_Icon: {fileID: 0}

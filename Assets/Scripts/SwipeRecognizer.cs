@@ -302,7 +302,13 @@ public class SwipeRecognizer : MonoBehaviour {
 		// The end of the flick gesture (really the beginning, I think these are backwards but it doesn't affect anything)
 		Vector2 start = end - swipeVector;
 
-		if (start.y < Screen.height * 0.3 || start.y > Screen.height * 0.6) {
+        Debug.Log("End: " + end);
+        Debug.Log("Start: " + start);
+        Debug.Log("Swipe: " + swipeVector);
+        Debug.Log("Screen Min: " + Screen.height * 0.3);
+        Debug.Log("Screen Max: " + Screen.height * 0.6);
+
+        if (start.y < Screen.height * 0.3 || start.y > Screen.height * 0.6) {
 			Debug.LogWarning ("Bad y on start");
 			return ResolveBounds.none;
 		}
@@ -315,7 +321,7 @@ public class SwipeRecognizer : MonoBehaviour {
 			startBounds = ResolveBounds.top;
 		} else if (start.x > Screen.width * 0.415625 && start.x < Screen.width * 0.584375f) {
 			startBounds = ResolveBounds.front;
-		} else if (start.x > Screen.width * 0.7078125f) {
+		} else if (start.x > Screen.width * 0.7078125f && start.x < Screen.width * 0.8765625f) {
 			startBounds = ResolveBounds.side;
 		} else {
 			Debug.LogWarning ("Bad x on start");
@@ -325,7 +331,9 @@ public class SwipeRecognizer : MonoBehaviour {
         if (startBounds != ResolveBounds.none)
         {
 			return startBounds;
-		} else {
+		}
+        else
+        {
 			Debug.LogWarning ("StartEnd mismatch");
 			return ResolveBounds.none;
 		}

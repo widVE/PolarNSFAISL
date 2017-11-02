@@ -44,6 +44,8 @@ public class Countdown : MonoBehaviour {
                     if (timeLeft <= 5)
                     {
                         GetComponent<UnityEngine.UI.Text>().color = Color.red;
+                        GetComponent<AudioSource>().volume = 1;
+                        GetComponent<AudioSource>().pitch = .9f;
                         GetComponent<AudioSource>().Play();
                     }
                 }

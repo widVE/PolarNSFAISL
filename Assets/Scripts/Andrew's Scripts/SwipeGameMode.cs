@@ -19,6 +19,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject softTutorialText;
     public int highScore;
     public GameObject highScorePanel;
+    public GameObject countdownBeep;
 
     public Strings domStrings;
 
@@ -143,6 +144,16 @@ public class SwipeGameMode : MonoBehaviour {
         {
             isSoft = true;
 
+            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            if (aSources != null)
+            {
+                AudioSource background = aSources[4];
+                if (background != null)
+                {
+                    background.Play();
+                }
+            }
+
             GameObject.Find("startClick").GetComponent<AudioSource>().Play();
             isGame = true;
             
@@ -204,6 +215,12 @@ public class SwipeGameMode : MonoBehaviour {
     {
         softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: ";
         softTutorialText.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = count.ToString();
+        if (countdownBeep != null)
+        {
+            countdownBeep.GetComponent<AudioSource>().volume = .6f;
+            countdownBeep.GetComponent<AudioSource>().pitch = .6f;
+            countdownBeep.GetComponent<AudioSource>().Play();
+        }
     }
 
     public IEnumerator InvokeMethod(float interval, int invokeCount)
@@ -233,7 +250,7 @@ public class SwipeGameMode : MonoBehaviour {
                 softTutorialText.SetActive(false);
             }
 
-            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            /*AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
             if (aSources != null)
             {
                 AudioSource background = aSources[4];
@@ -241,7 +258,7 @@ public class SwipeGameMode : MonoBehaviour {
                 {
                     background.Play();
                 }
-            }
+            }*/
 
             eventPlayer.ResumePlaying();
 
@@ -551,7 +568,7 @@ public class SwipeGameMode : MonoBehaviour {
 
         if (isSoft)
         {
-            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Good, now do the same in the top, front and side views.";
+            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGood, now do the same in the top, front and side views.";
         }
 
 	}

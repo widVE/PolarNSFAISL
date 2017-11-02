@@ -513,15 +513,21 @@ public class SwipeRecognizer : MonoBehaviour {
                                         }
                                     }
                                 }
-
-                                //always add points
-                                int score = (int)(vTest * 10) * 10;
-                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                //    screenStart, screenEnd, summaryColor, score, false);
-                                Debug.Log("Added: " + score + " points.");
-                                neutrinoScore += score;
-                                updateScore();
-                                spawnPoints(score, new Vector3(1915, 1400, 0));
+                                if (!swipeGameMode.isSoftTutorial())
+                                {
+                                    //always add points
+                                    int score = (int)(vTest * 10) * 10;
+                                    //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                    //    screenStart, screenEnd, summaryColor, score, false);
+                                    Debug.Log("Added: " + score + " points.");
+                                    neutrinoScore += score;
+                                    updateScore();
+                                    spawnPoints(score, new Vector3(1915, 1400, 0));
+                                }
+                                else
+                                {
+                                    collectSound.Play();
+                                }
                             } 
                             else if(cameraToUse == sideCamera)
                             {
@@ -544,14 +550,21 @@ public class SwipeRecognizer : MonoBehaviour {
                                         }
                                     }
                                 }
-                                //always add points
-                                int score = (int)(vTest * 10) * 10;
-                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                //    screenStart, screenEnd, summaryColor, score, false);
-                                //Debug.Log("Added: " + score + " points.");
-                                neutrinoScore += score;
-                                updateScore();
-                                spawnPoints(score, new Vector3(3050, 1400, 0));
+                                if (!swipeGameMode.isSoftTutorial())
+                                {
+                                    //always add points
+                                    int score = (int)(vTest * 10) * 10;
+                                    //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                    //    screenStart, screenEnd, summaryColor, score, false);
+                                    //Debug.Log("Added: " + score + " points.");
+                                    neutrinoScore += score;
+                                    updateScore();
+                                    spawnPoints(score, new Vector3(3050, 1400, 0));
+                                }
+                                else
+                                {
+                                    collectSound.Play();
+                                }
                             }
                             else if(cameraToUse == topCamera)
                             {
@@ -574,14 +587,21 @@ public class SwipeRecognizer : MonoBehaviour {
                                         }
                                     }
                                 }
-                                //always add points
-                                int score = (int)(vTest * 10) * 10;
-                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                //    screenStart, screenEnd, summaryColor, score, false);
-                                //Debug.Log("Added: " + score + " points.");
-                                neutrinoScore += score;
-                                updateScore();
-                                spawnPoints(score, new Vector3(800, 1400, 0));
+                                if (!swipeGameMode.isSoftTutorial())
+                                {
+                                    //always add points
+                                    int score = (int)(vTest * 10) * 10;
+                                    //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                    //    screenStart, screenEnd, summaryColor, score, false);
+                                    //Debug.Log("Added: " + score + " points.");
+                                    neutrinoScore += score;
+                                    updateScore();
+                                    spawnPoints(score, new Vector3(800, 1400, 0));
+                                }
+                                else
+                                {
+                                    collectSound.Play();
+                                }
                             }
                         }
 
@@ -652,6 +672,10 @@ public class SwipeRecognizer : MonoBehaviour {
                                         /// spawnPoints(score, new Vector3(3520, 1800, 0));
                                         spawnPoints(score, new Vector3(1920, 1700, 0));
                                     }
+                                }
+                                else
+                                {
+                                    collectSound.Play();
                                 }
                             }
 
@@ -799,7 +823,10 @@ public class SwipeRecognizer : MonoBehaviour {
             text.transform.SetParent(GameObject.Find("ScreenSpaceUI").transform);
             text.GetComponent<UnityEngine.UI.Text>().text = points.ToString();
 
+            collectSound.pitch = .5f +  (points / 100f);
             collectSound.Play();
         }   
     }
+
+
 }

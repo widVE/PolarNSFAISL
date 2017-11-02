@@ -88,7 +88,7 @@ public class Countdown : MonoBehaviour {
                         //reset score..
                         swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore = 0;
                         swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount = 0;
-                        score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Neutrinos";
+                        score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Points";
                         GetComponent<UnityEngine.UI.Text>().color = Color.white;
                     }
 

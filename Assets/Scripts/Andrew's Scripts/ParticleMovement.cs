@@ -12,7 +12,6 @@ public class ParticleMovement : MonoBehaviour {
 
 	[SerializeField]
 	private float speed = 0.2f;
-	//private ParticleTrail trail;
 
 	private IEnumerator coroutine;
 
@@ -47,8 +46,6 @@ public class ParticleMovement : MonoBehaviour {
 	private IEnumerator WaitForReset(float waitTime) {
 		yield return new WaitForSeconds (waitTime);
 
-		//colorMan.numActiveParticles--;
-		//colorMan.resetGame ();
 		//trail.setEnd (this.transform.position);
 		//trail.enterTraceMode ();
 		Destroy (this.gameObject);

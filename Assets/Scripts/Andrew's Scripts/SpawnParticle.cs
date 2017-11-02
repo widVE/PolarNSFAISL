@@ -5,41 +5,49 @@ public class SpawnParticle : MonoBehaviour {
 
 	public GameObject particlePrefab;
 	private GameObject currParticle;
-	private float updateListInterval = 0;
-	private GameObject[] domList;
-	private Vector3 target;
+	
+	public Vector3 target;
+    public Vector3 start;
+
 	private bool targetSet = false;
 	public bool throwingParticle = false;
     public bool throwOnStart = false;
-	//private ColorEventManager colorMan;
+    public bool followEvent = true;
+
     private EventPlayer eventPlayer;
-	private float travelInterval = 0f;
+	
 	private bool counting = false;
 	private ParticleTrail trail;
 
 	// Use this for initialization
 	void Start () {
-		//UpdateDomList ();
+		
 		eventPlayer = GameObject.Find("DomArray").GetComponent<EventPlayer> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (counting) 
-        {
-			travelInterval += Time.deltaTime;
-		}
-
 		if (throwingParticle && currParticle == null) 
         {
 			throwingParticle = false;
-            currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
-			currParticle.transform.SetParent (this.transform);
+            if (followEvent)
+            {
+                currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
+                currParticle.transform.SetParent(this.transform);
 
-            target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
-			Debug.Log ("Spawner " + this.gameObject.name + " is targeting " + target);
-			currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+                target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
+                //Debug.Log("Spawner " + this.gameObject.name + " is targeting " + target);
+                currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+            }
+            else 
+            {
+                currParticle = (GameObject)Instantiate(particlePrefab, start, Quaternion.identity);
+                currParticle.transform.SetParent(this.transform);
+
+                //Debug.Log("Spawner " + this.gameObject.name + " is targeting " + target);
+                currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+            }
 		}
 	}
 
@@ -62,25 +70,13 @@ public class SpawnParticle : MonoBehaviour {
         }
     }
 
-	public void startThrowing() {
+	public void startThrowing() 
+    {
 		throwingParticle = true;
 	}
 
-	public void stopThrowing() {
+	public void stopThrowing() 
+    {
 		throwingParticle = false;
 	}
-
-	public float getTravelInterval() {
-		if (travelInterval == 0f) {
-			counting = true;
-			return 0f;
-		}
-		return travelInterval;
-	}
-
-	public void resetTravelInterval() {
-		counting = false;
-		travelInterval = 0f;
-	}
-		
 }

@@ -68,6 +68,7 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 //if sitting in the soft tutorial for over X seconds, restart...
                 //StopSoftTutorial();
+                Debug.Log("Stopping soft tutorial.");
                 if (startButton != null)
                 {
                     startButton.SetActive(true);
@@ -167,7 +168,16 @@ public class SwipeGameMode : MonoBehaviour {
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
             }
 
+            //in case summary panel hadn't been cleared yet...
+            foreach (Transform child in summaryPanel.transform)
+            {
+                if (child.gameObject.name.StartsWith("Event:"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
 
+            summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
 
             //because these can be on during tutorial
             if (panelParent != null)
@@ -189,45 +199,51 @@ public class SwipeGameMode : MonoBehaviour {
 
     private void CountdownSoft(int count)
     {
-        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: " + count.ToString();
+        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: ";
+        softTutorialText.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = count.ToString();
     }
 
     public IEnumerator InvokeMethod(float interval, int invokeCount)
     {
+        softTutorialText.transform.GetChild(0).gameObject.SetActive(true);
         for (int i = 0; i < invokeCount; ++i)
         {
             CountdownSoft(invokeCount-i);
             yield return new WaitForSeconds(interval);
         }
+        softTutorialText.transform.GetChild(0).gameObject.SetActive(false);
 
-        if (countdownTimer != null)
+        if (isSoft)
         {
-            countdownTimer.GetComponent<Countdown>().StartCountdown();
-        }
-
-        if (mainCamera != null)
-        {
-            mainCamera.GetComponent<CameraRotate>().spin = true;
-        }
-
-        if (softTutorialText != null)
-        {
-            softTutorialText.SetActive(false);
-        }
-
-        AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
-        if (aSources != null)
-        {
-            AudioSource background = aSources[4];
-            if (background != null)
+            if (countdownTimer != null)
             {
-                background.Play();
+                countdownTimer.GetComponent<Countdown>().StartCountdown();
             }
+
+            if (mainCamera != null)
+            {
+                mainCamera.GetComponent<CameraRotate>().spin = true;
+            }
+
+            if (softTutorialText != null)
+            {
+                softTutorialText.SetActive(false);
+            }
+
+            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            if (aSources != null)
+            {
+                AudioSource background = aSources[4];
+                if (background != null)
+                {
+                    background.Play();
+                }
+            }
+
+            eventPlayer.ResumePlaying();
+
+            isSoft = false;
         }
-
-        eventPlayer.ResumePlaying();
-
-        isSoft = false;
     }
 
     public void StopSoftTutorial()

@@ -39,40 +39,37 @@ public class Countdown : MonoBehaviour {
                 {
                     string countTxt = "Time left: " + timeLeft.ToString();
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
-                    GetComponent<UnityEngine.UI.Text>().alignment = TextAnchor.MiddleCenter;
+                    GetComponent<UnityEngine.UI.Text>().color = Color.white;
 
-                    if(timeLeft <= 5)
+                    if (timeLeft <= 5)
                     {
+                        GetComponent<UnityEngine.UI.Text>().color = Color.red;
                         GetComponent<AudioSource>().Play();
                     }
                 }
                 else
                 {
                     countDown = false;
-                    int tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount;
+                    int tempCount = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount;
                     eventPanelManager.GetComponent<EventPanelManager>().panels.Clear();
                     //trigger a restart of the game...
                     //high score list?
                     timeLeft = gameTime;
                     string countTxt = "Time left: " + timeLeft.ToString();
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
-                    if(score != null)
-                    {
-                        //reset score..
-                        swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore = 0;
-                        score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Neutrinos";
-                    }
+                    int tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
 
                     if(swipeGame != null)
                     {
                         if(summaryPanel != null)
                         {
-                            if (tempScore == 1)
+                            if (tempCount == 1)
                             {
-                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino source";
-                            } else
+                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino source for a score of: " + tempScore;
+                            } 
+                            else
                             {
-                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempScore + " neutrino sources";
+                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino sources for a score of: " + tempScore;
                             }
                             
                             summaryPanel.SetActive(true);
@@ -85,6 +82,14 @@ public class Countdown : MonoBehaviour {
 
                         StartCoroutine(DelayedResolve(summaryPanelLength, false));
                     }
+
+                    if (score != null)
+                    {
+                        //reset score..
+                        swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore = 0;
+                        score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Neutrinos";
+                    }
+
                 }
             }
         }
@@ -94,29 +99,32 @@ public class Countdown : MonoBehaviour {
     {
         yield return new WaitForSeconds(waittime);
 
-        if (tutorial != null)
+        if (!swipeGame.GetComponent<SwipeGameMode>().isGamePlaying())
         {
-            tutorial.GetComponent<Tutorial>().playTutorial = true;
-        }
-
-        if(startButton != null)
-        {
-            startButton.SetActive(true);
-        }
-
-        if (summaryPanel != null)
-        {
-            summaryPanel.SetActive(false);
-
-            foreach (Transform child in summaryPanel.transform)
+            if (tutorial != null)
             {
-                if (child.gameObject.name.StartsWith("Event:"))
-                {
-                    Destroy(child.gameObject);
-                }
+                tutorial.GetComponent<Tutorial>().playTutorial = true;
             }
 
-            summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
+            if (startButton != null)
+            {
+                startButton.SetActive(true);
+            }
+        
+            if (summaryPanel != null)
+            {
+                summaryPanel.SetActive(false);
+
+                foreach (Transform child in summaryPanel.transform)
+                {
+                    if (child.gameObject.name.StartsWith("Event:"))
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
+
+                summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
+            }
         }
     }
 }

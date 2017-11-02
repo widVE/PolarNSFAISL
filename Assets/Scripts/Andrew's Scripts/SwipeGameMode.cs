@@ -17,6 +17,8 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject summaryPanel;
     public GameObject startButton;
     public GameObject softTutorialText;
+    public int highScore;
+    public GameObject highScorePanel;
 
     public Strings domStrings;
 
@@ -56,6 +58,7 @@ public class SwipeGameMode : MonoBehaviour {
         swipedTop = false;
         swipedSide = false;
         swipedFront = false;
+        highScore = 0;
 	}
 
     void Update()
@@ -147,7 +150,7 @@ public class SwipeGameMode : MonoBehaviour {
 
             if (liveHelp != null)
             {
-                liveHelp.SetActive(false);
+                liveHelp.SetActive(true);
             }
 
             if (tutorial != null)
@@ -264,11 +267,27 @@ public class SwipeGameMode : MonoBehaviour {
         swipedTop = false;
         swipedFront = false;
         swipedSide = false;
-        
+
         /*if(startButton != null)
         {
             startButton.SetActive(true);
         }*/
+
+        if (highScorePanel != null)
+        {
+            if (swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore > highScore)
+            {
+                string scoreTxt = "High Score: " + swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore.ToString() + " Points";
+                highScorePanel.GetComponent<UnityEngine.UI.Text>().text = scoreTxt;
+                Debug.Log("new high score");
+            }
+            else
+            {
+                highScorePanel.GetComponent<UnityEngine.UI.Text>().text = "High Score: " + highScore + " Points";
+            }
+
+
+        }
 
         if (eventPlayer != null)
         {

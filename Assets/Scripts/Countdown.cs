@@ -127,6 +127,8 @@ public class Countdown : MonoBehaviour {
 
                 summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
             }
+
+            
         }
     }
 }

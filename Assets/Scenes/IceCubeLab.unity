@@ -1005,7 +1005,7 @@ MonoBehaviour:
   frontCamera: {fileID: 730068715}
   frontPanel: {fileID: 744158707}
   panelParent: {fileID: 121455330}
-  softTimeout: 30
+  softTimeout: 120
   transitionDuration: 1
 --- !u!4 &94977850
 Transform:
@@ -9889,7 +9889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swipeGame: {fileID: 94977848}
   gameTime: 90
-  summaryPanelLength: 10
+  summaryPanelLength: 30
   score: {fileID: 1702583981}
   summaryPanel: {fileID: 405555865}
   tutorial: {fileID: 696675353}
@@ -23861,7 +23861,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -18, y: 339}
+  m_AnchoredPosition: {x: -18, y: 306}
   m_SizeDelta: {x: 1600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1971915501
@@ -23896,7 +23896,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\tSource\t\t\t\tDescription\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t          Count"
+  m_Text: "\tSource\t\t\tDescription\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t             Count"
 --- !u!222 &1971915502
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25629,7 +25629,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11, y: 617}
+  m_AnchoredPosition: {x: -11, y: 642}
   m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2142446309
@@ -25673,11 +25673,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 55893ee3456f7e243b0b94b33dc13811, type: 3}
-    m_FontSize: 60
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 60
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

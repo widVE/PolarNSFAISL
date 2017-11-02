@@ -199,7 +199,7 @@ namespace TouchScript.Gestures
                     //Debug.Log(pointers[i].Id + " " + multiDeltaSequence[pointers[i].Id].Count());
                     //float lastTime;
                     //Debug.Log("**" + Time.time);
-                    var deltas = multiDeltaSequence[pointers[i].Id].FindElementsLaterThan(Time.unscaledTime - 1.5f);//, out lastTime);
+                    var deltas = multiDeltaSequence[pointers[i].Id].FindElementsLaterThan(Time.unscaledTime - 5f);//, out lastTime);
                     var totalMovement = Vector2.zero;
                     var count = deltas.Count;
                     //Debug.Log("Deltas count: " + count);

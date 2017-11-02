@@ -164,7 +164,7 @@ public class EventPanelManager : MonoBehaviour {
         }
         else 
         {
-            pos = new Vector2(0f, (-200) * (panels.Count - 1) - 300);   
+            pos = new Vector2(0f, (-200) * (panels.Count - 1) - 350);   
         }
 
 		newPanel.GetComponent<RectTransform>().anchoredPosition = pos;

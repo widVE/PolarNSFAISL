@@ -259,7 +259,7 @@ public class SwipeRecognizer : MonoBehaviour {
             {
                 if (!topSwiped)
                 {
-                    Debug.Log("Resolve top");
+                    //Debug.Log("Resolve top");
                     swipeGameMode.SetSwipeTop(true);
                     SwipeCalculation(topCamera);
                     topSwiped = true;
@@ -270,7 +270,7 @@ public class SwipeRecognizer : MonoBehaviour {
             {
                 if (!sideSwiped)
                 {
-                    Debug.Log("Resolve side");
+                    //Debug.Log("Resolve side");
                     swipeGameMode.SetSwipeSide(true);
                     SwipeCalculation(sideCamera);
                     sideSwiped = true;
@@ -281,7 +281,7 @@ public class SwipeRecognizer : MonoBehaviour {
             {
                 if (!frontSwiped)
                 {
-                    Debug.Log("Resolve front");
+                    //Debug.Log("Resolve front");
                     swipeGameMode.SetSwipeFront(true);
                     SwipeCalculation(frontCamera);
                     frontSwiped = true;

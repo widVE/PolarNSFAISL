@@ -68,6 +68,7 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 //if sitting in the soft tutorial for over X seconds, restart...
                 //StopSoftTutorial();
+                Debug.Log("Stopping soft tutorial.");
                 if (startButton != null)
                 {
                     startButton.SetActive(true);
@@ -167,7 +168,16 @@ public class SwipeGameMode : MonoBehaviour {
                 eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
             }
 
+            //in case summary panel hadn't been cleared yet...
+            foreach (Transform child in summaryPanel.transform)
+            {
+                if (child.gameObject.name.StartsWith("Event:"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
 
+            summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
 
             //because these can be on during tutorial
             if (panelParent != null)

@@ -24,6 +24,8 @@ public class TouchInteraction : MonoBehaviour {
     [Tooltip("Sensitivity of object rotation")]
     public float rotationSensitivity = 1f;
 
+    public Vector2 delta;
+
     #endregion
 
     #region Private Properties
@@ -61,7 +63,14 @@ public class TouchInteraction : MonoBehaviour {
     }
     
     void Update () {
-        if (enabled && isMoving) onmove();
+        if (enabled) {
+            if (isMoving)
+                onmove();
+            else
+            {
+                onidle();
+            }
+        }
     }
 
     #endregion
@@ -91,7 +100,7 @@ public class TouchInteraction : MonoBehaviour {
                 // Get previous cursor position relative to main camera
                 Vector2 prevpos = metaGesture.PreviousScreenPosition;
                 // Compute displacement vector
-                Vector2 delta = (pos - prevpos) / rotationSensitivity;
+                delta = (pos - prevpos) / rotationSensitivity;
 
                 Transform transform = targetObject.GetComponent<Transform>();
                 if (rotate)
@@ -111,6 +120,35 @@ public class TouchInteraction : MonoBehaviour {
             }
         }
     }
+
+    /// <summary>
+    /// Performs action when touch not moving.
+    /// </summary>
+    private void onidle()
+    {
+        if (rotate || rotateAround)
+        {
+            // Gradually decrease motion in last direction of move (momentum)
+            delta = delta * 0.75f;
+
+            Transform transform = targetObject.GetComponent<Transform>();
+            if (rotate)
+            {
+                // Use displacement vector to rotate target
+                transform.Rotate(new Vector3(delta.y, -delta.x, 0), Space.World);
+            }
+            if (rotateAround && referenceObject != null)
+            {
+                Transform refTransf = referenceObject.GetComponent<Transform>();
+                Vector3 cross = Vector3.Cross(transform.forward, transform.up);
+                cross.Normalize();
+                // Use displacement vector to rotate target around reference
+                transform.RotateAround(refTransf.position, transform.up, delta.x);
+                transform.RotateAround(refTransf.position, cross, delta.y);
+            }
+        }
+    }
+
 
     /// <summary>
     /// Performs action on touch release.

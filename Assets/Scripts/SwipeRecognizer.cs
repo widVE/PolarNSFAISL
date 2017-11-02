@@ -20,8 +20,10 @@ public class SwipeRecognizer : MonoBehaviour {
     public int neutrinoCount = 0;
     public float goalAccuracy = .9f;
 
-	// TouchScript gesture that this script listens to
-	public MultiFlickGesture swipeGesture;
+    public AudioSource collectSound;
+
+    // TouchScript gesture that this script listens to
+    public MultiFlickGesture swipeGesture;
     public GameObject lineObject;
     private GameObject[] lines = new GameObject[10];
 
@@ -796,6 +798,8 @@ public class SwipeRecognizer : MonoBehaviour {
             GameObject text = GameObject.Instantiate(pointsTemplate, coords, Quaternion.identity);
             text.transform.SetParent(GameObject.Find("ScreenSpaceUI").transform);
             text.GetComponent<UnityEngine.UI.Text>().text = points.ToString();
+
+            collectSound.Play();
         }   
     }
 }

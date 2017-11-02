@@ -39,10 +39,11 @@ public class Countdown : MonoBehaviour {
                 {
                     string countTxt = "Time left: " + timeLeft.ToString();
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
-                    //GetComponent<UnityEngine.UI.Text>().alignment = TextAnchor.MiddleCenter;
+                    GetComponent<UnityEngine.UI.Text>().color = Color.white;
 
-                    if(timeLeft <= 5)
+                    if (timeLeft <= 5)
                     {
+                        GetComponent<UnityEngine.UI.Text>().color = Color.red;
                         GetComponent<AudioSource>().Play();
                     }
                 }

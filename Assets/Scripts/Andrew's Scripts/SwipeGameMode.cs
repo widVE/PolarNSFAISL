@@ -189,16 +189,19 @@ public class SwipeGameMode : MonoBehaviour {
 
     private void CountdownSoft(int count)
     {
-        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: " + count.ToString();
+        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: ";
+        softTutorialText.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = count.ToString();
     }
 
     public IEnumerator InvokeMethod(float interval, int invokeCount)
     {
+        softTutorialText.transform.GetChild(0).gameObject.SetActive(true);
         for (int i = 0; i < invokeCount; ++i)
         {
             CountdownSoft(invokeCount-i);
             yield return new WaitForSeconds(interval);
         }
+        softTutorialText.transform.GetChild(0).gameObject.SetActive(false);
 
         if (isSoft)
         {

@@ -594,7 +594,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 {
                                     if (vTest < goalAccuracy)
                                     {
-                                        StartCoroutine(DelayedResolve(2f, false));
+                                        StartCoroutine(DelayedResolve(swipeGameMode.isSoftTutorial() ? 0.5f : 2f, false));
                                         continue;
                                     }
                                 }
@@ -664,7 +664,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             //if we are here, we've successfully swiped the event..
                             //tell user good job or something, then accumulate event and return to game.
                             //Debug.Log("SUCCESS");
-                            StartCoroutine(DelayedResolve(4f, true));
+                            StartCoroutine(DelayedResolve(swipeGameMode.isSoftTutorial() ? 0.5f : 4f, true));
 
                             //add 1000 point bonus
                             if (summaryPanel != null)

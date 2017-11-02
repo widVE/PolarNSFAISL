@@ -200,34 +200,37 @@ public class SwipeGameMode : MonoBehaviour {
             yield return new WaitForSeconds(interval);
         }
 
-        if (countdownTimer != null)
+        if (isSoft)
         {
-            countdownTimer.GetComponent<Countdown>().StartCountdown();
-        }
-
-        if (mainCamera != null)
-        {
-            mainCamera.GetComponent<CameraRotate>().spin = true;
-        }
-
-        if (softTutorialText != null)
-        {
-            softTutorialText.SetActive(false);
-        }
-
-        AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
-        if (aSources != null)
-        {
-            AudioSource background = aSources[4];
-            if (background != null)
+            if (countdownTimer != null)
             {
-                background.Play();
+                countdownTimer.GetComponent<Countdown>().StartCountdown();
             }
+
+            if (mainCamera != null)
+            {
+                mainCamera.GetComponent<CameraRotate>().spin = true;
+            }
+
+            if (softTutorialText != null)
+            {
+                softTutorialText.SetActive(false);
+            }
+
+            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            if (aSources != null)
+            {
+                AudioSource background = aSources[4];
+                if (background != null)
+                {
+                    background.Play();
+                }
+            }
+
+            eventPlayer.ResumePlaying();
+
+            isSoft = false;
         }
-
-        eventPlayer.ResumePlaying();
-
-        isSoft = false;
     }
 
     public void StopSoftTutorial()

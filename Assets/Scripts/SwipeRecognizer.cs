@@ -60,6 +60,10 @@ public class SwipeRecognizer : MonoBehaviour {
     private Vector3 totalVector = Vector3.zero;
     private Vector3 totalScore = Vector3.zero;
 
+    private bool topSwiped;
+    private bool frontSwiped;
+    private bool sideSwiped;
+
 	//----------END VARIABLES----------
 
 	/// <summary>
@@ -79,6 +83,10 @@ public class SwipeRecognizer : MonoBehaviour {
             }
         }
 		BuildGradients ();
+
+        topSwiped = false;
+        frontSwiped = false;
+        sideSwiped = false;
 	}
 
 	/// <summary>
@@ -245,28 +253,46 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		ResolveBounds currentBound = findBounds ();
 
-		switch(currentBound) {
-		case ResolveBounds.top:
-            Debug.Log("Resolve top");
-            swipeGameMode.SetSwipeTop(true);
-            SwipeCalculation (topCamera);
-			break;
-		case ResolveBounds.side:
-            Debug.Log("Resolve side");
-            swipeGameMode.SetSwipeSide(true);
-            SwipeCalculation (sideCamera);
-            break;
-		case ResolveBounds.front:
-            Debug.Log("Resolve front");
-            swipeGameMode.SetSwipeFront(true);
-            SwipeCalculation (frontCamera);
-			break; 
-		case ResolveBounds.none:
-			break;
-		default:
-			break;
+		switch(currentBound) 
+        {
+            case ResolveBounds.top:
+            {
+                if (!topSwiped)
+                {
+                    Debug.Log("Resolve top");
+                    swipeGameMode.SetSwipeTop(true);
+                    SwipeCalculation(topCamera);
+                    topSwiped = true;
+                }
+                break;
+            }
+            case ResolveBounds.side:
+            {
+                if (!sideSwiped)
+                {
+                    Debug.Log("Resolve side");
+                    swipeGameMode.SetSwipeSide(true);
+                    SwipeCalculation(sideCamera);
+                    sideSwiped = true;
+                }
+                break;
+            }
+            case ResolveBounds.front:
+            {
+                if (!frontSwiped)
+                {
+                    Debug.Log("Resolve front");
+                    swipeGameMode.SetSwipeFront(true);
+                    SwipeCalculation(frontCamera);
+                    frontSwiped = true;
+                }
+                break;
+            }
+		    case ResolveBounds.none:
+			    break;
+		    default:
+			    break;
 		}
-
 	}
 
 	private ResolveBounds findBounds() {
@@ -327,6 +353,10 @@ public class SwipeRecognizer : MonoBehaviour {
 	public void ExitResolveMode(bool success=false) 
     {
 		inResolveMode = false;
+
+        topSwiped = false;
+        frontSwiped = false;
+        sideSwiped = false;
 
         if (refinePanel != null)
         {
@@ -413,26 +443,6 @@ public class SwipeRecognizer : MonoBehaviour {
 
                         Vector3 change = screenEnd - screenStart;
 
-                        // Angle check next - check to see if the angles of the swipe and path are relatively similar
-                        /*float swipeAngle = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg;
-
-						float trailAngle = Mathf.Atan2(change.y, change.x) * Mathf.Rad2Deg;
-
-						// Keeping the angles positive
-						if(swipeAngle < 0.0f)
-						{
-							swipeAngle = 180.0f + swipeAngle;
-						}
-
-						if(trailAngle < 0.0f)
-						{
-							trailAngle = 180.0f + trailAngle;
-						}
-
-
-						// Get the difference
-						float angleDiff = Mathf.Abs(Mathf.DeltaAngle(swipeAngle, trailAngle));
-*/
                         Vector2 v = new Vector2(change.x, change.y);
                         float vTest = 0.0f;
 
@@ -451,6 +461,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                     worldSwipeVector = -worldSwipeVector;
                                 }
                             }
+
                             totalVector += worldSwipeVector;
                             totalVector = totalVector.normalized;
                             vTest = Mathf.Abs(Vector3.Dot(worldEventVector, totalVector));
@@ -564,13 +575,6 @@ public class SwipeRecognizer : MonoBehaviour {
                             }
                         }
 
-                        //Debug.Log(worldEventVector.ToString("F4"));
-                        //Debug.Log(worldSwipeVector.ToString("F4"));
-                        //Debug.Log(totalVector.ToString("F4"));
-                        //Debug.Log(vTest);
-
-                        // Give 30-degree lenience, and if over that, then it doesn't match
-                        //if (angleDiff >= 30.0f)
                         if (cameraToUse == Camera.main)
                         {
                             if (vTest < goalAccuracy)
@@ -600,7 +604,6 @@ public class SwipeRecognizer : MonoBehaviour {
                                 }
                             }
                         }
-
 
 						// ----- EVENT DETECTED SUCCESSFULLY - Let the user know by drawing a green line
 						DrawSwipeLine(SwipeType.found, swipeGesture.recognizedId%10, cameraToUse);

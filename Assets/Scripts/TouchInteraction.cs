@@ -6,6 +6,7 @@ using TouchScript.Gestures;
 /// <summary>
 /// Transforms touch events into GameObject Interaction.
 /// </summary>
+[DisallowMultipleComponent]
 public class TouchInteraction : MonoBehaviour {
 
     #region Public Properties
@@ -18,19 +19,22 @@ public class TouchInteraction : MonoBehaviour {
     public GameObject referenceObject;
     [Tooltip("The meta gesture on the surface")]
     public MetaGesture metaGesture;
+    [Header("Touchable Area")]
+    public Vector2 startPos = new Vector2(0f, 0f);
+    [Range(0, 1)]
+    public float width = 0f, height = 0f;
     [Header("Touch Settings")]
     public bool rotate = true;
     public bool rotateAround = true;
     [Tooltip("Sensitivity of object rotation")]
     public float rotationSensitivity = 1f;
 
-    public Vector2 delta;
-
     #endregion
 
     #region Private Properties
 
     private bool isMoving;
+    private Vector2 delta;
 
     #endregion
 
@@ -50,7 +54,16 @@ public class TouchInteraction : MonoBehaviour {
         if (enabled)
         {
             onpress();
-            isMoving = true;
+
+            // Start moving if touch down was within bounding box
+            Vector2 pos = metaGesture.ScreenPosition;
+            if (pos.x > Screen.width * startPos.x
+                && pos.x < Screen.width * (startPos.x + width)
+                && pos.y > Screen.height * startPos.y
+                && pos.y < Screen.height * (startPos.y + height))
+            {
+                isMoving = true;
+            }
         }
     }
     private void releaseHandler(object sender, System.EventArgs e)
@@ -64,12 +77,8 @@ public class TouchInteraction : MonoBehaviour {
     
     void Update () {
         if (enabled) {
-            if (isMoving)
-                onmove();
-            else
-            {
-                onidle();
-            }
+            if (isMoving) onmove();
+            else onidle();
         }
     }
 
@@ -92,31 +101,38 @@ public class TouchInteraction : MonoBehaviour {
     {
         // Get current cursor position relative to main camera
         Vector2 pos = metaGesture.ScreenPosition;
-        if (pos.x < Screen.width * 0.15f
-            && pos.y < Screen.height * 0.3f) {
-            if (rotate || rotateAround)
-            {
-                if (rotationSensitivity < 1f) rotationSensitivity = 1f;
-                // Get previous cursor position relative to main camera
-                Vector2 prevpos = metaGesture.PreviousScreenPosition;
-                // Compute displacement vector
-                delta = (pos - prevpos) / rotationSensitivity;
+        // Stop move interaction if touch falls out of scope
+        if (pos.x < Screen.width * startPos.x
+            || pos.x > Screen.width * (startPos.x + width)
+            || pos.y < Screen.height * startPos.y
+            || pos.y > Screen.height * (startPos.y + height))
+        { 
+            isMoving = false;
+            return;
+        }
+        // Perform interaction per frame
+        if (rotate || rotateAround) // Check component settings
+        {
+            if (rotationSensitivity < 1f) rotationSensitivity = 1f;
+            // Get previous cursor position relative to main camera
+            Vector2 prevpos = metaGesture.PreviousScreenPosition;
+            // Compute displacement vector
+            delta = (pos - prevpos) / rotationSensitivity;
 
-                Transform transform = targetObject.GetComponent<Transform>();
-                if (rotate)
-                {
-                    // Use displacement vector to rotate target
-                    transform.Rotate(new Vector3(delta.y, -delta.x, 0), Space.World);
-                }
-                if (rotateAround && referenceObject != null)
-                {
-                    Transform refTransf = referenceObject.GetComponent<Transform>();
-                    Vector3 cross = Vector3.Cross(transform.forward, transform.up);
-                    cross.Normalize();
-                    // Use displacement vector to rotate target around reference
-                    transform.RotateAround(refTransf.position, transform.up, delta.x);
-                    transform.RotateAround(refTransf.position, cross, delta.y);
-                }
+            Transform transform = targetObject.GetComponent<Transform>();
+            if (rotate)
+            {
+                // Use displacement vector to rotate target
+                transform.Rotate(new Vector3(delta.y, -delta.x, 0), Space.World);
+            }
+            if (rotateAround && referenceObject != null)
+            {
+                Transform refTransf = referenceObject.GetComponent<Transform>();
+                Vector3 cross = Vector3.Cross(transform.forward, transform.up);
+                cross.Normalize();
+                // Use displacement vector to rotate target around reference
+                transform.RotateAround(refTransf.position, transform.up, delta.x);
+                transform.RotateAround(refTransf.position, cross, delta.y);
             }
         }
     }

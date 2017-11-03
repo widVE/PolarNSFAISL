@@ -23106,10 +23106,12 @@ MonoBehaviour:
   targetObject: {fileID: 2013959685}
   referenceObject: {fileID: 1926621606}
   metaGesture: {fileID: 905924072}
+  startPos: {x: 0.01, y: 0.015}
+  width: 0.1406
+  height: 0.25
   rotate: 0
   rotateAround: 1
   rotationSensitivity: 5
-  delta: {x: 0, y: 0}
 --- !u!1001 &1928379442
 Prefab:
   m_ObjectHideFlags: 0

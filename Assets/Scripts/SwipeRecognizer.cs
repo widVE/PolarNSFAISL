@@ -19,6 +19,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public int neutrinoScore = 0;
     public int neutrinoCount = 0;
     public float goalAccuracy = .9f;
+    private float initialSwipeAccuracy = 0.5f;
 
     public AudioSource collectSound;
 
@@ -304,14 +305,14 @@ public class SwipeRecognizer : MonoBehaviour {
 		// The end of the flick gesture (really the beginning, I think these are backwards but it doesn't affect anything)
 		Vector2 start = end - swipeVector;
 
-        Debug.Log("End: " + end);
-        Debug.Log("Start: " + start);
-        Debug.Log("Swipe: " + swipeVector);
-        Debug.Log("Screen Min: " + Screen.height * 0.3);
-        Debug.Log("Screen Max: " + Screen.height * 0.6);
+        //Debug.Log("End: " + end);
+        //Debug.Log("Start: " + start);
+        //Debug.Log("Swipe: " + swipeVector);
+        //Debug.Log("Screen Min: " + Screen.height * 0.3);
+        //Debug.Log("Screen Max: " + Screen.height * 0.6);
 
         if (start.y < Screen.height * 0.3 || start.y > Screen.height * 0.6) {
-			Debug.LogWarning ("Bad y on start");
+			//Debug.LogWarning ("Bad y on start");
 			return ResolveBounds.none;
 		}
 
@@ -326,7 +327,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		} else if (start.x > Screen.width * 0.7078125f && start.x < Screen.width * 0.8765625f) {
 			startBounds = ResolveBounds.side;
 		} else {
-			Debug.LogWarning ("Bad x on start");
+			//Debug.LogWarning ("Bad x on start");
 			return ResolveBounds.none;
 		}
 
@@ -336,7 +337,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		}
         else
         {
-			Debug.LogWarning ("StartEnd mismatch");
+			//Debug.LogWarning ("StartEnd mismatch");
 			return ResolveBounds.none;
 		}
 	}
@@ -496,23 +497,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 //Debug.Log(vTest);
                                 //TODO: add event to summary panel
                                 frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                if (vTest >= .8f)
-                                {
-                                    if (summaryPanel != null)
-                                    {
-                                        if (!swipeGameMode.isSoftTutorial())
-                                        {
-                                            EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
-                                            if (epm != null)
-                                            {
-                                                //TODO: add 100 point bonus
-                                                //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                                Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                              
-                                            }
-                                        }
-                                    }
-                                }
+
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
                                     //always add points
@@ -533,23 +518,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             {
                                 totalScore.y = vTest;
                                 sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                if (vTest >= .8f)
-                                {
-                                    if (summaryPanel != null)
-                                    {
-                                        if (!swipeGameMode.isSoftTutorial())
-                                        {
-                                            EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
-                                            if (epm != null)
-                                            {
-                                                //TODO: add 100 point bonus
-                                                //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                                Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                              
-                                            }
-                                        }
-                                    }
-                                }
+
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
                                     //always add points
@@ -570,23 +539,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             {
                                 totalScore.x = vTest;
                                 topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                if (vTest >= .8f)
-                                {
-                                    if (summaryPanel != null)
-                                    {
-                                        if (!swipeGameMode.isSoftTutorial())
-                                        {
-                                            EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
-                                            if (epm != null)
-                                            {
-                                                //TODO: add 100 point bonus
-                                                //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                                Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                               
-                                            }
-                                        }
-                                    }
-                                }
+  
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
                                     //always add points
@@ -607,7 +560,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
                         if (cameraToUse == Camera.main)
                         {
-                            if (vTest < goalAccuracy)
+                            if (vTest < initialSwipeAccuracy)
                             {
                                 //if vTest < than prior vTest, mark red, else green...
                                 DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId % 10, cameraToUse);

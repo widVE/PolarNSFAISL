@@ -386,37 +386,22 @@ public class SwipeGameMode : MonoBehaviour {
         //position top, front, side cameras for tutorial...
         EnableCameras(true, false);
 
-        /*if(topCamera != null)
-        {
-            topCamera.transform.position.Set(282.7f, 501.8301f, 48.73f);
-            topCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-        }
-
-        if(frontCamera != null)
-        {
-            frontCamera.transform.position.Set(297.0201f, -115.495117f, -104.4141f);
-            frontCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
-
-        if(sideCamera != null)
-        {
-            sideCamera.transform.position.Set(-9.701782f, -115.495117f, 21.46645f);
-            sideCamera.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-        }*/
-
         if (frontPanel != null)
         {
             frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            frontPanel.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (sidePanel != null)
         {
             sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            sidePanel.transform.GetChild(0).gameObject.SetActive(false);
         }
         
         if (topPanel != null)
         {
             topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            topPanel.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
@@ -568,7 +553,7 @@ public class SwipeGameMode : MonoBehaviour {
 
         if (isSoft)
         {
-            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGood, now do the same in the top, front and side views.";
+            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Good, now do the same in the top, front and side views.";
         }
 
 	}

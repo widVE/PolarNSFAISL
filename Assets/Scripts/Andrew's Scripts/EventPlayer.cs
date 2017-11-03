@@ -56,6 +56,7 @@ public class EventPlayer : MonoBehaviour {
         public string fileName;
         public Vector3 startPos;
         public Vector3 endPos;
+        public Vector3 middlePos;
         public float theta;
         public float phi;
         public GameObject eventSource;
@@ -104,7 +105,7 @@ public class EventPlayer : MonoBehaviour {
         //float a = radius * Mathf.Sin(elevation);
         outCart.x = radius * Mathf.Sin(polar) * Mathf.Sin(elevation);
         outCart.y = radius * Mathf.Cos(elevation);
-        outCart.z = -radius * Mathf.Sin(elevation) * Mathf.Cos(polar);
+        outCart.z = radius * Mathf.Sin(elevation) * Mathf.Cos(polar);
         //Debug.Log(outCart.ToString("F4"));
         return outCart.normalized;
     }
@@ -205,6 +206,7 @@ public class EventPlayer : MonoBehaviour {
             List<EventData> ed = new List<EventData>();
             float lastTheta = 0.0f;
             float lastPhi = 0.0f;
+            Vector3 lastCenter = Vector3.zero;
             while (s != null)
             {
                 if(s[0] != '#')
@@ -216,6 +218,14 @@ public class EventPlayer : MonoBehaviour {
                         lastTheta = (float)double.Parse(data[0]);
                         lastPhi = (float)double.Parse(data[1]);
                         //todo - derive a start and end point from theta and phi
+                    }
+                    else if(data.Length == 5)
+                    {
+                        lastTheta = (float)double.Parse(data[0]);
+                        lastPhi = (float)double.Parse(data[1]);
+                        lastCenter.x = (float)double.Parse(data[2]);
+                        lastCenter.y = BELOW_ICE + (float)double.Parse(data[4]);
+                        lastCenter.z = (float)double.Parse(data[3]);
                     }
                     else if(data.Length == 7)
                     { 
@@ -248,9 +258,9 @@ public class EventPlayer : MonoBehaviour {
 
                                 float theta = e.theta;
                                 float phi = e.phi;
-                                Vector3 dir = SphericalToCartesian(1.0f, Mathf.PI - phi, theta);
+                                Vector3 dir = SphericalToCartesian(1.0f, phi, theta);
 
-                                Vector3 avgPos = UnityEngine.Vector3.zero;
+                                /*Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)
                                 {
                                     avgPos += ed[i].pos;
@@ -261,10 +271,11 @@ public class EventPlayer : MonoBehaviour {
                                 for (int i = 0; i < ed.Count; ++i)
                                 {
                                     b.Encapsulate(ed[i].pos);
-                                }
+                                }*/
 
-                                e.startPos = avgPos + dir * b.extents.magnitude;
-                                e.endPos = avgPos - dir * b.extents.magnitude;
+                                e.middlePos = lastCenter;
+                                e.startPos = e.middlePos + dir * 1000f;// b.extents.magnitude;
+                                e.endPos = e.middlePos - dir * 1000f;// b.extents.magnitude;
 
                                 e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
                                 if (sources.Length > 0)
@@ -564,7 +575,7 @@ public class EventPlayer : MonoBehaviour {
                     {
                         if (helpSwipe != null && !playingTutorial)
                         {
-                            float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
+                            /*float pressTime = helpSwipe.GetComponent<LiveHelpTimer>().pressTime;
                             if (t - pressTime > secondsBeforeHelp)
                             {
                                 Vector3 diff = (events[currEventNumber].startPos - events[currEventNumber].endPos).normalized;
@@ -577,7 +588,7 @@ public class EventPlayer : MonoBehaviour {
                             else
                             {
                                 helpSwipe.SetActive(false);
-                            }
+                            }*/
                         }
                     }
 
@@ -586,10 +597,10 @@ public class EventPlayer : MonoBehaviour {
                     {
                         donePlaying = true;
                         //also need to deactivate if successful swipe occurs...
-                        if (helpSwipe != null)
+                        /*if (helpSwipe != null)
                         {
                             helpSwipe.SetActive(false);
-                        }
+                        }*/
                     }
                 }
 			}

@@ -1540,7 +1540,7 @@ Prefab:
         type: 2}
       propertyPath: truePath
       value: 
-      objectReference: {fileID: 103961861}
+      objectReference: {fileID: 0}
     - target: {fileID: 114209731504949338, guid: be9b48d7decfd244789e3abfb31f5bb6,
         type: 2}
       propertyPath: keepPlaying
@@ -1580,11 +1580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4583571c8d4cab9458ff3c68b0e8aacc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!120 &103961861 stripped
-LineRenderer:
-  m_PrefabParentObject: {fileID: 120764146250612884, guid: be9b48d7decfd244789e3abfb31f5bb6,
-    type: 2}
-  m_PrefabInternal: {fileID: 103961858}
 --- !u!1 &119966025
 GameObject:
   m_ObjectHideFlags: 0

@@ -87,6 +87,16 @@ public class Countdown : MonoBehaviour {
                             }
                             w.Close();
 
+                            StreamWriter w2;
+                            using (w2 = File.AppendText("S:\\research_data\\Polar\\scores.log"))
+                            {
+                                string time = DateTime.Now.ToShortTimeString();
+                                string date = DateTime.Now.ToShortDateString();
+
+                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore);
+                            }
+                            w2.Close();
+
                             summaryPanel.SetActive(true);
                         }
 

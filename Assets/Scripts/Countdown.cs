@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class Countdown : MonoBehaviour {
 
@@ -73,7 +75,18 @@ public class Countdown : MonoBehaviour {
                             {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino sources for a score of: " + tempScore;
                             }
-                            
+
+                            //write out log file here
+                            StreamWriter w;
+                            using (w = File.AppendText("scores.log"))
+                            {
+                                string time = DateTime.Now.ToShortTimeString();
+                                string date = DateTime.Now.ToShortDateString();
+
+                                w.WriteLine(date + ", " + time +", " + tempCount +", " + tempScore);
+                            }
+                            w.Close();
+
                             summaryPanel.SetActive(true);
                         }
 

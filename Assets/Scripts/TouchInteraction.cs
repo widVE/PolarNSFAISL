@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TouchScript.Gestures;
+using TouchScript.Pointers;
 
 /// <summary>
 /// Transforms touch events into GameObject Interaction.
@@ -55,8 +56,10 @@ public class TouchInteraction : MonoBehaviour {
         {
             onpress();
 
+            int numTouches = metaGesture.ActivePointers.Count;
+            Pointer mostRecentTouch = metaGesture.ActivePointers[numTouches - 1];
             // Start moving if touch down was within bounding box
-            Vector2 pos = metaGesture.ScreenPosition;
+            Vector2 pos = mostRecentTouch.Position;
             if (pos.x > Screen.width * startPos.x
                 && pos.x < Screen.width * (startPos.x + width)
                 && pos.y > Screen.height * startPos.y
@@ -99,8 +102,10 @@ public class TouchInteraction : MonoBehaviour {
     /// </summary>
     private void onmove()
     {
+        int numTouches = metaGesture.ActivePointers.Count;
+        Pointer mostRecentTouch = metaGesture.ActivePointers[numTouches - 1];
         // Get current cursor position relative to main camera
-        Vector2 pos = metaGesture.ScreenPosition;
+        Vector2 pos = mostRecentTouch.Position;
         // Stop move interaction if touch falls out of scope
         if (pos.x < Screen.width * startPos.x
             || pos.x > Screen.width * (startPos.x + width)
@@ -115,7 +120,7 @@ public class TouchInteraction : MonoBehaviour {
         {
             if (rotationSensitivity < 1f) rotationSensitivity = 1f;
             // Get previous cursor position relative to main camera
-            Vector2 prevpos = metaGesture.PreviousScreenPosition;
+            Vector2 prevpos = mostRecentTouch.PreviousPosition;
             // Compute displacement vector
             delta = (pos - prevpos) / rotationSensitivity;
 

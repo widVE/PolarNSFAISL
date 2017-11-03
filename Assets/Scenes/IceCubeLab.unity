@@ -9801,7 +9801,8 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
+  friendlyGestures:
+  - {fileID: 905924072}
   flickTime: 0.1
   minDistance: 1
   movementThreshold: 0.5
@@ -9849,7 +9850,8 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
+  friendlyGestures:
+  - {fileID: 905924070}
 --- !u!1 &910917471
 GameObject:
   m_ObjectHideFlags: 0

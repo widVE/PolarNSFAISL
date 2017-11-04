@@ -266,6 +266,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeTop(true);
                     SwipeCalculation(topCamera);
                     topSwiped = true;
+                    topPanel.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -277,6 +278,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeSide(true);
                     SwipeCalculation(sideCamera);
                     sideSwiped = true;
+                    sidePanel.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -288,6 +290,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeFront(true);
                     SwipeCalculation(frontCamera);
                     frontSwiped = true;
+                    frontPanel.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -345,7 +348,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	public void EnterResolveMode() 
     {
 		inResolveMode = true;
-        helpSwipe.SetActive(false);
+        //helpSwipe.SetActive(false);
 
         if (refinePanel != null)
         {
@@ -368,6 +371,9 @@ public class SwipeRecognizer : MonoBehaviour {
         topSwiped = false;
         frontSwiped = false;
         sideSwiped = false;
+        topPanel.transform.GetChild(0).gameObject.SetActive(false);
+        sidePanel.transform.GetChild(0).gameObject.SetActive(false);
+        frontPanel.transform.GetChild(0).gameObject.SetActive(false);
 
         if (refinePanel != null)
         {

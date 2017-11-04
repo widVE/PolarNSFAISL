@@ -1561,6 +1561,10 @@ Prefab:
       propertyPath: secondsBeforeHelp
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1527188495816802, guid: be9b48d7decfd244789e3abfb31f5bb6, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be9b48d7decfd244789e3abfb31f5bb6, type: 2}
   m_IsPrefabParent: 0
@@ -1569,6 +1573,46 @@ GameObject:
   m_PrefabParentObject: {fileID: 1182606350042146, guid: be9b48d7decfd244789e3abfb31f5bb6,
     type: 2}
   m_PrefabInternal: {fileID: 103961858}
+--- !u!114 &103961861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 103961859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03cc6204807a864495d8bfe6ec359d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textureAtlasProperties:
+    _anisoLevel: 1
+    _readableTexture: 0
+    _filterMode: 1
+    _ignoreTransparency: 0
+    _wrapMode: 1
+    _shaderPropertiesToLookFor:
+    - _markAsNormal: 0
+      _propertyName: _MainTex
+    - _markAsNormal: 0
+      _propertyName: _MetallicGlossMap
+    - _markAsNormal: 0
+      _propertyName: _BumpMap
+    - _markAsNormal: 0
+      _propertyName: _ParallaxMap
+    - _markAsNormal: 0
+      _propertyName: _OcclusionMap
+    - _markAsNormal: 0
+      _propertyName: _EmissionMap
+    - _markAsNormal: 0
+      _propertyName: _DetailMask
+    - _markAsNormal: 0
+      _propertyName: _DetailAlbedoMap
+    - _markAsNormal: 0
+      _propertyName: _DetailNormalMap
+    _maxTextureSize: 2048
+    _padding: 0
+  destroyOriginalGameObject: 0
+  skipTextureAtlasing: 0
 --- !u!1 &119966025
 GameObject:
   m_ObjectHideFlags: 0
@@ -23216,7 +23260,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1926621606}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -23224,7 +23268,7 @@ Transform:
   - {fileID: 377468560}
   m_Father: {fileID: 1053498422}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &1926621608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23232,12 +23276,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1926621606}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34c20de9ecc8bde41b5ed3a66a8071a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spin: 1
+  spin: 0
   spinParent: 0
   speed: 5
   clockwise: 1

@@ -104,8 +104,8 @@ public class EventPlayer : MonoBehaviour {
         Vector3 outCart = Vector3.zero;
         //float a = radius * Mathf.Sin(elevation);
         outCart.x = radius * Mathf.Sin(polar) * Mathf.Sin(elevation);
-        outCart.y = radius * Mathf.Cos(elevation);
-        outCart.z = radius * Mathf.Sin(elevation) * Mathf.Cos(polar);
+        outCart.y = -radius * Mathf.Cos(elevation);
+        outCart.z = radius * Mathf.Cos(polar) * Mathf.Sin(elevation);
         //Debug.Log(outCart.ToString("F4"));
         return outCart.normalized;
     }
@@ -122,6 +122,7 @@ public class EventPlayer : MonoBehaviour {
             GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
             int numSources = sources.Length;
             Debug.Log("Num sources: " + numSources);
+            int fileNum = 0;
             foreach (string file in files)
             {
                 if (file.EndsWith(".txt"))
@@ -186,10 +187,10 @@ public class EventPlayer : MonoBehaviour {
                     e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
                     if (sources.Length > 0)
                     {
-                        e.eventSource = sources[UnityEngine.Random.Range(0, numSources - 1)];
+                        e.eventSource = sources[fileNum];//sources[UnityEngine.Random.Range(0, numSources - 1)];
                     }
                     events.Add(e);
-                    
+                    fileNum++;
                 }
             }
         }
@@ -258,7 +259,7 @@ public class EventPlayer : MonoBehaviour {
 
                                 float theta = e.theta;
                                 float phi = e.phi;
-                                Vector3 dir = SphericalToCartesian(1.0f, phi, theta);
+                                Vector3 dir = SphericalToCartesian(1.0f, Mathf.PI / 2f - phi, theta);
 
                                 /*Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)

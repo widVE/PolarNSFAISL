@@ -1,7 +1,11 @@
 fileFormatVersion: 2
-guid: 147d0d917e7b2ac49b94949c4b32554e
-timeCreated: 1478110942
-licenseType: Free
+guid: 1e3a3b0f9d52a1e45be7cc6e37a9dce5
+labels:
+- DrawCall
+- Reduce
+- Optimize
+- Editor
+- Batch
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []

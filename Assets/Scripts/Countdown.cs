@@ -84,8 +84,9 @@ public class Countdown : MonoBehaviour {
                                 string date = DateTime.Now.ToShortDateString();
 
                                 w.WriteLine(date + ", " + time +", " + tempCount +", " + tempScore);
+                                w.Close();
                             }
-                            w.Close();
+                            
 
                             StreamWriter w2;
                             using (w2 = File.AppendText("S:\\research_data\\Polar\\scores.log"))
@@ -94,9 +95,9 @@ public class Countdown : MonoBehaviour {
                                 string date = DateTime.Now.ToShortDateString();
 
                                 w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore);
+                                w2.Close();
                             }
-                            w2.Close();
-
+                            
                             summaryPanel.SetActive(true);
                         }
 

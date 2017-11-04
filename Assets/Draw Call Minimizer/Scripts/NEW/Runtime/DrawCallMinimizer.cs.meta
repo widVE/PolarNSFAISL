@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d03cc6204807a864495d8bfe6ec359d6
+labels:
+- DrawCall
+- Reduce
+- Optimize
+- Editor
+- Batch
+timeCreated: 1509764350
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 100
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class Countdown : MonoBehaviour {
 
@@ -44,6 +46,8 @@ public class Countdown : MonoBehaviour {
                     if (timeLeft <= 5)
                     {
                         GetComponent<UnityEngine.UI.Text>().color = Color.red;
+                        GetComponent<AudioSource>().volume = 1;
+                        GetComponent<AudioSource>().pitch = .9f;
                         GetComponent<AudioSource>().Play();
                     }
                 }
@@ -70,6 +74,28 @@ public class Countdown : MonoBehaviour {
                             else
                             {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino sources for a score of: " + tempScore;
+                            }
+
+                            //write out log file here
+                            StreamWriter w;
+                            using (w = File.AppendText("scores.log"))
+                            {
+                                string time = DateTime.Now.ToShortTimeString();
+                                string date = DateTime.Now.ToShortDateString();
+
+                                w.WriteLine(date + ", " + time +", " + tempCount +", " + tempScore);
+                                w.Close();
+                            }
+                            
+
+                            StreamWriter w2;
+                            using (w2 = File.AppendText("S:\\research_data\\Polar\\scores.log"))
+                            {
+                                string time = DateTime.Now.ToShortTimeString();
+                                string date = DateTime.Now.ToShortDateString();
+
+                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore);
+                                w2.Close();
                             }
                             
                             summaryPanel.SetActive(true);

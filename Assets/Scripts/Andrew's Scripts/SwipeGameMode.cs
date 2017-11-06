@@ -19,6 +19,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject softTutorialText;
     public int highScore;
     public GameObject highScorePanel;
+    public GameObject countdownBeep;
 
     public Strings domStrings;
 
@@ -143,6 +144,16 @@ public class SwipeGameMode : MonoBehaviour {
         {
             isSoft = true;
 
+            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            if (aSources != null)
+            {
+                AudioSource background = aSources[4];
+                if (background != null)
+                {
+                    background.Play();
+                }
+            }
+
             GameObject.Find("startClick").GetComponent<AudioSource>().Play();
             isGame = true;
             
@@ -204,6 +215,12 @@ public class SwipeGameMode : MonoBehaviour {
     {
         softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: ";
         softTutorialText.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = count.ToString();
+        if (countdownBeep != null)
+        {
+            countdownBeep.GetComponent<AudioSource>().volume = .6f;
+            countdownBeep.GetComponent<AudioSource>().pitch = .6f;
+            countdownBeep.GetComponent<AudioSource>().Play();
+        }
     }
 
     public IEnumerator InvokeMethod(float interval, int invokeCount)
@@ -233,7 +250,7 @@ public class SwipeGameMode : MonoBehaviour {
                 softTutorialText.SetActive(false);
             }
 
-            AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
+            /*AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
             if (aSources != null)
             {
                 AudioSource background = aSources[4];
@@ -241,7 +258,7 @@ public class SwipeGameMode : MonoBehaviour {
                 {
                     background.Play();
                 }
-            }
+            }*/
 
             eventPlayer.ResumePlaying();
 
@@ -369,37 +386,22 @@ public class SwipeGameMode : MonoBehaviour {
         //position top, front, side cameras for tutorial...
         EnableCameras(true, false);
 
-        /*if(topCamera != null)
-        {
-            topCamera.transform.position.Set(282.7f, 501.8301f, 48.73f);
-            topCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-        }
-
-        if(frontCamera != null)
-        {
-            frontCamera.transform.position.Set(297.0201f, -115.495117f, -104.4141f);
-            frontCamera.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
-
-        if(sideCamera != null)
-        {
-            sideCamera.transform.position.Set(-9.701782f, -115.495117f, 21.46645f);
-            sideCamera.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-        }*/
-
         if (frontPanel != null)
         {
             frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            frontPanel.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (sidePanel != null)
         {
             sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            sidePanel.transform.GetChild(0).gameObject.SetActive(false);
         }
         
         if (topPanel != null)
         {
             topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            topPanel.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 

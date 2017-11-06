@@ -50,8 +50,8 @@ public class DomArrayGenerator : MonoBehaviour {
 			float zFloat = float.Parse (zVal);
 
 			//create DOMS
-            GameObject tableDom = (GameObject)Instantiate(domObject); //GameObject.CreatePrimitive(PrimitiveType.Sphere);
-			SetLayersRecursively(tableDom, LayerMask.NameToLayer("TableTop"));
+            GameObject tableDom = (GameObject)Instantiate(domObject);
+			//SetLayersRecursively(tableDom, LayerMask.NameToLayer("TableTop"));
 
 			Vector3 domPos = new Vector3 (xFloat, BELOW_ICE + zFloat, yFloat);
 
@@ -62,7 +62,7 @@ public class DomArrayGenerator : MonoBehaviour {
             tableDom.transform.localScale.Set(10.0f, 10.0f, 10.0f);
 			tableDom.GetComponent<DOMController>().stringNum = domUnitNum;
 			tableDom.GetComponent<DOMController>().domNum = domNum;
-
+            //tableDom.SetActive(false);
 
             if (domNum <= 60)
             {

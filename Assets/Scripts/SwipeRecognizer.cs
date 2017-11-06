@@ -19,9 +19,12 @@ public class SwipeRecognizer : MonoBehaviour {
     public int neutrinoScore = 0;
     public int neutrinoCount = 0;
     public float goalAccuracy = .9f;
+    private float initialSwipeAccuracy = 0.5f;
 
-	// TouchScript gesture that this script listens to
-	public MultiFlickGesture swipeGesture;
+    public AudioSource collectSound;
+
+    // TouchScript gesture that this script listens to
+    public MultiFlickGesture swipeGesture;
     public GameObject lineObject;
     private GameObject[] lines = new GameObject[10];
 
@@ -263,6 +266,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeTop(true);
                     SwipeCalculation(topCamera);
                     topSwiped = true;
+                    topPanel.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -274,6 +278,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeSide(true);
                     SwipeCalculation(sideCamera);
                     sideSwiped = true;
+                    sidePanel.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -285,6 +290,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeFront(true);
                     SwipeCalculation(frontCamera);
                     frontSwiped = true;
+                    frontPanel.transform.GetChild(0).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -302,14 +308,14 @@ public class SwipeRecognizer : MonoBehaviour {
 		// The end of the flick gesture (really the beginning, I think these are backwards but it doesn't affect anything)
 		Vector2 start = end - swipeVector;
 
-        Debug.Log("End: " + end);
-        Debug.Log("Start: " + start);
-        Debug.Log("Swipe: " + swipeVector);
-        Debug.Log("Screen Min: " + Screen.height * 0.3);
-        Debug.Log("Screen Max: " + Screen.height * 0.6);
+        //Debug.Log("End: " + end);
+        //Debug.Log("Start: " + start);
+        //Debug.Log("Swipe: " + swipeVector);
+        //Debug.Log("Screen Min: " + Screen.height * 0.3);
+        //Debug.Log("Screen Max: " + Screen.height * 0.6);
 
         if (start.y < Screen.height * 0.3 || start.y > Screen.height * 0.6) {
-			Debug.LogWarning ("Bad y on start");
+			//Debug.LogWarning ("Bad y on start");
 			return ResolveBounds.none;
 		}
 
@@ -324,7 +330,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		} else if (start.x > Screen.width * 0.7078125f && start.x < Screen.width * 0.8765625f) {
 			startBounds = ResolveBounds.side;
 		} else {
-			Debug.LogWarning ("Bad x on start");
+			//Debug.LogWarning ("Bad x on start");
 			return ResolveBounds.none;
 		}
 
@@ -334,7 +340,7 @@ public class SwipeRecognizer : MonoBehaviour {
 		}
         else
         {
-			Debug.LogWarning ("StartEnd mismatch");
+			//Debug.LogWarning ("StartEnd mismatch");
 			return ResolveBounds.none;
 		}
 	}
@@ -342,7 +348,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	public void EnterResolveMode() 
     {
 		inResolveMode = true;
-        helpSwipe.SetActive(false);
+        //helpSwipe.SetActive(false);
 
         if (refinePanel != null)
         {
@@ -365,6 +371,9 @@ public class SwipeRecognizer : MonoBehaviour {
         topSwiped = false;
         frontSwiped = false;
         sideSwiped = false;
+        topPanel.transform.GetChild(0).gameObject.SetActive(false);
+        sidePanel.transform.GetChild(0).gameObject.SetActive(false);
+        frontPanel.transform.GetChild(0).gameObject.SetActive(false);
 
         if (refinePanel != null)
         {
@@ -494,98 +503,70 @@ public class SwipeRecognizer : MonoBehaviour {
                                 //Debug.Log(vTest);
                                 //TODO: add event to summary panel
                                 frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                if (vTest >= .8f)
-                                {
-                                    if (summaryPanel != null)
-                                    {
-                                        if (!swipeGameMode.isSoftTutorial())
-                                        {
-                                            EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
-                                            if (epm != null)
-                                            {
-                                                //TODO: add 100 point bonus
-                                                //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                                Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                              
-                                            }
-                                        }
-                                    }
-                                }
 
-                                //always add points
-                                int score = (int)(vTest * 10) * 10;
-                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                //    screenStart, screenEnd, summaryColor, score, false);
-                                Debug.Log("Added: " + score + " points.");
-                                neutrinoScore += score;
-                                updateScore();
-                                spawnPoints(score, new Vector3(1915, 1400, 0));
+                                if (!swipeGameMode.isSoftTutorial())
+                                {
+                                    //always add points
+                                    int score = (int)(vTest * 10) * 10;
+                                    //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                    //    screenStart, screenEnd, summaryColor, score, false);
+                                    Debug.Log("Added: " + score + " points.");
+                                    neutrinoScore += score;
+                                    updateScore();
+                                    spawnPoints(score, new Vector3(1915, 1400, 0));
+                                }
+                                else
+                                {
+                                    collectSound.Play();
+                                }
                             } 
                             else if(cameraToUse == sideCamera)
                             {
                                 totalScore.y = vTest;
                                 sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                if (vTest >= .8f)
+
+                                if (!swipeGameMode.isSoftTutorial())
                                 {
-                                    if (summaryPanel != null)
-                                    {
-                                        if (!swipeGameMode.isSoftTutorial())
-                                        {
-                                            EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
-                                            if (epm != null)
-                                            {
-                                                //TODO: add 100 point bonus
-                                                //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                                Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                              
-                                            }
-                                        }
-                                    }
+                                    //always add points
+                                    int score = (int)(vTest * 10) * 10;
+                                    //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                    //    screenStart, screenEnd, summaryColor, score, false);
+                                    //Debug.Log("Added: " + score + " points.");
+                                    neutrinoScore += score;
+                                    updateScore();
+                                    spawnPoints(score, new Vector3(3050, 1400, 0));
                                 }
-                                //always add points
-                                int score = (int)(vTest * 10) * 10;
-                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                //    screenStart, screenEnd, summaryColor, score, false);
-                                //Debug.Log("Added: " + score + " points.");
-                                neutrinoScore += score;
-                                updateScore();
-                                spawnPoints(score, new Vector3(3050, 1400, 0));
+                                else
+                                {
+                                    collectSound.Play();
+                                }
                             }
                             else if(cameraToUse == topCamera)
                             {
                                 totalScore.x = vTest;
                                 topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                if (vTest >= .8f)
+  
+                                if (!swipeGameMode.isSoftTutorial())
                                 {
-                                    if (summaryPanel != null)
-                                    {
-                                        if (!swipeGameMode.isSoftTutorial())
-                                        {
-                                            EventPanelManager epm = summaryPanel.GetComponent<EventPanelManager>();
-                                            if (epm != null)
-                                            {
-                                                //TODO: add 100 point bonus
-                                                //Debug.Log(currentEvents.lastEventNumber + currentEvents.events[currentEvents.lastEventNumber].eventSource.name);
-                                                Color summaryColor = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
-                                               
-                                            }
-                                        }
-                                    }
+                                    //always add points
+                                    int score = (int)(vTest * 10) * 10;
+                                    //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
+                                    //    screenStart, screenEnd, summaryColor, score, false);
+                                    //Debug.Log("Added: " + score + " points.");
+                                    neutrinoScore += score;
+                                    updateScore();
+                                    spawnPoints(score, new Vector3(800, 1400, 0));
                                 }
-                                //always add points
-                                int score = (int)(vTest * 10) * 10;
-                                //EventInfo e = epm.addEvent(currentEvents.events[currentEvents.lastEventNumber].eventSource.name, currentEvents.totalEnergy, vStart, vEnd,
-                                //    screenStart, screenEnd, summaryColor, score, false);
-                                //Debug.Log("Added: " + score + " points.");
-                                neutrinoScore += score;
-                                updateScore();
-                                spawnPoints(score, new Vector3(800, 1400, 0));
+                                else
+                                {
+                                    collectSound.Play();
+                                }
                             }
                         }
 
                         if (cameraToUse == Camera.main)
                         {
-                            if (vTest < goalAccuracy)
+                            if (vTest < initialSwipeAccuracy)
                             {
                                 //if vTest < than prior vTest, mark red, else green...
                                 DrawSwipeLine(SwipeType.missed, swipeGesture.recognizedId % 10, cameraToUse);
@@ -650,6 +631,10 @@ public class SwipeRecognizer : MonoBehaviour {
                                         /// spawnPoints(score, new Vector3(3520, 1800, 0));
                                         spawnPoints(score, new Vector3(1920, 1700, 0));
                                     }
+                                }
+                                else
+                                {
+                                    collectSound.Play();
                                 }
                             }
 
@@ -796,6 +781,11 @@ public class SwipeRecognizer : MonoBehaviour {
             GameObject text = GameObject.Instantiate(pointsTemplate, coords, Quaternion.identity);
             text.transform.SetParent(GameObject.Find("ScreenSpaceUI").transform);
             text.GetComponent<UnityEngine.UI.Text>().text = points.ToString();
+
+            collectSound.pitch = .5f +  (points / 100f);
+            collectSound.Play();
         }   
     }
+
+
 }

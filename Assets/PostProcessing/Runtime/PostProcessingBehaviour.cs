@@ -18,6 +18,8 @@ namespace UnityEngine.PostProcessing
 
         public Func<Vector2, Matrix4x4> jitteredMatrixFunc;
 
+        public GameObject swipeRecognizer;
+
         // Internal helpers
         Dictionary<Type, KeyValuePair<CameraEvent, CommandBuffer>> m_CommandBuffers;
         List<PostProcessingComponentBase> m_Components;

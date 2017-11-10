@@ -9890,6 +9890,7 @@ GameObject:
   - component: {fileID: 905924071}
   - component: {fileID: 905924072}
   - component: {fileID: 905924069}
+  - component: {fileID: 905924073}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10021,6 +10022,7 @@ MonoBehaviour:
   swipeGesture: {fileID: 905924070}
   lineObject: {fileID: 1325788989852762, guid: e8a3d923df68c4d499ddf6c288c7c661, type: 2}
   currentEvents: {fileID: 2031770144}
+  inResolveMode: 0
   topCamera: {fileID: 1230875523}
   sideCamera: {fileID: 1683310195}
   frontCamera: {fileID: 730068720}
@@ -10151,7 +10153,8 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
+  friendlyGestures:
+  - {fileID: 905924072}
   flickTime: 0.1
   minDistance: 1
   movementThreshold: 0.5
@@ -10177,7 +10180,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 905924060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fd90a8856e1a49eba25728d5aaac9f2, type: 3}
   m_Name: 
@@ -10199,7 +10202,21 @@ MonoBehaviour:
   useUnityEvents: 0
   sendStateChangeEvents: 0
   requireGestureToFail: {fileID: 0}
-  friendlyGestures: []
+  friendlyGestures:
+  - {fileID: 905924070}
+--- !u!114 &905924073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 905924060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 7f848cfbead0929408e772d6a27dbf3a, type: 2}
+  swipeRecognizer: {fileID: 0}
 --- !u!1 &910917471
 GameObject:
   m_ObjectHideFlags: 0

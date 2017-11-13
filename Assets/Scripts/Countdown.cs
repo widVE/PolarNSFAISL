@@ -65,12 +65,12 @@ public class Countdown : MonoBehaviour {
 
                     if(swipeGame != null)
                     {
-                        if(summaryPanel != null)
+                        if (summaryPanel != null)
                         {
                             if (tempCount == 1)
                             {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino source for a score of: " + tempScore;
-                            } 
+                            }
                             else
                             {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino sources for a score of: " + tempScore;
@@ -83,20 +83,28 @@ public class Countdown : MonoBehaviour {
                                 string time = DateTime.Now.ToShortTimeString();
                                 string date = DateTime.Now.ToShortDateString();
 
-                                w.WriteLine(date + ", " + time +", " + tempCount +", " + tempScore);
+                                w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore);
                                 w.Close();
                             }
-                            
+
+
 
                             StreamWriter w2;
-                            using (w2 = File.AppendText("S:\\research_data\\Polar\\scores.log"))
+                            try
                             {
+                                w2 = new StreamWriter("S:\\research_data\\Polar\\scores.log", true);
                                 string time = DateTime.Now.ToShortTimeString();
                                 string date = DateTime.Now.ToShortDateString();
-
+                                Debug.Log("updated scores");
                                 w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore);
                                 w2.Close();
+                            } catch (IOException e)
+                            {
+                                //just don't write it
+                                Debug.Log("Couldn't update scores log to cave shared");
                             }
+                           
+                                
                             
                             summaryPanel.SetActive(true);
                         }

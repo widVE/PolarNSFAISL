@@ -9890,6 +9890,7 @@ GameObject:
   - component: {fileID: 905924071}
   - component: {fileID: 905924072}
   - component: {fileID: 905924069}
+  - component: {fileID: 905924073}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10021,6 +10022,7 @@ MonoBehaviour:
   swipeGesture: {fileID: 905924070}
   lineObject: {fileID: 1325788989852762, guid: e8a3d923df68c4d499ddf6c288c7c661, type: 2}
   currentEvents: {fileID: 2031770144}
+  inResolveMode: 0
   topCamera: {fileID: 1230875523}
   sideCamera: {fileID: 1683310195}
   frontCamera: {fileID: 730068720}
@@ -10178,7 +10180,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 905924060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fd90a8856e1a49eba25728d5aaac9f2, type: 3}
   m_Name: 
@@ -23949,7 +23951,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1926621606}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72b8b9566642799469f5077164bb291f, type: 3}
   m_Name: 

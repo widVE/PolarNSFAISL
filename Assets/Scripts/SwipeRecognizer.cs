@@ -46,7 +46,7 @@ public class SwipeRecognizer : MonoBehaviour {
     private Vector3[] startEnd = new Vector3[2];
     private Vector3[] screenStartEnd = new Vector3[2];
 
-	private bool inResolveMode = false;
+	public bool inResolveMode = false;
 
 	private enum ResolveBounds {top, side, front, none};
 
@@ -349,6 +349,7 @@ public class SwipeRecognizer : MonoBehaviour {
     {
 		inResolveMode = true;
         //helpSwipe.SetActive(false);
+        gameObject.GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>().enabled = true;
 
         if (refinePanel != null)
         {
@@ -367,6 +368,7 @@ public class SwipeRecognizer : MonoBehaviour {
 	public void ExitResolveMode(bool success=false) 
     {
 		inResolveMode = false;
+        gameObject.GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>().enabled = false;
 
         topSwiped = false;
         frontSwiped = false;

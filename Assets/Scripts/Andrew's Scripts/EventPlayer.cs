@@ -38,6 +38,7 @@ public class EventPlayer : MonoBehaviour {
 	private bool isSwiped = false;
     private bool playingTutorial = true;
 	private float timer = 2.0f;
+    private int incrEventNumber = 5;
 
     public LineRenderer truePath;
 
@@ -103,9 +104,9 @@ public class EventPlayer : MonoBehaviour {
     {
         Vector3 outCart = Vector3.zero;
         //float a = radius * Mathf.Sin(elevation);
-        outCart.x = radius * Mathf.Sin(polar) * Mathf.Sin(elevation);
-        outCart.y = -radius * Mathf.Cos(elevation);
-        outCart.z = radius * Mathf.Cos(polar) * Mathf.Sin(elevation);
+        outCart.x = radius * Mathf.Cos(polar) * Mathf.Sin(elevation);
+        outCart.y = radius * Mathf.Cos(elevation);
+        outCart.z = radius * Mathf.Sin(polar) * Mathf.Sin(elevation);
         //Debug.Log(outCart.ToString("F4"));
         return outCart.normalized;
     }
@@ -257,9 +258,7 @@ public class EventPlayer : MonoBehaviour {
                                 e.theta = lastTheta;
                                 e.phi = lastPhi;
 
-                                float theta = e.theta;
-                                float phi = e.phi;
-                                Vector3 dir = SphericalToCartesian(1.0f, Mathf.PI / 2f - phi, theta);
+                                Vector3 dir = SphericalToCartesian(1.0f, lastPhi, lastTheta);
 
                                 /*Vector3 avgPos = UnityEngine.Vector3.zero;
                                 for (int i = 0; i < ed.Count; ++i)
@@ -410,13 +409,14 @@ public class EventPlayer : MonoBehaviour {
                 {
                     if (currEventNumber == -1)
                     {
-                        currEventNumber = UnityEngine.Random.Range(0, events.Count);
+                        currEventNumber = UnityEngine.Random.Range(0, events.Count);// incrEventNumber;
                         if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
                         {
                             currEventNumber = 0;
                         }
                         Debug.Log("Playing event: " + currEventNumber);
                         lastEventNumber = currEventNumber;
+                        incrEventNumber++;
                     }
                 }
 
@@ -631,8 +631,9 @@ public class EventPlayer : MonoBehaviour {
             //eventsPlaying[e].ActivatedDoms = new List<DomState>();
 
             alreadyFaded = false;
-            //turn off all event visualization?
-            for (int i = 0; i < events[e].eventData.Count; ++i)
+            //turn off all event visualization - 11/16/2017 - Ross - yes, since we aren't doing multiple events anyways
+            //fixes a random null reference that could occur in commented out code below.
+            /*for (int i = 0; i < events[e].eventData.Count; ++i)
             {
                 float lastTime = Time.time;
                 //Debug.Log(lastTime);
@@ -646,7 +647,25 @@ public class EventPlayer : MonoBehaviour {
                 {
                     d.GetComponent<DOMController>().TurnOff();
                 }
+            }*/
+
+            GameObject da = GameObject.Find("DomArray");
+            for (int i = 0; i < DomArrayGenerator.NUM_STRINGS; ++i)
+            {
+                for (int j = 0; j < DomArrayGenerator.NUM_DOMS_PER_STRING; ++j)
+                {
+                    GameObject d = arrayGenerator.DOMArray[i, j];
+                    if (d != null)
+                    {
+                        DOMController dc = d.GetComponent<DOMController>();
+                        if (dc != null)
+                        {
+                            dc.GetComponent<DOMController>().TurnOff();
+                        }
+                    }
+                }
             }
+
         }
     }
 

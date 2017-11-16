@@ -32,7 +32,7 @@ public class DOMController : MonoBehaviour {
         domGlobe.material.SetColor("_EmissionColor", c);
 
         domGlobe2.material.SetColor("_Color", c);
-        domGlobe2.material.SetColor("_EmisisonColor", c);
+        domGlobe2.material.SetColor("_EmissionColor", c);
     }
 
     public void TurnOn(float fTimeFrac, float fRadius)
@@ -80,8 +80,16 @@ public class DOMController : MonoBehaviour {
         v.Set(oldScale, oldScale, oldScale);
         gameObject.transform.localScale = v;
 
-        domGlobe.material.SetColor("_Color", defaultColor);
-        domGlobe2.material.SetColor("_Color", defaultColor2);
+        if (domGlobe != null)
+        {
+            domGlobe.material.SetColor("_Color", defaultColor);
+        }
+
+        if (domGlobe2 != null)
+        {
+            domGlobe2.material.SetColor("_Color", defaultColor2);
+        }
+
         gameObject.SetActive(false);
         
         on = false;

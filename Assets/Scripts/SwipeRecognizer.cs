@@ -367,6 +367,8 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public void ExitResolveMode(bool success=false) 
     {
+        swipeGesture.numTouches = 0;
+
 		inResolveMode = false;
         gameObject.GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>().enabled = false;
 

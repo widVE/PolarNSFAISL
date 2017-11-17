@@ -76,35 +76,39 @@ public class Countdown : MonoBehaviour {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino sources for a score of: " + tempScore;
                             }
 
+                            int numTimesTouched = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().numTouches;
+
                             //write out log file here
                             StreamWriter w;
-                            using (w = File.AppendText("scores.log"))
+
+                            string d = BuildDate.ToString();// DateTime.Now.ToString();
+                            d = d.Replace("/", "_");
+                            d = d.Replace(" ", "_");
+                            d = d.Replace(":", "_");
+
+                            using (w = File.AppendText(d + ".log"))
                             {
                                 string time = DateTime.Now.ToShortTimeString();
                                 string date = DateTime.Now.ToShortDateString();
 
-                                w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore);
+                                w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched);
                                 w.Close();
                             }
-
-
 
                             StreamWriter w2;
                             try
                             {
-                                w2 = new StreamWriter("S:\\research_data\\Polar\\scores.log", true);
+                                w2 = new StreamWriter("S:\\research_data\\Polar\\" + d + ".log", true);
                                 string time = DateTime.Now.ToShortTimeString();
                                 string date = DateTime.Now.ToShortDateString();
                                 Debug.Log("updated scores");
-                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore);
+                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched);
                                 w2.Close();
                             } catch (IOException e)
                             {
                                 //just don't write it
                                 Debug.Log("Couldn't update scores log to cave shared");
-                            }
-                           
-                                
+                            }  
                             
                             summaryPanel.SetActive(true);
                         }

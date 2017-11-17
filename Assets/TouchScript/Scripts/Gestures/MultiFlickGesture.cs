@@ -91,6 +91,8 @@ namespace TouchScript.Gestures
         public int recognizedId = -1;
         private Dictionary<int, float> FlickTimes = new Dictionary<int, float>();
 
+        public int numTouches = 0;
+
         #endregion
 
         #region Unity methods
@@ -191,6 +193,7 @@ namespace TouchScript.Gestures
                 //Debug.LogError("Released pointer: " + pointers[i].Id);
                 if(isActive[pointers[i].Id])// && moving[pointers[i].Id])
                 {
+                    numTouches++;
                     //don't want to add to the sequence here...
                     //multiDeltaSequence[pointers[i].Id].Add(pointers[i].PreviousPosition - pointers[i].Position);
                     //Debug.Log(pointers[i].Id + " " + multiDeltaSequence[pointers[i].Id].Count());

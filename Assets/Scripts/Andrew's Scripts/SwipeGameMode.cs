@@ -302,8 +302,6 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 highScorePanel.GetComponent<UnityEngine.UI.Text>().text = "High Score: " + highScore + " Points";
             }
-
-
         }
 
         if (eventPlayer != null)
@@ -512,7 +510,7 @@ public class SwipeGameMode : MonoBehaviour {
         //topCamera.transform.position = Camera.main.transform.position;
         //topCamera.transform.rotation = Camera.main.transform.rotation;
 
-        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 70.0f;
+        topCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.x, b.extents.z) + 100.0f;
 
         if (makeVisible)
         {
@@ -543,7 +541,7 @@ public class SwipeGameMode : MonoBehaviour {
         //sideCamera.transform.position = Camera.main.transform.position;
         //sideCamera.transform.rotation = Camera.main.transform.rotation;
 
-        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 70.0f;
+        sideCamera.GetComponent<Camera>().orthographicSize = Mathf.Max(b.extents.y, b.extents.z) + 100.0f;
 
         StartCoroutine(Transition(frontCamera.transform.position, b.center - sideCamera.transform.forward.normalized * b.extents.x,
             frontCamera.transform.rotation, endQ, sideCamera));

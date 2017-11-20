@@ -753,7 +753,23 @@ public class EventPlayer : MonoBehaviour {
         }
     }
 
-	private void FinishEvent(bool forceAllVisible) {
+    /**
+     * Gets the maximum length out of all events listed
+     */
+    public float GetMaxDOMs()
+    {
+        float total = 0f;
+        for (int i = 0; i < events.Count; i++)
+        {
+            if (events[i].eventData.Count > total)
+            {
+                total = events[i].eventData.Count;
+            }
+        }
+        return total;
+    }
+
+    private void FinishEvent(bool forceAllVisible) {
 
         if (!forceAllVisible)
         {

@@ -24,13 +24,9 @@ public class LineEnergyGrapher : MonoBehaviour {
         + "\n- OVERWRITE: Discard previous graph and generate new one for new event")]
     public MODE displayMode = MODE.INCREMENT;
 
-	[SerializeField]
-    [Tooltip("Currently not supported")]
-    private bool randomizeData = false;
-
     private float maxEnergy = 0f;
     private const float START_ENERGY = 0.00000001f;
-    private int prevIdx;
+    private int prevIdx = 0;
     private int prevEvent = 0;
     private float totalEventEnergy = 0f;
 
@@ -39,7 +35,7 @@ public class LineEnergyGrapher : MonoBehaviour {
 	void Start () {
         
         maxEnergy = START_ENERGY;
-        prevIdx = -1;
+        prevIdx = 0;
 
         GameObject array = GameObject.Find ("DomArray");
 		if (array != null) {
@@ -66,6 +62,7 @@ public class LineEnergyGrapher : MonoBehaviour {
 	public void InitializePoints() {
         // Make array of size = max event length
         points = new Vector3[(int)visEvent.GetMaxDOMs()];
+        Debug.Log("Max DOMs: " + points.Length);
         // initialize point values
         for (int i = 0; i < points.Length; i++)
         {
@@ -82,10 +79,13 @@ public class LineEnergyGrapher : MonoBehaviour {
         maxEnergy = 0f;
         if (points != null)
         {
+            //float totalCurrDOMs = visEvent.GetTotalDOMs();
+            //float domToGraph = totalCurrDOMs / points.Length;
+            
             for (int i = 0; i < points.Length; i++)
             {
                 // Set X distance between adjacent points
-                float x = (i * 5f);
+                float x = i * 5f;
                 // Set initial energy (Y) to 0
                 // Set Z = 0 because graph is relative to the GameObject with this component
                 points[i] = new Vector3(x, 0f, 0f);
@@ -93,7 +93,8 @@ public class LineEnergyGrapher : MonoBehaviour {
         }
     }
 
-	private void UpdatePoints() {
+	private void UpdatePoints() 
+    {
         // Debug.Log(visEvent.GetTotalDOMs());
         // Initialize points if haven't done so
         if((points == null || points.Length == 0) && visEvent.GetTotalDOMs() > 0)
@@ -112,7 +113,6 @@ public class LineEnergyGrapher : MonoBehaviour {
         // same index more than once in sequence.
         if (visEvent.GetTotalDOMs() > 0 && idx != prevIdx)
         {
-            prevIdx = idx; // For checking purposes
             // Get new energy level
             float energy = visEvent.GetCurrentEnergy();
             if (displayMode == MODE.ACCUMULATE)
@@ -150,18 +150,31 @@ public class LineEnergyGrapher : MonoBehaviour {
                     points[idx].y = (graphHeight * energy) / maxEnergy;
                     break;
                 case MODE.ACCUMULATE:
+                    float numEventDOMs = visEvent.GetTotalDOMs();
+                    float numMaxDOMs = visEvent.GetMaxDOMs();
+                    float ratio = numMaxDOMs / numEventDOMs;
+
                     if (idx == 0)
                     {
                         maxEnergy = (energy > START_ENERGY) ? energy : START_ENERGY;
                     }
-                    points[idx].y = ((maxEnergy / totalEventEnergy) * graphHeight);
+
+                    int currIdx = Mathf.FloorToInt(prevIdx * ratio);
+                    int nextIdx = Mathf.FloorToInt(idx * ratio);
+                    //Debug.Log(currIdx);
+                    //Debug.Log(nextIdx);
+                    for (int p = currIdx; p < nextIdx; ++p)
+                    {
+                        points[p].y = ((Mathf.Log(maxEnergy) / totalEventEnergy) * graphHeight);
+                    }
                     break;
                 default:
                     // Debug.Log("Something went wrong, displayMode is invalid: " + displayMode);
                     points[idx].y = 0f;
                     break;
             }
-            
+
+            prevIdx = idx; // For checking purposes
         }
 	}
 }

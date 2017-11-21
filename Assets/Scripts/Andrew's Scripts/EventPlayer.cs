@@ -792,8 +792,8 @@ public class EventPlayer : MonoBehaviour {
                 maxEnergy = totalEnergy;
             }
         }
-        Debug.Log(maxEnergy);
-        return maxEnergy;
+        
+        return Mathf.Log(maxEnergy);
     }
 
     private void FinishEvent(bool forceAllVisible) {

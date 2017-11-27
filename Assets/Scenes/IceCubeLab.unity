@@ -2362,6 +2362,16 @@ Prefab:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114924389531745906, guid: 3527db0e0e51d2b4fa2eb1e78e299c1c,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114534652181481394, guid: 3527db0e0e51d2b4fa2eb1e78e299c1c,
+        type: 2}
+      propertyPath: throwOnStart
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3527db0e0e51d2b4fa2eb1e78e299c1c, type: 2}
   m_IsPrefabParent: 0
@@ -6942,7 +6952,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -6960,7 +6970,7 @@ MonoBehaviour:
   OnTap:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   numberOfTapsRequired: 2
   timeLimit: Infinity
@@ -10075,42 +10085,42 @@ MonoBehaviour:
   OnFrameStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnFrameFinish:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnPointersAdd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnPointersUpdate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnPointersPress:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnPointersRelease:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnPointersRemove:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnPointersCancel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 1
   displayDevice: {fileID: 0}
@@ -10577,7 +10587,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -10627,7 +10637,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -24703,7 +24713,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 1
   generalProps: 0
@@ -24721,17 +24731,17 @@ MonoBehaviour:
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnTransform:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   OnTransformComplete:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6534.28491,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6540.18510,
       Culture=neutral, PublicKeyToken=null
   type: 2
   screenTransformThreshold: 0.1

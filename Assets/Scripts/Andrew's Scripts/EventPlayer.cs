@@ -41,6 +41,7 @@ public class EventPlayer : MonoBehaviour {
     private int incrEventNumber = 5;
 
     public LineRenderer truePath;
+    public GameObject lineGrapher;
 
     public struct EventData
     {
@@ -414,7 +415,13 @@ public class EventPlayer : MonoBehaviour {
                         {
                             currEventNumber = 0;
                         }
+                        
                         Debug.Log("Playing event: " + currEventNumber);
+                        if(lineGrapher != null)
+                        {
+                            lineGrapher.GetComponent<LineEnergyGrapher>().ResetEnergy();
+                        }
+
                         lastEventNumber = currEventNumber;
                         incrEventNumber++;
                     }
@@ -753,7 +760,43 @@ public class EventPlayer : MonoBehaviour {
         }
     }
 
-	private void FinishEvent(bool forceAllVisible) {
+    /**
+     * Gets the maximum length out of all events listed
+     */
+    public float GetMaxDOMs()
+    {
+        float total = 0f;
+        for (int i = 0; i < events.Count; i++)
+        {
+            if (events[i].eventData.Count > total)
+            {
+                total = events[i].eventData.Count;
+            }
+        }
+        return total;
+    }
+
+    public float GetTotalEventEnergy()
+    {
+        float maxEnergy = 0f;
+        for (int i = 0; i < events.Count; i++)
+        {
+            float totalEnergy = 0f;
+            for (int j = 0; j < events[i].eventData.Count; j++)
+            {
+                totalEnergy += events[i].eventData[j].charge;
+            }
+
+            if(maxEnergy < totalEnergy)
+            {
+                maxEnergy = totalEnergy;
+            }
+        }
+        
+        return Mathf.Log(maxEnergy);
+    }
+
+    private void FinishEvent(bool forceAllVisible) {
 
         if (!forceAllVisible)
         {

@@ -3539,7 +3539,7 @@ ParticleSystem:
   lengthInSec: 5.5
   simulationSpeed: 2
   stopAction: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0

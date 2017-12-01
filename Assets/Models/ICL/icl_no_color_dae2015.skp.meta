@@ -1,0 +1,307 @@
+fileFormatVersion: 2
+guid: 02c3aca334279a346b7856c9b3b212b2
+timeCreated: 1511932661
+licenseType: Free
+SketchUpImporter:
+  generateBackFace: 0
+  mergeCoplanarFaces: 0
+  selectedNodes: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+  assetHash:
+    serializedVersion: 2
+    Hash: 776c7f2ea7ac847925dcb410777db8a0
+  longitude: -105.242139
+  latitude: 40.018309
+  northCorrection: -0
+  fileUnit: 0
+  sketchUpImportData:
+    defaultCamera:
+      position: {x: -0.8464526, y: 9.248562, z: -29.959675}
+      lookAt: {x: 2.6668358, y: -22.054773, z: -0.14415988}
+      up: {x: 0.08445969, y: 0.69217896, z: 0.716767}
+      fov: 35
+      aspectRatio: 0
+      orthoSize: 1
+      isPerspective: 1
+    scenes: []
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: icl_no_color_dae2015_MeshPart0
+    100004: icl_no_color_dae2015_MeshPart1
+    100006: icl_no_color_dae2015_MeshPart10
+    100008: icl_no_color_dae2015_MeshPart11
+    100010: icl_no_color_dae2015_MeshPart12
+    100012: icl_no_color_dae2015_MeshPart13
+    100014: icl_no_color_dae2015_MeshPart14
+    100016: icl_no_color_dae2015_MeshPart15
+    100018: icl_no_color_dae2015_MeshPart16
+    100020: icl_no_color_dae2015_MeshPart17
+    100022: icl_no_color_dae2015_MeshPart18
+    100024: icl_no_color_dae2015_MeshPart19
+    100026: icl_no_color_dae2015_MeshPart2
+    100028: icl_no_color_dae2015_MeshPart20
+    100030: icl_no_color_dae2015_MeshPart21
+    100032: icl_no_color_dae2015_MeshPart22
+    100034: icl_no_color_dae2015_MeshPart23
+    100036: icl_no_color_dae2015_MeshPart24
+    100038: icl_no_color_dae2015_MeshPart25
+    100040: icl_no_color_dae2015_MeshPart3
+    100042: icl_no_color_dae2015_MeshPart4
+    100044: icl_no_color_dae2015_MeshPart5
+    100046: icl_no_color_dae2015_MeshPart6
+    100048: icl_no_color_dae2015_MeshPart7
+    100050: icl_no_color_dae2015_MeshPart8
+    100052: icl_no_color_dae2015_MeshPart9
+    100054: cable_entry
+    100056: cable_entry2
+    100058: cable_entry3
+    100060: cable_entry4
+    100062: cable_entry5
+    100064: cable_tower_left
+    100066: cable_tower_right
+    100068: long_railing
+    100070: railing
+    400000: //RootNode
+    400002: icl_no_color_dae2015_MeshPart0
+    400004: icl_no_color_dae2015_MeshPart1
+    400006: icl_no_color_dae2015_MeshPart10
+    400008: icl_no_color_dae2015_MeshPart11
+    400010: icl_no_color_dae2015_MeshPart12
+    400012: icl_no_color_dae2015_MeshPart13
+    400014: icl_no_color_dae2015_MeshPart14
+    400016: icl_no_color_dae2015_MeshPart15
+    400018: icl_no_color_dae2015_MeshPart16
+    400020: icl_no_color_dae2015_MeshPart17
+    400022: icl_no_color_dae2015_MeshPart18
+    400024: icl_no_color_dae2015_MeshPart19
+    400026: icl_no_color_dae2015_MeshPart2
+    400028: icl_no_color_dae2015_MeshPart20
+    400030: icl_no_color_dae2015_MeshPart21
+    400032: icl_no_color_dae2015_MeshPart22
+    400034: icl_no_color_dae2015_MeshPart23
+    400036: icl_no_color_dae2015_MeshPart24
+    400038: icl_no_color_dae2015_MeshPart25
+    400040: icl_no_color_dae2015_MeshPart3
+    400042: icl_no_color_dae2015_MeshPart4
+    400044: icl_no_color_dae2015_MeshPart5
+    400046: icl_no_color_dae2015_MeshPart6
+    400048: icl_no_color_dae2015_MeshPart7
+    400050: icl_no_color_dae2015_MeshPart8
+    400052: icl_no_color_dae2015_MeshPart9
+    400054: cable_entry
+    400056: cable_entry2
+    400058: cable_entry3
+    400060: cable_entry4
+    400062: cable_entry5
+    400064: cable_tower_left
+    400066: cable_tower_right
+    400068: long_railing
+    400070: railing
+    2300000: icl_no_color_dae2015_MeshPart0
+    2300002: icl_no_color_dae2015_MeshPart1
+    2300004: icl_no_color_dae2015_MeshPart10
+    2300006: icl_no_color_dae2015_MeshPart11
+    2300008: icl_no_color_dae2015_MeshPart12
+    2300010: icl_no_color_dae2015_MeshPart13
+    2300012: icl_no_color_dae2015_MeshPart14
+    2300014: icl_no_color_dae2015_MeshPart15
+    2300016: icl_no_color_dae2015_MeshPart16
+    2300018: icl_no_color_dae2015_MeshPart17
+    2300020: icl_no_color_dae2015_MeshPart18
+    2300022: icl_no_color_dae2015_MeshPart19
+    2300024: icl_no_color_dae2015_MeshPart2
+    2300026: icl_no_color_dae2015_MeshPart20
+    2300028: icl_no_color_dae2015_MeshPart21
+    2300030: icl_no_color_dae2015_MeshPart22
+    2300032: icl_no_color_dae2015_MeshPart23
+    2300034: icl_no_color_dae2015_MeshPart24
+    2300036: icl_no_color_dae2015_MeshPart25
+    2300038: icl_no_color_dae2015_MeshPart3
+    2300040: icl_no_color_dae2015_MeshPart4
+    2300042: icl_no_color_dae2015_MeshPart5
+    2300044: icl_no_color_dae2015_MeshPart6
+    2300046: icl_no_color_dae2015_MeshPart7
+    2300048: icl_no_color_dae2015_MeshPart8
+    2300050: icl_no_color_dae2015_MeshPart9
+    2300052: cable_entry
+    2300054: cable_entry2
+    2300056: cable_entry3
+    2300058: cable_entry4
+    2300060: cable_entry5
+    2300062: cable_tower_left
+    2300064: cable_tower_right
+    2300066: long_railing
+    2300068: railing
+    3300000: icl_no_color_dae2015_MeshPart0
+    3300002: icl_no_color_dae2015_MeshPart1
+    3300004: icl_no_color_dae2015_MeshPart10
+    3300006: icl_no_color_dae2015_MeshPart11
+    3300008: icl_no_color_dae2015_MeshPart12
+    3300010: icl_no_color_dae2015_MeshPart13
+    3300012: icl_no_color_dae2015_MeshPart14
+    3300014: icl_no_color_dae2015_MeshPart15
+    3300016: icl_no_color_dae2015_MeshPart16
+    3300018: icl_no_color_dae2015_MeshPart17
+    3300020: icl_no_color_dae2015_MeshPart18
+    3300022: icl_no_color_dae2015_MeshPart19
+    3300024: icl_no_color_dae2015_MeshPart2
+    3300026: icl_no_color_dae2015_MeshPart20
+    3300028: icl_no_color_dae2015_MeshPart21
+    3300030: icl_no_color_dae2015_MeshPart22
+    3300032: icl_no_color_dae2015_MeshPart23
+    3300034: icl_no_color_dae2015_MeshPart24
+    3300036: icl_no_color_dae2015_MeshPart25
+    3300038: icl_no_color_dae2015_MeshPart3
+    3300040: icl_no_color_dae2015_MeshPart4
+    3300042: icl_no_color_dae2015_MeshPart5
+    3300044: icl_no_color_dae2015_MeshPart6
+    3300046: icl_no_color_dae2015_MeshPart7
+    3300048: icl_no_color_dae2015_MeshPart8
+    3300050: icl_no_color_dae2015_MeshPart9
+    3300052: cable_entry
+    3300054: cable_entry2
+    3300056: cable_entry3
+    3300058: cable_entry4
+    3300060: cable_entry5
+    3300062: cable_tower_left
+    3300064: cable_tower_right
+    3300066: long_railing
+    3300068: railing
+    4300000: Mesh icl_no_color_dae2015_MeshPart0
+    4300002: Mesh icl_no_color_dae2015_MeshPart1
+    4300004: Mesh icl_no_color_dae2015_MeshPart2
+    4300006: Mesh icl_no_color_dae2015_MeshPart3
+    4300008: Mesh icl_no_color_dae2015_MeshPart4
+    4300010: Mesh icl_no_color_dae2015_MeshPart5
+    4300012: Mesh icl_no_color_dae2015_MeshPart6
+    4300014: Mesh icl_no_color_dae2015_MeshPart7
+    4300016: Mesh icl_no_color_dae2015_MeshPart8
+    4300018: Mesh icl_no_color_dae2015_MeshPart9
+    4300020: Mesh icl_no_color_dae2015_MeshPart10
+    4300022: Mesh icl_no_color_dae2015_MeshPart11
+    4300024: Mesh icl_no_color_dae2015_MeshPart12
+    4300026: Mesh icl_no_color_dae2015_MeshPart13
+    4300028: Mesh icl_no_color_dae2015_MeshPart14
+    4300030: Mesh icl_no_color_dae2015_MeshPart15
+    4300032: Mesh icl_no_color_dae2015_MeshPart16
+    4300034: Mesh icl_no_color_dae2015_MeshPart17
+    4300036: Mesh icl_no_color_dae2015_MeshPart18
+    4300038: Mesh icl_no_color_dae2015_MeshPart19
+    4300040: Mesh icl_no_color_dae2015_MeshPart20
+    4300042: Mesh icl_no_color_dae2015_MeshPart21
+    4300044: Mesh icl_no_color_dae2015_MeshPart22
+    4300046: Mesh icl_no_color_dae2015_MeshPart23
+    4300048: Mesh icl_no_color_dae2015_MeshPart24
+    4300050: Mesh icl_no_color_dae2015_MeshPart25
+    4300052: Mesh cable_entry
+    4300054: Mesh cable_entry2
+    4300056: Mesh cable_entry3
+    4300058: Mesh cable_entry4
+    4300060: Mesh cable_entry5
+    4300062: Mesh cable_tower_right
+    4300064: Mesh cable_tower_left
+    4300066: Mesh railing
+    4300068: Mesh long_railing
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlueICLTile
+    second: {fileID: 2100000, guid: d4a24df548fe3d645b64720dd159b0ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_007
+    second: {fileID: 2100000, guid: 542eb0ce609fb854eb636e2efe580bfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_009
+    second: {fileID: 2100000, guid: 94b5bd90ee97cd848af396cf1d9a052e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ICLDoor
+    second: {fileID: 2100000, guid: d055dc6faf0f6c74eb55884208e137e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _defaultMat
+    second: {fileID: 2100000, guid: 98ddc08bae215e740b19ba1d8811cc75, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 2
+    materialSearch: 0
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.0254
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

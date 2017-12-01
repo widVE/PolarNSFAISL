@@ -367,8 +367,6 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public void ExitResolveMode(bool success=false) 
     {
-        swipeGesture.numTouches = 0;
-
 		inResolveMode = false;
         gameObject.GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>().enabled = false;
 
@@ -738,9 +736,9 @@ public class SwipeRecognizer : MonoBehaviour {
                             {
                                 Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
                                 dir = dir.normalized;
-                                float longitude = Mathf.Acos(Vector3.Dot(dir, Vector3.up));
-                                float lat = Mathf.Acos(Vector3.Dot(dir, Vector3.forward));
-                                //sphereMap.PlotPoint(new Vector2(lat, longitude));
+                                float longitude = (2 * Mathf.Acos(Vector3.Dot(dir, Vector3.up)) / Mathf.PI) - 1;
+                                float lat = (2 * Mathf.Acos(Vector3.Dot(dir, Vector3.forward)) / Mathf.PI) - 1;
+                                sphereMap.PlotPoint(lat, longitude);
                             }
 
                             /*if(scorePanel != null)

@@ -110,6 +110,7 @@ public class Countdown : MonoBehaviour {
                                 Debug.Log("Couldn't update scores log to cave shared");
                             }  
                             
+							Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture> ().numTouches = 0;
                             summaryPanel.SetActive(true);
                         }
 

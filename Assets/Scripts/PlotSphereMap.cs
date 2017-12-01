@@ -5,10 +5,16 @@ using UnityEngine;
 public class PlotSphereMap : MonoBehaviour {
 
     public GameObject plotPoint;
+    private Vector2 quadSize;
 	// Use this for initialization
-	void Start () {
-		
-	}
+	void Start ()
+    {
+        RectTransform objectRectTransform = gameObject.GetComponent<RectTransform>();
+        // Get size of sphere map in pixels
+        quadSize = new Vector2(
+            objectRectTransform.rect.width,
+            objectRectTransform.rect.height);
+    }
 
     Vector2 CalculateMollweide(float lambda, float phi, float cx = 1f, float cy = 1f, float cp = Mathf.PI)
     {
@@ -31,14 +37,17 @@ public class PlotSphereMap : MonoBehaviour {
         return p / 2;
     }
 
-    public void PlotPoint(Vector2 latLong)
+    /**
+     * Adds point to the sphere map.
+     * latitude and longitude range should be [-1, 1]
+     */
+    public void PlotPoint(float lat, float longi)
     {
-        Vector2 pXY = CalculateMollweide(latLong.x, latLong.y, Mathf.Sqrt(2f) / (Mathf.PI * 0.5f), Mathf.Sqrt(2f), Mathf.PI);
-        Debug.Log("Mollweide: " + pXY);
+        // Project latitude and longitude into sphere map
+        Vector2 pXY = CalculateMollweide(lat, longi, quadSize.x / 2f, quadSize.y / 2f, Mathf.PI);
         GameObject particlePoint = Instantiate(plotPoint);
         particlePoint.transform.SetParent(transform, true);
-        //particlePoint.transform.position += transform.position;
-        particlePoint.transform.localPosition = new Vector3(pXY.x * 395f, pXY.y * 200f, 0f);
+        particlePoint.transform.localPosition = new Vector3(pXY.x, pXY.y, 0f);
     }
 
 	// Update is called once per frame

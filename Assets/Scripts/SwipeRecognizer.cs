@@ -698,10 +698,9 @@ public class SwipeRecognizer : MonoBehaviour {
                                 }
                             }
 
+                            Color summaryColor = Color.white;
                             if (!swipeGameMode.isSoftTutorial())
                             {
-                                Color summaryColor = Color.white;
-
                                 if (eventPanel != null)
                                 {
                                     EventPanelManager epm = eventPanel.GetComponent<EventPanelManager>();
@@ -732,13 +731,16 @@ public class SwipeRecognizer : MonoBehaviour {
 
                             //assuming just one event here for now..
                             //add point to sphere map...
-                            if (sphereMap != null)
+                            if (!swipeGameMode.isSoftTutorial())
                             {
-                                Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
-                                dir = dir.normalized;
-                                float longitude = (2 * Mathf.Acos(Vector3.Dot(dir, Vector3.up)) / Mathf.PI) - 1;
-                                float lat = (2 * Mathf.Acos(Vector3.Dot(dir, Vector3.forward)) / Mathf.PI) - 1;
-                                sphereMap.PlotPoint(lat, longitude);
+                                if (sphereMap != null)
+                                {
+                                    Vector3 dir = currentEvents.events[currentEvents.lastEventNumber].startPos - currentEvents.events[currentEvents.lastEventNumber].endPos;
+                                    dir = dir.normalized;
+                                    float longitude = (2 * Mathf.Acos(Vector3.Dot(dir, Vector3.up)) / Mathf.PI) - 1;
+                                    float lat = (2 * Mathf.Acos(Vector3.Dot(dir, Vector3.forward)) / Mathf.PI) - 1;
+                                    sphereMap.PlotPoint(lat, longitude, summaryColor);
+                                }
                             }
 
                             /*if(scorePanel != null)

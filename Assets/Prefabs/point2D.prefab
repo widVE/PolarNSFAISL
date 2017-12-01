@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 222307551261544912}
   - component: {fileID: 114369612176970620}
   - component: {fileID: 223135693361379966}
-  - component: {fileID: 114955412980790392}
   m_Layer: 5
   m_Name: point2D
   m_TagString: Untagged
@@ -57,18 +56,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114955412980790392
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1412758414489126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 989fd308cf890174ba215d0a6b7d7c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plotPoint: {fileID: 1883998085386648, guid: 423f2d2aed25c4c489607309f4f1675e, type: 2}
 --- !u!222 &222307551261544912
 CanvasRenderer:
   m_ObjectHideFlags: 1

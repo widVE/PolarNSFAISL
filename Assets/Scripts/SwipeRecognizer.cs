@@ -585,7 +585,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 {
                                     if (vTest < goalAccuracy)
                                     {
-                                        StartCoroutine(DelayedResolve(swipeGameMode.isSoftTutorial() ? 0.5f : 2f, false));
+                                        StartCoroutine(DelayedResolve(0.5f, false));
                                         continue;
                                     }
                                 }

@@ -12,6 +12,8 @@ public class Countdown : MonoBehaviour {
     private float oneSec = 0f;
     public float summaryPanelLength = 10f;
     private bool countDown = false;
+    private bool paused = false;
+    private bool hasStarted = false;
     public GameObject score;
     public GameObject summaryPanel;
     public GameObject tutorial;
@@ -20,17 +22,35 @@ public class Countdown : MonoBehaviour {
     public GameObject swipeRecognizer;
 
     public void StartCountdown() { 
-        countDown = true; 
+        countDown = true;
+    }
+    public void PauseCountdown()
+    {
+        paused = true;
+        oneSec = 0f; // Reset the current second recorded
+    }
+    public void ContinueCountdown()
+    {
+        paused = false;
     }
 
-	void Start () {
+    void Start () {
         timeLeft = gameTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (countDown)
+        if (swipeRecognizer.GetComponent<SwipeRecognizer>().congratsPanel.activeSelf)
+        {
+            PauseCountdown();
+        }
+        else
+        {
+            ContinueCountdown();
+        }
+
+        if (countDown && !paused)
         {
             oneSec += Time.deltaTime;
             if (oneSec >= 1f)

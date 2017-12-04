@@ -6,6 +6,7 @@ public class PlotSphereMap : MonoBehaviour {
 
     public GameObject plotPoint;
     private Vector2 quadSize;
+    private List<GameObject> plottedPoints = new List<GameObject>();
 	// Use this for initialization
 	void Start ()
     {
@@ -41,13 +42,25 @@ public class PlotSphereMap : MonoBehaviour {
      * Adds point to the sphere map.
      * latitude and longitude range should be [-1, 1]
      */
-    public void PlotPoint(float lat, float longi)
+    public void PlotPoint(float lat, float longi, Color c)
     {
         // Project latitude and longitude into sphere map
         Vector2 pXY = CalculateMollweide(lat, longi, quadSize.x / 2f, quadSize.y / 2f, Mathf.PI);
         GameObject particlePoint = Instantiate(plotPoint);
+        particlePoint.GetComponent<UnityEngine.UI.Image>().color = c;
         particlePoint.transform.SetParent(transform, true);
         particlePoint.transform.localPosition = new Vector3(pXY.x, pXY.y, 0f);
+        plottedPoints.Add(particlePoint);
+    }
+
+    public void ClearPoints()
+    {
+        foreach(GameObject p in plottedPoints)
+        {
+            DestroyObject(p);
+        }
+
+        plottedPoints.Clear();
     }
 
 	// Update is called once per frame

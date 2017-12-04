@@ -1202,6 +1202,7 @@ MonoBehaviour:
   highScore: 0
   highScorePanel: {fileID: 1811111194}
   countdownBeep: {fileID: 966682116}
+  sphereMap: {fileID: 771481209}
   domStrings: {fileID: 622374148}
   topCamera: {fileID: 1230875518}
   topPanel: {fileID: 246312909}
@@ -2687,7 +2688,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 176995105}
   m_LocalRotation: {x: 0.17537741, y: -0, z: -0, w: 0.9845013}
-  m_LocalPosition: {x: 10000.006, y: -9999.629, z: 9999.092}
+  m_LocalPosition: {x: 100, y: -10000, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1365669703}
@@ -3687,7 +3688,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 295140990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9000244, y: 44.51001, z: 0}
+  m_LocalPosition: {x: -0.9000244, y: -80, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1093951453}
@@ -3696,7 +3697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 23.002, y: -5.327, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 799.1, y: 544.51}
+  m_AnchoredPosition: {x: 799.1, y: 420}
   m_SizeDelta: {x: 3840, y: 2160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &295140992
@@ -11941,7 +11942,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1725658162121854, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 03865f44d47203d459535fd944fe48bd, type: 2}
@@ -13142,6 +13143,7 @@ GameObject:
   - component: {fileID: 1058672818}
   - component: {fileID: 1058672817}
   - component: {fileID: 1058672816}
+  - component: {fileID: 1058672819}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -13156,7 +13158,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1058672814}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -850, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1093951453}
@@ -13164,8 +13166,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -850}
+  m_SizeDelta: {x: 0, y: 1700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1058672816
 MonoBehaviour:
@@ -13201,25 +13203,42 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 55893ee3456f7e243b0b94b33dc13811, type: 3}
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Done
+  m_Text: Tap to Restart
 --- !u!222 &1058672818
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1058672814}
+--- !u!95 &1058672819
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1058672814}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 285a4f38068dd544bb5696bdb1238e37, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &1061533709 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4704754185884662, guid: b5cd8fa516c64244b9da668033689ef5,
@@ -13545,7 +13564,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1093951452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.5, y: -449.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1058672815}
@@ -13554,8 +13573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.5, y: -449.5}
-  m_SizeDelta: {x: 160, y: 80}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 3840, y: 2160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093951454
 MonoBehaviour:
@@ -13621,14 +13640,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c0956572e6cecce439f90d3c58ec8a51, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24152,15 +24171,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4262863168884194, guid: 23b10de1d15dd6c40ba6a3a7714eba6b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 10000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4262863168884194, guid: 23b10de1d15dd6c40ba6a3a7714eba6b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -10000
+      value: -10000.3
       objectReference: {fileID: 0}
     - target: {fileID: 4262863168884194, guid: 23b10de1d15dd6c40ba6a3a7714eba6b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 10000
+      value: 100.7
       objectReference: {fileID: 0}
     - target: {fileID: 4262863168884194, guid: 23b10de1d15dd6c40ba6a3a7714eba6b, type: 2}
       propertyPath: m_LocalRotation.x

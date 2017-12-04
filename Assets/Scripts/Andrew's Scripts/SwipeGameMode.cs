@@ -20,6 +20,7 @@ public class SwipeGameMode : MonoBehaviour {
     public int highScore;
     public GameObject highScorePanel;
     public GameObject countdownBeep;
+    public GameObject sphereMap;
 
     public Strings domStrings;
 
@@ -376,6 +377,11 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 Destroy(child.gameObject);
             }
+        }
+
+        if(sphereMap != null)
+        {
+            sphereMap.GetComponent<PlotSphereMap>().ClearPoints();
         }
 
         //because these can be on during tutorial

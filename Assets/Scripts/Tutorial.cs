@@ -54,12 +54,12 @@ public class Tutorial : MonoBehaviour {
                         {
                             e.StopCurrentEvent();
                             e.StopTutorialEvent();
-                            e.scaleArray(3f);
+                            //e.scaleArray(3f);
                         }
                     }
                 }
 
-                if (currPanelIndex == 7)
+                /*if (currPanelIndex == 7)
                 {
                     GameObject ep = GameObject.Find("DomArray");
                     if (ep != null)
@@ -70,7 +70,7 @@ public class Tutorial : MonoBehaviour {
                             e.scaleArray(0.149815f);
                         }
                     }
-                }
+                }*/
 
                 transform.GetChild(currPanelIndex).gameObject.SetActive(false);
                 ActivatePanelObject apo = transform.GetChild(currPanelIndex).gameObject.GetComponent<ActivatePanelObject>();

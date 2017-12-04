@@ -4,6 +4,7 @@ using System.Collections;
 public class SpawnParticle : MonoBehaviour {
 
 	public GameObject particlePrefab;
+    public GameObject label;
 	private GameObject currParticle;
 	
 	public Vector3 target;
@@ -35,10 +36,12 @@ public class SpawnParticle : MonoBehaviour {
             {
                 currParticle = (GameObject)Instantiate(particlePrefab, eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].endPos, Quaternion.identity);
                 currParticle.transform.SetParent(this.transform);
-
+                label.SetActive(true);
+                label.transform.localPosition = new Vector3(299, 247, 0);
                 target = eventPlayer.events[eventPlayer.lastEventNumber == -1 ? 0 : eventPlayer.lastEventNumber].startPos;
                 //Debug.Log("Spawner " + this.gameObject.name + " is targeting " + target);
                 currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+                //label.transform.Translate(Vector3.down);
             }
             else 
             {
@@ -47,8 +50,12 @@ public class SpawnParticle : MonoBehaviour {
 
                 //Debug.Log("Spawner " + this.gameObject.name + " is targeting " + target);
                 currParticle.GetComponent<ParticleMovement>().MoveParticle(target);
+                //label.transform.Translate(Vector3.down);
             }
-		}
+		} else if (currParticle != null)
+        {
+            label.transform.Translate(Vector3.down * 11);
+        }
 	}
 
     void OnDisable()

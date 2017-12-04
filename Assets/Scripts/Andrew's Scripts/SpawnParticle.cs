@@ -54,7 +54,7 @@ public class SpawnParticle : MonoBehaviour {
             }
 		} else if (currParticle != null)
         {
-            label.transform.Translate(Vector3.down * 11);
+            label.transform.Translate(Vector3.down * 6);
         }
 	}
 

@@ -112,6 +112,9 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void summaryDone()
     {
+        //reset main camera
+        mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
+        mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
          if (tutorial != null)
          {
              tutorial.GetComponent<Tutorial>().playTutorial = true;

@@ -124,8 +124,9 @@ public class Countdown : MonoBehaviour {
                                 Debug.Log("updated scores");
                                 w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched);
                                 w2.Close();
-                            } catch (IOException e)
+                            } catch (Exception e)
                             {
+                                if(e is IOException || e is System.IO.IsolatedStorage.IsolatedStorageException)
                                 //just don't write it
                                 Debug.Log("Couldn't update scores log to cave shared");
                             }  

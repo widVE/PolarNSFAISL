@@ -18,8 +18,11 @@ public class SwipeRecognizer : MonoBehaviour {
     public GameObject pointsTemplate;
     public int neutrinoScore = 0;
     public int neutrinoCount = 0;
-    public float goalAccuracy = .9f;
-    private float initialSwipeAccuracy = 0.5f;
+    public float goalAccuracy = .5f; // percentage
+    private float initialSwipeAccuracy = 0.5f; // percentage
+
+    public const float DELTA_GOAL_ACCURACY = 0.05f; // percentage
+    public const float MAX_GOAL_ACCURACY = 0.95f; // percentage
 
     public AudioSource collectSound;
 
@@ -90,7 +93,9 @@ public class SwipeRecognizer : MonoBehaviour {
         topSwiped = false;
         frontSwiped = false;
         sideSwiped = false;
-	}
+
+        UpdateRefinePanelGoal();
+    }
 
 	/// <summary>
 	/// Builds the gradients used by the line renderer for different swipe types
@@ -484,6 +489,20 @@ public class SwipeRecognizer : MonoBehaviour {
                             totalVector += worldSwipeVector;
                             totalVector = totalVector.normalized;
                             vTest = Mathf.Abs(Vector3.Dot(worldEventVector, totalVector));
+
+                            /* Accuracy modulation */
+                            // Assume goalAccuracy = [0.0 .. 1.0] and initialSwipeAccuracy = 0.5,
+                            // then exponent = [1.0 .. 4.0]
+                            int exp = Mathf.RoundToInt(((goalAccuracy - initialSwipeAccuracy) * 6f) + 1f);
+                            if (exp > 4) exp = 4; // max accuracy is 1 so exp should not exceed 4
+                            // Compute (goalAccuracy ^ exp) in for loop due to no float exponent support
+                            float initialScore = vTest;
+                            for (int i = 0; i < exp; i++)
+                            {
+                                vTest = vTest * initialScore;
+                            }
+                            // Debug.Log("Score modulated from " + initialScore + " to " + vTest);
+                            
                             if(refinePanel != null)
                             {
                                 string txt = refinePanel.GetComponent<UnityEngine.UI.Text>().text;
@@ -773,12 +792,26 @@ public class SwipeRecognizer : MonoBehaviour {
         swipeGameMode.DisableCameras();
         currentEvents.scaleArray(3f);
         swipeGameMode.EventResolved(success);
+        Debug.Log("Has Resolved: " + success);
+        // Increase difficulty on success
+        if (success && !swipeGameMode.isSoftTutorial() 
+            && DELTA_GOAL_ACCURACY > 0f)
+        {
+            goalAccuracy += DELTA_GOAL_ACCURACY;
+            if (goalAccuracy > MAX_GOAL_ACCURACY)
+                goalAccuracy = MAX_GOAL_ACCURACY;
+            UpdateRefinePanelGoal();
+            // This chage will also increase time penalty
+            // for missing event on SwipeGameMode class
+            swipeGameMode.SetTimePenaltyByPercent(
+                2 * (goalAccuracy - initialSwipeAccuracy));
+        }
 
         yield return new WaitForSeconds(waittime);
         ExitResolveMode(success);
     }
 
-    private void spawnPoints (int points, Vector3 coords)
+    public void spawnPoints (int points, Vector3 coords)
     {
         if (pointsTemplate != null)
         {
@@ -791,5 +824,22 @@ public class SwipeRecognizer : MonoBehaviour {
         }   
     }
 
+    public void ResetGoalAccuracy ()
+    {
+        goalAccuracy = initialSwipeAccuracy;
+        UpdateRefinePanelGoal();
+    }
 
+    public void UpdateRefinePanelGoal ()
+    {
+        if (refinePanel != null)
+        {
+            string txt = refinePanel.GetComponent<UnityEngine.UI.Text>().text;
+            int percentIdx = txt.LastIndexOf('%');
+            string subTxt = txt.Substring(percentIdx - 2, 2);
+            string accuracy = Mathf.CeilToInt(100 * goalAccuracy).ToString();
+            string newTxt = txt.Replace(subTxt, accuracy);
+            refinePanel.GetComponent<UnityEngine.UI.Text>().text = newTxt;
+        }
+    }
 }

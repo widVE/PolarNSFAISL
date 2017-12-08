@@ -133,6 +133,9 @@ public class Countdown : MonoBehaviour {
                             
 							Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture> ().numTouches = 0;
                             summaryPanel.SetActive(true);
+
+                            SwipeRecognizer swipeRec = swipeRecognizer.GetComponent<SwipeRecognizer>();
+                            swipeRec.ResetGoalAccuracy();
                         }
 
                         if (swipeGame != null)
@@ -190,5 +193,14 @@ public class Countdown : MonoBehaviour {
 
             
         }
+    }
+
+    public void DecrTimeLeftBy (int val)
+    {
+        if (val <= 0) return;
+        // +1 so next time is updated,
+        // time will be decreased by exactly val units
+        timeLeft = timeLeft - val + 1;
+        oneSec = 1; // Force instant update
     }
 }

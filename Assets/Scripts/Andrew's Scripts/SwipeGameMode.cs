@@ -50,6 +50,9 @@ public class SwipeGameMode : MonoBehaviour {
     private float timeStarted;
     private float softTutorialTime;
 
+    private int timePenalty = 0;
+    public const int MAX_TIME_PENALTY = 5;
+
     [SerializeField]
     private float softTimeout = 30f;
 
@@ -447,6 +450,11 @@ public class SwipeGameMode : MonoBehaviour {
                 a.Play();
             }
         }
+        else if(!isSoftTutorial()) // If failed to resolve
+        {
+            countdownTimer.GetComponent<Countdown>().DecrTimeLeftBy(timePenalty);
+            swipeRecognizer.spawnPoints(-timePenalty, new Vector3(1915, 1900, 0));
+        }
 
         //earthView.gameObject.transform.FindChild("EarthModel").GetComponent<SpinFree>().spin = true;
         
@@ -571,4 +579,12 @@ public class SwipeGameMode : MonoBehaviour {
         sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
         topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
 	}
+
+    public void SetTimePenaltyByPercent(float percent)
+    {
+        if (percent < 0f) percent = 0f;
+        else if (percent > 1f) percent = 1f;
+
+        timePenalty = Mathf.RoundToInt(percent * MAX_TIME_PENALTY);
+    }
 }

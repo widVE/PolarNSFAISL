@@ -304,6 +304,7 @@ public class SwipeGameMode : MonoBehaviour {
                 string scoreTxt = "High Score: " + swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore.ToString() + " Points";
                 highScorePanel.GetComponent<UnityEngine.UI.Text>().text = scoreTxt;
                 Debug.Log("new high score");
+                highScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
             }
             else
             {

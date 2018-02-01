@@ -76,6 +76,9 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 //if sitting in the soft tutorial for over X seconds, restart...
                 //StopSoftTutorial();
+                mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
+                mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
+
                 Debug.Log("Stopping soft tutorial.");
                 if (startButton != null)
                 {
@@ -116,9 +119,9 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void summaryDone()
     {
-        //reset main camera
-        mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
-        mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
+          //reset main camera
+          mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
+          mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
          if (tutorial != null)
          {
              tutorial.GetComponent<Tutorial>().playTutorial = true;
@@ -166,10 +169,10 @@ public class SwipeGameMode : MonoBehaviour {
             
             timeStarted = UnityEngine.Time.time;
 
-            if (liveHelp != null)
+            /*if (liveHelp != null)
             {
                 liveHelp.SetActive(true);
-            }
+            }*/
 
             if (tutorial != null)
             {
@@ -357,10 +360,10 @@ public class SwipeGameMode : MonoBehaviour {
             congratsPanel.SetActive(false);
         }
 
-        if(liveHelp != null)
+        /*if(liveHelp != null)
         {
             liveHelp.SetActive(false);
-        }
+        }*/
 
         if(eventPanel != null)
         {

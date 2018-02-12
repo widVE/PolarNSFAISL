@@ -5,6 +5,8 @@ using UnityEngine;
 public class SwipeGameMode : MonoBehaviour {
 
 	public EventPlayer eventPlayer;
+    public GameObject instructionChoice;
+    public GameObject instructions;
     public GameObject countdownTimer;
 	public SwipeRecognizer swipeRecognizer;
     public GameObject mainCamera;
@@ -50,6 +52,8 @@ public class SwipeGameMode : MonoBehaviour {
     private float timeStarted;
     private float softTutorialTime;
 
+    private int instructionPanelIndex = 0;
+
     private int timePenalty = 0;
     public const int MAX_TIME_PENALTY = 5;
 
@@ -65,6 +69,42 @@ public class SwipeGameMode : MonoBehaviour {
         swipedFront = false;
         highScore = 0;
 	}
+
+    public void StartInstructions()
+    {
+        if (instructions != null)
+        {
+            instructions.SetActive(true);
+        }
+    }
+
+    public void ShowInstructionPanel()
+    {
+        if(instructions != null)
+        {
+            int numPanels = instructions.transform.GetChild(2).transform.childCount;
+            instructions.transform.GetChild(2).transform.GetChild(instructionPanelIndex).gameObject.SetActive(false);
+            instructionPanelIndex++;
+            if (instructionPanelIndex < numPanels)
+            {
+                instructions.transform.GetChild(2).transform.GetChild(instructionPanelIndex).gameObject.SetActive(true);
+            }
+            else
+            {
+                SkipInstructions();
+            }
+        }
+    }
+
+    public void SkipInstructions()
+    {
+        if(instructions != null)
+        {
+            instructions.SetActive(false);
+        }
+
+        InstructionChoice(false);
+    }
 
     void Update()
     {
@@ -148,9 +188,20 @@ public class SwipeGameMode : MonoBehaviour {
          }
     }
 
-    public void StartGame()
+    public void InstructionChoice(bool yes)
     {
-        if (!isGame)
+        //add instruction choice here...
+        if (instructionChoice != null)
+        {
+            instructionChoice.SetActive(false);
+        }
+
+        if(yes)
+        {
+            //show instruction panels...
+            StartInstructions();    
+        }
+        else
         {
             isSoft = true;
 
@@ -164,26 +215,15 @@ public class SwipeGameMode : MonoBehaviour {
                 }
             }
 
-            GameObject.Find("startClick").GetComponent<AudioSource>().Play();
-            isGame = true;
             
+            isGame = true;
+
             timeStarted = UnityEngine.Time.time;
 
             /*if (liveHelp != null)
             {
                 liveHelp.SetActive(true);
             }*/
-
-            if (tutorial != null)
-            {
-                tutorial.GetComponent<Tutorial>().playTutorial = false;
-                tutorial.GetComponent<Tutorial>().ClearTutorial();
-            }
-
-            if (swipeRecognizer != null)
-            {
-                swipeRecognizer.ExitResolveMode(false);
-            }
 
             if (eventPlayer != null)
             {
@@ -209,14 +249,40 @@ public class SwipeGameMode : MonoBehaviour {
                 panelParent.SetActive(false);
             }
 
-            if(startButton != null)
+            if (softTutorialText != null)
+            {
+                softTutorialText.SetActive(true);
+            }
+        }
+    }
+
+    public void StartGame()
+    {
+        if (!isGame)
+        {
+            GameObject.Find("startClick").GetComponent<AudioSource>().Play();
+
+            if (startButton != null)
             {
                 startButton.SetActive(false);
             }
 
-            if(softTutorialText != null)
+            if (tutorial != null)
             {
-                softTutorialText.SetActive(true);
+                tutorial.GetComponent<Tutorial>().playTutorial = false;
+                tutorial.GetComponent<Tutorial>().ClearTutorial();
+            }
+
+            if (swipeRecognizer != null)
+            {
+                swipeRecognizer.ExitResolveMode(false);
+            }
+
+            //add instruction choice here...
+            //need a time out if someone doesn't choose an instruction item...
+            if(instructionChoice != null)
+            {
+                instructionChoice.SetActive(true);
             }
         }
     }

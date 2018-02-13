@@ -30,6 +30,9 @@ public class SwipeGameMode : MonoBehaviour {
 
     private bool isSoft;
 
+    private float instructionStarted = 0f;
+    public float instructionTimeout = 60f;
+
 	[SerializeField]
 	private GameObject topCamera;
     [SerializeField]
@@ -76,6 +79,8 @@ public class SwipeGameMode : MonoBehaviour {
         {
             instructions.SetActive(true);
         }
+
+        instructionStarted = UnityEngine.Time.time;
     }
 
     public void ShowInstructionPanel()
@@ -87,10 +92,12 @@ public class SwipeGameMode : MonoBehaviour {
             instructionPanelIndex++;
             if (instructionPanelIndex < numPanels)
             {
+                instructionStarted = UnityEngine.Time.time;
                 instructions.transform.GetChild(2).transform.GetChild(instructionPanelIndex).gameObject.SetActive(true);
             }
             else
             {
+                instructionStarted = 0f;
                 SkipInstructions();
             }
         }
@@ -151,6 +158,39 @@ public class SwipeGameMode : MonoBehaviour {
         else
         {
             timeStarted = UnityEngine.Time.time;
+
+            if(instructionStarted != 0f)
+            {
+                if(timeStarted - instructionStarted > instructionTimeout)
+                {
+                    mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
+                    mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
+
+                    Debug.Log("Stopping instructions.");
+                    if (startButton != null)
+                    {
+                        startButton.SetActive(true);
+                    }
+
+                    if (tutorial != null)
+                    {
+                        tutorial.GetComponent<Tutorial>().playTutorial = true;
+                    }
+
+                    if(instructionChoice != null)
+                    {
+                        instructionChoice.SetActive(false);
+                    }
+
+                    if(instructions != null)
+                    {
+                        instructions.SetActive(false);
+                    }
+
+                    StopGame();
+                    instructionStarted = 0f;
+                }
+            }
         }
     }
 
@@ -198,11 +238,14 @@ public class SwipeGameMode : MonoBehaviour {
 
         if(yes)
         {
+            instructionStarted = UnityEngine.Time.time;
             //show instruction panels...
             StartInstructions();    
         }
         else
         {
+            instructionStarted = 0f;
+
             isSoft = true;
 
             AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
@@ -282,6 +325,7 @@ public class SwipeGameMode : MonoBehaviour {
             //need a time out if someone doesn't choose an instruction item...
             if(instructionChoice != null)
             {
+                instructionStarted = UnityEngine.Time.time;
                 instructionChoice.SetActive(true);
             }
         }

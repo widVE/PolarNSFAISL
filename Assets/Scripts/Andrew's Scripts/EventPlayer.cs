@@ -450,6 +450,7 @@ public class EventPlayer : MonoBehaviour {
 
                 if (truePath != null)
                 {
+                    truePath.enabled = swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial() || playingTutorial;
                     truePath.SetPosition(0, events[currEventNumber].startPos);
                     truePath.SetPosition(1, events[currEventNumber].endPos);
                 }

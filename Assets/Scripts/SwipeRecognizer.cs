@@ -319,20 +319,29 @@ public class SwipeRecognizer : MonoBehaviour {
         //Debug.Log("Screen Min: " + Screen.height * 0.3);
         //Debug.Log("Screen Max: " + Screen.height * 0.6);
 
-        if (start.y < Screen.height * 0.3 || start.y > Screen.height * 0.6) {
+        //just add a decent amount of fudge to this to allow people to begin and end their swipe
+        //off of the panel...judge which panel based on the shortest screen-space distance of the center of their 
+        //swipe with the center of the panel
+        const float FUDGE_AMOUNT = 0.075f;
+
+        if (start.y < Screen.height * (0.2824 - FUDGE_AMOUNT) || start.y > Screen.height * (0.6157 + FUDGE_AMOUNT)) {
 			//Debug.LogWarning ("Bad y on start");
 			return ResolveBounds.none;
 		}
 
 		// Y values are in bounds, now check x values
+        
 
 		ResolveBounds startBounds;
 
-		if (start.x > 0.1234375f && start.x < Screen.width * 0.2921875f) {
+        if (start.x > Screen.width * (0.169f - FUDGE_AMOUNT) && start.x < Screen.width * (0.3572 + FUDGE_AMOUNT))
+        {
 			startBounds = ResolveBounds.top;
-		} else if (start.x > Screen.width * 0.415625 && start.x < Screen.width * 0.584375f) {
+        }
+        else if (start.x > Screen.width * (0.40625 - FUDGE_AMOUNT) && start.x < Screen.width * (0.59375f + FUDGE_AMOUNT))
+        {
 			startBounds = ResolveBounds.front;
-		} else if (start.x > Screen.width * 0.7078125f && start.x < Screen.width * 0.8765625f) {
+		} else if (start.x > Screen.width * (0.6315f - FUDGE_AMOUNT) && start.x < Screen.width * (0.8190f + FUDGE_AMOUNT)) {
 			startBounds = ResolveBounds.side;
 		} else {
 			//Debug.LogWarning ("Bad x on start");

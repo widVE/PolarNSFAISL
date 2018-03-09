@@ -62,7 +62,7 @@ public class SpawnParticle : MonoBehaviour {
     {
         if (currParticle != null)
         {
-            Debug.Log("Disabling particle spawner");
+            //Debug.Log("Disabling particle spawner");
             Destroy(currParticle.gameObject);
             currParticle = null;
             stopThrowing();

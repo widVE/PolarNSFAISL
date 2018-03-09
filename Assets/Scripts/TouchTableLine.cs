@@ -22,9 +22,20 @@ public class TouchTableLine : MonoBehaviour {
 
         if (camToUse != null)
         {
-            worldStartEnd[0] = camToUse.ScreenToWorldPoint(startEnd[0]);
-            worldStartEnd[1] = camToUse.ScreenToWorldPoint(startEnd[1]);
-
+            if(camToUse.orthographic)
+            {
+                worldStartEnd[0] = startEnd[0];
+                worldStartEnd[1] = startEnd[1];
+                worldStartEnd[0].z = -1f;
+                worldStartEnd[1].z = -1f;
+                ren.useWorldSpace = false;
+            }
+            else
+            {
+                worldStartEnd[0] = camToUse.ScreenToWorldPoint(startEnd[0]);
+                worldStartEnd[1] = camToUse.ScreenToWorldPoint(startEnd[1]);
+                ren.useWorldSpace = true;
+            }
             ren.SetPositions(worldStartEnd);
         }
 

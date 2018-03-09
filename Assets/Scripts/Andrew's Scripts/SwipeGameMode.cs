@@ -80,6 +80,7 @@ public class SwipeGameMode : MonoBehaviour {
             instructions.SetActive(true);
         }
 
+        instructionPanelIndex = 0;
         instructionStarted = UnityEngine.Time.time;
     }
 
@@ -87,7 +88,11 @@ public class SwipeGameMode : MonoBehaviour {
     {
         if(instructions != null)
         {
+            //Debug.Log(instructionPanelIndex);
+            
             int numPanels = instructions.transform.GetChild(2).transform.childCount;
+            //Debug.Log(numPanels);
+
             instructions.transform.GetChild(2).transform.GetChild(instructionPanelIndex).gameObject.SetActive(false);
             instructionPanelIndex++;
             if (instructionPanelIndex < numPanels)
@@ -98,6 +103,7 @@ public class SwipeGameMode : MonoBehaviour {
             else
             {
                 instructionStarted = 0f;
+                instructionPanelIndex = 0;
                 SkipInstructions();
             }
         }
@@ -147,6 +153,11 @@ public class SwipeGameMode : MonoBehaviour {
                     softTutorialText.SetActive(false);
                 }
 
+                if (eventPlayer != null)
+                {
+                    eventPlayer.truePath.enabled = false;
+                }
+
                 StopGame();
             }
 
@@ -177,6 +188,11 @@ public class SwipeGameMode : MonoBehaviour {
                         tutorial.GetComponent<Tutorial>().playTutorial = true;
                     }
 
+                    if (eventPlayer != null)
+                    {
+                        eventPlayer.truePath.enabled = false;
+                    }
+
                     if(instructionChoice != null)
                     {
                         instructionChoice.SetActive(false);
@@ -199,12 +215,18 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void summaryDone()
     {
-          //reset main camera
-          mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
-          mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
+         //reset main camera
+         mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
+         mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
+         
          if (tutorial != null)
          {
              tutorial.GetComponent<Tutorial>().playTutorial = true;
+         }
+
+         if (eventPlayer != null)
+         {
+             eventPlayer.truePath.enabled = false;
          }
 
          if (startButton != null)
@@ -236,11 +258,37 @@ public class SwipeGameMode : MonoBehaviour {
             instructionChoice.SetActive(false);
         }
 
+        if (eventPlayer != null)
+        {
+            eventPlayer.truePath.enabled = false;
+            eventPlayer.GetComponent<EventPlayer>().keepPlaying = true;
+            eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
+            eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
+        }
+
+        //in case summary panel hadn't been cleared yet...
+        foreach (Transform child in summaryPanel.transform)
+        {
+            if (child.gameObject.name.StartsWith("Event:"))
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
+
+        //because these can be on during tutorial
+        if (panelParent != null)
+        {
+            panelParent.SetActive(false);
+        }
+
         if(yes)
         {
             instructionStarted = UnityEngine.Time.time;
             //show instruction panels...
-            StartInstructions();    
+            StartInstructions();
+            ShowInstructionPanel();
         }
         else
         {
@@ -258,7 +306,6 @@ public class SwipeGameMode : MonoBehaviour {
                 }
             }
 
-            
             isGame = true;
 
             timeStarted = UnityEngine.Time.time;
@@ -267,30 +314,6 @@ public class SwipeGameMode : MonoBehaviour {
             {
                 liveHelp.SetActive(true);
             }*/
-
-            if (eventPlayer != null)
-            {
-                eventPlayer.GetComponent<EventPlayer>().keepPlaying = true;
-                eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
-                eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();
-            }
-
-            //in case summary panel hadn't been cleared yet...
-            foreach (Transform child in summaryPanel.transform)
-            {
-                if (child.gameObject.name.StartsWith("Event:"))
-                {
-                    Destroy(child.gameObject);
-                }
-            }
-
-            summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
-
-            //because these can be on during tutorial
-            if (panelParent != null)
-            {
-                panelParent.SetActive(false);
-            }
 
             if (softTutorialText != null)
             {
@@ -304,6 +327,8 @@ public class SwipeGameMode : MonoBehaviour {
         if (!isGame)
         {
             GameObject.Find("startClick").GetComponent<AudioSource>().Play();
+
+            //Application.OpenURL("https://www.npr.org");
 
             if (startButton != null)
             {

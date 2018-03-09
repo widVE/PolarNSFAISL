@@ -195,6 +195,11 @@ public class SwipeRecognizer : MonoBehaviour {
         t.camToUse = cameraToUse;
         t.startEnd[0] = screenStartEnd[0];
         t.startEnd[1] = screenStartEnd[1];
+        /*if(cameraToUse.orthographic)
+        {
+            t.startEnd[0].z = 0f;
+            t.startEnd[1].z = 0f;
+        }*/
 		// Draw the line
         //Debug.Log(startEnd[0]);
         //Debug.Log(startEnd[1]);
@@ -240,6 +245,14 @@ public class SwipeRecognizer : MonoBehaviour {
 	private void swipeHandler(object sender, System.EventArgs e) {
 
         if(!swipeGameMode.GetComponent<SwipeGameMode>().isGamePlaying())
+        {
+            return;
+        }
+
+        Vector2 swipeVector = swipeGesture.ScreenFlicks[swipeGesture.recognizedId];
+        //Debug.Log(swipeVector.magnitude);
+        //need to swipe at least 100 pixels distance
+        if(swipeVector.magnitude <= 100f)
         {
             return;
         }
@@ -801,7 +814,7 @@ public class SwipeRecognizer : MonoBehaviour {
         swipeGameMode.DisableCameras();
         currentEvents.scaleArray(3f);
         swipeGameMode.EventResolved(success);
-        Debug.Log("Has Resolved: " + success);
+        //Debug.Log("Has Resolved: " + success);
         // Increase difficulty on success
         if (success && !swipeGameMode.isSoftTutorial() 
             && DELTA_GOAL_ACCURACY > 0f)

@@ -153,11 +153,6 @@ public class SwipeGameMode : MonoBehaviour {
                     softTutorialText.SetActive(false);
                 }
 
-                if (eventPlayer != null)
-                {
-                    eventPlayer.truePath.enabled = false;
-                }
-
                 StopGame();
             }
 
@@ -188,11 +183,6 @@ public class SwipeGameMode : MonoBehaviour {
                         tutorial.GetComponent<Tutorial>().playTutorial = true;
                     }
 
-                    if (eventPlayer != null)
-                    {
-                        eventPlayer.truePath.enabled = false;
-                    }
-
                     if(instructionChoice != null)
                     {
                         instructionChoice.SetActive(false);
@@ -215,39 +205,42 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void summaryDone()
     {
-         //reset main camera
-         mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
-         mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
+        //reset main camera
+        mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
+        mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
          
-         if (tutorial != null)
-         {
-             tutorial.GetComponent<Tutorial>().playTutorial = true;
-         }
+        if (tutorial != null)
+        {
+            tutorial.GetComponent<Tutorial>().playTutorial = true;
+        }
 
-         if (eventPlayer != null)
-         {
-             eventPlayer.truePath.enabled = false;
-         }
+        if (startButton != null)
+        {
+            startButton.SetActive(true);
+        }
 
-         if (startButton != null)
-         {
-             startButton.SetActive(true);
-         }
-
-         if (summaryPanel != null)
-         {
-             summaryPanel.SetActive(false);
+        if (summaryPanel != null)
+        {
+            summaryPanel.SetActive(false);
  
-             foreach (Transform child in summaryPanel.transform)
-             {
-                 if (child.gameObject.name.StartsWith("Event:"))
-                 {
-                     Destroy(child.gameObject);
-                 }
-             }
+            foreach (Transform child in summaryPanel.transform)
+            {
+                if (child.gameObject.name.StartsWith("Event:"))
+                {
+                    Destroy(child.gameObject);
+                }
+            }
  
-             summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
-         }
+            summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
+        }
+
+        if (eventPlayer != null)
+        {
+            eventPlayer.truePath.enabled = false;
+            Color newColor = eventPlayer.truePath.material.color;
+            newColor.a = 1f;
+            eventPlayer.truePath.material.color = newColor;
+        }
     }
 
     public void InstructionChoice(bool yes)
@@ -260,7 +253,6 @@ public class SwipeGameMode : MonoBehaviour {
 
         if (eventPlayer != null)
         {
-            eventPlayer.truePath.enabled = false;
             eventPlayer.GetComponent<EventPlayer>().keepPlaying = true;
             eventPlayer.GetComponent<EventPlayer>().StopCurrentEvent();
             eventPlayer.GetComponent<EventPlayer>().StopTutorialEvent();

@@ -535,6 +535,10 @@ public class SwipeRecognizer : MonoBehaviour {
                                 {
                                     accuracy = "0" + accuracy;
                                 }
+                                else if(vTest *100f >= 100f)
+                                {
+                                    accuracy = "99.99";
+                                }
                                 string newTxt = txt.Replace(subTxt, accuracy);
                                 refinePanel.GetComponent<UnityEngine.UI.Text>().text = newTxt;
                             }

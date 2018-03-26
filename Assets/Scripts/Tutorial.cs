@@ -54,7 +54,7 @@ public class Tutorial : MonoBehaviour {
                         {
                             e.StopCurrentEvent();
                             e.StopTutorialEvent();
-                            e.truePath.enabled = false;
+                            e.truePath.enabled = true;
                             //e.scaleArray(3f);
                         }
                     }

@@ -158,6 +158,11 @@ public class SwipeGameMode : MonoBehaviour {
                     softTutorialText.SetActive(false);
                 }
 
+                if (eventPlayer != null)
+                {
+                    eventPlayer.truePath.enabled = false;
+                }
+
                 StopGame();
             }
 

@@ -11,9 +11,9 @@ public class EarthView : MonoBehaviour
     struct eventCone
     {
         public GameObject cone;
-        public GameObject point;
+        public Vector3 point;
 
-        public eventCone(GameObject cone, GameObject point)
+        public eventCone(GameObject cone, Vector3 point)
         {
             this.cone = cone;
             this.point = point;
@@ -35,7 +35,7 @@ public class EarthView : MonoBehaviour
         {
             foreach (eventCone cone in cones)
             {
-                cone.cone.transform.LookAt(cone.point.transform);
+                cone.cone.transform.LookAt(cone.point);
             }
 
             if (swipeGame != null)
@@ -78,9 +78,10 @@ public class EarthView : MonoBehaviour
         g.transform.localScale = new Vector3(1 + (1 - ((accuracy - goal) / goal)) * 15.0f, g.transform.localScale.y, 1 + (1 - ((accuracy - goal) / goal)) * 15.0f); //based on goal
         //Vector3 endPoint = new Vector3(Random.Range(-200, 200), Random.Range(-200, 200), Random.Range(-200, 200));
         //Vector3 testPoint = (start - end) / 10;
-        GameObject lookAtPoint = new GameObject();
-        lookAtPoint.transform.position = end;
-        cones.Add(new eventCone(g, lookAtPoint));
+        //GameObject lookAtPoint = new GameObject();
+        //lookAtPoint.name = "test";
+        //lookAtPoint.transform.position = end;
+        cones.Add(new eventCone(g, end));
         /*LineRenderer r = g.GetComponent<LineRenderer>();
         //r.gameObject.AddComponent(r);
         r.startWidth = 3.0f;

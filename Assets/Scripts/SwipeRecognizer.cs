@@ -63,7 +63,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public GameObject refinePanel;
     public GameObject congratsPanel;
 
-    public float helperNumStages = 5f;
+    public float helperNumStages = 4f;
 
     private Vector3 totalVector = Vector3.zero;
     private Vector3 totalScore = Vector3.zero;

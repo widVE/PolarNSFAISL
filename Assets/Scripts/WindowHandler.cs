@@ -29,7 +29,13 @@ public class WindowHandler : MonoBehaviour {
     private const int WS_CAPTION = 0x00C00000;      //window with a title bar
     private const int WS_SYSMENU = 0x00080000;      //window with no borders etc.
     private const int WS_MINIMIZEBOX = 0x00020000;  //window with minimizebox
+    private const int WS_POPUP = unchecked((int)0x80000000);
     private const int SWP_SHOWWINDOW = 0x0040;      //displays the window
+
+    float startTime = 0f;
+    bool removedBorder = false;
+    int firstWidth = 0;
+    int firstHeight = 0;
 
     public WindowState currentwinstate;
 
@@ -46,10 +52,9 @@ public class WindowHandler : MonoBehaviour {
     public void WindowedMaximized(int _width, int _height)
     {
         IntPtr window = FindWindowByCaption(IntPtr.Zero, WINDOW_NAME);
-        SetWindowLong(window, GWL_STYLE, WS_SYSMENU);
+        SetWindowLong(window, GWL_STYLE, WS_POPUP);//unchecked((int)0x80000000L));//WS_SYSMENU);
         SetWindowPos(window, -2, 0, 0, _width, _height, SWP_SHOWWINDOW);
         DrawMenuBar(window);
-
     }
 
     /// <summary>
@@ -74,6 +79,23 @@ public class WindowHandler : MonoBehaviour {
  
     void Start()
     {
-        WindowedMaximized(1366, 768);
+        //WindowedMode();
+        firstWidth = Screen.width;
+        firstHeight = Screen.height;
+        Screen.SetResolution(Screen.width-1, Screen.height-1, false);
+        startTime = UnityEngine.Time.time;
+        //WindowedMaximized(1365, 767);
+    }
+
+    void Update()
+    {
+        if (!removedBorder)
+        {
+            if (UnityEngine.Time.time - startTime > 3f)
+            {
+                WindowedMaximized(firstWidth - 1, firstHeight - 1);
+                removedBorder = true;
+            }
+        }
     }
 }

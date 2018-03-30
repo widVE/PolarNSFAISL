@@ -20,6 +20,7 @@ public class Countdown : MonoBehaviour {
     public GameObject startButton;
     public GameObject eventPanelManager;
     public GameObject swipeRecognizer;
+    public Animator evalButton;
 
     public void StartCountdown() { 
         countDown = true;
@@ -133,7 +134,10 @@ public class Countdown : MonoBehaviour {
                             
 							Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture> ().numTouches = 0;
                             summaryPanel.SetActive(true);
-
+                            if(evalButton != null)
+                            {
+                                 evalButton.Play("AnimateButton", -1, 0f);                               
+                            }
                             SwipeRecognizer swipeRec = swipeRecognizer.GetComponent<SwipeRecognizer>();
                             swipeRec.ResetGoalAccuracy();
                         }
@@ -191,7 +195,11 @@ public class Countdown : MonoBehaviour {
                 summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
             }
 
-            
+            if(evalButton != null)
+            {
+                evalButton.gameObject.transform.GetChild(0).GetComponent<UnityEngine.UI.Button>().interactable = true;
+                evalButton.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = "Click to help out our science by filling out a survey!";
+            }
         }
     }
 

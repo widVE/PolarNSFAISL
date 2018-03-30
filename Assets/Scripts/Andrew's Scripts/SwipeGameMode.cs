@@ -60,6 +60,8 @@ public class SwipeGameMode : MonoBehaviour {
     private int timePenalty = 0;
     public const int MAX_TIME_PENALTY = 5;
 
+    public GameObject evalButton;
+
     [SerializeField]
     private float softTimeout = 30f;
 
@@ -75,6 +77,12 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void LoadSurvey()
     {
+        if(evalButton != null)
+        {
+            evalButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
+            evalButton.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Opening Survey, Please wait...";
+        }
+
         Application.OpenURL("https://uwmadison.co1.qualtrics.com/jfe/form/SV_eyujvZNGHehJ2sJ");
     }
 
@@ -242,6 +250,12 @@ public class SwipeGameMode : MonoBehaviour {
             }
  
             summaryPanel.GetComponent<EventPanelManager>().panels.Clear();
+        }
+
+        if (evalButton != null)
+        {
+            evalButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+            evalButton.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Click to help out our science by filling out a survey!";
         }
 
         if (eventPlayer != null)

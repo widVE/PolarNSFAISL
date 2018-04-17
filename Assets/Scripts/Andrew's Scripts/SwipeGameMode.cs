@@ -304,7 +304,7 @@ public class SwipeGameMode : MonoBehaviour {
             instructionStarted = UnityEngine.Time.time;
             //show instruction panels...
             StartInstructions();
-            ShowInstructionPanel();
+            //ShowInstructionPanel();
         }
         else
         {

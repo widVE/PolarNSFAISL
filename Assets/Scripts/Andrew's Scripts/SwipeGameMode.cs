@@ -240,7 +240,7 @@ public class SwipeGameMode : MonoBehaviour {
         if (summaryPanel != null)
         {
             summaryPanel.SetActive(false);
- 
+            summaryPanel.transform.GetChild(0).gameObject.SetActive(false);
             foreach (Transform child in summaryPanel.transform)
             {
                 if (child.gameObject.name.StartsWith("Event:"))

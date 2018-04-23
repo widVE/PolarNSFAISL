@@ -32,6 +32,7 @@ public class SwipeGameMode : MonoBehaviour {
 
     private float instructionStarted = 0f;
     public float instructionTimeout = 60f;
+    public bool viewedInstructions = false;
 
 	[SerializeField]
 	private GameObject topCamera;
@@ -269,6 +270,8 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void InstructionChoice(bool yes)
     {
+        viewedInstructions = yes;
+
         //add instruction choice here...
         if (instructionChoice != null)
         {

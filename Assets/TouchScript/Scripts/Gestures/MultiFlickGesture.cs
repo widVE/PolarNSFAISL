@@ -71,6 +71,8 @@ namespace TouchScript.Gestures
         //same is probably true for minDistance and movementThreshold...
         public float flickTime = 2f;
 
+        public string lastTouchTime = "";
+
         private GameObject liveHelp = null;
 
         [SerializeField]
@@ -194,6 +196,7 @@ namespace TouchScript.Gestures
                 if(isActive[pointers[i].Id])// && moving[pointers[i].Id])
                 {
                     numTouches++;
+                    lastTouchTime = DateTime.Now.ToShortTimeString();
                     //don't want to add to the sequence here...
                     //multiDeltaSequence[pointers[i].Id].Add(pointers[i].PreviousPosition - pointers[i].Position);
                     //Debug.Log(pointers[i].Id + " " + multiDeltaSequence[pointers[i].Id].Count());

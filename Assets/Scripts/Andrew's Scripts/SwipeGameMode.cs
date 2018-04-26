@@ -32,6 +32,7 @@ public class SwipeGameMode : MonoBehaviour {
 
     private float instructionStarted = 0f;
     public float instructionTimeout = 60f;
+    public bool viewedInstructions = false;
 
 	[SerializeField]
 	private GameObject topCamera;
@@ -240,7 +241,7 @@ public class SwipeGameMode : MonoBehaviour {
         if (summaryPanel != null)
         {
             summaryPanel.SetActive(false);
- 
+            summaryPanel.transform.GetChild(0).gameObject.SetActive(false);
             foreach (Transform child in summaryPanel.transform)
             {
                 if (child.gameObject.name.StartsWith("Event:"))
@@ -269,6 +270,8 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void InstructionChoice(bool yes)
     {
+        viewedInstructions = yes;
+
         //add instruction choice here...
         if (instructionChoice != null)
         {
@@ -304,7 +307,7 @@ public class SwipeGameMode : MonoBehaviour {
             instructionStarted = UnityEngine.Time.time;
             //show instruction panels...
             StartInstructions();
-            ShowInstructionPanel();
+            //ShowInstructionPanel();
         }
         else
         {

@@ -10,10 +10,12 @@ public class Countdown : MonoBehaviour {
     public int gameTime = 90;
     private int timeLeft;
     private float oneSec = 0f;
-    public float summaryPanelLength = 10f;
+    public float summaryPanelLength = 60f;
+    public float restartButtonDelay = 10f;
     private bool countDown = false;
     private bool paused = false;
     private bool hasStarted = false;
+    
     public GameObject score;
     public GameObject summaryPanel;
     public GameObject tutorial;
@@ -98,7 +100,7 @@ public class Countdown : MonoBehaviour {
                             }
 
                             int numTimesTouched = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().numTouches;
-
+                            string lastTouchTime = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().lastTouchTime;
                             //write out log file here
                             StreamWriter w;
 
@@ -112,7 +114,7 @@ public class Countdown : MonoBehaviour {
                                 string time = DateTime.Now.ToShortTimeString();
                                 string date = DateTime.Now.ToShortDateString();
 
-                                w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched);
+                                w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched + ", " + lastTouchTime + ", " + swipeGame.GetComponent<SwipeGameMode>().viewedInstructions.ToString());
                                 w.Close();
                             }
 
@@ -123,7 +125,7 @@ public class Countdown : MonoBehaviour {
                                 string time = DateTime.Now.ToShortTimeString();
                                 string date = DateTime.Now.ToShortDateString();
                                 Debug.Log("updated scores");
-                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched);
+                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched + ", " + lastTouchTime + ", " + swipeGame.GetComponent<SwipeGameMode>().viewedInstructions.ToString());
                                 w2.Close();
                             } catch (Exception e)
                             {
@@ -148,6 +150,7 @@ public class Countdown : MonoBehaviour {
                         }
 
                         StartCoroutine(DelayedResolve(summaryPanelLength, false));
+                        StartCoroutine(RestartDelay(restartButtonDelay));
                     }
 
                     if (score != null)
@@ -163,6 +166,12 @@ public class Countdown : MonoBehaviour {
             }
         }
 	}
+
+    private IEnumerator RestartDelay(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        summaryPanel.transform.GetChild(0).gameObject.SetActive(true);
+    }
 
     private IEnumerator DelayedResolve(float waittime, bool success)
     {
@@ -183,7 +192,7 @@ public class Countdown : MonoBehaviour {
             if (summaryPanel != null)
             {
                 summaryPanel.SetActive(false);
-
+                summaryPanel.transform.GetChild(0).gameObject.SetActive(false);
                 foreach (Transform child in summaryPanel.transform)
                 {
                     if (child.gameObject.name.StartsWith("Event:"))

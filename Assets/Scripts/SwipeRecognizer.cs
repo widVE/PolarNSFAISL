@@ -26,6 +26,8 @@ public class SwipeRecognizer : MonoBehaviour {
 
     public AudioSource collectSound;
 
+    private bool okToResolve = false;
+
     // TouchScript gesture that this script listens to
     public MultiFlickGesture swipeGesture;
     public GameObject lineObject;
@@ -260,17 +262,35 @@ public class SwipeRecognizer : MonoBehaviour {
         }
 
 		if (inResolveMode) {
-			handleResolveSwipe ();
+            if (okToResolve)
+            {
+                handleResolveSwipe();
+            }
 		} else {
             totalVector = Vector3.zero;
             totalScore = Vector3.zero;
+            okToResolve = false;
             handleCaptureSwipe ();
         }
 	}
 
-	private void handleCaptureSwipe() {
+	private void handleCaptureSwipe() 
+    {
 		SwipeCalculation (Camera.main);
+
+        if(inResolveMode)
+        {
+            //if we successfully captured an initial swipe, time delay for a second before we handle resolve swipes
+            //to avoid accidentally swiping middle resolve window...
+            StartCoroutine(ResolveDelay(1f));
+        }
 	}
+
+    private IEnumerator ResolveDelay(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        okToResolve = true;
+    }
 
 	private void handleResolveSwipe() {
 

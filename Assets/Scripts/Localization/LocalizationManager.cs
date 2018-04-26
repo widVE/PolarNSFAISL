@@ -25,11 +25,12 @@ public class LocalizationManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+        localizedText = new Dictionary<string, string>();
     }
 
     public void LoadLocalizedText(string fileName)
     {
-        localizedText = new Dictionary<string, string>();
+        localizedText.Clear();
         string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
         if (File.Exists(filePath))
@@ -55,7 +56,7 @@ public class LocalizationManager : MonoBehaviour
 
     public void updateLocalizedTexts()
     {
-        LocalizedText[] components = Object.FindObjectsOfType<LocalizedText>();
+        LocalizedText[] components = Object.FindObjectsOfType<LocalizedText>(); //FindObjectsOfTypeAll(typeof()) for disabled content
         foreach(LocalizedText component in components)
         {
             Text text = component.gameObject.GetComponent<Text>();

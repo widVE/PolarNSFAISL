@@ -111,7 +111,7 @@ public class Countdown : MonoBehaviour {
 
                             using (w = File.AppendText(d + ".log"))
                             {
-                                string time = DateTime.Now.ToShortTimeString();
+                                string time = DateTime.Now.ToLongTimeString();
                                 string date = DateTime.Now.ToShortDateString();
 
                                 w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched + ", " + lastTouchTime + ", " + swipeGame.GetComponent<SwipeGameMode>().viewedInstructions.ToString());

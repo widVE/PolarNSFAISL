@@ -96,6 +96,7 @@ public class SwipeGameMode : MonoBehaviour {
 
         instructionPanelIndex = 0;
         instructionStarted = UnityEngine.Time.time;
+        viewedInstructions = true;
     }
 
     public void ShowInstructionPanel()
@@ -270,7 +271,7 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void InstructionChoice(bool yes)
     {
-        viewedInstructions = yes;
+        //viewedInstructions = yes;
 
         //add instruction choice here...
         if (instructionChoice != null)
@@ -343,11 +344,11 @@ public class SwipeGameMode : MonoBehaviour {
 
     public void StartGame()
     {
+        viewedInstructions = false;
+
         if (!isGame)
         {
             GameObject.Find("startClick").GetComponent<AudioSource>().Play();
-
-            //Application.OpenURL("https://www.npr.org");
 
             if (startButton != null)
             {

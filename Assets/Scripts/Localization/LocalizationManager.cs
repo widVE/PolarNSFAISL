@@ -28,6 +28,11 @@ public class LocalizationManager : MonoBehaviour
         localizedText = new Dictionary<string, string>();
     }
 
+    void Start()
+    {
+        LoadLocalizedText("localizedText_en.json");
+    }
+
     public void LoadLocalizedText(string fileName)
     {
         localizedText.Clear();
@@ -51,12 +56,70 @@ public class LocalizationManager : MonoBehaviour
         }
 
         isReady = true;
+
         updateLocalizedTexts();
+        UpdateSummaryPanel();
+        UpdateEventPanel();
+        
+        SwipeRecognizer s = UnityEngine.Camera.main.gameObject.GetComponent<SwipeRecognizer>();
+        if(s != null)
+        {
+            s.updateScore();
+        }
+
+        SwipeGameMode hs = gameObject.GetComponent<SwipeGameMode>();
+        if (hs != null)
+        {
+            hs.StopGame();
+            hs.HighScore();
+        }
     }
 
+    public void UpdateSummaryPanel()
+    {
+        GameObject g = GameObject.Find("SummaryPanel");
+        if (g != null)
+        {
+            for(int i = 0; i < g.transform.childCount; ++i)
+            {
+                GameObject c = g.transform.GetChild(i).gameObject;
+                if(c.name.StartsWith("Event: "))
+                {
+                    EventInfo ei = c.GetComponent<EventInfo>();
+                    if(ei != null)
+                    {
+                        ei.OnEnable();
+                    }
+                }
+            }
+        }
+    }
+
+    public void UpdateEventPanel()
+    {
+        GameObject e = GameObject.Find("EventPanel");
+        if (e != null)
+        {
+            for (int i = 0; i < e.transform.childCount; ++i)
+            {
+                GameObject cmp = e.transform.GetChild(i).gameObject;
+                if (cmp.name.StartsWith("Event: "))
+                {
+                    EventInfo eii = cmp.GetComponent<EventInfo>();
+                    if (eii != null)
+                    {
+                        eii.OnEnable();
+                    }
+                }
+            }
+        }
+    }
+
+    //translates the text in text script
     public void updateLocalizedTexts()
     {
-        LocalizedText[] components = Object.FindObjectsOfType<LocalizedText>(); //FindObjectsOfTypeAll(typeof()) for disabled content
+
+        LocalizedText[] components = Resources.FindObjectsOfTypeAll<LocalizedText>(); 
         foreach(LocalizedText component in components)
         {
             Text text = component.gameObject.GetComponent<Text>();

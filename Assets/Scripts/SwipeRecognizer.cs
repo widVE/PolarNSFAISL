@@ -99,6 +99,7 @@ public class SwipeRecognizer : MonoBehaviour {
         sideSwiped = false;
 
         UpdateRefinePanelGoal();
+        updateScore();
     }
 
 	/// <summary>
@@ -761,7 +762,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
                                     congratsPanel.SetActive(true);
-                                    congratsPanel.GetComponent<UnityEngine.UI.Text>().text = "Great Job!  You detected a neutrino from a: " + currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
+                                    congratsPanel.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("congrats") + currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
                                 }
                             }
 
@@ -826,11 +827,12 @@ public class SwipeRecognizer : MonoBehaviour {
 		}
 	}
 
-    private void updateScore()
+    public void updateScore()
     {
         if (scorePanel != null)
         {
-            string countTxt = "Score: " + neutrinoScore.ToString() + " Points";
+            string countTxt = LocalizationManager.instance.GetLocalizedValue("score") + " " + neutrinoScore.ToString() +
+                " " + LocalizationManager.instance.GetLocalizedValue("points"); 
             scorePanel.GetComponent<UnityEngine.UI.Text>().text = countTxt;
         }
     }

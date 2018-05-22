@@ -43,6 +43,7 @@ public class EventPanelManager : MonoBehaviour {
 	/// Used for initialization
 	/// </summary>
 	void Start () {
+
 		removeSound = GetComponent<AudioSource> ();
 	}
 
@@ -106,7 +107,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = grb;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Gamma Ray Burst: Extremely energetic explosion that has been observed in a distant galaxy.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("gamma_ray_burst");
                 break;
             case "Black Hole":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blackHole;
@@ -114,7 +115,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = blackHole;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Black Hole: A region of space time exhibiting such strong gravitational effects that nothing can escape from inside it.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("blackhole");
                 break;
             case "Radio Galaxy":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = radioGalaxy;
@@ -122,7 +123,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = radioGalaxy;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Radio Galaxy: A type of active galaxy that is very luminous at radio wavelengths.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("radio_galaxy");
                 break;
             case "Blazar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
@@ -130,7 +131,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = blazar;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Blazar: An extragalactic source powered by a supermassive black hole at the center of a giant elliptical galaxy. They emit a relativistic jet that points to Earth.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("blazar");
                 break;
             case "Quasar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
@@ -138,7 +139,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = quazar;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Quasar: An active galactic nucleus powered by a super massive black hole surrounded by an orbiting disk of gas.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("quasar");
                 break;
             case "Supernova":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = supernova;
@@ -146,7 +147,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = supernova;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Supernova: An astronomical event that results from the explosion of a massive star during the last stages of its life.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("supernova");
                 break;
             case "Active Galactic Nucleus":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
@@ -154,7 +155,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = agn;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Active Galactic Nucleus: a compact region at the center of a galaxy that has a much higher than normal luminosity over some portion of the electromagnetic spectrum.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("active_galaxy_nucleus");
                 break;
             case "X-Ray Binary":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
@@ -162,7 +163,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = xrayBinary;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "X-ray Binary. A binary star produced by matter from one star to the other. The second one is usually a black hole or a neutron star.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("xray_binary");
                 break;
             case "Supernova Remnant":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = snr;
@@ -170,7 +171,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = snr;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Supernova remnant (SNR): Either galactic or extragalactic, these sources are the result of a supernova explosion.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("supernova_remnant");
                 break;
             case "Magnetar":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = magnetar;
@@ -178,7 +179,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = magnetar;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "Magnetar. A neutron star with a very powerful magnetic field that could produce neutrinos, gamma rays and x-rays.";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("magnetar");
                 break;
             case "No Source":
                 newPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
@@ -186,7 +187,7 @@ public class EventPanelManager : MonoBehaviour {
                 {
                     congratsPanel.transform.GetChild(0).GetComponent<Image>().sprite = noSource;
                 }
-                newPanel.transform.Find("Text").GetComponent<Text>().text = "No Source: Some neutrinos originate from sources that are unknown or yet to be discovered!";
+                newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("no_source");
                 break;
             default:
                 break;
@@ -195,7 +196,7 @@ public class EventPanelManager : MonoBehaviour {
         if(congratsPanel)
         {
             //adding name underneath congrats image.
-            congratsPanel.transform.GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Text>().text = name;
+            congratsPanel.transform.GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue(name);
         }
 
 		// The panel has two buttons, so set up the OnClick functions for each button
@@ -236,7 +237,7 @@ public class EventPanelManager : MonoBehaviour {
         }
         else
         {*/
-            newPanel.transform.Find("Text").GetComponent<Text>().text = name;
+            newPanel.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue(name);
         }
 
 		return newPanel.GetComponent<EventInfo> ();

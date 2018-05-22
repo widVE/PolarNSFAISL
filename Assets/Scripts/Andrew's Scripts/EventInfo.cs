@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 /// <summary>
@@ -59,6 +60,60 @@ public class EventInfo : MonoBehaviour {
 		puzzleCameraController = puzzleCamera.GetComponent<PuzzleCameraController> ();*/
 	}
 
+    public void OnEnable()
+    {
+        GameObject p = gameObject.transform.parent.gameObject;
+        if(p != null)
+        {
+            if(p.name == "EventPanel")
+            {
+                gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue(name);
+            }
+            else if(p.name == "SummaryPanel")
+            {
+                Debug.Log("enabled");
+                switch (name)
+                {
+                    case "Gamma Ray Burst":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("gamma_ray_burst");
+                        break;
+                    case "Black Hole":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("blackhole");
+                        break;
+                    case "Radio Galaxy":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("radio_galaxy");
+                        break;
+                    case "Blazar":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("blazar");
+                        break;
+                    case "Quasar":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("quasar");
+                        break;
+                    case "Supernova":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("supernova");
+                        break;
+                    case "Active Galactic Nucleus":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("active_galaxy_nucleus");
+                        break;
+                    case "X-Ray Binary":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("xray_binary");
+                        break;
+                    case "Supernova Remnant":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("supernova_remnant");
+                        break;
+                    case "Magnetar":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("magnetar");
+                        break;
+                    case "No Source":
+                        gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue("no_source");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
 	/// <summary>
 	/// Constructor for an EventInfo (not used)
 	/// </summary>
@@ -101,6 +156,8 @@ public class EventInfo : MonoBehaviour {
 	public void setName(string name) {
 		this.name = name;
 	}
+
+    
 
     /// <summary>
 	/// Sets the score

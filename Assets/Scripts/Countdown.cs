@@ -42,8 +42,7 @@ public class Countdown : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update () {    
         if (swipeRecognizer.GetComponent<SwipeRecognizer>().congratsPanel.activeSelf)
         {
             PauseCountdown();
@@ -62,7 +61,7 @@ public class Countdown : MonoBehaviour {
                 timeLeft--;
                 if (timeLeft >= 0)
                 {
-                    string countTxt = "Time left: " + timeLeft.ToString();
+                    string countTxt = LocalizationManager.instance.GetLocalizedValue("countdown") + " " + timeLeft.ToString(); 
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
                     GetComponent<UnityEngine.UI.Text>().color = Color.white;
 
@@ -82,7 +81,7 @@ public class Countdown : MonoBehaviour {
                     //trigger a restart of the game...
                     //high score list?
                     timeLeft = gameTime;
-                    string countTxt = "Time left: " + timeLeft.ToString();
+                    string countTxt = LocalizationManager.instance.GetLocalizedValue("countdown") + " " + timeLeft.ToString(); 
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
                     int tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
 
@@ -92,11 +91,13 @@ public class Countdown : MonoBehaviour {
                         {
                             if (tempCount == 1)
                             {
-                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino source for a score of: " + tempScore;
+                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("game_summary1") + tempCount + 
+                                    LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + tempScore;
                             }
                             else
                             {
-                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Game Summary: You detected " + tempCount + " neutrino sources for a score of: " + tempScore;
+                                summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("game_summary1") + tempCount + 
+                                    LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + tempScore;
                             }
 
                             int numTimesTouched = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().numTouches;
@@ -104,7 +105,7 @@ public class Countdown : MonoBehaviour {
                             //write out log file here
                             StreamWriter w;
 
-                            string d = BuildDate.ToString();// DateTime.Now.ToString();
+                            string d = BuildDate.ToString(); // DateTime.Now.ToString();
                             d = d.Replace("/", "_");
                             d = d.Replace(" ", "_");
                             d = d.Replace(":", "_");
@@ -158,7 +159,7 @@ public class Countdown : MonoBehaviour {
                         //reset score..
                         swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore = 0;
                         swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount = 0;
-                        score.GetComponent<UnityEngine.UI.Text>().text = "Score: 0 Points";
+                        score.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("reset_score");
                         GetComponent<UnityEngine.UI.Text>().color = Color.white;
                     }
 

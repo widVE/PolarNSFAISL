@@ -19,7 +19,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject summaryPanel;
     public GameObject startButton;
     public GameObject softTutorialText;
-    public int highScore;
+    public int highScore = 0;
     public GameObject highScorePanel;
     public GameObject countdownBeep;
     public GameObject sphereMap;
@@ -74,6 +74,7 @@ public class SwipeGameMode : MonoBehaviour {
         swipedSide = false;
         swipedFront = false;
         highScore = 0;
+        HighScore();
 	}
 
     public void LoadSurvey()
@@ -135,6 +136,7 @@ public class SwipeGameMode : MonoBehaviour {
 
     void Update()
     {
+        
         float timeSinceStart = UnityEngine.Time.time - timeStarted;
         if (isSoft)
         {
@@ -377,7 +379,7 @@ public class SwipeGameMode : MonoBehaviour {
 
     private void CountdownSoft(int count)
     {
-        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Now let's try for real: ";
+        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("soft_tutorial_text1");
         softTutorialText.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = count.ToString();
         if (countdownBeep != null)
         {
@@ -440,8 +442,20 @@ public class SwipeGameMode : MonoBehaviour {
         softTutorialTime = 0f;
     }
 
+    public void HighScore()
+    {
+        if (highScorePanel != null)
+        {
+            Debug.Log("OOOOOO");
+            string scoreTxt = LocalizationManager.instance.GetLocalizedValue("high_score") + " " + highScore +
+                    " " + LocalizationManager.instance.GetLocalizedValue("points");
+            highScorePanel.GetComponent<UnityEngine.UI.Text>().text = scoreTxt;
+        }
+    }
+
     public void StopGame()
     {
+        //call update hs
         isGame = false;
         isSoft = false;
 
@@ -453,19 +467,20 @@ public class SwipeGameMode : MonoBehaviour {
         {
             startButton.SetActive(true);
         }*/
-
+        
         if (highScorePanel != null)
         {
-            if (swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore > highScore)
+            if (swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore >= highScore)
             {
-                string scoreTxt = "High Score: " + swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore.ToString() + " Points";
+                string scoreTxt = LocalizationManager.instance.GetLocalizedValue("high_score") + " " + swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore.ToString() + 
+                    " " + LocalizationManager.instance.GetLocalizedValue("points");
                 highScorePanel.GetComponent<UnityEngine.UI.Text>().text = scoreTxt;
                 Debug.Log("new high score");
                 highScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
             }
             else
             {
-                highScorePanel.GetComponent<UnityEngine.UI.Text>().text = "High Score: " + highScore + " Points";
+                highScorePanel.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("high_score") + " " + highScore + " " + LocalizationManager.instance.GetLocalizedValue("points");
             }
         }
 
@@ -492,7 +507,7 @@ public class SwipeGameMode : MonoBehaviour {
             swipeRecognizer.ExitResolveMode(false);
         }
 
-        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Let's do one for practice.";
+        softTutorialText.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("soft_tutorial_text2");
         
         AudioSource[] aSources = GameObject.Find("Sound Effects").GetComponents<AudioSource>();
         if (aSources != null)
@@ -726,7 +741,7 @@ public class SwipeGameMode : MonoBehaviour {
 
         if (isSoft)
         {
-            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Good, now do the same in the top, front and side views.";
+            softTutorialText.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("soft_tutorial_text3");
         }
 
 	}

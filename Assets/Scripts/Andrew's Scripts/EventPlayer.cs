@@ -568,7 +568,7 @@ public class EventPlayer : MonoBehaviour {
 			if (eventsPlaying[currEventNumber].eventIndex >= events[currEventNumber].eventData.Count - 1)
 			{
                 if(swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
-                    swipeGameMode.GetComponent<SwipeGameMode>().softTutorialText.GetComponent<UnityEngine.UI.Text>().text = "Swipe in the direction of the event.";
+                    swipeGameMode.GetComponent<SwipeGameMode>().softTutorialText.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("soft_tutorial_text4");
 
                 if (!playingTutorial && !swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
                 {

@@ -13,6 +13,11 @@ public class LocalizationManager : MonoBehaviour
     private bool isReady = false;
     private string missingTextString = "Localized text not found";
 
+    public GameObject gameMode;
+    public bool spanish = false;
+
+    //public GameObject langChoice;
+
     void Awake()
     {
         if (instance == null)
@@ -55,6 +60,19 @@ public class LocalizationManager : MonoBehaviour
             Debug.LogError("Cannot find file!");
         }
 
+        //
+        if (fileName.Equals("localizedText_en.json"))
+        {
+            spanish = false;
+            //langChoice.GetComponent<UnityEngine.UI.SpanishChoice>().interactable = false;
+            Debug.Log("loaded english survey");
+        }
+        else
+        {
+            spanish = true;
+            Debug.Log("loaded spanish survey");
+        }
+
         isReady = true;
 
         updateLocalizedTexts();
@@ -67,10 +85,9 @@ public class LocalizationManager : MonoBehaviour
             s.updateScore();
         }
 
-        SwipeGameMode hs = gameObject.GetComponent<SwipeGameMode>();
+        SwipeGameMode hs = gameMode.GetComponent<SwipeGameMode>();
         if (hs != null)
         {
-            hs.StopGame();
             hs.HighScore();
         }
     }
@@ -91,6 +108,15 @@ public class LocalizationManager : MonoBehaviour
                         ei.OnEnable();
                     }
                 }
+                if (c.name.StartsWith("SummaryText"))
+                {
+                    Debug.Log("updating summary....");
+                    SwipeRecognizer s = UnityEngine.Camera.main.gameObject.GetComponent<SwipeRecognizer>();
+                    SwipeGameMode sc = gameMode.GetComponent<SwipeGameMode>();
+
+                    g.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("game_summary1") + s.neutrinoCount +
+                                   LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + " " + s.neutrinoScore;
+                }
             }
         }
     }
@@ -103,6 +129,7 @@ public class LocalizationManager : MonoBehaviour
             for (int i = 0; i < e.transform.childCount; ++i)
             {
                 GameObject cmp = e.transform.GetChild(i).gameObject;
+
                 if (cmp.name.StartsWith("Event: "))
                 {
                     EventInfo eii = cmp.GetComponent<EventInfo>();
@@ -118,7 +145,6 @@ public class LocalizationManager : MonoBehaviour
     //translates the text in text script
     public void updateLocalizedTexts()
     {
-
         LocalizedText[] components = Resources.FindObjectsOfTypeAll<LocalizedText>(); 
         foreach(LocalizedText component in components)
         {

@@ -78,7 +78,7 @@ public class EventPanelManager : MonoBehaviour {
         }
 
 		// Instantiate a new UI panel for the event
-		GameObject newPanel = Instantiate (template);
+		GameObject newPanel = Instantiate (template, this.transform);
 
 		// Setting EventInfo fields
 		// We could just use the constructor, but I never got around to doing so...
@@ -94,7 +94,7 @@ public class EventPanelManager : MonoBehaviour {
 		newPanel.GetComponent<EventInfo> ().setSwipePathEnd (swipeEnd);
         newPanel.GetComponent<EventInfo>().setScore(score);
         // Setting the panel in the scene
-        newPanel.transform.SetParent (this.transform, false);
+        //newPanel.transform.SetParent (this.transform, false);
 		newPanel.transform.localPosition = new Vector3 (0, 0, 0);
 		newPanel.name = "Event: " + name; 
 

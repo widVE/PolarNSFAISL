@@ -8,7 +8,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject instructionChoice;
     public GameObject instructions;
     public GameObject countdownTimer;
-	public SwipeRecognizer swipeRecognizer;
+	public SwipeRecognizer SwipeRecognizer;
     public GameObject mainCamera;
     public GameObject tutorial;
     public GameObject refinePanel;
@@ -23,6 +23,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject highScorePanel;
     public GameObject countdownBeep;
     public GameObject sphereMap;
+    public LocalizationManager local;
 
     public Strings domStrings;
 
@@ -82,10 +83,20 @@ public class SwipeGameMode : MonoBehaviour {
         if(evalButton != null)
         {
             evalButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
-            evalButton.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Opening Survey, Please wait...";
+            evalButton.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("loading_survey");
         }
 
-        Application.OpenURL("https://uwmadison.co1.qualtrics.com/jfe/form/SV_eyujvZNGHehJ2sJ");
+        if (LocalizationManager.instance.spanish)
+        {
+            Debug.Log("spanish survey");
+            Application.OpenURL("https://uwmadison.co1.qualtrics.com/jfe/form/SV_beDHLF64cs7Wr4N");
+        }
+        else
+        {
+            Debug.Log("en survey");
+            Application.OpenURL("https://uwmadison.co1.qualtrics.com/jfe/form/SV_eyujvZNGHehJ2sJ");
+        }
+        
     }
 
     public void StartInstructions()
@@ -259,7 +270,7 @@ public class SwipeGameMode : MonoBehaviour {
         if (evalButton != null)
         {
             evalButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
-            evalButton.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>().text = "Click to help out our science by filling out a survey!";
+            evalButton.transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("survey_request_label");
         }
 
         if (eventPlayer != null)
@@ -363,9 +374,12 @@ public class SwipeGameMode : MonoBehaviour {
                 tutorial.GetComponent<Tutorial>().ClearTutorial();
             }
 
-            if (swipeRecognizer != null)
+            if (SwipeRecognizer != null)
             {
-                swipeRecognizer.ExitResolveMode(false);
+                SwipeRecognizer.ExitResolveMode(false);
+                SwipeRecognizer.neutrinoScore = 0;
+                SwipeRecognizer.neutrinoCount = 0;
+                countdownBeep.GetComponent<Countdown>().score.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("reset_score");
             }
 
             //add instruction choice here...
@@ -447,7 +461,6 @@ public class SwipeGameMode : MonoBehaviour {
     {
         if (highScorePanel != null)
         {
-            Debug.Log("OOOOOO");
             string scoreTxt = LocalizationManager.instance.GetLocalizedValue("high_score") + " " + highScore +
                     " " + LocalizationManager.instance.GetLocalizedValue("points");
             highScorePanel.GetComponent<UnityEngine.UI.Text>().text = scoreTxt;
@@ -471,13 +484,13 @@ public class SwipeGameMode : MonoBehaviour {
         
         if (highScorePanel != null)
         {
-            if (swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore >= highScore)
+            if (SwipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore > highScore)
             {
-                string scoreTxt = LocalizationManager.instance.GetLocalizedValue("high_score") + " " + swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore.ToString() + 
+                string scoreTxt = LocalizationManager.instance.GetLocalizedValue("high_score") + " " + SwipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore.ToString() + 
                     " " + LocalizationManager.instance.GetLocalizedValue("points");
                 highScorePanel.GetComponent<UnityEngine.UI.Text>().text = scoreTxt;
                 Debug.Log("new high score");
-                highScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
+                highScore = SwipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
             }
             else
             {
@@ -503,9 +516,9 @@ public class SwipeGameMode : MonoBehaviour {
             tutorial.GetComponent<Tutorial>().playTutorial = true;
         }*/
 
-        if(swipeRecognizer != null)
+        if(SwipeRecognizer != null)
         {
-            swipeRecognizer.ExitResolveMode(false);
+            SwipeRecognizer.ExitResolveMode(false);
         }
 
         softTutorialText.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("soft_tutorial_text2");
@@ -602,7 +615,7 @@ public class SwipeGameMode : MonoBehaviour {
 		EnableCameras();
 
 		// Add bounds for swiping
-		swipeRecognizer.EnterResolveMode();
+		SwipeRecognizer.EnterResolveMode();
 
         //earthView.gameObject.transform.Find("EarthModel").GetComponent<SpinFree>().spin = false;
         Camera.main.GetComponent<CameraRotate>().spin = false;
@@ -627,7 +640,7 @@ public class SwipeGameMode : MonoBehaviour {
         else if(!isSoftTutorial()) // If failed to resolve
         {
             countdownTimer.GetComponent<Countdown>().DecrTimeLeftBy(timePenalty);
-            swipeRecognizer.spawnPoints(-timePenalty, new Vector3(1915, 1900, 0));
+            SwipeRecognizer.spawnPoints(-timePenalty, new Vector3(1915, 1900, 0));
         }
 
         //earthView.gameObject.transform.FindChild("EarthModel").GetComponent<SpinFree>().spin = true;

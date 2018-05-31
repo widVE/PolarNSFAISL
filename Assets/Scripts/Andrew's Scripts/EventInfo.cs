@@ -67,7 +67,10 @@ public class EventInfo : MonoBehaviour {
         {
             if(p.name == "EventPanel")
             {
-                gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue(name);
+                if (name != null)
+                {
+                    gameObject.transform.Find("Text").GetComponent<Text>().text = LocalizationManager.instance.GetLocalizedValue(name);
+                }
             }
             else if(p.name == "SummaryPanel")
             {

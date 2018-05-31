@@ -15,6 +15,8 @@ public class Countdown : MonoBehaviour {
     private bool countDown = false;
     private bool paused = false;
     private bool hasStarted = false;
+    public int tempCount;
+    public int tempScore;
     
     public GameObject score;
     public GameObject summaryPanel;
@@ -40,7 +42,7 @@ public class Countdown : MonoBehaviour {
     void Start () {
         timeLeft = gameTime;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {    
         if (swipeRecognizer.GetComponent<SwipeRecognizer>().congratsPanel.activeSelf)
@@ -76,14 +78,14 @@ public class Countdown : MonoBehaviour {
                 else
                 {
                     countDown = false;
-                    int tempCount = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount;
+                    tempCount = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount;
                     eventPanelManager.GetComponent<EventPanelManager>().panels.Clear();
                     //trigger a restart of the game...
                     //high score list?
                     timeLeft = gameTime;
                     string countTxt = LocalizationManager.instance.GetLocalizedValue("countdown") + " " + timeLeft.ToString(); 
                     GetComponent<UnityEngine.UI.Text>().text = countTxt;
-                    int tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
+                    tempScore = swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore;
 
                     if(swipeGame != null)
                     {
@@ -92,12 +94,12 @@ public class Countdown : MonoBehaviour {
                             if (tempCount == 1)
                             {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("game_summary1") + tempCount + 
-                                    LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + tempScore;
+                                    LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + " " + tempScore;
                             }
                             else
                             {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("game_summary1") + tempCount + 
-                                    LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + tempScore;
+                                    LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + " " + tempScore;
                             }
 
                             int numTimesTouched = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().numTouches;
@@ -153,16 +155,14 @@ public class Countdown : MonoBehaviour {
                         StartCoroutine(DelayedResolve(summaryPanelLength, false));
                         StartCoroutine(RestartDelay(restartButtonDelay));
                     }
-
-                    if (score != null)
-                    {
-                        //reset score..
-                        swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore = 0;
-                        swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount = 0;
-                        score.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("reset_score");
-                        GetComponent<UnityEngine.UI.Text>().color = Color.white;
-                    }
-
+                    //if (score != null)
+                    //{
+                    //    //reset score..
+                    //    swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoScore = 0;
+                    //    swipeRecognizer.GetComponent<SwipeRecognizer>().neutrinoCount = 0;
+                    //    score.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("reset_score");
+                    GetComponent<UnityEngine.UI.Text>().color = Color.white;
+                    //}
                 }
             }
         }
@@ -208,7 +208,7 @@ public class Countdown : MonoBehaviour {
             if(evalButton != null)
             {
                 evalButton.gameObject.transform.GetChild(0).GetComponent<UnityEngine.UI.Button>().interactable = true;
-                evalButton.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = "Click to help out our science by filling out a survey!";
+                evalButton.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("survey_request_label");
             }
         }
     }

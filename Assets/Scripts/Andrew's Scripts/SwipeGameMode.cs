@@ -89,7 +89,7 @@ public class SwipeGameMode : MonoBehaviour {
         if (LocalizationManager.instance.spanish)
         {
             Debug.Log("spanish survey");
-            Application.OpenURL("https://uwmadison.co1.qualtrics.com/jfe/form/SV_beDHLF64cs7Wr4N");
+            Application.OpenURL("https://uwmadison.co1.qualtrics.com/jfe/form/SV_01d77WYbO3JtBrf");
         }
         else
         {

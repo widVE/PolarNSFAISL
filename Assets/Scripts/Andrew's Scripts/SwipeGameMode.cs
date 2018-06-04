@@ -23,7 +23,7 @@ public class SwipeGameMode : MonoBehaviour {
     public GameObject highScorePanel;
     public GameObject countdownBeep;
     public GameObject sphereMap;
-    public LocalizationManager local;
+    
 
     public Strings domStrings;
 

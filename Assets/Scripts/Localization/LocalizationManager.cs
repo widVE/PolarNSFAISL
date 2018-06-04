@@ -15,6 +15,8 @@ public class LocalizationManager : MonoBehaviour
 
     public GameObject gameMode;
     public bool spanish = false;
+    public GameObject SpanishButton;
+    public GameObject EnglishButton;
 
     //public GameObject langChoice;
 
@@ -64,12 +66,15 @@ public class LocalizationManager : MonoBehaviour
         if (fileName.Equals("localizedText_en.json"))
         {
             spanish = false;
-            //langChoice.GetComponent<UnityEngine.UI.SpanishChoice>().interactable = false;
+            SpanishButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
+            EnglishButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
             Debug.Log("loaded english survey");
         }
         else
         {
             spanish = true;
+            SpanishButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
+            EnglishButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
             Debug.Log("loaded spanish survey");
         }
 

@@ -74,6 +74,8 @@ public class SwipeRecognizer : MonoBehaviour {
     private bool frontSwiped;
     private bool sideSwiped;
 
+    //public string name;
+
 	//----------END VARIABLES----------
 
 	/// <summary>
@@ -761,8 +763,9 @@ public class SwipeRecognizer : MonoBehaviour {
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
+                                    name = currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
                                     congratsPanel.SetActive(true);
-                                    congratsPanel.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("congrats") + currentEvents.events[currentEvents.lastEventNumber].eventSource.name;
+                                    congratsPanel.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("congrats") + LocalizationManager.instance.GetLocalizedValue(name); 
                                 }
                             }
 

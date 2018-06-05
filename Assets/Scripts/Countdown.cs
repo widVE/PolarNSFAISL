@@ -117,7 +117,7 @@ public class Countdown : MonoBehaviour {
                                 string time = DateTime.Now.ToLongTimeString();
                                 string date = DateTime.Now.ToShortDateString();
 
-                                w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched + ", " + lastTouchTime + ", " + swipeGame.GetComponent<SwipeGameMode>().viewedInstructions.ToString());
+                                w.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched + ", " + lastTouchTime + ", " + swipeGame.GetComponent<SwipeGameMode>().viewedInstructions.ToString() + ", " + LocalizationManager.instance.spanish);
                                 w.Close();
                             }
 
@@ -128,7 +128,7 @@ public class Countdown : MonoBehaviour {
                                 string time = DateTime.Now.ToShortTimeString();
                                 string date = DateTime.Now.ToShortDateString();
                                 Debug.Log("updated scores");
-                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched + ", " + lastTouchTime + ", " + swipeGame.GetComponent<SwipeGameMode>().viewedInstructions.ToString());
+                                w2.WriteLine(date + ", " + time + ", " + tempCount + ", " + tempScore + ", " + numTimesTouched + ", " + lastTouchTime + ", " + swipeGame.GetComponent<SwipeGameMode>().viewedInstructions.ToString() + ", " + LocalizationManager.instance.spanish);
                                 w2.Close();
                             } catch (Exception e)
                             {

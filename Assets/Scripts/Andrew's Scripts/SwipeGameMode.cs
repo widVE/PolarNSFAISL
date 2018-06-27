@@ -144,6 +144,18 @@ public class SwipeGameMode : MonoBehaviour {
         }
 
         InstructionChoice(false);
+
+        instructionPanelIndex = 0;
+        instructionStarted = 0f;
+
+        int numPanels = instructions.transform.GetChild(2).transform.childCount;
+
+        for (int i = 0; i < numPanels; ++i)
+        {
+            instructions.transform.GetChild(2).transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        instructions.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
     }
 
     void Update()

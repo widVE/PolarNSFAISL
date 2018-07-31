@@ -347,15 +347,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 20168490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1769, y: -476, z: 0}
+  m_LocalPosition: {x: -1612.6327, y: -571.7551, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 151, y: -1556}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 151, y: 604}
   m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &20168492
@@ -1977,7 +1977,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 121455330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 156.36731, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1527969113}
@@ -1987,9 +1987,9 @@ RectTransform:
   m_Father: {fileID: 2136369078}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1920, y: 1080}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 1920, y: 0}
   m_SizeDelta: {x: 3840, y: 2160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &121455332
@@ -2890,7 +2890,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 170652690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0013580322, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1603577139}
@@ -3259,7 +3259,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1291960309}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999967
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4784,7 +4784,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 325260489}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1655, y: 281, z: 0}
+  m_LocalPosition: {x: 1498.6327, y: 185.24487, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -6231,7 +6231,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ef2f4ea266cd0c94286c9ae8e0565077, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 319a17fb38e79134fb40e49c32f045f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7356,7 +7356,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 494311599}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -1868, y: 182, z: 0}
+  m_LocalPosition: {x: -1711.6327, y: 277.75513, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -7615,15 +7615,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 503119467}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1788, y: -134, z: 0}
+  m_LocalPosition: {x: -1631.6327, y: -134, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 132, y: -1214}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 132, y: -134}
   m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &503119469
@@ -8717,7 +8717,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -8735,7 +8735,7 @@ MonoBehaviour:
   OnTap:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   numberOfTapsRequired: 2
   timeLimit: Infinity
@@ -9181,7 +9181,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 623534040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1029, z: 0}
+  m_LocalPosition: {x: 117, y: 1124.7551, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -9189,7 +9189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -51}
+  m_AnchoredPosition: {x: 117, y: -51}
   m_SizeDelta: {x: 3840, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &623534042
@@ -11114,6 +11114,7 @@ GameObject:
   - component: {fileID: 730068720}
   - component: {fileID: 730068718}
   - component: {fileID: 730068717}
+  - component: {fileID: 730068719}
   m_Layer: 0
   m_Name: Front Camera
   m_TagString: Untagged
@@ -11149,6 +11150,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 730068715}
   m_Enabled: 1
+--- !u!114 &730068719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 730068715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5fc9af1b2eb17418c682a4e6660939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRect: {fileID: 744158707}
 --- !u!20 &730068720
 Camera:
   m_ObjectHideFlags: 0
@@ -11764,15 +11777,15 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771481209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1613, y: -304, z: 0}
+  m_LocalPosition: {x: -1456.6327, y: -304, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 307, y: -1384}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 307, y: -304}
   m_SizeDelta: {x: 700, y: 438}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &771481213
@@ -12626,42 +12639,42 @@ MonoBehaviour:
   OnFrameStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnFrameFinish:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnPointersAdd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnPointersUpdate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnPointersPress:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnPointersRelease:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnPointersRemove:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnPointersCancel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   displayDevice: {fileID: 0}
@@ -13324,7 +13337,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -13375,7 +13388,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -13632,7 +13645,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 966682116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 160, y: 923, z: 0}
+  m_LocalPosition: {x: 160, y: 1018.7551, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -14290,12 +14303,12 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1680
+      value: 1523.6327
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1009
+      value: 1104.7551
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -15939,12 +15952,12 @@ Prefab:
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1650
+      value: 1493.6327
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 868
+      value: 963.7551
       objectReference: {fileID: 0}
     - target: {fileID: 224752804437600644, guid: 03865f44d47203d459535fd944fe48bd,
         type: 2}
@@ -16643,7 +16656,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1155510026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1627, y: -64, z: 0}
+  m_LocalPosition: {x: -1470.6327, y: 31.755127, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -16969,11 +16982,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 22401058, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1920
+      value: 1368
       objectReference: {fileID: 0}
     - target: {fileID: 22401058, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3030
+      value: 2862
       objectReference: {fileID: 0}
     - target: {fileID: 22401058, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -18080,6 +18093,7 @@ GameObject:
   - component: {fileID: 1230875519}
   - component: {fileID: 1230875523}
   - component: {fileID: 1230875520}
+  - component: {fileID: 1230875521}
   m_Layer: 0
   m_Name: Top Camera
   m_TagString: Untagged
@@ -18108,6 +18122,18 @@ Skybox:
   m_GameObject: {fileID: 1230875518}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: 4d5de761f93a0e3438048b3a2b647c42, type: 2}
+--- !u!114 &1230875521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1230875518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5fc9af1b2eb17418c682a4e6660939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRect: {fileID: 246312909}
 --- !u!20 &1230875523
 Camera:
   m_ObjectHideFlags: 0
@@ -18759,7 +18785,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 170652691}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999896
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18968,15 +18994,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4104603818988104, guid: dadf6aefda565f041a6b702f1ed408bb, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2386.85
+      value: -2056
       objectReference: {fileID: 0}
     - target: {fileID: 4104603818988104, guid: dadf6aefda565f041a6b702f1ed408bb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -27.01
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4104603818988104, guid: dadf6aefda565f041a6b702f1ed408bb, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 3037.99
+      value: 3086
       objectReference: {fileID: 0}
     - target: {fileID: 4104603818988104, guid: dadf6aefda565f041a6b702f1ed408bb, type: 2}
       propertyPath: m_LocalRotation.x
@@ -21610,7 +21636,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1280512660}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1716, y: -418, z: 0}
+  m_LocalPosition: {x: 1559.6327, y: -513.7551, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2142007404}
@@ -22077,7 +22103,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1291960308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0020141602, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1013784803}
@@ -27075,6 +27101,7 @@ GameObject:
   - component: {fileID: 1683310195}
   - component: {fileID: 1683310193}
   - component: {fileID: 1683310192}
+  - component: {fileID: 1683310194}
   m_Layer: 0
   m_Name: Side Camera
   m_TagString: Untagged
@@ -27110,6 +27137,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1683310190}
   m_Enabled: 1
+--- !u!114 &1683310194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1683310190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5fc9af1b2eb17418c682a4e6660939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelRect: {fileID: 934094788}
 --- !u!20 &1683310195
 Camera:
   m_ObjectHideFlags: 0
@@ -27247,7 +27286,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1702583981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1496, y: 1032, z: 0}
+  m_LocalPosition: {x: -1339.6327, y: 1127.7551, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -27585,7 +27624,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1722224186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1715, y: 757, z: 0}
+  m_LocalPosition: {x: -1558.6327, y: 852.7551, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 745618609}
@@ -28271,7 +28310,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811111194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1399, y: 952, z: 0}
+  m_LocalPosition: {x: -1242.6327, y: 1047.7551, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -28727,7 +28766,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1829086376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1638.5, y: 181, z: 0}
+  m_LocalPosition: {x: -1482.1327, y: 276.75513, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2136369078}
@@ -29462,7 +29501,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5aae9fec331248e4f9b459633e8e29ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1be10f2243658024cae3d0ce16950103, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -30080,7 +30119,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 1
   generalProps: 0
@@ -30098,17 +30137,17 @@ MonoBehaviour:
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnTransform:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   OnTransformComplete:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6779.41344,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6786.23501,
       Culture=neutral, PublicKeyToken=null
   type: 2
   screenTransformThreshold: 0.1
@@ -31899,6 +31938,7 @@ GameObject:
   - component: {fileID: 2013959688}
   - component: {fileID: 2013959687}
   - component: {fileID: 2013959691}
+  - component: {fileID: 2013959692}
   m_Layer: 11
   m_Name: EarthCamera
   m_TagString: Untagged
@@ -31988,6 +32028,17 @@ Skybox:
   m_GameObject: {fileID: 2013959685}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: d5095726ec74ffd449d1891dd1298bc3, type: 2}
+--- !u!114 &2013959692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2013959685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2d9023e47a81649870134e44769b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2014897892
 GameObject:
   m_ObjectHideFlags: 0
@@ -33186,8 +33237,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2136369076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1920, y: 1080, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1368, y: 912, z: 0}
+  m_LocalScale: {x: 0.7756717, y: 0.7756717, z: 0.7756717}
   m_Children:
   - {fileID: 1829086377}
   - {fileID: 494311600}

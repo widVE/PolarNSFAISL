@@ -65,7 +65,7 @@ public class SwipeRecognizer : MonoBehaviour {
     public GameObject refinePanel;
     public GameObject congratsPanel;
 
-    public float helperNumStages = 4f;
+    public float helperNumStages = 2f;
 
     private Vector3 totalVector = Vector3.zero;
     private Vector3 totalScore = Vector3.zero;
@@ -853,13 +853,16 @@ public class SwipeRecognizer : MonoBehaviour {
             goalAccuracy += DELTA_GOAL_ACCURACY;
             if (goalAccuracy > MAX_GOAL_ACCURACY)
                 goalAccuracy = MAX_GOAL_ACCURACY;
+
             UpdateRefinePanelGoal();
             // This chage will also increase time penalty
             // for missing event on SwipeGameMode class
             swipeGameMode.SetTimePenaltyByPercent(
                 2 * (goalAccuracy - initialSwipeAccuracy));
 
-            Color newColor = currentEvents.truePath.material.color;
+            currentEvents.truePath.enabled = false;
+
+            /*Color newColor = currentEvents.truePath.material.color;
             if (newColor.a > 0f && currentEvents.truePath.enabled)
             {
                 newColor.a -= 1f / helperNumStages; // alpha decreases linearly as function of success
@@ -869,7 +872,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     newColor.a = 1f;
                 }
             }
-            currentEvents.truePath.material.color = newColor;
+            currentEvents.truePath.material.color = newColor;*/
         }
 
         yield return new WaitForSeconds(waittime);

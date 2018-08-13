@@ -235,6 +235,13 @@ public class SwipeGameMode : MonoBehaviour {
 
                     if(instructions != null)
                     {
+                        int numPanels = instructions.transform.GetChild(2).transform.childCount;
+
+                        for (int i = 0; i < numPanels; ++i)
+                        {
+                            instructions.transform.GetChild(2).transform.GetChild(i).gameObject.SetActive(false);
+                        }
+
                         instructions.SetActive(false);
                     }
 
@@ -288,9 +295,9 @@ public class SwipeGameMode : MonoBehaviour {
         if (eventPlayer != null)
         {
             eventPlayer.truePath.enabled = false;
-            Color newColor = eventPlayer.truePath.material.color;
+            /*Color newColor = eventPlayer.truePath.material.color;
             newColor.a = 1f;
-            eventPlayer.truePath.material.color = newColor;
+            eventPlayer.truePath.material.color = newColor;*/
         }
     }
 

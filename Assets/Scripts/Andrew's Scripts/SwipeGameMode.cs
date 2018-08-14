@@ -242,6 +242,8 @@ public class SwipeGameMode : MonoBehaviour {
                             instructions.transform.GetChild(2).transform.GetChild(i).gameObject.SetActive(false);
                         }
 
+                        instructions.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
+
                         instructions.SetActive(false);
                     }
 

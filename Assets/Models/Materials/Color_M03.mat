@@ -4,7 +4,7 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Color_M03
   m_Shader: {fileID: 4800000, guid: 69186f52a21dc104f9f47b9ec4dc1838, type: 3}

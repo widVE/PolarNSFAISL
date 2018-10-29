@@ -69,7 +69,7 @@
         { "key": "language_choice_text", "value": "Language" },
         { "key": "blazar", "value": "Blazar: An extragalactic source powered by a supermassive black hole at the center of a giant elliptical galaxy. They emit a relativistic jet that points to Earth." },
         { "key": "quasar", "value": "Quasar: An active galactic nucleus powered by a super massive black hole surrounded by an orbiting disk of gas." },
-        { "key": "xray_binary", "value": "X-ray Binary. A binary star produced by matter from one star to the other. The second one is usually a black hole or a neutron star." },
+        { "key": "xray_binary", "value": "X-ray Binary« A binary star produced by matter from one star to the other. The second one is usually a black hole or a neutron star." },
         { "key": "gamma_ray_burst", "value": "Gamma-Ray Burst: Extremely energetic explosion that has been observed in a distant galaxy." },
         { "key": "blackhole", "value": "Black Hole: A region of space time exhibiting such strong gravitational effects that nothing can escape from inside it." },
         { "key": "radio_galaxy", "value": "Radio Galaxy: A type of active galaxy that is very luminous at radio wavelengths." },

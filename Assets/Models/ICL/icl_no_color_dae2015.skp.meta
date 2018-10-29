@@ -1,14 +1,12 @@
 fileFormatVersion: 2
 guid: 02c3aca334279a346b7856c9b3b212b2
-timeCreated: 1511932661
-licenseType: Free
 SketchUpImporter:
   generateBackFace: 0
   mergeCoplanarFaces: 0
   selectedNodes: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
   assetHash:
     serializedVersion: 2
-    Hash: 776c7f2ea7ac847925dcb410777db8a0
+    Hash: 9ede60885a9fb2f10bdd6050890a6e20
   longitude: -105.242139
   latitude: 40.018309
   northCorrection: -0
@@ -23,7 +21,7 @@ SketchUpImporter:
       orthoSize: 1
       isPerspective: 1
     scenes: []
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: icl_no_color_dae2015_MeshPart0
@@ -132,6 +130,7 @@ SketchUpImporter:
     2300064: cable_tower_right
     2300066: long_railing
     2300068: railing
+    2300070: //RootNode
     3300000: icl_no_color_dae2015_MeshPart0
     3300002: icl_no_color_dae2015_MeshPart1
     3300004: icl_no_color_dae2015_MeshPart10
@@ -167,6 +166,7 @@ SketchUpImporter:
     3300064: cable_tower_right
     3300066: long_railing
     3300068: railing
+    3300070: //RootNode
     4300000: Mesh icl_no_color_dae2015_MeshPart0
     4300002: Mesh icl_no_color_dae2015_MeshPart1
     4300004: Mesh icl_no_color_dae2015_MeshPart2
@@ -202,6 +202,7 @@ SketchUpImporter:
     4300064: Mesh cable_tower_left
     4300066: Mesh railing
     4300068: Mesh long_railing
+    4300070: Mesh icl_no_color_dae2015
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -226,6 +227,16 @@ SketchUpImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: '[Color_007]'
+    second: {fileID: 2100000, guid: 04797b83faeb63f47adbbb6ab95e2dec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Color_009]'
+    second: {fileID: 2100000, guid: 747188912418b954aa3dcee7ecd06468, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: _defaultMat
     second: {fileID: 2100000, guid: 98ddc08bae215e740b19ba1d8811cc75, type: 2}
   materials:
@@ -246,6 +257,7 @@ SketchUpImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -270,11 +282,15 @@ SketchUpImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

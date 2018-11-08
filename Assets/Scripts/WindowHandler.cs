@@ -36,6 +36,7 @@ public class WindowHandler : MonoBehaviour {
     bool removedBorder = false;
     int firstWidth = 0;
     int firstHeight = 0;
+    private bool didNotFindDll = false;
 
     public WindowState currentwinstate;
 
@@ -51,10 +52,18 @@ public class WindowHandler : MonoBehaviour {
     /// <param name="_height">This should be the screen's resolution width (Unity should provide a propper method for this)</param>
     public void WindowedMaximized(int _width, int _height)
     {
-        IntPtr window = FindWindowByCaption(IntPtr.Zero, WINDOW_NAME);
-        SetWindowLong(window, GWL_STYLE, WS_POPUP);//unchecked((int)0x80000000L));//WS_SYSMENU);
-        SetWindowPos(window, -2, 0, 0, _width, _height, SWP_SHOWWINDOW);
-        DrawMenuBar(window);
+        try
+        {
+            IntPtr window = FindWindowByCaption(IntPtr.Zero, WINDOW_NAME);
+            SetWindowLong(window, GWL_STYLE, WS_POPUP);//unchecked((int)0x80000000L));//WS_SYSMENU);
+            SetWindowPos(window, -2, 0, 0, _width, _height, SWP_SHOWWINDOW);
+            DrawMenuBar(window);
+        }
+        catch (DllNotFoundException ex)
+        {
+            Debug.LogWarning(ex);
+            didNotFindDll = true;
+        }
     }
 
     /// <summary>
@@ -62,9 +71,17 @@ public class WindowHandler : MonoBehaviour {
     /// </summary>
     public void WindowedMode()
     {
-        IntPtr window = FindWindowByCaption(IntPtr.Zero, WINDOW_NAME);
-        SetWindowLong(window, GWL_STYLE, WS_CAPTION | WS_BORDER | WS_SYSMENU | WS_MINIMIZEBOX);
-        DrawMenuBar(window);
+        try
+        {
+            IntPtr window = FindWindowByCaption(IntPtr.Zero, WINDOW_NAME);
+            SetWindowLong(window, GWL_STYLE, WS_CAPTION | WS_BORDER | WS_SYSMENU | WS_MINIMIZEBOX);
+            DrawMenuBar(window);
+        }
+        catch (DllNotFoundException ex)
+        {
+            Debug.LogWarning(ex);
+            didNotFindDll = true;
+        }
     }
 
     public void MakePlayerWindow(int _width, int _height, bool fullscreen, WindowState winstate)
@@ -89,7 +106,7 @@ public class WindowHandler : MonoBehaviour {
 
     void Update()
     {
-        if (!removedBorder)
+        if (!didNotFindDll && !removedBorder)
         {
             if (UnityEngine.Time.time - startTime > 3f)
             {

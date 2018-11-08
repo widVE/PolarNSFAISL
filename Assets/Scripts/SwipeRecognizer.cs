@@ -309,7 +309,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeTop(true);
                     SwipeCalculation(topCamera);
                     topSwiped = true;
-                    topPanel.transform.GetChild(0).gameObject.SetActive(true);
+                    topPanel.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -321,7 +321,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeSide(true);
                     SwipeCalculation(sideCamera);
                     sideSwiped = true;
-                    sidePanel.transform.GetChild(0).gameObject.SetActive(true);
+                    sidePanel.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -333,7 +333,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeFront(true);
                     SwipeCalculation(frontCamera);
                     frontSwiped = true;
-                    frontPanel.transform.GetChild(0).gameObject.SetActive(true);
+                    frontPanel.transform.GetChild(1).gameObject.SetActive(true);
                 }
                 break;
             }
@@ -425,9 +425,9 @@ public class SwipeRecognizer : MonoBehaviour {
         topSwiped = false;
         frontSwiped = false;
         sideSwiped = false;
-        topPanel.transform.GetChild(0).gameObject.SetActive(false);
-        sidePanel.transform.GetChild(0).gameObject.SetActive(false);
-        frontPanel.transform.GetChild(0).gameObject.SetActive(false);
+        topPanel.transform.GetChild(1).gameObject.SetActive(false);
+        sidePanel.transform.GetChild(1).gameObject.SetActive(false);
+        frontPanel.transform.GetChild(1).gameObject.SetActive(false);
 
         if (refinePanel != null)
         {
@@ -575,6 +575,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                 //Debug.Log(vTest);
                                 //TODO: add event to summary panel
                                 frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                frontPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = frontPanel.GetComponent<UnityEngine.UI.Image>().color;
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
@@ -596,6 +597,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             {
                                 totalScore.y = vTest;
                                 sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                sidePanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = sidePanel.GetComponent<UnityEngine.UI.Image>().color;
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
@@ -617,7 +619,8 @@ public class SwipeRecognizer : MonoBehaviour {
                             {
                                 totalScore.x = vTest;
                                 topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-  
+                                topPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = topPanel.GetComponent<UnityEngine.UI.Image>().color;
+
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
                                     //always add points

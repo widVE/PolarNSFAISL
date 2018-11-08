@@ -20,7 +20,7 @@ public class PlotSphereMap : MonoBehaviour {
     Vector2 CalculateMollweide(float lambda, float phi, float cx = 1f, float cy = 1f, float cp = Mathf.PI)
     {
         float nextPhi = MollweideBromleyTheta(cp, phi);
-        return new Vector2(cx * lambda * Mathf.Cos(nextPhi), cy * Mathf.Sin(phi));
+        return new Vector2(cx + cx * lambda * Mathf.Cos(nextPhi), cy * Mathf.Sin(phi) - cy);
     }
 
     float MollweideBromleyTheta(float cp, float phi)
@@ -44,6 +44,11 @@ public class PlotSphereMap : MonoBehaviour {
      */
     public void PlotPoint(float lat, float longi, Color c)
     {
+        RectTransform objectRectTransform = gameObject.GetComponent<RectTransform>();
+        // Get size of sphere map in pixels
+        quadSize = new Vector2(
+            objectRectTransform.rect.width,
+            objectRectTransform.rect.height);
         // Project latitude and longitude into sphere map
         Vector2 pXY = CalculateMollweide(lat, longi, quadSize.x / 2f, quadSize.y / 2f, Mathf.PI);
         GameObject particlePoint = Instantiate(plotPoint);

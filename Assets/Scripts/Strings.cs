@@ -6,7 +6,7 @@ using System;
 public class Strings : MonoBehaviour
 {
 	public float offset = 0f;
-    string icecubeFile = "Assets\\IceCubeData\\geometry\\Icecube_Geometry_Data.txt";
+    string icecubeFile = "Assets/IceCubeData/geometry/Icecube_Geometry_Data.txt";
     private const float BELOW_ICE = -1950.0f;
     private bool first = true;
 

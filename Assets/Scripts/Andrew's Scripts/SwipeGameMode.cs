@@ -607,19 +607,19 @@ public class SwipeGameMode : MonoBehaviour {
         if (frontPanel != null)
         {
             frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
-            frontPanel.transform.GetChild(0).gameObject.SetActive(false);
+            frontPanel.transform.GetChild(1).gameObject.SetActive(false);
         }
 
         if (sidePanel != null)
         {
             sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
-            sidePanel.transform.GetChild(0).gameObject.SetActive(false);
+            sidePanel.transform.GetChild(1).gameObject.SetActive(false);
         }
         
         if (topPanel != null)
         {
             topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
-            topPanel.transform.GetChild(0).gameObject.SetActive(false);
+            topPanel.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 

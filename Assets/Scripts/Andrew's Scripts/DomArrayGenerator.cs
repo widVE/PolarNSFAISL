@@ -6,7 +6,7 @@ using System;
 public class DomArrayGenerator : MonoBehaviour {
 
     public GameObject domObject;
-    string icecubeFile = "Assets/IceCubeData/geometry/Icecube_Geometry_Data.txt";
+    public TextAsset icecubeTextAsset;
     private const float BELOW_ICE = -1950.0f;
 	private bool first = true;
 
@@ -21,19 +21,20 @@ public class DomArrayGenerator : MonoBehaviour {
     private bool firstDraw = true;
 
 	void Start () {
-
-		StreamReader reader = new StreamReader (icecubeFile);
-
-		LineRenderer lineRen = null;
 		Vector3[] pos = new Vector3[2];
 
-		string line;
+        string[] datasets = icecubeTextAsset.text.Split('\n');
+
         /*float avgX = 0.0f;
         float avgZ = 0.0f;
         float count = 0.0f;*/
-		while ((line = reader.ReadLine ()) != null) {
-
-			string[] data = line.Split (new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string dataset in datasets) {
+            // Skip useless data points (and blank last line from String.Split)
+            if (dataset == "") continue;
+            string[] data = dataset.Split (
+                new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            // Ignore malformatted data points
+            if (data.Length < 5) continue;
 
 			//grab each column of data
 			string stringIndex = data [0];
@@ -88,8 +89,6 @@ public class DomArrayGenerator : MonoBehaviour {
 			DOMArray[domUnitNum, domNum] = tableDom;
 
 		}   //end while()
-
-		reader.Close ();
 	}//end Start()
 
 	private void SetLayersRecursively(GameObject obj, int layer) {

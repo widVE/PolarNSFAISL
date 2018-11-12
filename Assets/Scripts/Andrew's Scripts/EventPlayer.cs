@@ -9,8 +9,8 @@ public class EventPlayer : MonoBehaviour {
     public GameObject helpSwipe;
     public GameObject swipeGameMode;
     public GameObject tutorial;
-    public string eventDirectory;
-    public string newEventFile;
+    public List<TextAsset> eventTextAssets;
+    public TextAsset newEventTextAsset;
     public int newEventCutoff;
     public GameObject particle;   //used for debugging trajectory for now
     public GameObject sparks;
@@ -55,7 +55,6 @@ public class EventPlayer : MonoBehaviour {
     public struct EventVis
     {
         public List<EventData> eventData;
-        public string fileName;
         public Vector3 startPos;
         public Vector3 endPos;
         public Vector3 middlePos;
@@ -115,106 +114,97 @@ public class EventPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		arrayGenerator = GetComponent<DomArrayGenerator> ();
+        arrayGenerator = GetComponent<DomArrayGenerator> ();
 		//alarm = GameObject.Find("Sound Effects").GetComponents<AudioSource> () [3];
 
-        if(eventDirectory.Length > 0)
+        GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
+        int numSources = sources.Length;
+        Debug.Log("Num sources: " + numSources);
+        int fileNum = 0;
+        foreach (TextAsset eventTextAsset in eventTextAssets)
         {
-            string[] files = System.IO.Directory.GetFiles(eventDirectory);
-            GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
-            int numSources = sources.Length;
-            Debug.Log("Num sources: " + numSources);
-            int fileNum = 0;
-            foreach (string file in files)
+            EventVis e = new EventVis();
+            e.eventData = new List<EventData>();
+
+            string[] datasets = eventTextAsset.text.Split('\n');
+            int lineCount = 0;
+            foreach (string dataset in datasets)
             {
-                if (file.EndsWith(".txt"))
+                // Skip useless data points (and blank last line from String.Split)
+                if (dataset == "") continue;
+                if (lineCount < 2)
                 {
-                    EventVis e = new EventVis();
-                    e.eventData = new List<EventData>();
-                    e.fileName = file;
-                    Debug.Log(file);
-                    StreamReader sr = new StreamReader(e.fileName, Encoding.Default);
-                    string s = sr.ReadLine();
-                    int lineCount = 0;
-                    while (s != null)
+                    string[] data = dataset.Split(' ');
+                    float x = (float)double.Parse(data[0]);
+                    float y = (float)double.Parse(data[1]);
+                    float z = (float)double.Parse(data[2]);
+                    if(lineCount < 1)
                     {
-                        if (lineCount < 2)
-                        {
-                            string[] data = s.Split(' ');
-                            float x = (float)double.Parse(data[0]);
-                            float y = (float)double.Parse(data[1]);
-                            float z = (float)double.Parse(data[2]);
-                            if(lineCount < 1)
-                            {
-								//Debug.LogWarning ("START SET");
-                                e.startPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
-                            }
-                            else 
-                            {
-								//Debug.LogWarning ("END SET");
-                                e.endPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
-                            }
-
-                            if(events.Count == 0)
-                            {
-                                //for tutorial - make start and end further apart.
-                                Vector3 diff = e.startPos - e.endPos;
-                                diff.Normalize();
-                                e.startPos = e.startPos + diff * 1000.0f;
-                                e.endPos = e.endPos - diff * 1000.0f;
-                            }
-                        }
-                        else
-                        {
-                            string[] data = s.Split('\t');
-                            if(data.Length != 7)
-                            {
-                                data = s.Split(' ');
-                            }
-                            EventData d;
-                            d.str = IntParseFast(data[0])-1;
-                            d.dom = IntParseFast(data[1])-1;
-                            d.pos.x = (float)double.Parse(data[2]);
-                            d.pos.y = BELOW_ICE + (float)double.Parse(data[4]);
-                            d.pos.z = (float)double.Parse(data[3]);
-                            d.charge = (float)double.Parse(data[5]);
-                            d.time = (float)double.Parse(data[6]);
-                            e.eventData.Add(d);
-                        }
-
-                        lineCount++;
-                        s = sr.ReadLine();
+						//Debug.LogWarning ("START SET");
+                        e.startPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
+                    }
+                    else 
+                    {
+						//Debug.LogWarning ("END SET");
+                        e.endPos = new Vector3(x * 0.3048f, y * 0.3048f, z * 0.3048f);
                     }
 
-                    e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
-                    if (sources.Length > 0)
+                    if(events.Count == 0)
                     {
-                        e.eventSource = sources[fileNum];//sources[UnityEngine.Random.Range(0, numSources - 1)];
+                        //for tutorial - make start and end further apart.
+                        Vector3 diff = e.startPos - e.endPos;
+                        diff.Normalize();
+                        e.startPos = e.startPos + diff * 1000.0f;
+                        e.endPos = e.endPos - diff * 1000.0f;
                     }
-                    events.Add(e);
-                    fileNum++;
                 }
+                else
+                {
+                    string[] data = dataset.Split('\t');
+                    if(data.Length != 7)
+                    {
+                        data = dataset.Split(' ');
+                    }
+                    EventData d;
+                    d.str = IntParseFast(data[0])-1;
+                    d.dom = IntParseFast(data[1])-1;
+                    d.pos.x = (float)double.Parse(data[2]);
+                    d.pos.y = BELOW_ICE + (float)double.Parse(data[4]);
+                    d.pos.z = (float)double.Parse(data[3]);
+                    d.charge = (float)double.Parse(data[5]);
+                    d.time = (float)double.Parse(data[6]);
+                    e.eventData.Add(d);
+                }
+
+                lineCount++;
             }
+
+            e.eventData.Sort((s1, s2) => s1.time.CompareTo(s2.time));
+            if (sources.Length > 0)
+            {
+                e.eventSource = sources[fileNum];//sources[UnityEngine.Random.Range(0, numSources - 1)];
+            }
+            events.Add(e);
+            fileNum++;
         }
 
-        if(newEventFile.Length > 0)
+        if(newEventTextAsset != null)
         {
-            StreamReader sr = new StreamReader(newEventFile, Encoding.Default);
-            string s = sr.ReadLine();
+            string[] datasets = newEventTextAsset.text.Split('\n');
 
             bool first = true;
 
-            GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
-            int numSources = sources.Length;
             List<EventData> ed = new List<EventData>();
             float lastTheta = 0.0f;
             float lastPhi = 0.0f;
             Vector3 lastCenter = Vector3.zero;
-            while (s != null)
+            foreach (string dataset in datasets)
             {
-                if(s[0] != '#')
+                // Skip useless data points (and blank last line from String.Split)
+                if (dataset == "") continue;
+                if (dataset[0] != '#')
                 {
-                    string[] data = s.Split(' ');
+                    string[] data = dataset.Split(' ');
                     if(data.Length == 2)
                     {
                         //theta, phi
@@ -246,7 +236,7 @@ public class EventPlayer : MonoBehaviour {
                 }
                 else
                 {
-                    if(s[1] == 'e')
+                    if(dataset[1] == 'e')
                     {
                         //new event...
                         //store old event...
@@ -291,7 +281,6 @@ public class EventPlayer : MonoBehaviour {
                         first = false;
                     }
                 }
-                s = sr.ReadLine();
             }
         }
 

@@ -334,7 +334,7 @@ public class SwipeGameMode : MonoBehaviour {
         //because these can be on during tutorial
         if (panelParent != null)
         {
-            panelParent.SetActive(false);
+            setPanelsVisibility(false);
         }
 
         if(yes)
@@ -598,7 +598,7 @@ public class SwipeGameMode : MonoBehaviour {
         //because these can be on during tutorial
         if (panelParent != null)
         {
-            panelParent.SetActive(false);
+            setPanelsVisibility(false);
         }
 
         //position top, front, side cameras for tutorial...
@@ -606,19 +606,22 @@ public class SwipeGameMode : MonoBehaviour {
 
         if (frontPanel != null)
         {
-            frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            frontPanel.transform.GetChild(3).gameObject
+                .GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
             frontPanel.transform.GetChild(1).gameObject.SetActive(false);
         }
 
         if (sidePanel != null)
         {
-            sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            sidePanel.transform.GetChild(3).gameObject
+                .GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
             sidePanel.transform.GetChild(1).gameObject.SetActive(false);
         }
         
         if (topPanel != null)
         {
-            topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+            topPanel.transform.GetChild(3).gameObject
+                .GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
             topPanel.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
@@ -658,10 +661,10 @@ public class SwipeGameMode : MonoBehaviour {
                 a.Play();
             }
         }
-        else if(!isSoftTutorial()) // If failed to resolve
+        else if(!isSoftTutorial() && timePenalty > 0) // If failed to resolve
         {
             countdownTimer.GetComponent<Countdown>().DecrTimeLeftBy(timePenalty);
-            SwipeRecognizer.spawnPoints(-timePenalty, new Vector3(1915, 1900, 0));
+            SwipeRecognizer.spawnPoints(-timePenalty, countdownTimer);
         }
 
         //earthView.gameObject.transform.FindChild("EarthModel").GetComponent<SpinFree>().spin = true;
@@ -739,7 +742,7 @@ public class SwipeGameMode : MonoBehaviour {
 
         if (makeVisible)
         {
-            panelParent.SetActive(true);
+            setPanelsVisibility(true);
         }
 
         StartCoroutine(Transition(frontCamera.transform.position, b.center + new Vector3(0f, b.extents.y, 0f), 
@@ -782,11 +785,25 @@ public class SwipeGameMode : MonoBehaviour {
 	}
 
 	public void DisableCameras() {
-        panelParent.SetActive(false);
-        frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
-        sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
-        topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        setPanelsVisibility(false);
+        frontPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        sidePanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        topPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
 	}
+
+    public void setPanelsVisibility(bool val) {
+        Transform child;
+        for (int i = 0; i < 4; i++)
+        {
+            bool isNowActive = (i != 1) ? val : false;
+            child = topPanel.transform.GetChild(i);
+            child.gameObject.SetActive(isNowActive);
+            child = frontPanel.transform.GetChild(i);
+            child.gameObject.SetActive(isNowActive);
+            child = sidePanel.transform.GetChild(i);
+            child.gameObject.SetActive(isNowActive);
+        }
+    }
 
     public void SetTimePenaltyByPercent(float percent)
     {

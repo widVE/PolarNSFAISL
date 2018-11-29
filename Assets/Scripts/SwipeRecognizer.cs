@@ -74,6 +74,8 @@ public class SwipeRecognizer : MonoBehaviour {
     private bool frontSwiped;
     private bool sideSwiped;
 
+    private bool isExiting = false;
+
     //public string name;
 
 	//----------END VARIABLES----------
@@ -299,7 +301,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
 		ResolveBounds currentBound = findBounds ();
 
-		switch(currentBound) 
+        switch (currentBound) 
         {
             case ResolveBounds.top:
             {
@@ -309,7 +311,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeTop(true);
                     SwipeCalculation(topCamera);
                     topSwiped = true;
-                    topPanel.transform.GetChild(1).gameObject.SetActive(true);
+                    topPanel.transform.GetChild(1).gameObject.SetActive(!isExiting);
                 }
                 break;
             }
@@ -321,7 +323,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeSide(true);
                     SwipeCalculation(sideCamera);
                     sideSwiped = true;
-                    sidePanel.transform.GetChild(1).gameObject.SetActive(true);
+                    sidePanel.transform.GetChild(1).gameObject.SetActive(!isExiting);
                 }
                 break;
             }
@@ -333,7 +335,7 @@ public class SwipeRecognizer : MonoBehaviour {
                     swipeGameMode.SetSwipeFront(true);
                     SwipeCalculation(frontCamera);
                     frontSwiped = true;
-                    frontPanel.transform.GetChild(1).gameObject.SetActive(true);
+                    frontPanel.transform.GetChild(1).gameObject.SetActive(!isExiting);
                 }
                 break;
             }
@@ -419,7 +421,8 @@ public class SwipeRecognizer : MonoBehaviour {
 
 	public void ExitResolveMode(bool success=false) 
     {
-		inResolveMode = false;
+        isExiting = false;
+        inResolveMode = false;
         gameObject.GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>().enabled = false;
 
         topSwiped = false;
@@ -574,8 +577,9 @@ public class SwipeRecognizer : MonoBehaviour {
                                 totalScore.z = vTest;
                                 //Debug.Log(vTest);
                                 //TODO: add event to summary panel
-                                frontPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                frontPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = frontPanel.GetComponent<UnityEngine.UI.Image>().color;
+                                frontPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                frontPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                refinePanel.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
@@ -586,7 +590,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                     Debug.Log("Added: " + score + " points.");
                                     neutrinoScore += score;
                                     updateScore();
-                                    spawnPoints(score, new Vector3(1915, 1400, 0));
+                                    spawnPoints(score, frontPanel);
                                 }
                                 else
                                 {
@@ -596,8 +600,9 @@ public class SwipeRecognizer : MonoBehaviour {
                             else if(cameraToUse == sideCamera)
                             {
                                 totalScore.y = vTest;
-                                sidePanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                sidePanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = sidePanel.GetComponent<UnityEngine.UI.Image>().color;
+                                sidePanel.transform.GetChild(1).GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                sidePanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                refinePanel.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
@@ -608,7 +613,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                     //Debug.Log("Added: " + score + " points.");
                                     neutrinoScore += score;
                                     updateScore();
-                                    spawnPoints(score, new Vector3(3050, 1400, 0));
+                                    spawnPoints(score, sidePanel);
                                 }
                                 else
                                 {
@@ -618,8 +623,9 @@ public class SwipeRecognizer : MonoBehaviour {
                             else if(cameraToUse == topCamera)
                             {
                                 totalScore.x = vTest;
-                                topPanel.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                topPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = topPanel.GetComponent<UnityEngine.UI.Image>().color;
+                                topPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                topPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
+                                refinePanel.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
@@ -630,7 +636,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                     //Debug.Log("Added: " + score + " points.");
                                     neutrinoScore += score;
                                     updateScore();
-                                    spawnPoints(score, new Vector3(800, 1400, 0));
+                                    spawnPoints(score, topPanel);
                                 }
                                 else
                                 {
@@ -704,7 +710,7 @@ public class SwipeRecognizer : MonoBehaviour {
 
                                         //what value is this?
                                         /// spawnPoints(score, new Vector3(3520, 1800, 0));
-                                        spawnPoints(score, new Vector3(1920, 1700, 0));
+                                        spawnPoints(score, frontPanel);
                                     }
                                 }
                                 else
@@ -734,7 +740,7 @@ public class SwipeRecognizer : MonoBehaviour {
                             //Debug.Log("SUCCESS");
                             StartCoroutine(DelayedResolve(swipeGameMode.isSoftTutorial() ? 0.5f : 4f, true));
 
-                            //add 1000 point bonus
+                            //add 100 point bonus
                             if (summaryPanel != null)
                             {
                                 if (!swipeGameMode.isSoftTutorial())
@@ -755,7 +761,7 @@ public class SwipeRecognizer : MonoBehaviour {
                                         neutrinoScore += 100;
                                         neutrinoCount++;
                                         updateScore();
-                                        spawnPoints(100, new Vector3(1920, 1700, 0));
+                                        spawnPoints(100, frontPanel);
                                     }
                                 }
                             }
@@ -877,17 +883,20 @@ public class SwipeRecognizer : MonoBehaviour {
             }
             currentEvents.truePath.material.color = newColor;*/
         }
-
+        isExiting = true;
         yield return new WaitForSeconds(waittime);
         ExitResolveMode(success);
     }
 
-    public void spawnPoints (int points, Vector3 coords)
+    public void spawnPoints (int points, GameObject refObj)
     {
         if (pointsTemplate != null)
         {
-            GameObject text = GameObject.Instantiate(pointsTemplate, coords, Quaternion.identity);
-            text.transform.SetParent(GameObject.Find("ScreenSpaceUI").transform);
+            GameObject text = Instantiate(pointsTemplate, refObj.transform);
+            Vector3[] corners = new Vector3[4];
+            refObj.GetComponent<RectTransform>().GetWorldCorners(corners);
+            float objHeight = corners[1].y - corners[0].y;
+            text.transform.Translate(new Vector3(0, objHeight, 0));
             text.GetComponent<UnityEngine.UI.Text>().text = points.ToString();
 
             collectSound.pitch = .5f +  (points / 100f);

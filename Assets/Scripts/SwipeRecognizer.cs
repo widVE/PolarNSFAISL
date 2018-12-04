@@ -579,7 +579,6 @@ public class SwipeRecognizer : MonoBehaviour {
                                 //TODO: add event to summary panel
                                 frontPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
                                 frontPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                refinePanel.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
@@ -602,7 +601,6 @@ public class SwipeRecognizer : MonoBehaviour {
                                 totalScore.y = vTest;
                                 sidePanel.transform.GetChild(1).GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
                                 sidePanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                refinePanel.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {
@@ -625,7 +623,6 @@ public class SwipeRecognizer : MonoBehaviour {
                                 totalScore.x = vTest;
                                 topPanel.transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
                                 topPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
-                                refinePanel.GetComponent<UnityEngine.UI.Text>().color = UnityEngine.Color.Lerp(UnityEngine.Color.red, UnityEngine.Color.green, vTest);
 
                                 if (!swipeGameMode.isSoftTutorial())
                                 {

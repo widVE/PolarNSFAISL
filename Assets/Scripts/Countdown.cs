@@ -101,7 +101,7 @@ public class Countdown : MonoBehaviour {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("game_summary1") + tempCount + 
                                     LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + " " + tempScore;
                             }
-
+#if !UNITY_IOS                           
                             int numTimesTouched = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().numTouches;
                             string lastTouchTime = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().lastTouchTime;
                             //write out log file here
@@ -135,9 +135,9 @@ public class Countdown : MonoBehaviour {
                                 if(e is IOException || e is System.IO.IsolatedStorage.IsolatedStorageException)
                                 //just don't write it
                                 Debug.Log("Couldn't update scores log to cave shared");
-                            }  
-                            
-							Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture> ().numTouches = 0;
+                            }
+#endif                            
+                            Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture> ().numTouches = 0;
                             summaryPanel.SetActive(true);
                             if(evalButton != null)
                             {

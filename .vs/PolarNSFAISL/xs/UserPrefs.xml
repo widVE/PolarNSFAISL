@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{61A6A323-22AA-7F96-2E29-A9AFD003A1FD}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Andrew's Scripts/SwipeGameMode.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SwipeRecognizer.cs">
     <Files>
       <File FileName="Assets/Scripts/WindowHandler.cs" Line="90" Column="6" />
       <File FileName="Assets/Scripts/Strings.cs" Line="9" Column="55" />
       <File FileName="Assets/Scripts/PlotSphereMap.cs" Line="46" Column="6" />
-      <File FileName="Assets/Scripts/Andrew's Scripts/SwipeGameMode.cs" Line="634" Column="9" />
-      <File FileName="Assets/Scripts/SwipeRecognizer.cs" Line="899" Column="1" />
+      <File FileName="Assets/Scripts/Andrew's Scripts/SwipeGameMode.cs" Line="634" Column="1" />
+      <File FileName="Assets/Scripts/SwipeRecognizer.cs" Line="554" Column="55" />
       <File FileName="Assets/Scripts/Andrew's Scripts/EventInfo.cs" Line="24" Column="17" />
       <File FileName="Assets/Scripts/TouchInteraction.cs" Line="15" Column="17" />
       <File FileName="Assets/Scripts/Andrew's Scripts/DomArrayGenerator.cs" Line="31" Column="47" />
@@ -16,6 +16,7 @@
       <File FileName="Assets/TouchScript/Scripts/Core/TouchManagerInstance.cs" Line="633" Column="1" />
       <File FileName="Assets/Scripts/Countdown.cs" Line="66" Column="1" />
       <File FileName="Assets/Scripts/Tutorial.cs" Line="86" Column="55" />
+      <File FileName="Assets/Scripts/Andrew's Scripts/EventPanelManager.cs" Line="214" Column="66" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -43,7 +43,7 @@ public class LineEnergyGrapher : MonoBehaviour {
 		}
 			
 		linRen = GetComponent<LineRenderer> ();
-		linRen.material = new Material (Shader.Find ("Particles/Additive"));
+		//linRen.material = new Material (Shader.Find ("Particles/Additive"));
 	}
 	
 	// Update is called once per frame

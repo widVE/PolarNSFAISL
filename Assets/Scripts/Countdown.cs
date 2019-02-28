@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System;
 
@@ -24,7 +25,10 @@ public class Countdown : MonoBehaviour {
     public GameObject startButton;
     public GameObject eventPanelManager;
     public GameObject swipeRecognizer;
+    public GameObject timeLabel;
     public Animator evalButton;
+    public GameObject backgroundBox;
+    
 
     public void StartCountdown() { 
         countDown = true;
@@ -52,6 +56,17 @@ public class Countdown : MonoBehaviour {
         else
         {
             ContinueCountdown();
+        }
+
+        if(!countDown && !paused)
+        {
+            //countdown label should not be displayed while not being timed
+            GetComponent<Text>().text = "";
+            backgroundBox.GetComponent<Image>().enabled = false;
+        }
+        else if(GetComponent<Text>().text != "")
+        {
+            backgroundBox.GetComponent<Image>().enabled = true;
         }
 
         if (countDown && !paused)

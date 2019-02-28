@@ -63,6 +63,7 @@ public class SwipeGameMode : MonoBehaviour {
     public const int MAX_TIME_PENALTY = 5;
 
     public GameObject evalButton;
+    public Color savedPanelColor;
 
     [SerializeField]
     private float softTimeout = 30f;
@@ -786,14 +787,16 @@ public class SwipeGameMode : MonoBehaviour {
 
 	public void DisableCameras() {
         setPanelsVisibility(false);
-        frontPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
-        sidePanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
-        topPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = UnityEngine.Color.cyan;
+        
+        frontPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = savedPanelColor;
+        sidePanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = savedPanelColor;
+        topPanel.transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = savedPanelColor;
+        
 	}
 
     public void setPanelsVisibility(bool val) {
         Transform child;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             bool isNowActive = (i != 1) ? val : false;
             child = topPanel.transform.GetChild(i);

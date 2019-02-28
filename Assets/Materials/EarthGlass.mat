@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EmbersParticle
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHATEST_ON _EMISSION
+  m_Name: EarthGlass
+  m_Shader: {fileID: 101, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -25,6 +25,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 8900000, guid: 103566864d3edf849a810c6c0ada827d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,19 +47,19 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MKGlowTex:
+    - _MainBump:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 7c8a9cc5729e0e94fbd7224015d90b4b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
+    - _Mask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Normal:
+    - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -67,42 +71,42 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - PixelSnap: 0
     - _BlendOp: 0
+    - _Brightness: 2
     - _BumpScale: 1
+    - _CLAMPOUT: 0
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
     - _ColorMask: 15
-    - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Darkmatter: 25
     - _DetailNormalMapScale: 1
-    - _DistortionBlend: 0.5
-    - _DistortionEnabled: 0
+    - _Distfading: 68
+    - _DistortionBlend: 0.836
+    - _DistortionEnabled: 1
     - _DistortionStrength: 1
-    - _DistortionStrengthScaled: 0
+    - _DistortionStrengthScaled: 0.1
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
     - _FlipbookMode: 0
+    - _Focus: -100
+    - _Formuparam: 530
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0.816
     - _GlossyReflections: 1
-    - _IntensityVC: 1
-    - _InvFade: 3
-    - _LightingEnabled: 0
-    - _MKGlowPower: 2.5
-    - _MKGlowTexStrength: 1
+    - _Iterations: 17
+    - _LightingEnabled: 1
     - _Metallic: 0
-    - _Mode: 1
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Saturation: 85
+    - _Shininess: 0.2
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
@@ -114,19 +118,22 @@ Material:
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _StepSize: 130
+    - _Tile: 700
     - _UVSec: 0
     - _UseUIAlphaClip: 0
+    - _Volsteps: 20
     - _ZWrite: 1
+    - _Zoom: 800
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
+    - _Center: {r: 1, g: 0.3, b: 0.5, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _EmisColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _MKGlowColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MKGlowTexColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Rotation: {r: 35, g: 25, b: 75, a: 0.1}
+    - _Scroll: {r: 3, g: 1, b: 0.6, a: 0.01}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _TintColor: {r: 1, g: 1, b: 1, a: 0.5}
+    - _Specular: {r: 0, g: 0, b: 0, a: 0}

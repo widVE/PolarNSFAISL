@@ -1,40 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class fakeCursor : MonoBehaviour
 {
-
-    public Camera cam;
-    public Vector3 cameraRelative;
-    public GameObject cursor;
-    public bool switchCoordinates = true;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        cursor = GameObject.Find("Pointer");
-        //
-    }
+    private Vector3 mousePosition;
+    public float moveSpeed = 0.1f;
 
     // Update is called once per frame
-    void Update()
-    {
-        cursor = GameObject.Find("Pointer");
-        Vector3 newPos = Camera.main.ScreenToWorldPoint(cursor.transform.position);
-        //cameraRelative = cam.InverseTransformPoint(cursor.transform.position);
-        //cameraRelative = Camera.main.ScreenToWorldPoint(cursor.transform.position);
-        // Vector3 newPos = cam.WorldToScreenPoint(cursor.transform.position);
+    void Update() {
+        if (Input.GetMouseButton(1)) {
+            Debug.Log("Moving to mouse!");
+            mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        }
 
-        if (!switchCoordinates)
-        {
-            GameObject.Find("fakeTrail").transform.position = cursor.transform.position;
-        } else
-        {
-            //Debug.Log(cursor.transform.position.x + "." + cursor.transform.position.y + "." + cursor.transform.position.z);
-            Debug.Log(newPos.x + "|||" + newPos.y + "|||" + newPos.z);
+        // Handle screen touches.
+        if (Input.touchCount > 0) {
+            GetComponent<Image>().enabled = true;
+            //Debug.Log("Touch detected!");
+            Touch touch = Input.GetTouch(0);
 
-            GameObject.Find("fakeTrail").transform.position = newPos;
+            // Move the cube if the screen has the finger moving.
+            if (touch.phase == TouchPhase.Moved) {
+                mousePosition = touch.position;
+                transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed);
+            } 
+        }
+        else
+        {
+            GetComponent<Image>().enabled = false;
         }
     }
 }
+    

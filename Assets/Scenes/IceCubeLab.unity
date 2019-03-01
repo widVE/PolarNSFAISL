@@ -2277,7 +2277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00013705067, y: -0.000047786085}
+  m_AnchoredPosition: {x: -0.00009174804, y: -0.00000085221996}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &99396097
@@ -4175,7 +4175,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1291960309}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8384,6 +8384,216 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &449770281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449770282}
+  - component: {fileID: 449770285}
+  - component: {fileID: 449770284}
+  - component: {fileID: 449770283}
+  - component: {fileID: 449770286}
+  - component: {fileID: 449770287}
+  m_Layer: 5
+  m_Name: fakeCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &449770282
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449770281}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1.039995, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2136369078}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 457.4, y: -582.6}
+  m_SizeDelta: {x: -3372.6, y: -1756.3}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!111 &449770283
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449770281}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 839eb88f66985454aa14dcefde53749a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 839eb88f66985454aa14dcefde53749a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &449770284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449770281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 3aea9c0e8e0e4e14a84bb7093ba70108, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 0
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!222 &449770285
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449770281}
+  m_CullTransparentMesh: 0
+--- !u!114 &449770286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449770281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6416dd946fcfdf84a8eff204d3a1d031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 1
+--- !u!96 &449770287
+TrailRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449770281}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e587bea69992fe248b4e0323dafd6c9b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Time: 1
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 10
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_MinVertexDistance: 0.01
+  m_Autodestruct: 0
+  m_Emitting: 1
 --- !u!1 &459984921
 GameObject:
   m_ObjectHideFlags: 0
@@ -10396,96 +10606,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552857516}
   m_CullTransparentMesh: 0
---- !u!1 &554450035
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 554450036}
-  - component: {fileID: 554450037}
-  - component: {fileID: 554450040}
-  - component: {fileID: 554450038}
-  m_Layer: 0
-  m_Name: fakeCursor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &554450036
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554450035}
-  m_LocalRotation: {x: -0.19916874, y: 0.045535907, z: -0.009265165, w: -0.9788628}
-  m_LocalPosition: {x: 0, y: 0, z: -1275.836}
-  m_LocalScale: {x: 2.7112904, y: 2.71129, z: 2.7112901}
-  m_Children:
-  - {fileID: 1321216359}
-  m_Father: {fileID: 2136369078}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 105.93652, y: -1188.3936}
-  m_SizeDelta: {x: 2048, y: 1536}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!223 &554450037
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554450035}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 1
-  m_Camera: {fileID: 905924064}
-  m_PlaneDistance: 2750
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &554450038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554450035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
---- !u!222 &554450040
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554450035}
-  m_CullTransparentMesh: 0
 --- !u!1 &559970671
 GameObject:
   m_ObjectHideFlags: 0
@@ -11317,7 +11437,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -11335,7 +11455,7 @@ MonoBehaviour:
   OnTap:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   numberOfTapsRequired: 2
   timeLimit: Infinity
@@ -16115,42 +16235,42 @@ MonoBehaviour:
   OnFrameStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnFrameFinish:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnPointersAdd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnPointersUpdate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnPointersPress:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnPointersRelease:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnPointersRemove:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnPointersCancel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   displayDevice: {fileID: 0}
@@ -16463,7 +16583,7 @@ RectTransform:
   - {fileID: 1303849132}
   - {fileID: 1741857978}
   m_Father: {fileID: 2136369078}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -16979,7 +17099,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -17032,7 +17152,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -21684,7 +21804,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: c0dc5781cae4a6348b42ea6b818a3f9c, type: 3}
       propertyPath: m_Layer
@@ -23832,7 +23952,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 170652691}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999992
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -27906,176 +28026,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: tutorial_panel9
---- !u!1 &1321216358
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1321216359}
-  - component: {fileID: 1321216361}
-  - component: {fileID: 1321216360}
-  - component: {fileID: 1321216362}
-  m_Layer: 0
-  m_Name: fakeTrail
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1321216359
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321216358}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 554450036}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035156, y: -0.00018310547}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &1321216360
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321216358}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
---- !u!96 &1321216361
-TrailRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321216358}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 8f034f699b30b5148ab022c0186c328d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Time: 0.1
-  m_Parameters:
-    serializedVersion: 3
-    widthMultiplier: 100
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0.5176471}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
-      ctime1: 65535
-      ctime2: 0
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 0
-    textureMode: 0
-    shadowBias: 0.5
-    generateLightingData: 0
-  m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
-  m_Emitting: 1
---- !u!114 &1321216362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321216358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6416dd946fcfdf84a8eff204d3a1d031, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 905924064}
-  cameraRelative: {x: 0, y: 0, z: 0}
-  cursor: {fileID: 0}
-  switchCoordinates: 0
 --- !u!1 &1327669891
 GameObject:
   m_ObjectHideFlags: 0
@@ -37541,7 +37491,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 1
   generalProps: 0
@@ -37559,17 +37509,17 @@ MonoBehaviour:
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnTransform:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   OnTransformComplete:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.25601,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.6999.29443,
       Culture=neutral, PublicKeyToken=null
   type: 2
   screenTransformThreshold: 0.1
@@ -41164,8 +41114,8 @@ RectTransform:
   - {fileID: 1929781}
   - {fileID: 605092340}
   - {fileID: 1827144975}
+  - {fileID: 449770282}
   - {fileID: 894764392}
-  - {fileID: 554450036}
   - {fileID: 1488366818}
   - {fileID: 591453382}
   - {fileID: 1046110307}

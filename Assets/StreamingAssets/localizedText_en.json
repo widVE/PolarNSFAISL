@@ -57,7 +57,7 @@
         { "key": "front_view", "value": "Front View" },
         { "key": "side_view", "value": "Side View" },
         { "key": "start_label", "value": "Tap to Start" },
-        { "key": "welcome_text1", "value": "Welcome to the IceCube Neutrino Observatory at the South Pole in Antarctica!" },
+        { "key": "welcome_text1", "value": "<size=50><i><color=#D2F3F6>Welcome to the</color></i></size>\nIceCube Neutrino Observatory\n<size=30><color=#D2F3F6><i><b>Location:</b></i></color><i> South Pole, Antarctica</i></size>" },
         { "key": "welcome_text2", "value": "Welcome to the IceCube Neutrino Observatory. Here we search for neutrinos using our IceCube telescope. " },
         { "key": "restart_label", "value": "Tap to Restart" },
         { "key": "skip_label", "value": "SKIP" },

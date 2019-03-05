@@ -7,6 +7,7 @@ public class fakeCursor : MonoBehaviour
 {
     private Vector3 mousePosition;
     public float moveSpeed = 0.1f;
+    public int mouseInt = 0;
 
     // Update is called once per frame
     void Update() {
@@ -17,10 +18,10 @@ public class fakeCursor : MonoBehaviour
         }
 
         // Handle screen touches.
-        if (Input.touchCount > 0) {
+        if (Input.touchCount > mouseInt) {
             GetComponent<Image>().enabled = true;
             //Debug.Log("Touch detected!");
-            Touch touch = Input.GetTouch(0);
+            Touch touch = Input.GetTouch(mouseInt);
 
             // Move the cube if the screen has the finger moving.
             if (touch.phase == TouchPhase.Moved) {

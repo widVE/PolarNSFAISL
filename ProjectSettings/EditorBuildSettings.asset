@@ -6,5 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ScreenLoader.unity
+    guid: 06d3100d8433fb54392587c0543cbb10
+  - enabled: 1
     path: Assets/Scenes/IceCubeLab.unity
     guid: a1fc719aab76d564f95348f56fdf0f3b
+  m_configObjects: {}

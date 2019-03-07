@@ -116,7 +116,7 @@ public class Countdown : MonoBehaviour {
                                 summaryPanel.transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue("game_summary1") + tempCount + 
                                     LocalizationManager.instance.GetLocalizedValue("game_summary2") + "\n" + LocalizationManager.instance.GetLocalizedValue("game_summary3") + " " + tempScore;
                             }
-#if !UNITY_IOS                           
+#if !UNITY_IOS && !UNITY_ANDROID                          
                             int numTimesTouched = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().numTouches;
                             string lastTouchTime = Camera.main.GetComponent<TouchScript.Gestures.MultiFlickGesture>().lastTouchTime;
                             //write out log file here

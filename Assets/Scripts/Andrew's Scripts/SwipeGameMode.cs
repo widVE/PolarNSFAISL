@@ -118,15 +118,15 @@ public class SwipeGameMode : MonoBehaviour {
         {
             //Debug.Log(instructionPanelIndex);
             
-            int numPanels = instructions.transform.GetChild(2).transform.childCount;
+            int numPanels = instructions.transform.GetChild(1).transform.childCount;
             //Debug.Log(numPanels);
 
-            instructions.transform.GetChild(2).transform.GetChild(instructionPanelIndex).gameObject.SetActive(false);
+            instructions.transform.GetChild(1).transform.GetChild(instructionPanelIndex).gameObject.SetActive(false);
             instructionPanelIndex++;
             if (instructionPanelIndex < numPanels)
             {
                 instructionStarted = UnityEngine.Time.time;
-                instructions.transform.GetChild(2).transform.GetChild(instructionPanelIndex).gameObject.SetActive(true);
+                instructions.transform.GetChild(1).transform.GetChild(instructionPanelIndex).gameObject.SetActive(true);
             }
             else
             {
@@ -149,14 +149,14 @@ public class SwipeGameMode : MonoBehaviour {
         instructionPanelIndex = 0;
         instructionStarted = 0f;
 
-        int numPanels = instructions.transform.GetChild(2).transform.childCount;
+        int numPanels = instructions.transform.GetChild(1).transform.childCount;
 
         for (int i = 0; i < numPanels; ++i)
         {
-            instructions.transform.GetChild(2).transform.GetChild(i).gameObject.SetActive(false);
+            instructions.transform.GetChild(1).transform.GetChild(i).gameObject.SetActive(false);
         }
 
-        instructions.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
+        instructions.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
     }
 
     void Update()
@@ -236,14 +236,14 @@ public class SwipeGameMode : MonoBehaviour {
 
                     if(instructions != null)
                     {
-                        int numPanels = instructions.transform.GetChild(2).transform.childCount;
+                        int numPanels = instructions.transform.GetChild(1).transform.childCount;
 
                         for (int i = 0; i < numPanels; ++i)
                         {
-                            instructions.transform.GetChild(2).transform.GetChild(i).gameObject.SetActive(false);
+                            instructions.transform.GetChild(1).transform.GetChild(i).gameObject.SetActive(false);
                         }
 
-                        instructions.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
+                        instructions.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
 
                         instructions.SetActive(false);
                     }

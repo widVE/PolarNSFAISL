@@ -35,7 +35,7 @@
         { "key": "soft_tutorial_text1", "value": "Now let's try for real: " },
         { "key": "soft_tutorial_text2", "value": "Let's do one for practice." },
         { "key": "soft_tutorial_text3", "value": "Good, now do the same in the top, front and side views." },
-        { "key": "soft_tutorial_text4", "value": "Swipe in the direction of the event." },
+        { "key": "soft_tutorial_text4", "value": "Swipe in the direction of the rainbow pattern, from <color=#ff0000ff><b>red</b></color> to <color=#00ffffff><b>blue</b></color>, to estimate the direction the neutrino was traveling.  The size of the sphere shows how much light each sensor detected." },
         { "key": "summary_count_text1", "value": "Source" },
         { "key": "summary_count_text2", "value": "Description" },
         { "key": "summary_count_text3", "value": "Count" },

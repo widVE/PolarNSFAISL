@@ -14,6 +14,7 @@ public class loadScript : MonoBehaviour
     {
         // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
         AsyncOperation async = Application.LoadLevelAsync(1);
+        Application.targetFrameRate = 60;
         while (!async.isDone)
         {
             yield return null;

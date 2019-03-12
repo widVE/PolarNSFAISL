@@ -8,6 +8,7 @@ public class fakeCursor : MonoBehaviour
     private Vector3 mousePosition;
     public float moveSpeed = 0.1f;
     public int mouseInt = 0;
+    public int latency = 5;
 
     // Update is called once per frame
     void Update() {
@@ -22,15 +23,10 @@ public class fakeCursor : MonoBehaviour
             GetComponent<Image>().enabled = true;
             //Debug.Log("Touch detected!");
             Touch touch = Input.GetTouch(mouseInt);
-
-            // Move the cube if the screen has the finger moving.
-            if (touch.phase == TouchPhase.Moved) {
                 mousePosition = touch.position;
                 transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed);
-            } 
         }
-        else
-        {
+        else {
             GetComponent<Image>().enabled = false;
         }
     }

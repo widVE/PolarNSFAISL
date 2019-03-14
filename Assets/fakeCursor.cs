@@ -22,12 +22,8 @@ public class fakeCursor : MonoBehaviour
             GetComponent<Image>().enabled = true;
             //Debug.Log("Touch detected!");
             Touch touch = Input.GetTouch(mouseInt);
-
-            // Move the cube if the screen has the finger moving.
-            if (touch.phase == TouchPhase.Moved) {
                 mousePosition = touch.position;
                 transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed);
-            } 
         }
         else
         {

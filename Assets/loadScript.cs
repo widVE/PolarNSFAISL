@@ -8,6 +8,7 @@ public class loadScript : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadNewScene());
+        Application.targetFrameRate = 60;
     }
 
     IEnumerator LoadNewScene()

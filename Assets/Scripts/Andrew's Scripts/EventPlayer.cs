@@ -119,7 +119,7 @@ public class EventPlayer : MonoBehaviour {
 
         GameObject[] sources = GameObject.FindGameObjectsWithTag("NeutrinoSource");
         int numSources = sources.Length;
-        //Debug.Log("Num sources: " + numSources);
+        Debug.Log("Num sources: " + numSources);
         int fileNum = 0;
         foreach (TextAsset eventTextAsset in eventTextAssets)
         {
@@ -286,7 +286,7 @@ public class EventPlayer : MonoBehaviour {
 
         if(events.Count > 0)
         {
-          //  Debug.Log("Total Events: " + events.Count);
+            Debug.Log("Total Events: " + events.Count);
             eventsPlaying = new EventPlayback[events.Count];
             for(int e = 0; e < events.Count; ++e)
             {
@@ -405,7 +405,7 @@ public class EventPlayer : MonoBehaviour {
                             currEventNumber = 0;
                         }
                         
-                    //    Debug.Log("Playing event: " + currEventNumber);
+                        Debug.Log("Playing event: " + currEventNumber);
                         if(lineGrapher != null)
                         {
                             lineGrapher.GetComponent<LineEnergyGrapher>().ResetEnergy();

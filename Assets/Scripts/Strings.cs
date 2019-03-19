@@ -6,7 +6,8 @@ using System;
 public class Strings : MonoBehaviour
 {
 	public float offset = 0f;
-    string icecubeFile = "Assets/IceCubeData/geometry/Icecube_Geometry_Data.txt";
+    
+    public TextAsset icecubeTextAsset = null;
     private const float BELOW_ICE = -1950.0f;
     private bool first = true;
 
@@ -23,17 +24,23 @@ public class Strings : MonoBehaviour
 
     void Start()
     {
-        StreamReader reader = new StreamReader(icecubeFile);
+        if (icecubeTextAsset == null)
+        {
+            icecubeTextAsset = Resources.Load("Icecube_Geometry_Data.txt") as UnityEngine.TextAsset;
+        }
+
+        string[] datasets = icecubeTextAsset.text.Split('\n');
 
         LineRenderer lineRen = null;
         Vector3[] pos = new Vector3[2];
 
-        string line;
-
-        while ((line = reader.ReadLine()) != null)
+        foreach (string line in datasets)
         {
-
-            string[] data = line.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            if (line == "") continue;
+            string[] data = line.Split(
+                new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            // Ignore malformatted data points
+            if (data.Length < 5) continue;
 
             //grab each column of data
             string stringIndex = data[0];
@@ -137,7 +144,7 @@ public class Strings : MonoBehaviour
 
         }   //end while()
 
-        reader.Close();
+        //reader.Close();
     }//end Start()
 
     void Update()

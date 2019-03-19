@@ -23,6 +23,11 @@ public class DomArrayGenerator : MonoBehaviour {
 	void Start () {
 		Vector3[] pos = new Vector3[2];
 
+        if (icecubeTextAsset == null)
+        {
+            icecubeTextAsset = Resources.Load("Icecube_Geometry_Data.txt") as UnityEngine.TextAsset;
+        }
+
         string[] datasets = icecubeTextAsset.text.Split('\n');
 
         /*float avgX = 0.0f;

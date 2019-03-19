@@ -58,7 +58,7 @@ namespace DCM {
 
                         CopyNormal(combines [indexOffset].mesh.normals, normals, invTranspose);                       
 
-                        if (combines [indexOffset].mesh.tangents.Length != combines [indexOffset].mesh.vertexCount) { 
+                        /*if (combines [indexOffset].mesh.tangents.Length != combines [indexOffset].mesh.vertexCount) { 
                             CalculateTangents(combines [indexOffset].mesh);
                         } 
 
@@ -73,7 +73,7 @@ namespace DCM {
                             for (int j = 0; j < combines [indexOffset].mesh.vertexCount; j++) {
                                 uv1.Add(defaultUV);// newUVs[j] = defaultUV;
                             }
-                        }
+                        }*/
 
                         if (combines [indexOffset].mesh.colors.Length == combines [indexOffset].mesh.vertexCount) {
                             CopyColors(combines [indexOffset].mesh.colors, colors);

@@ -2504,7 +2504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00007038406, y: 0.42668912}
+  m_AnchoredPosition: {x: 0.000086550346, y: 0.000027262746}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &99396097
@@ -2869,7 +2869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   domObject: {fileID: 1365751052718498, guid: e6f35d7bec1f37c4c89f25918f5893eb, type: 3}
-  icecubeTextAsset: {fileID: 4900000, guid: 803c5e2586010a248993d26c181ab206, type: 3}
+  icecubeTextAsset: {fileID: 4900000, guid: 81d64ea905e723f46a1e6e771c0e73b4, type: 3}
 --- !u!1 &104337451
 GameObject:
   m_ObjectHideFlags: 0
@@ -3302,7 +3302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.45}
-  m_AnchoredPosition: {x: -48.999878, y: -1}
+  m_AnchoredPosition: {x: -49, y: -1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &140287023
@@ -4662,7 +4662,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1291960309}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.756691
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4843,7 +4843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 95.099976, y: -57.9}
+  m_AnchoredPosition: {x: 95.1001, y: -57.9}
   m_SizeDelta: {x: 213.9, y: 2285.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &211715244
@@ -5371,7 +5371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -127.5, y: 65.79999}
+  m_AnchoredPosition: {x: -127.5, y: 65.799805}
   m_SizeDelta: {x: -82, y: 103.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &234791577
@@ -9556,6 +9556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   mouseInt: 0
+  latency: 5
 --- !u!96 &449770287
 TrailRenderer:
   serializedVersion: 2
@@ -11611,7 +11612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 11.399902, y: 7.1000366}
+  m_AnchoredPosition: {x: 11.399902, y: 7.0999756}
   m_SizeDelta: {x: -27.9, y: -46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &532125760
@@ -12861,7 +12862,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -12879,7 +12880,7 @@ MonoBehaviour:
   OnTap:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   numberOfTapsRequired: 2
   timeLimit: Infinity
@@ -13374,6 +13375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: 0
+  icecubeTextAsset: {fileID: 4900000, guid: 81d64ea905e723f46a1e6e771c0e73b4, type: 3}
   stringObject: {fileID: 1379859881196324, guid: 55768021f9a7bc14abcdd99e4255e1e9,
     type: 3}
   cam: {fileID: 905924065}
@@ -16868,7 +16870,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10.399902, y: 1.8999634}
+  m_AnchoredPosition: {x: 10.399902, y: 1.9000244}
   m_SizeDelta: {x: -75.1, y: -87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &790365851
@@ -17682,42 +17684,42 @@ MonoBehaviour:
   OnFrameStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnFrameFinish:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+FrameEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnPointersAdd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnPointersUpdate:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnPointersPress:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnPointersRelease:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnPointersRemove:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnPointersCancel:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.TouchManager+PointerEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   displayDevice: {fileID: 0}
@@ -18051,7 +18053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10.299805, y: 11.699951}
+  m_AnchoredPosition: {x: -10.299805, y: 11.700195}
   m_SizeDelta: {x: 20.5, y: -23.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &901706064
@@ -18563,7 +18565,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -18616,7 +18618,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 0
   generalProps: 0
@@ -23532,6 +23534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   mouseInt: 1
+  latency: 5
 --- !u!111 &1132220178
 Animation:
   m_ObjectHideFlags: 0
@@ -23755,7 +23758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.15, y: 0}
   m_AnchorMax: {x: 1, y: 0.15}
-  m_AnchoredPosition: {x: -24.399902, y: 15.900024}
+  m_AnchoredPosition: {x: -24.399902, y: 15.899902}
   m_SizeDelta: {x: -37.4, y: 7.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1155510028
@@ -29632,6 +29635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   mouseInt: 4
+  latency: 5
 --- !u!111 &1277346874
 Animation:
   m_ObjectHideFlags: 0
@@ -37971,7 +37975,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 136.20001, y: 21.1}
+  m_AnchoredPosition: {x: 136.2002, y: 21.1}
   m_SizeDelta: {x: 975.4, y: 2318.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704655215
@@ -38565,6 +38569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   mouseInt: 2
+  latency: 5
 --- !u!111 &1724283454
 Animation:
   m_ObjectHideFlags: 0
@@ -40182,7 +40187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.15, y: 0.15}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -24.399902, y: -23.200012}
+  m_AnchoredPosition: {x: -24.399902, y: -23.200073}
   m_SizeDelta: {x: -37.4, y: -36.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1829086378
@@ -41512,7 +41517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15.474915, y: -68.729004}
+  m_AnchoredPosition: {x: 15.474976, y: -68.729004}
   m_SizeDelta: {x: 30.95, y: -76.201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1902788415
@@ -42247,6 +42252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   mouseInt: 3
+  latency: 5
 --- !u!111 &1924970723
 Animation:
   m_ObjectHideFlags: 0
@@ -42372,7 +42378,7 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   basicEditor: 1
   generalProps: 0
@@ -42390,17 +42396,17 @@ MonoBehaviour:
   OnTransformStart:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnTransform:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   OnTransformComplete:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7006.28938,
+    m_TypeName: TouchScript.Gestures.Gesture+GestureEvent, Assembly-CSharp, Version=1.0.7017.20328,
       Culture=neutral, PublicKeyToken=null
   type: 2
   screenTransformThreshold: 0.1
@@ -44457,7 +44463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.2998657, y: -50.5}
+  m_AnchoredPosition: {x: -5.2999268, y: -50.5}
   m_SizeDelta: {x: 40, y: -62.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1994353602
@@ -46027,7 +46033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.325}
   m_AnchorMax: {x: 1, y: 0.8}
-  m_AnchoredPosition: {x: 50.125, y: -96.899994}
+  m_AnchoredPosition: {x: 50.125, y: -96.8999}
   m_SizeDelta: {x: -61.75, y: -193.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2105489270

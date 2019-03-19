@@ -173,7 +173,7 @@ public class SwipeGameMode : MonoBehaviour {
                 mainCamera.transform.localPosition = new Vector3(300.2444f, 342.7338f, -3306.132f);
                 mainCamera.transform.localEulerAngles = new Vector3(23.002f, -5.327f, 0);
 
-               // Debug.Log("Stopping soft tutorial.");
+                Debug.Log("Stopping soft tutorial.");
                 if (startButton != null)
                 {
                     startButton.SetActive(true);

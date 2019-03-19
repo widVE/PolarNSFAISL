@@ -12,7 +12,7 @@ public class particleDelayStart : MonoBehaviour {
         StartCoroutine(Wait(1.5f));
         //system.Play();
 
-       // Debug.Log(gameObject.transform.GetChild(2).name);
+        Debug.Log(gameObject.transform.GetChild(2).name);
 	}
 	
 	// Update is called once per frame

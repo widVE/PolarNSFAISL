@@ -62,7 +62,7 @@ public class LineEnergyGrapher : MonoBehaviour {
 	public void InitializePoints() {
         // Make array of size = max event length
         points = new Vector3[(int)visEvent.GetMaxDOMs()];
-       // Debug.Log("Max DOMs: " + points.Length);
+        Debug.Log("Max DOMs: " + points.Length);
         // initialize point values
         for (int i = 0; i < points.Length; i++)
         {

@@ -71,7 +71,7 @@ public class LocalizationManager : MonoBehaviour
                     localizedText.Add(loadedData.items[i].key, loadedData.items[i].value);
                 }
 
-             //   Debug.Log("Data loaded, dictionary contains: " + localizedText.Count + " entries");
+                Debug.Log("Data loaded, dictionary contains: " + localizedText.Count + " entries");
             }
             else
             {
@@ -85,7 +85,7 @@ public class LocalizationManager : MonoBehaviour
             spanish = false;
             SpanishButton.GetComponent<UnityEngine.UI.Button>().interactable = true;
             EnglishButton.GetComponent<UnityEngine.UI.Button>().interactable = false;
-          //  Debug.Log("loaded english survey");
+            Debug.Log("loaded english survey");
         }
         else
         {

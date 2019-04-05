@@ -196,7 +196,7 @@ public class EventPanelManager : MonoBehaviour {
         if(congratsPanel)
         {
             //adding name underneath congrats image.
-            congratsPanel.transform.GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue(name);
+            congratsPanel.transform.GetChild(0).GetChild(1).GetComponent<UnityEngine.UI.Text>().text = LocalizationManager.instance.GetLocalizedValue(name);
         }
 
 		// The panel has two buttons, so set up the OnClick functions for each button
@@ -227,7 +227,7 @@ public class EventPanelManager : MonoBehaviour {
         }
         else
         {
-            newPanel.GetComponent<Image>().color = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
+            newPanel.GetComponent<Image>().color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
         }
 
 		// Add name text and return it

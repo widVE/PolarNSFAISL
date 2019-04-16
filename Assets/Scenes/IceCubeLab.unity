@@ -2282,7 +2282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000056471345, y: -0.00007914704}
+  m_AnchoredPosition: {x: -0.000056471345, y: -0.000011174973}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &99396097
@@ -12384,7 +12384,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 169dabae7488b1e489c9326959fb8c49, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.9
+  m_Volume: 0.601
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -12592,7 +12592,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 34bcd9a0f91865b49b459b2618d0be11, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.376
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -12688,7 +12688,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 645ad821c03fe0349a59e04220ae1275, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.363
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -12783,8 +12783,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: aecc73c6e4b26db4e925c161acfda575, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_PlayOnAwake: 1
+  m_Volume: 0.287
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -16057,7 +16057,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cd603f8cdc9c3fe42aaec06ba226185b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.009
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -16067,7 +16067,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: 0.27
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -16101,7 +16101,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.433
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -36923,7 +36923,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 41a6bcc36c1ff6442bf65912638653a3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.498
   m_Pitch: 1
   Loop: 0
   Mute: 0

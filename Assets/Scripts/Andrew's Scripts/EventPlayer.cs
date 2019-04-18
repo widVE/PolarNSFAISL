@@ -400,6 +400,30 @@ public class EventPlayer : MonoBehaviour {
                     if (currEventNumber == -1)
                     {
                         currEventNumber = UnityEngine.Random.Range(0, events.Count);// incrEventNumber;
+                        List<int> bigDatasets = new List<int>();
+                        bigDatasets.Add(2);
+                        bigDatasets.Add(3);
+                        bigDatasets.Add(4);
+                        bigDatasets.Add(5);
+                        bigDatasets.Add(6);
+                        bigDatasets.Add(9);
+                        bigDatasets.Add(14);
+                        bigDatasets.Add(22);
+                        bigDatasets.Add(24);
+                        bigDatasets.Add(25);
+                        bigDatasets.Add(32);
+                        bigDatasets.Add(34);
+                        bigDatasets.Add(35);
+                        bigDatasets.Add(39);
+                        bigDatasets.Add(43);
+                        bigDatasets.Add(47);
+
+                        while (bigDatasets.Contains(currEventNumber))
+                        {
+                            currEventNumber = UnityEngine.Random.Range(0, events.Count);
+                        }
+
+
                         if (swipeGameMode.GetComponent<SwipeGameMode>().isSoftTutorial())
                         {
                             currEventNumber = 0;

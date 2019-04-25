@@ -118,7 +118,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.1
+  bundleVersion: 1.2
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -159,8 +159,9 @@ PlayerSettings:
     iOS: com.lel.PolarNSFAISLTest
     tvOS: com.oculus.UnitySample
   buildNumber:
+    Standalone: 1.2
     iOS: 0
-  AndroidBundleVersionCode: 1
+  AndroidBundleVersionCode: 2
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -261,13 +262,13 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
-  resolutionDialogBanner: {fileID: 2800000, guid: 5890c7f930a462046a9dc84f4fae28ca,
+  resolutionDialogBanner: {fileID: 2800000, guid: e5ea623cf1dbfee43b72e1503ee22ed4,
     type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 5890c7f930a462046a9dc84f4fae28ca, type: 3}
+      m_Icon: {fileID: 2800000, guid: 55934b6d092b54c2ebffa4fc9b4873c1, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

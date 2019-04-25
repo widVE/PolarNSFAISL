@@ -243,7 +243,7 @@ RectTransform:
   m_AnchorMin: {x: 0.2, y: 0.9}
   m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: 60.075, y: -107.32}
-  m_SizeDelta: {x: 616.95, y: 214.65}
+  m_SizeDelta: {x: 616.9, y: 214.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212503397
 MonoBehaviour:
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.21573514, g: 0.4323124, b: 0.4528302, a: 0.5}
+  m_EffectColor: {r: 0.21573514, g: 0.4323124, b: 0.4528302, a: 0}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 0
 --- !u!223 &212503398
@@ -364,7 +364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 1}
   m_AnchorMax: {x: 0.75, y: 1}
-  m_AnchoredPosition: {x: -2.100006, y: -120.9}
+  m_AnchoredPosition: {x: 24, y: -108.8}
   m_SizeDelta: {x: 196.4, y: 145.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &216440559
@@ -583,8 +583,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: -1}
-  m_SizeDelta: {x: 2020.5, y: 238.5}
+  m_AnchoredPosition: {x: -2, y: -2.48}
+  m_SizeDelta: {x: 2020.5, y: 231.12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &497584323
 GameObject:
@@ -882,8 +882,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 38ec1953326fc4041b0661eb04e78329, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300002, guid: 2b162aee910a4be47820c35f57a8a224, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

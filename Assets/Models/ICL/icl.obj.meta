@@ -232,7 +232,7 @@ ModelImporter:
       name: White_Metal
     second: {fileID: 2100000, guid: 6fa3741d574b5614186dab44d1fa48a7, type: 2}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -285,7 +285,7 @@ ModelImporter:
     previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 143
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 0

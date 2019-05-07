@@ -118,7 +118,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.3
+  bundleVersion: 1.4
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -249,7 +249,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/code/PolarNSFAISL/blueKey.keystore
+  AndroidKeystoreName: 
   AndroidKeyaliasName: blue key
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1

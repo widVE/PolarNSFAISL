@@ -1,0 +1,10 @@
+Signing Key: blueKey.keystore (located in main folder)
+Password: blueCrystalKey3.0
+Most Recent Build: tealBuild.apk
+
+
+
+Build Information:
+redBuild.apk = Build for beta testing
+blueBuild.apk = Initial Release build (different signing key than red)
+tealBuild.apk = Final release build for Android

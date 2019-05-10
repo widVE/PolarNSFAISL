@@ -161,7 +161,7 @@ PlayerSettings:
   buildNumber:
     Standalone: 1.2
     iOS: 0
-  AndroidBundleVersionCode: 3
+  AndroidBundleVersionCode: 4
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -249,7 +249,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
+  AndroidKeystoreName: C:/code/PolarNSFAISL/blueKey.keystore
   AndroidKeyaliasName: blue key
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 1

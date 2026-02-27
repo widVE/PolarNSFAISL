@@ -672,7 +672,7 @@ namespace DCM
 					importer.generateSecondaryUV = _isGeneratingLightmapUVs;
 					importer.generateAnimations = ModelImporterGenerateAnimations.None;
 					importer.optimizeMesh = true;
-					importer.importMaterials = false;
+					//importer.importMaterials = false;
 
 					AssetDatabase.ImportAsset (Path.Combine (_exportPath, filename), ImportAssetOptions.ForceUpdate);
 					mf.sharedMesh = (Mesh)AssetDatabase.LoadAssetAtPath (Path.Combine (_exportPath, filename), typeof(Mesh));
